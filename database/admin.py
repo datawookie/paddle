@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
 import getopt, sys
+import csv
 from os.path import basename
 
 import database as db
 from database.logging import logger
 
-# # ---------------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------
 
 OPTIONS_LONG = [
     "help",
@@ -21,6 +22,8 @@ HELP_STRING = (
     + "\n\nwhere <option> is one of\n\n"
     + "\n".join(["\t--" + option for option in OPTIONS_LONG])
 )
+
+# ---------------------------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
     session = db.Session()
@@ -47,4 +50,20 @@ if __name__ == "__main__":
         if argument in ("--create-tables"):
             logger.info("Creating tables...")
             db.Base.metadata.create_all(db.engine)
+            logger.info("Done.")
+            logger.info("Populate class table...")
+            for category in db.CATEGORY_LIST:
+                category = db.Category(label=category)
+                session.add(category)
+                logger.debug("  - " + str(category))
+            session.commit()
+            logger.info("Done.")
+            logger.info("Populate class table...")
+            with open("club-list.csv", newline="") as file:
+                reader = csv.reader(file, delimiter=",")
+                for row in reader:
+                    club = db.Club(code=row[0])
+                    session.add(club)
+                    logger.debug("  - " + str(club))
+            session.commit()
             logger.info("Done.")
