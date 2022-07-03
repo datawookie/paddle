@@ -5,7 +5,7 @@ class Person(Base):
     __tablename__ = "person"
 
     id = Column(Integer, primary_key=True)
-    bcu = Column(Integer)
+    bcu = Column(Integer)  # BCU = British Canoe Union
     salutation = Column(String)
     first = Column(String)
     middle = Column(String)
