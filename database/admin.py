@@ -73,11 +73,9 @@ if __name__ == "__main__":
             session.commit()
             logger.info("Done.")
             logger.info("Populate class table...")
-            with open("club-list.csv", newline="") as file:
-                reader = csv.reader(file, delimiter=",")
-                for row in reader:
-                    club = db.Club(code=row[0])
-                    session.add(club)
-                    logger.debug("  - " + str(club))
+            for code in db.CLASS_LIST:
+                klass = db.Class(id=code)
+                session.add(klass)
+                logger.debug("  - " + str(klass))
             session.commit()
             logger.info("Done.")
