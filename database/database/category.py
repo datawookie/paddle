@@ -2,11 +2,12 @@ from .base import *
 
 
 CATEGORY_LIST = [
-    "K2 senior",
+    "K2 Senior",
     "K2 Junior",
     "K2 Ladies",
-    "K2 Veteran",
+    "K2 Junior Ladies",
     "K2 Mixed",
+    "K2 Veteran/Junior",
     "K1 Senior",
     "K1 Junior",
     "K1 Ladies",
@@ -25,3 +26,30 @@ class Category(Base):
 
     def __repr__(self):
         return "Category('%s')" % (self.label)
+
+
+CLASS_LIST = [
+  "JFC",
+  "JFK",
+  "JMC",
+  "JMK",
+  "SFC",
+  "SFK",
+  "SMC",
+  "SMK",
+  "VFC",
+  "VFK",
+  "VMC",
+  "VMK",
+]
+
+
+class Class(Base):
+    __tablename__ = "class"
+
+    id = Column(String(3), primary_key=True)
+    label = Column(String)
+
+    def __repr__(self):
+        return "Class('%s')" % (self.id)
+

@@ -6,6 +6,7 @@ class Person(Base):
 
     id = Column(Integer, primary_key=True)
     bcu = Column(Integer)  # BCU = British Canoe Union
+    division = Column(Integer)
     salutation = Column(String)
     first = Column(String)
     middle = Column(String)
@@ -13,4 +14,5 @@ class Person(Base):
     suffix = Column(String)
     dob = Column(Date)
     address = Column(String)
+    email = Column(String)
     phone = Column(String)
