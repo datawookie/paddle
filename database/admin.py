@@ -13,6 +13,7 @@ OPTIONS_LONG = [
     "help",
     "debug",
     "dry-run",
+    "drop-tables",
     "create-tables",
 ]
 
@@ -47,6 +48,10 @@ if __name__ == "__main__":
             DRYRUN = True
 
     for argument, value in arguments:
+        if argument in ("--drop-tables"):
+            logger.info("Dropping tables...")
+            db.Base.metadata.drop_all(db.engine)
+            logger.info("Done.")
         if argument in ("--create-tables"):
             logger.info("Creating tables...")
             db.Base.metadata.create_all(db.engine)
