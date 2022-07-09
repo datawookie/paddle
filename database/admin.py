@@ -56,7 +56,16 @@ if __name__ == "__main__":
             logger.info("Creating tables...")
             db.Base.metadata.create_all(db.engine)
             logger.info("Done.")
-            logger.info("Populate class table...")
+            logger.info("Populate club table...")
+            with open("club-list.csv", newline="") as file:
+                reader = csv.reader(file, delimiter=",")
+                for row in reader:
+                    club = db.Club(id=row[0], name=row[1])
+                    session.add(club)
+                    logger.debug("  - " + str(club))
+            session.commit()
+            logger.info("Done.")
+            logger.info("Populate category table...")
             for category in db.CATEGORY_LIST:
                 category = db.Category(label=category)
                 session.add(category)
