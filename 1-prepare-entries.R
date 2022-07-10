@@ -20,13 +20,21 @@ fix_columns <- function(df) {
       last = surname,
       first = first_name,
       bcu = bc_number,
-      class = class_7,
+      category = class_7,
       division = div
-    )
+    ) %>%
+      mutate(
+        bcu = as.integer(bcu)
+      )
 }
 doubles <- fix_columns(doubles)
 singles <- fix_columns(singles)
 
 entries <- rbind(singles, doubles)
 
-write_json(entries, JSON, pretty = TRUE)
+write_json(
+  entries,
+  JSON,
+  na = "null",
+  pretty = TRUE
+)

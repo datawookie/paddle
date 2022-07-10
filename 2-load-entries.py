@@ -1,27 +1,59 @@
 import sys
 import json
+import logging
+from dataclasses import dataclass
 
 import database as db
+from database import logger
 
 session = db.Session()
 
 
-def load_entries(entries):
-    for entry in entries:
-        print(entry)
+@dataclass
+class Individual:
+    number: int
+    bcu: int
+    first: str
+    last: str
+    club: str
+    category: str
+    division: int
 
-        person = db.Person(
-            first=entry["first"],
-            last=entry["last"],
-            division=entry["division"],
-        )
-        session.add(person)
 
-        club = session.query(db.Club).get(entry["club"])
+def load_entries(individuals):
+    # Group entries (this handles K1 versus K2).
+    entries = {}
+    for individual in individuals:
+        individual = Individual(**individual)
+        logger.info(individual)
 
-        person.paddlers.append(db.Paddler(club=club))
+        # Check for existing entry.
+        #
+        if individual.number not in entries:
+            logger.info(f"Add new entry: {individual.number}.")
+            entries[individual.number] = []
 
-    session.commit()
+        entries[individual.number].append(individual)
+
+    for number, individuals in entries.items():
+        logger.info(f"Entry: {number}.")
+        boat = db.Boat(number=number)
+        session.add(boat)
+        for individual in individuals:
+            logger.info(f"- {individual}.")
+
+            person = db.Person(
+                first=individual.first,
+                last=individual.last,
+                division=individual.division,
+            )
+            session.add(person)
+
+            club = session.query(db.Club).get(individual.club)
+
+            person.paddlers.append(db.Paddler(club=club, boat=boat))
+
+        session.commit()
 
 
 if __name__ == "__main__":
