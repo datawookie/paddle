@@ -5,4 +5,5 @@ kanoe.code-workspace
 .Rhistory
 *.xlsx
 *.json
+.~lock*
 INFORMATION

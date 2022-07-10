@@ -27,7 +27,6 @@ from sqlalchemy import (
 from sqlalchemy import MetaData, Index
 from sqlalchemy.sql import func, expression
 from sqlalchemy.schema import UniqueConstraint
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.exc import SQLAlchemyError, DataError
 from sqlalchemy.orm.exc import NoResultFound
 
