@@ -2,4 +2,4 @@ from flask import Flask
 
 app = Flask(__name__)
 
-import kanoe.views
+from . import views
