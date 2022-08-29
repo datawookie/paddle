@@ -59,6 +59,8 @@ if __name__ == "__main__":
             logger.info("Populate club table...")
             with open("club-list.csv", newline="") as file:
                 reader = csv.reader(file, delimiter=",")
+                # Skip header record.
+                next(reader)
                 for row in reader:
                     club = db.Club(id=row[0], name=row[1])
                     session.add(club)
