@@ -18,6 +18,7 @@ from sqlalchemy import (
     String,
     Date,
     DateTime,
+    Interval,
     Boolean,
     Text,
     JSON,
@@ -32,7 +33,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from .config import *
 
-CONNECTION_STRING = "sqlite:////tmp/kanoe.db"
+CONNECTION_STRING = "sqlite:///kanoe.db"
 CONNECTION_ARGS = {}
 
 LIMIT_DAILY = sqlalchemy.text("1000")
