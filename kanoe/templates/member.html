@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Time Trial Results{% endblock %}
+
+{% block content %}
+<h1>{{ member.name }}</h1>
+
+<h2>Time Trial Results</h2>
+
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Time</th>
+    </tr>
+{% for result in member.time_trial_results %}
+    <tr>
+        <td>{{ result.time_trial.date }}</td>
+        <td>{{ result.time }}</td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}

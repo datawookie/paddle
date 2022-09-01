@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Time Trial Results{% endblock %}
+
+{% block content %}
+<h1>Time Trial Results</h1>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Number</th>
+        <th>Best</th>
+        <th>Last</th>
+    </tr>
+{% for member in members %}
+    <tr>
+        <td>
+            <a href="{{ url_for('member', member_id=member.id) }}">{{ member.name }}</a>
+        </td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}

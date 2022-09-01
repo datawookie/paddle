@@ -43,7 +43,7 @@ FALSE = sqlalchemy.text("false")
 engine = sqlalchemy.create_engine(
     CONNECTION_STRING,
     connect_args=CONNECTION_ARGS,
-    echo=False,  # Set to True to get SQL statements.
+    echo=True,  # Set to True to get SQL statements.
 )
 
 session_factory = sessionmaker(

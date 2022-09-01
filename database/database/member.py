@@ -8,3 +8,13 @@ class Member(Base):
     first = Column(String)
     middle = Column(String)
     last = Column(String)
+
+    time_trial_results = relationship("TimeTrialResult", back_populates="member")
+
+    @property
+    def name(self):
+        name = [self.first, self.last]
+        name = list(filter(lambda item: item is not None, name))
+        name = " ".join(name)
+        name = name.strip()
+        return name
