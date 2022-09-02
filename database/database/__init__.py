@@ -8,7 +8,5 @@ from .club import *
 from .paddler import *
 from .member import *
 from .trial import *
-
-# from .boat import *
-# from .entry import *
-# from .series import *
+from .entry import *
+from .series import *

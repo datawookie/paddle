@@ -1,21 +1,33 @@
 from .base import *
 from .race import *
-from .boat import *
 from .category import *
 from .series import *
+import enum
+
+
+class BoatType(enum.Enum):
+    K1 = 1
+    K2 = 2
+    C = 3
+
+
+boat_type = Enum(BoatType)
 
 
 class Entry(Base):
     __tablename__ = "entry"
 
     id = Column(Integer, primary_key=True)
-    boat_id = Column(Integer, ForeignKey(Boat.id), index=True)
     race_id = Column(Integer, ForeignKey(Race.id), index=True)
     category_id = Column(Integer, ForeignKey(Category.id), index=True)
     series_id = Column(Integer, ForeignKey(Series.id), index=True)
+    boat_type = Column(boat_type, index=True)
+    entry_number = Column(Integer)
+
+    # paddlers = relationship("Paddler", backref="entry")
 
     def __repr__(self):
-        return "Entry(%d, %d)" % (self.boat_id, self.race_id)
+        return "Entry(%d)" % (self.entry_number)
 
 
 # class OptionContractExpiry(Base):

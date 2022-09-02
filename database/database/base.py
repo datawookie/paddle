@@ -28,7 +28,7 @@ from sqlalchemy import (
 from sqlalchemy import MetaData, Index
 from sqlalchemy.sql import func, expression
 from sqlalchemy.schema import UniqueConstraint
-from sqlalchemy.exc import SQLAlchemyError, DataError
+from sqlalchemy.exc import SQLAlchemyError, DataError, IntegrityError
 from sqlalchemy.orm.exc import NoResultFound
 
 from .config import *

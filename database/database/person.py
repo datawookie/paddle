@@ -16,3 +16,14 @@ class Person(Base):
     address = Column(String)
     email = Column(String)
     phone = Column(String)
+
+    @property
+    def name(self):
+        name = [self.first, self.middle, self.last]
+        name = list(filter(lambda item: item is not None, name))
+        name = " ".join(name)
+        name = name.strip()
+        return name
+
+    def __repr__(self):
+        return f"Person(name='{self.name}')"
