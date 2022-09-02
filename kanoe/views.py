@@ -48,6 +48,5 @@ def entries():
 
 @app.route("/entry/<entry_id>")
 def entry(entry_id):
-    print(entry_id)
     entry = session.query(db.Entry).get(entry_id)
     return render_template("entry.j2", entry=entry)
