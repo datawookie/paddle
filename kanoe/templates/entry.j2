@@ -1,0 +1,13 @@
+{% extends "base.j2" %}
+
+{% block title %}Entry{% endblock %}
+
+{% block content %}
+
+<h1>Entry</h1>
+
+{% for paddler in entry.paddlers %}
+{{ paddler.person.name }} <a href="{{ url_for('club', club_id=paddler.club.id) }}">{{ paddler.club.id }}</a><br>
+{% endfor %}
+
+{% endblock %}

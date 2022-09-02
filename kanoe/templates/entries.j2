@@ -1,0 +1,16 @@
+{% extends "base.j2" %}
+
+{% block title %}Entries{% endblock %}
+
+{% block content %}
+
+<h1>Entries</h1>
+
+{% for entry in entries %}
+Entry: <a href="{{ url_for('entry', entry_id=entry.id) }}">{{ entry.entry_number }}</a><br>
+{% for paddler in entry.paddlers %}
+{{ paddler }}<br>
+{% endfor %}
+{% endfor %}
+
+{% endblock %}
