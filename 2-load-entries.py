@@ -37,8 +37,8 @@ def load_entries(individuals):
 
     for number, individuals in entries.items():
         logger.info(f"Entry: {number}.")
-        boat = db.Boat(number=number)
-        session.add(boat)
+        entry = db.Entry(entry_number=number)
+        session.add(entry)
         for individual in individuals:
             logger.info(f"- {individual}.")
 
@@ -51,7 +51,7 @@ def load_entries(individuals):
 
             club = session.query(db.Club).get(individual.club)
 
-            person.paddlers.append(db.Paddler(club=club, boat=boat))
+            person.paddlers.append(db.Paddler(club=club, entry_id=entry.id))
 
         session.commit()
 
