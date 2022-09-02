@@ -10,4 +10,16 @@
 {{ paddler.person.name }} <a href="{{ url_for('club', club_id=paddler.club.id) }}">{{ paddler.club.id }}</a><br>
 {% endfor %}
 
+<form>
+  <div class="form-group">
+    <label for="start">Start</label>
+    <input type="time" class="form-control" id="start" step="30">
+  </div>
+  <div class="form-group">
+    <label for="start">Finish</label>
+    <input type="time" class="form-control" id="finish" step="1">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
 {% endblock %}
