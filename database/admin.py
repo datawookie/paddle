@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import getopt, sys
+from sqlite3 import IntegrityError
 import csv
 from os.path import basename
 
@@ -65,8 +66,13 @@ if __name__ == "__main__":
                     club = db.Club(id=row[0], name=row[1])
                     session.add(club)
                     logger.debug("  - " + str(club))
-            session.commit()
-            logger.info("Done.")
+            try:
+                session.commit()
+            except db.IntegrityError:
+                session.rollback()
+                logger.warning("Table already populated.")
+            else:
+                logger.info("Done.")
             logger.info("Populate category table...")
             for category in db.CATEGORY_LIST:
                 category = db.Category(label=category)
@@ -79,5 +85,10 @@ if __name__ == "__main__":
                 klass = db.Class(id=code)
                 session.add(klass)
                 logger.debug("  - " + str(klass))
-            session.commit()
-            logger.info("Done.")
+            try:
+                session.commit()
+            except db.IntegrityError:
+                session.rollback()
+                logger.warning("Table already populated.")
+            else:
+                logger.info("Done.")
