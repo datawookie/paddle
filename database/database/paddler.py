@@ -12,9 +12,9 @@ class Paddler(Base):
     club_id = Column(String(3), ForeignKey(Club.id), index=True)
     entry_id = Column(Integer, ForeignKey(Entry.id), index=True)
 
-    person = relationship("Person", backref="paddlers")
-    club = relationship("Club", backref="paddlers")
-    entry = relationship(Entry, backref="paddlers")
+    person = relationship("Person", backref="paddlers", lazy="joined")
+    club = relationship("Club", backref="paddlers", lazy="joined")
+    entry = relationship(Entry, backref="paddlers", lazy="joined")
 
     def __repr__(self):
         club = f"'{self.club.id}'" if self.club else "NONE"
