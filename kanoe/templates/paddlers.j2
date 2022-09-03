@@ -1,0 +1,22 @@
+{% extends "base.j2" %}
+
+{% block title %}Paddlers{% endblock %}
+
+{% block content %}
+
+<h1>Paddlers</h1>
+
+<table>
+    <tr>
+        <th>Name</th>
+    </tr>
+{% for paddler in paddlers %}
+    <tr>
+        <td>
+            <a href="{{ url_for('paddler', person_id=paddler.id) }}">{{ paddler.name }}</a>
+        </td>
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock %}

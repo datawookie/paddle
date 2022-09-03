@@ -1,0 +1,40 @@
+{% extends "base.j2" %}
+
+{% block title %}Paddler{% endblock %}
+
+{% block content %}
+
+<h1>Paddler Create</h1>
+
+<form method="post">
+  <div class="form-group">
+    <label for="first">First Name</label>
+    <input type="text"
+           class="form-control"
+           id="first"
+           name="first"
+           placeholder="Name"
+           value="{{ request.form['first'] }}">
+  </div>
+  <div class="form-group">
+    <label for="middle">Midlle Name(s)</label>
+    <input type="text"
+           class="form-control"
+           id="middle"
+           name="middle"
+           placeholder="Name"
+           value="{{ request.form['middle'] }}">
+  </div>
+  <div class="form-group">
+    <label for="last">Last Name</label>
+    <input type="text"
+           class="form-control"
+           id="last"
+           name="last"
+           placeholder="Name"
+           value="{{ request.form['last'] }}">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}

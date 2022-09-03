@@ -7,7 +7,7 @@
 <h1>Entries</h1>
 
 {% for entry in entries %}
-Entry: <a href="{{ url_for('entry', entry_id=entry.id) }}">{{ entry.entry_number }}</a><br>
+Entry: <a href="{{ url_for('entry', race_id=race_id, entry_id=entry.id) }}">{{ entry.entry_number }}</a><br>
 {% for paddler in entry.paddlers %}
 {{ paddler }}<br>
 {% endfor %}
