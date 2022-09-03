@@ -13,7 +13,7 @@
 {% for paddler in paddlers %}
     <tr>
         <td>
-            <a href="{{ url_for('paddler', person_id=paddler.id) }}">{{ paddler.name }}</a>
+            <a href="{{ url_for('paddler', paddler_id=paddler.id) }}">{{ paddler.name }}</a>
         </td>
     </tr>
 {% endfor %}

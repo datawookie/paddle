@@ -42,16 +42,16 @@ def load_entries(individuals):
         for individual in individuals:
             logger.info(f"- {individual}.")
 
-            person = db.Person(
+            paddler = db.Paddler(
                 first=individual.first,
                 last=individual.last,
                 division=individual.division,
             )
-            session.add(person)
+            session.add(paddler)
 
             club = session.query(db.Club).get(individual.club)
 
-            person.paddlers.append(db.Paddler(club=club, entry_id=entry.id))
+            paddler.seats.append(db.Seat(club=club, entry_id=entry.id))
 
         session.commit()
 

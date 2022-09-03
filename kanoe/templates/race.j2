@@ -8,8 +8,8 @@
 
 {% for entry in entries %}
 Entry: <a href="{{ url_for('entry', race_id=race_id, entry_id=entry.id) }}">{{ entry.entry_number }}</a><br>
-{% for paddler in entry.paddlers %}
-{{ paddler }}<br>
+{% for seat in entry.seats %}
+{{ seat }}<br>
 {% endfor %}
 {% endfor %}
 

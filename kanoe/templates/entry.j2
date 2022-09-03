@@ -6,8 +6,8 @@
 
 <h1>Entry</h1>
 
-{% for paddler in entry.paddlers %}
-{{ paddler.person.name }} <a href="{{ url_for('club', club_id=paddler.club.id) }}">{{ paddler.club.id }}</a><br>
+{% for seat in entry.seats %}
+{{ seat.paddler.name }} <a href="{{ url_for('club', club_id=seat.club.id) }}">{{ seat.club.id }}</a><br>
 {% endfor %}
 
 <form method="post">

@@ -54,13 +54,13 @@ def entry(race_id, entry_id):
 
 @app.route("/paddlers")
 def paddlers():
-    paddlers = session.query(db.Person).all()
+    paddlers = session.query(db.Paddler).all()
     return render_template("paddlers.j2", paddlers=paddlers)
 
 
-@app.route("/paddler/<person_id>")
-def paddler(person_id):
-    paddler = session.query(db.Person).get(person_id)
+@app.route("/paddler/<paddler_id>")
+def paddler(paddler_id):
+    paddler = session.query(db.Paddler).get(paddler_id)
     return render_template("paddler.j2", paddler=paddler)
 
 
@@ -76,12 +76,12 @@ def paddler_create():
         elif not last:
             flash("Last name is required!")
         else:
-            person = db.Person(
+            paddler = db.Paddler(
                 first=first,
                 middle=middle,
                 last=last,
             )
-            session.add(person)
+            session.add(paddler)
             session.commit()
 
             return redirect(url_for("paddlers"))
