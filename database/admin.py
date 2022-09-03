@@ -80,15 +80,3 @@ if __name__ == "__main__":
                 logger.debug("  - " + str(category))
             session.commit()
             logger.info("Done.")
-            logger.info("Populate class table...")
-            for code in db.CLASS_LIST:
-                klass = db.Class(id=code)
-                session.add(klass)
-                logger.debug("  - " + str(klass))
-            try:
-                session.commit()
-            except db.IntegrityError:
-                session.rollback()
-                logger.warning("Table already populated.")
-            else:
-                logger.info("Done.")

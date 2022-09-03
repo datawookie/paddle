@@ -31,30 +31,3 @@ class Category(Base):
 
     def __repr__(self):
         return "Category('%s')" % (self.label)
-
-
-CLASS_LIST = [
-    "JFC",
-    "JFK",
-    "JMC",
-    "JMK",
-    "SFC",
-    "SFK",
-    "SMC",
-    "SMK",
-    "VFC",
-    "VFK",
-    "VMC",
-    "VMK",
-]
-
-
-class Class(Base):
-    __tablename__ = "class"
-
-    id = Column(String(3), primary_key=True)
-    label = Column(String)
-    seats = Column(Integer)
-
-    def __repr__(self):
-        return "Class('%s')" % (self.id)
