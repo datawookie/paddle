@@ -2,6 +2,7 @@ from .base import *
 from .race import *
 from .category import *
 from .series import *
+from .team import *
 import enum
 
 
@@ -20,9 +21,15 @@ class Entry(Base):
     id = Column(Integer, primary_key=True)
     race_id = Column(Integer, ForeignKey(Race.id), index=True)
     category_id = Column(Integer, ForeignKey(Category.id), index=True)
-    series_id = Column(Integer, ForeignKey(Series.id), index=True)
+    team_id = Column(Integer, ForeignKey(Team.id), index=True)
     boat_type = Column(boat_type, index=True)
     entry_number = Column(Integer)
+    online = Column(Boolean)
+    series = Column(Boolean)
+    series_id = Column(Integer, ForeignKey(Series.id), index=True)
+
+    time_start = Column(String)
+    time_finish = Column(String)
 
     def __repr__(self):
         return "Entry(%d)" % (self.entry_number)

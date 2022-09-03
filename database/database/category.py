@@ -16,6 +16,11 @@ CATEGORY_LIST = [
     "C2",
     "C1",
 ]
+GENDER_LIST = [
+    "male",
+    "female",
+    "mixed",
+]
 
 
 class Category(Base):
@@ -29,18 +34,18 @@ class Category(Base):
 
 
 CLASS_LIST = [
-  "JFC",
-  "JFK",
-  "JMC",
-  "JMK",
-  "SFC",
-  "SFK",
-  "SMC",
-  "SMK",
-  "VFC",
-  "VFK",
-  "VMC",
-  "VMK",
+    "JFC",
+    "JFK",
+    "JMC",
+    "JMK",
+    "SFC",
+    "SFK",
+    "SMC",
+    "SMK",
+    "VFC",
+    "VFK",
+    "VMC",
+    "VMK",
 ]
 
 
@@ -49,7 +54,7 @@ class Class(Base):
 
     id = Column(String(3), primary_key=True)
     label = Column(String)
+    seats = Column(Integer)
 
     def __repr__(self):
         return "Class('%s')" % (self.id)
-

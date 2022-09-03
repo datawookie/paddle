@@ -6,4 +6,5 @@ kanoe.code-workspace
 *.xlsx
 *.json
 .~lock*
+kanoe.db
 INFORMATION
