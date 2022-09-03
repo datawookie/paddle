@@ -52,20 +52,8 @@ def entry(race_id, entry_id):
     return render_template("entry.j2", entry=entry)
 
 
-@app.route("/paddlers")
+@app.route("/paddlers", methods=("GET", "POST"))
 def paddlers():
-    paddlers = session.query(db.Paddler).all()
-    return render_template("paddlers.j2", paddlers=paddlers)
-
-
-@app.route("/paddler/<paddler_id>")
-def paddler(paddler_id):
-    paddler = session.query(db.Paddler).get(paddler_id)
-    return render_template("paddler.j2", paddler=paddler)
-
-
-@app.route("/paddler/create", methods=("GET", "POST"))
-def paddler_create():
     if request.method == "POST":
         first = request.form["first"]
         middle = request.form["middle"]
@@ -84,6 +72,15 @@ def paddler_create():
             session.add(paddler)
             session.commit()
 
+            flash("Added a new paddler.")
+
             return redirect(url_for("paddlers"))
 
-    return render_template("paddler-create.j2")
+    paddlers = session.query(db.Paddler).all()
+    return render_template("paddlers.j2", paddlers=paddlers)
+
+
+@app.route("/paddler/<paddler_id>")
+def paddler(paddler_id):
+    paddler = session.query(db.Paddler).get(paddler_id)
+    return render_template("paddler.j2", paddler=paddler)
