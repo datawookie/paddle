@@ -19,3 +19,7 @@ class Seat(Base):
     def __repr__(self):
         club = f"'{self.club.id}'" if self.club else "NONE"
         return f"Seat(name='{self.paddler.name}', club={club})"
+
+    def __str__(self):
+        club = f" ({self.club.id})" if self.club else "NONE"
+        return f"{self.paddler.name}{club}"

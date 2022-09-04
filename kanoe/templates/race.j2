@@ -2,15 +2,39 @@
 
 {% block title %}Entries{% endblock %}
 
+{% block styles %}
+{% include 'common/datatables-css.j2' %}
+{% endblock %}
+
 {% block content %}
 
 <h1>Entries</h1>
 
+<table id="entries" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Entry Number</th>
+            <th>Paddlers</th>
+        </tr>
+    </thead>
+    <tbody>
 {% for entry in entries %}
-Entry: <a href="{{ url_for('entry', race_id=race_id, entry_id=entry.id) }}">{{ entry.entry_number }}</a><br>
-{% for seat in entry.seats %}
-{{ seat }}<br>
+        <tr>
+            <td><a href="{{ url_for('entry', race_id=race_id, entry_id=entry.id) }}">{{ entry.entry_number }}</a></td>
+            <td>{{ entry }}</td>
+        </tr>
 {% endfor %}
-{% endfor %}
+    </tbody>
+</table>
+
+{% block scripts %}
+{% include 'common/jquery-javascript.j2' %}
+{% include 'common/datatables-javascript.j2' %}
+<script type="text/javascript" class="init">
+$(document).ready(function () {
+	$('#entries').DataTable();
+});
+</script>
+{% endblock %}
 
 {% endblock %}

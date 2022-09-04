@@ -33,3 +33,7 @@ class Entry(Base):
 
     def __repr__(self):
         return "Entry(%d)" % (self.entry_number)
+
+    def __str__(self):
+        names = [str(seat) for seat in self.seats]
+        return " / ".join(names)

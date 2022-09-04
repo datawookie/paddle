@@ -6,10 +6,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+        {{ bootstrap.load_css() }}
+        <link rel="stylesheet" type="text/css" href="/static/styles.css">
         {% block styles %}
-            <!-- Bootstrap CSS -->
-            {{ bootstrap.load_css() }}
-            <link rel="stylesheet" type="text/css" href="/static/styles.css">
         {% endblock %}
 
         <title>{% block title %}{% endblock %}</title>
@@ -24,8 +23,8 @@
         {% block content %}{% endblock %}
         </div>
 
+        {{ bootstrap.load_js() }}
         {% block scripts %}
-            {{ bootstrap.load_js() }}
         {% endblock %}
     </body>
 </html>
