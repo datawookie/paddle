@@ -31,6 +31,11 @@ class Entry(Base):
     time_start = Column(String)
     time_finish = Column(String)
 
+    @property
+    def division(self):
+        # The division assigned to the boat is the minimum of the divisions of the paddlers.
+        return min([seat.paddler.division for seat in self.seats])
+
     def __repr__(self):
         return "Entry(%d)" % (self.entry_number)
 
