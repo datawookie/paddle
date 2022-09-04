@@ -20,8 +20,10 @@
         {% for message in get_flashed_messages() %}
             <div class="alert">{{ message }}</div>
         {% endfor %}
-        {% block content %}{% endblock %}
+        {% block content %}
+        {% endblock %}
         </div>
+        {% include 'common/footer.j2' %}
 
         {{ bootstrap.load_js() }}
         {% block scripts %}
