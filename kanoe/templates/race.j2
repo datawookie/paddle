@@ -13,8 +13,11 @@
 <table id="entries" class="display" style="width:100%">
     <thead>
         <tr>
-            <th>Entry Number</th>
+            <th>Entry #</th>
             <th>Paddlers</th>
+            <th>Category</th>
+            <th>Division</th>
+            <th>Race #</th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +25,9 @@
         <tr>
             <td><a href="{{ url_for('entry', race_id=race_id, entry_id=entry.id) }}">{{ entry.entry_number }}</a></td>
             <td>{{ entry }}</td>
+            <td></td>
+            <td>{{ entry.division }}</td>
+            <td></td>
         </tr>
 {% endfor %}
     </tbody>
