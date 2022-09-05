@@ -15,15 +15,21 @@
         {% endblock %}
     </head>
     <body>
-        {% include 'common/navbar.j2' %}
-        <div class="container">
-        {% for message in get_flashed_messages() %}
-            <div class="alert">{{ message }}</div>
-        {% endfor %}
-        {% block content %}
-        {% endblock %}
-        </div>
-        {% include 'common/footer.j2' %}
+        <header>
+            {% include 'common/navbar.j2' %}
+        </header>
+        <main>
+            <div class="container">
+            {% for message in get_flashed_messages() %}
+                <div class="alert">{{ message }}</div>
+            {% endfor %}
+            {% block content %}
+            {% endblock %}
+            </div>
+        </main>
+        <footer>
+            {% include 'common/footer.j2' %}
+        </footer>
 
         {{ bootstrap.load_js() }}
         {% block scripts %}
