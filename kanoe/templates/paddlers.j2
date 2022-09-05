@@ -2,52 +2,83 @@
 
 {% block title %}Paddlers{% endblock %}
 
+{% block styles %}
+{% include 'common/datatables-css.j2' %}
+{% endblock %}
+
 {% block content %}
 
 <h1>Paddlers</h1>
 
-<form method="post">
-  <div class="form-group">
-    <label for="first">First Name</label>
-    <input type="text"
-           class="form-control"
-           id="first"
-           name="first"
-           placeholder="Name"
-           value="{{ request.form['first'] }}">
+<div class="row">
+  <div class="col-sm-6">
+    <table id="paddlers" class="display">
+        <thead>
+          <tr>
+              <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for paddler in paddlers %}
+          <tr>
+              <td>
+                  <a href="{{ url_for('paddler', paddler_id=paddler.id) }}">{{ paddler.name }}</a>
+              </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+    </table>
   </div>
-  <div class="form-group">
-    <label for="middle">Midlle Name(s)</label>
-    <input type="text"
-           class="form-control"
-           id="middle"
-           name="middle"
-           placeholder="Name"
-           value="{{ request.form['middle'] }}">
+  <div class="col-sm-6">
+    <form method="post">
+      <div class="row">
+        <div class="form-group col-sm-12">
+          <label for="first">First Name</label>
+          <input type="text"
+                class="form-control"
+                id="first"
+                name="first"
+                placeholder="Name"
+                value="{{ request.form['first'] }}">
+        </div>
+        <div class="form-group col-sm-12">
+          <label for="middle">Midlle Name(s)</label>
+          <input type="text"
+                class="form-control"
+                id="middle"
+                name="middle"
+                placeholder="Name"
+                value="{{ request.form['middle'] }}">
+        </div>
+        <div class="form-group col-sm-12">
+          <label for="last">Last Name</label>
+          <input type="text"
+                class="form-control"
+                id="last"
+                name="last"
+                placeholder="Name"
+                value="{{ request.form['last'] }}">
+        </div>
+        <hr class="my-4">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
   </div>
-  <div class="form-group">
-    <label for="last">Last Name</label>
-    <input type="text"
-           class="form-control"
-           id="last"
-           name="last"
-           placeholder="Name"
-           value="{{ request.form['last'] }}">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+</div>
 
-<table>
-    <tr>
-        <th>Name</th>
-    </tr>
-{% for paddler in paddlers %}
-    <tr>
-        <td>
-            <a href="{{ url_for('paddler', paddler_id=paddler.id) }}">{{ paddler.name }}</a>
-        </td>
-    </tr>
-{% endfor %}
-</table>
+{% endblock %}
 
+{% block scripts %}
+{% include 'common/jquery-javascript.j2' %}
+{% include 'common/datatables-javascript.j2' %}
+<script type="text/javascript" class="init">
+$(document).ready(function () {
+	$('#paddlers').DataTable({
+    paging: true,
+    searching: true,
+    ordering: true,
+    info: true
+});
+});
+</script>
 {% endblock %}
