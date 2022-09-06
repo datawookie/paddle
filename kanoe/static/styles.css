@@ -12,11 +12,8 @@ body {
     padding: 60px 15px 0;
 }
 
-.alert {
-    padding: 20px;
-    margin: 5px;
-    color: #970020;
-    background-color: #ffd5de;
+.row > * {
+    margin-top: 20px;
 }
 
 footer {

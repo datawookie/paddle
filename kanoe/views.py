@@ -66,9 +66,9 @@ def paddlers():
         last = request.form["last"]
 
         if not first:
-            flash("First name is required!")
+            flash("First name is required!", "danger")
         elif not last:
-            flash("Last name is required!")
+            flash("Last name is required!", "danger")
         else:
             paddler = db.Paddler(
                 first=first,
@@ -78,7 +78,7 @@ def paddlers():
             session.add(paddler)
             session.commit()
 
-            flash("Added a new paddler.")
+            flash("Added a new paddler.", "success")
 
             return redirect(url_for("paddlers"))
 
