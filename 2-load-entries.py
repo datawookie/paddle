@@ -1,6 +1,9 @@
+#!/usr/bin/env python3
+
 import sys
 import json
-import logging
+import getopt
+import datetime
 from dataclasses import dataclass
 
 import database as db
@@ -8,23 +11,49 @@ from database import logger
 
 session = db.Session()
 
+CATEGORY_MAPPING = {
+    "SK2": "K2 Senior",
+    "JK2": "K2 Junior",
+    "WK2": "K2 Ladies",
+    "JWK2": "K2 Junior Ladies",
+    # "VK2": ,
+    "MixK2": "K2 Mixed",
+    "JVK2": "K2 Veteran/Junior",
+    "SK1": "K1 Senior",
+    "JK1": "K1 Junior",
+    "WK1": "K1 Ladies",
+    "VK1": "K1 Veteran",
+    "C2": "C2",
+    "C1": "C1",
+}
+
+
+def category_mapping(category):
+    try:
+        return CATEGORY_MAPPING[category]
+    except KeyError:
+        logger.warning(f"🚨 Unable to map category '{category}'.")
+
 
 @dataclass
 class Individual:
     number: int
     bcu: int
+    bcu_expiry: datetime.date
     first: str
     last: str
     club: str
+    klass: str
     category: str
     division: int
 
 
-def load_entries(individuals):
+def load_entries(race, individuals):
     # Group entries (this handles K1 versus K2).
     entries = {}
     for individual in individuals:
         individual = Individual(**individual)
+        individual.category = category_mapping(individual.category)
         logger.info(individual)
 
         # Check for existing entry.
@@ -37,8 +66,27 @@ def load_entries(individuals):
 
     for number, individuals in entries.items():
         logger.info(f"Entry: {number}.")
-        entry = db.Entry(entry_number=number)
+
+        # category = session.query(db.Category).get(individual.category)
+        category = [individual.category for individual in individuals]
+        # Unique categories.
+        category = list(set(category))
+        assert len(category) == 1
+        category = category[0]
+        if category:
+            # session.query(db.Club).get(individual.club)
+            print(category)
+            category = (
+                session.query(db.Category).filter(db.Category.label == category).one()
+            )
+            print(category)
+        else:
+            logger.warning(f"🚨 Category is missing.")
+            continue
+
+        entry = db.Entry(entry_number=number, category_id=category.id, race_id=race.id)
         session.add(entry)
+
         for individual in individuals:
             logger.info(f"- {individual}.")
 
@@ -48,17 +96,47 @@ def load_entries(individuals):
                 division=individual.division,
             )
             session.add(paddler)
-
             club = session.query(db.Club).get(individual.club)
 
             paddler.seats.append(db.Seat(club=club, entry_id=entry.id))
 
-        session.commit()
+    session.commit()
 
 
 if __name__ == "__main__":
-    PATH = sys.argv[1]
+    race_name, race_date = None, None
+
+    options, arguments = getopt.getopt(
+        sys.argv[1:], "n:d:", ["race-name=", "race-date="]
+    )
+
+    for o, a in options:
+        if o in ("-v", "--version"):
+            print(VERSION)
+            sys.exit()
+        if o in ("-h", "--help"):
+            print(USAGE)
+            sys.exit()
+        if o in ("-n", "--race-name"):
+            race_name = a
+        if o in ("-n", "--race-date"):
+            race_date = a
+            race_date = datetime.datetime.strptime(race_date, "%Y-%m-%d")
+            print(race_date)
+
+    if not race_name:
+        logger.error("⛔ Race name is missing. Specify --race-name.")
+        sys.exit(1)
+    if not race_date:
+        logger.error("⛔ Race date is missing. Specify --race-date (format YYYY-MM-DD).")
+        sys.exit(1)
+
+    PATH = arguments[0]
     with open(PATH, "rt") as file:
         entries = file.read()
 
-    load_entries(json.loads(entries))
+    race = db.Race(name=race_name, date=race_date)
+    session.add(race)
+    session.commit()
+
+    load_entries(race, json.loads(entries))
