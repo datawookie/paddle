@@ -2,10 +2,6 @@
 
 {% block title %}Entry{% endblock %}
 
-{% block styles %}
-{% include 'common/datatables-css.j2' %}
-{% endblock %}
-
 {% block content %}
 
 <h1>Entry</h1>
@@ -22,24 +18,26 @@
         <td></td>
       </tr>
     </table>
-    <table id="paddlers" class="display" style="width:100%">
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
         <thead>
-            <tr>
-                <th>Paddler</th>
-                <th>Club</th>
-                <th>Division</th>
-            </tr>
+          <tr>
+            <th scope="col">Paddler</th>
+            <th scope="col">Club</th>
+            <th scope="col">Division</th>
+          </tr>
         </thead>
         <tbody>
-            {% for seat in entry.seats %}
-            <tr>
-              <td><a href="{{ url_for('paddler', paddler_id=seat.paddler.id) }}">{{ seat.paddler.name }}</a></td>
-              <td><a href="{{ url_for('club', club_id=seat.club.id) }}">{{ seat.club.id }}</a></td>
-              <td>{{ seat.paddler.division }}</td>
-            </tr>
-            {% endfor %}
+          {% for seat in entry.seats %}
+          <tr>
+            <td><a href="{{ url_for('paddler', paddler_id=seat.paddler.id) }}">{{ seat.paddler.name }}</a></td>
+            <td><a href="{{ url_for('club', club_id=seat.club.id) }}">{{ seat.club.id }}</a></td>
+            <td>{{ seat.paddler.division }}</td>
+          </tr>
+          {% endfor %}
         </tbody>
-    </table>
+      </table>
+    </div>
   </div>
   <div class="col">
     <form method="post">
@@ -58,19 +56,4 @@
     </form>
   </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-{% include 'common/jquery-javascript.j2' %}
-{% include 'common/datatables-javascript.j2' %}
-<script type="text/javascript" class="init">
-$(document).ready(function () {
-	$('#paddlers').DataTable({
-    paging: false,
-    searching: false,
-    ordering: false,
-    info: false
-});
-});
-</script>
 {% endblock %}
