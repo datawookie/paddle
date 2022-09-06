@@ -6,6 +6,7 @@ class Paddler(Base):
 
     id = Column(Integer, primary_key=True)
     bcu = Column(Integer)  # BCU = British Canoe Union
+    bcu_expiry = Column(Date)
     division = Column(Integer)
     salutation = Column(String)
     first = Column(String)
