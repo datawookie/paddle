@@ -4,6 +4,7 @@ import sys
 import json
 import getopt
 import datetime
+import string
 from dataclasses import dataclass
 
 import database as db
@@ -53,6 +54,8 @@ def load_entries(race, individuals):
     entries = {}
     for individual in individuals:
         individual = Individual(**individual)
+        individual.first = string.capwords(individual.first)
+        individual.last = string.capwords(individual.last)
         individual.category = category_mapping(individual.category)
         logger.info(individual)
 
