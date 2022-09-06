@@ -31,6 +31,8 @@ class Entry(Base):
     time_start = Column(String)
     time_finish = Column(String)
 
+    category = relationship(Category, backref="entries", lazy="joined")
+
     @property
     def division(self):
         # The division assigned to the boat is the minimum of the divisions of the paddlers.

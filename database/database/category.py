@@ -31,3 +31,6 @@ class Category(Base):
 
     def __repr__(self):
         return "Category('%s')" % (self.label)
+
+    def __str__(self):
+        return self.label
