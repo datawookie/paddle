@@ -8,7 +8,7 @@ class Race(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    day = Column(Date)
+    date = Column(Date)
 
     # TODO: Add other information from configuration file. For example:
     #
