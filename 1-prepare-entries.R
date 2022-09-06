@@ -1,36 +1,42 @@
+#!/usr/bin/env Rscript
+
 library(readxl)
 library(janitor)
-library(dplyr)
+library(tidyverse)
 library(jsonlite)
 
-XLSX <- "entries-2022-race-A.xlsx"
+args = commandArgs(trailingOnly=TRUE)
+
+if (!exists("XSLX")) XLSX <- args[1]
 JSON <- sub("xlsx$", "json", XLSX)
 
-doubles <- read_xlsx(XLSX, "Doubles", col_names = TRUE)
-singles <- read_xlsx(XLSX, "Singles", col_names = FALSE)
-
-doubles <- doubles %>% clean_names()
-names(singles) <- names(doubles)
-
-fix_columns <- function(df) {
-  df %>%
-    select(number:div) %>%
-    select(-expiry) %>%
-    rename(
-      last = surname,
-      first = first_name,
-      bcu = bc_number,
-      category = class_7,
-      division = div
-    ) %>%
+entries <- excel_sheets(XLSX) %>%
+  map(function(sheet) {
+    read_xlsx(XLSX, sheet) %>%
+      clean_names() %>%
       mutate(
-        bcu = as.integer(bcu)
+        category = sheet,
+        bc_number = as.integer(bc_number)
       )
-}
-doubles <- fix_columns(doubles)
-singles <- fix_columns(singles)
+  })
 
-entries <- rbind(singles, doubles)
+# Drop categories without entries.
+#
+entries <- entries[sapply(entries, nrow) != 0]
+entries <- bind_rows(entries)
+
+entries <- entries %>%
+  select(
+    number,
+    category,
+    division = div,
+    last = surname,
+    first = first_name,
+    bcu = bc_number,
+    bcu_expiry = expiry,
+    club,
+    klass = class
+  )
 
 write_json(
   entries,
