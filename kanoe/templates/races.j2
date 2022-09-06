@@ -8,26 +8,20 @@
 
 {% block content %}
 
-<h1>Entries</h1>
+<h1>Races</h1>
 
-<table id="entries" class="display" style="width:100%">
+<table id="races" class="display" style="width:100%">
     <thead>
         <tr>
-            <th>Entry #</th>
-            <th>Paddlers</th>
-            <th>Category</th>
-            <th>Division</th>
-            <th>Race #</th>
+            <th>Name</th>
+            <th>Date</th>
         </tr>
     </thead>
     <tbody>
-{% for entry in entries %}
+{% for race in races %}
         <tr>
-            <td><a href="{{ url_for('entry', race_id=race_id, entry_id=entry.id) }}">{{ entry.entry_number }}</a></td>
-            <td>{{ entry }}</td>
-            <td></td>
-            <td>{{ entry.division }}</td>
-            <td></td>
+            <td><a href="{{ url_for('race', race_id=race.id) }}">{{ race.name }}</a></td>
+            <td>{{ race.date }}</td>
         </tr>
 {% endfor %}
     </tbody>
@@ -40,7 +34,7 @@
 {% include 'common/datatables-javascript.j2' %}
 <script type="text/javascript" class="init">
 $(document).ready(function () {
-	$('#entries').DataTable();
+	$('#races').DataTable();
 });
 </script>
 {% endblock %}

@@ -40,9 +40,15 @@ def member(member_id):
     return render_template("member.j2", member=member)
 
 
+@app.route("/races")
+def races():
+    races = session.query(db.Race).all()
+    return render_template("races.j2", races=races)
+
+
 @app.route("/race/<race_id>")
-def entries(race_id):
-    entries = session.query(db.Entry).all()
+def race(race_id):
+    entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
     return render_template("race.j2", race_id=race_id, entries=entries)
 
 
