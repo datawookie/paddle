@@ -90,12 +90,29 @@ def load_entries(race, individuals):
         for individual in individuals:
             logger.info(f"- {individual}.")
 
-            paddler = db.Paddler(
-                first=individual.first,
-                last=individual.last,
-                division=individual.division,
-            )
-            session.add(paddler)
+            # Look for existing paddler.
+            try:
+                paddler = (
+                    session.query(db.Paddler)
+                    .filter(
+                        db.Paddler.first == individual.first,
+                        db.Paddler.last == individual.last,
+                        db.Paddler.division == individual.division,
+                    )
+                    .one()
+                )
+            except db.NoResultFound:
+                logger.debug("Paddler not found.")
+                paddler = db.Paddler(
+                    first=individual.first,
+                    last=individual.last,
+                    division=individual.division,
+                )
+                session.add(paddler)
+            else:
+                logger.debug(f"Paddler found: {paddler}.")
+                print(paddler)
+
             club = session.query(db.Club).get(individual.club)
 
             paddler.seats.append(db.Seat(club=club, entry_id=entry.id))
