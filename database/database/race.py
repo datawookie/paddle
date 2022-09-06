@@ -4,6 +4,8 @@ from .base import *
 class Race(Base):
     __tablename__ = "race"
 
+    __table_args__ = (UniqueConstraint("name", "date", name="uq_race_name_date"),)
+
     id = Column(Integer, primary_key=True)
     name = Column(String)
     day = Column(Date)
