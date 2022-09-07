@@ -9,6 +9,7 @@ from sqlalchemy.orm import (
 )
 from sqlalchemy.orm import joinedload, lazyload, noload
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy import (
     Enum,
     Column,
@@ -35,9 +36,7 @@ from sqlalchemy.pool import SingletonThreadPool
 from .config import *
 
 CONNECTION_STRING = "sqlite:///kanoe.db"
-CONNECTION_ARGS = {
-    # "check_same_thread": False
-}
+CONNECTION_ARGS = {"check_same_thread": False}
 
 LIMIT_DAILY = sqlalchemy.text("1000")
 UUID_GENERATE_V4 = sqlalchemy.text("uuid_generate_v4()")

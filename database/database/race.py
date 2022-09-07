@@ -20,4 +20,7 @@ class Race(Base):
     # elapsed_time_max (redundant?)
 
     def __repr__(self):
-        return "Race('%s', '%s')" % (self.name, self.day)
+        return "Race('%s', '%s')" % (self.name, self.date)
+
+    def __str__(self):
+        return "%s (%s)" % (self.name, self.date)

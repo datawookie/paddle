@@ -32,6 +32,7 @@ class Entry(Base):
     time_finish = Column(String)
 
     category = relationship(Category, backref="entries", lazy="joined")
+    race = relationship(Race, backref="entries", lazy="joined")
 
     @property
     def division(self):
