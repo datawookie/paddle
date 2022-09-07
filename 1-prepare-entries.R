@@ -10,7 +10,11 @@ args = commandArgs(trailingOnly=TRUE)
 if (!exists("XSLX")) XLSX <- args[1]
 JSON <- sub("xlsx$", "json", XLSX)
 
-entries <- excel_sheets(XLSX) %>%
+SHEETS <- excel_sheets(XLSX)
+#
+SHEETS <- SHEETS[!(SHEETS %in% c("Rankings"))]
+
+entries <- SHEETS %>%
   map(function(sheet) {
     read_xlsx(XLSX, sheet) %>%
       clean_names() %>%
