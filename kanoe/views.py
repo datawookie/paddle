@@ -64,16 +64,20 @@ def paddlers():
         first = request.form["first"]
         middle = request.form["middle"]
         last = request.form["last"]
+        division = request.form["division"]
 
         if not first:
             flash("First name is required!", "danger")
         elif not last:
             flash("Last name is required!", "danger")
+        elif not division:
+            flash("Division is required!", "danger")
         else:
             paddler = db.Paddler(
                 first=first,
                 middle=middle,
                 last=last,
+                division=division,
             )
             session.add(paddler)
             session.commit()

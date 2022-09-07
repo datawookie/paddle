@@ -16,6 +16,7 @@
         <thead>
           <tr>
               <th>Name</th>
+              <th>Division</th>
           </tr>
         </thead>
         <tbody>
@@ -24,12 +25,14 @@
               <td>
                   <a href="{{ url_for('paddler', paddler_id=paddler.id) }}">{{ paddler.name }}</a>
               </td>
+              <td>{{ paddler.division }}</td>
           </tr>
         {% endfor %}
         </tbody>
     </table>
   </div>
   <div class="col-sm-6">
+    <h2>Add a Paddler</h2>
     <form method="post">
       <div class="row">
         <div class="form-group col-sm-12">
@@ -42,7 +45,7 @@
                 value="{{ request.form['first'] }}">
         </div>
         <div class="form-group col-sm-12">
-          <label for="middle">Midlle Name(s)</label>
+          <label for="middle">Middle Name(s)</label>
           <input type="text"
                 class="form-control"
                 id="middle"
@@ -58,6 +61,10 @@
                 name="last"
                 placeholder="Name"
                 value="{{ request.form['last'] }}">
+        </div>
+        <div class="form-group col-sm-12">
+          <label for="division">Division</label>
+          <input type="number" id="division" name="division" min="1" max="9" value="{{ request.form['division'] }}">
         </div>
         <hr class="my-4">
         <button type="submit" class="btn btn-primary">Submit</button>
