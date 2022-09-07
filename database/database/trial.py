@@ -22,3 +22,6 @@ class TimeTrialResult(Base):
 
     time_trial = relationship(TimeTrial, back_populates="time_trial_results")
     member = relationship(Member, back_populates="time_trial_results")
+
+    def __str__(self):
+        return str(self.time)

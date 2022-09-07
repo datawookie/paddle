@@ -7,6 +7,10 @@ body {
     }
 }
 
+main {
+    margin-bottom: 100px
+}
+
 .container {
     width: auto;
     padding: 60px 15px 0;

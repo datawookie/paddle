@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from .base import *
 
 
@@ -18,3 +19,14 @@ class Member(Base):
         name = " ".join(name)
         name = name.strip()
         return name
+
+    @property
+    def time_trial_count(self):
+        return len(self.time_trial_results)
+
+    @property
+    def time_trial_best(self):
+        results = [
+            datetime.strptime(x.time, "%H:%M:%S") for x in self.time_trial_results
+        ]
+        return min(results).strftime("%H:%M:%S")

@@ -2,22 +2,54 @@
 
 {% block title %}Time Trial Results{% endblock %}
 
+{% block styles %}
+{% include 'common/datatables-css.j2' %}
+{% endblock %}
+
 {% block content %}
 <h1>Time Trial Results</h1>
 
-<table>
-    <tr>
+<table id="results" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
         <th>Name</th>
         <th>Number</th>
         <th>Best</th>
         <th>Last</th>
-    </tr>
+        </tr>
+    </thead>
+    <tbody>
 {% for member in members %}
     <tr>
         <td>
             <a href="{{ url_for('member', member_id=member.id) }}">{{ member.name }}</a>
         </td>
+        <td>
+            {{ member.time_trial_count }}
+        </td>
+        <td>
+            {{ member.time_trial_best }}
+        </td>
+        <td>
+            {{ member.time_trial_results|last }}
+        </td>
     </tr>
 {% endfor %}
+    </tbody>
 </table>
+
+{% endblock %}
+
+{% block scripts %}
+{% include 'common/jquery-javascript.j2' %}
+{% include 'common/datatables-javascript.j2' %}
+<script type="text/javascript" class="init">
+$(document).ready(function () {
+	$('#results').DataTable({
+        searching: false,
+        paging: false,
+        info: false
+    });
+});
+</script>
 {% endblock %}
