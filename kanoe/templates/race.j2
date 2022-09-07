@@ -24,7 +24,7 @@
 {% for entry in entries %}
         <tr>
             <td>{{ entry.entry_number }}</td>
-            <td><a href="{{ url_for('entry', race_id=race_id, entry_id=entry.id) }}">{{ entry }}</a></td>
+            <td><a href="{{ url_for('entry', entry_id=entry.id) }}">{{ entry }}</a></td>
             <td>{{ entry.category }}</td>
             <td>{{ entry.division }}</td>
             <td></td>

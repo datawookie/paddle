@@ -52,8 +52,8 @@ def race(race_id):
     return render_template("race.j2", race_id=race_id, entries=entries)
 
 
-@app.route("/race/<race_id>/entry/<entry_id>")
-def entry(race_id, entry_id):
+@app.route("/entry/<entry_id>")
+def entry(entry_id):
     entry = session.query(db.Entry).get(entry_id)
     return render_template("entry.j2", entry=entry)
 
