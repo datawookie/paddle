@@ -58,6 +58,32 @@ def entry(entry_id):
     return render_template("entry.j2", entry=entry)
 
 
+@app.route("/seat/<seat_id>", methods=("GET", "POST"))
+def entry_edit_seat(seat_id):
+    seat = session.query(db.Seat).get(seat_id)
+    paddlers = session.query(db.Paddler).order_by(db.Paddler.name).all()
+    clubs = session.query(db.Club).all()
+
+    if request.method == "POST":
+        print(request.form)
+        print(seat_id)
+        paddler_id = request.form["paddler"]
+        club_id = request.form["club"]
+
+        # seat.update({db.Seat.paddler_id: paddler_id})
+        seat.paddler_id = paddler_id
+        seat.club_id = club_id
+        session.commit()
+
+        flash("Updated seat.", "success")
+
+        return redirect(url_for("entry", entry_id=seat.entry.id))
+
+    return render_template(
+        "entry-edit-seat.j2", seat=seat, paddlers=paddlers, clubs=clubs
+    )
+
+
 @app.route("/paddlers", methods=("GET", "POST"))
 def paddlers():
     if request.method == "POST":

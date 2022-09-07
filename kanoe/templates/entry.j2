@@ -10,12 +10,16 @@
   <div class="col">
     <table>
       <tr>
+        <th>Race:</th>
+        <td><a href="{{ url_for('race', race_id=entry.race.id) }}">{{ entry.race }}</a></td>
+      </tr>
+      <tr>
         <th>Division:</th>
         <td>{{ entry.division }}</td>
       </tr>
       <tr>
         <th>Category:</th>
-        <td></td>
+        <td>{{ entry.category }}</td>
       </tr>
     </table>
     <div class="table-responsive">
@@ -25,6 +29,7 @@
             <th scope="col">Paddler</th>
             <th scope="col">Club</th>
             <th scope="col">Division</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -33,6 +38,7 @@
             <td><a href="{{ url_for('paddler', paddler_id=seat.paddler.id) }}">{{ seat.paddler.name }}</a></td>
             <td><a href="{{ url_for('club', club_id=seat.club.id) }}">{{ seat.club.id }}</a></td>
             <td>{{ seat.paddler.division }}</td>
+            <td><a href="{{ url_for('entry_edit_seat', seat_id=seat.id) }}"><i class="fas fa-edit"></i></a></td>
           </tr>
           {% endfor %}
         </tbody>

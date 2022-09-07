@@ -1,0 +1,40 @@
+{% extends "base.j2" %}
+
+{% block title %}Entry Edit Seat{% endblock %}
+
+{% block content %}
+<h1>Entry Edit Seat</h1>
+
+<div class="row">
+  <div class="col-sm-6">
+    <form method="post">
+      <div class="row">
+            <div class="form-group col-sm-12">
+              <label for="paddler">Paddler</label>
+              <select class="form-select" class="form-control" id="paddler" name="paddler">
+              {% for paddler in paddlers %}
+                <option value="{{ paddler.id }}"{% if seat.paddler == paddler %} selected{% endif %}>{{ paddler }}</option>
+              {% endfor %}
+              </select>
+            </div>
+            <div class="form-group col-sm-12">
+              <label for="club">Club</label>
+              <select class="form-select" class="form-control" id="club" name="club">
+                <option value="0">No Club</option>
+              {% for club in clubs %}
+                <option value="{{ club.id }}"{% if seat.club == club %} selected{% endif %}>{{ club }}</option>
+              {% endfor %}
+              </select>
+            </div>
+            <hr class="my-4">
+            <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+
+                
+                
