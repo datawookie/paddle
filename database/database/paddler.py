@@ -8,7 +8,7 @@ class Paddler(Base):
     bcu = Column(Integer)  # BCU = British Canoe Union
     bcu_expiry = Column(Date)
     division = Column(Integer)
-    salutation = Column(String)
+    title = Column(String)
     first = Column(String)
     middle = Column(String)
     last = Column(String)

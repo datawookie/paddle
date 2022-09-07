@@ -1,3 +1,4 @@
+import datetime
 from flask import render_template, request, url_for, flash, redirect
 
 from . import app
@@ -9,11 +10,6 @@ session = db.Session()
 @app.route("/")
 def index():
     return render_template("index.j2")
-
-
-@app.route("/boats")
-def boats():
-    return "Hello World!"
 
 
 @app.route("/clubs")
@@ -91,6 +87,18 @@ def paddlers():
         middle = request.form["middle"]
         last = request.form["last"]
         division = request.form["division"]
+        dob = request.form["dob"]
+        title = request.form["title"]
+
+        if dob:
+            dob = datetime.datetime.strptime(dob, "%Y-%m-%d").date()
+        else:
+            dob = None
+
+        if middle == "":
+            middle = None
+        if title == "":
+            title = None
 
         if not first:
             flash("First name is required!", "danger")
@@ -104,6 +112,8 @@ def paddlers():
                 middle=middle,
                 last=last,
                 division=division,
+                dob=dob,
+                title=title,
             )
             session.add(paddler)
             session.commit()
