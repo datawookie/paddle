@@ -61,8 +61,6 @@ def entry_edit_seat(seat_id):
     clubs = session.query(db.Club).all()
 
     if request.method == "POST":
-        print(request.form)
-        print(seat_id)
         paddler_id = request.form["paddler"]
         club_id = request.form["club"]
 
@@ -89,6 +87,8 @@ def paddlers():
         division = request.form["division"]
         dob = request.form["dob"]
         title = request.form["title"]
+        emergency_name = request.form["emergency_name"]
+        emergency_phone = request.form["emergency_phone"]
 
         if dob:
             dob = datetime.datetime.strptime(dob, "%Y-%m-%d").date()
@@ -114,6 +114,8 @@ def paddlers():
                 division=division,
                 dob=dob,
                 title=title,
+                emergency_name=emergency_name,
+                emergency_phone=emergency_phone,
             )
             session.add(paddler)
             session.commit()

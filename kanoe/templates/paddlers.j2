@@ -81,6 +81,25 @@
           <label for="division">Division</label>
           <input type="number" class="form-control" id="division" name="division" min="1" max="9" value="{{ request.form['division'] }}">
         </div>
+        <h3>Emergency Contact</h3>
+        <div class="form-group col-sm-12">
+          <label for="emergency_name">Name</label>
+          <input type="text"
+                class="form-control"
+                id="emergency_name"
+                name="emergency_name"
+                placeholder="Name"
+                value="{{ request.form['emergency_name'] }}">
+        </div>
+        <div class="form-group col-sm-12">
+          <label for="emergency_phone">Phone</label>
+          <input type="text"
+                class="form-control"
+                id="emergency_phone"
+                name="emergency_phone"
+                placeholder="Phone"
+                value="{{ request.form['emergency_phone'] }}">
+        </div>
         <hr class="my-4">
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>

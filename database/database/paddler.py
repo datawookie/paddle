@@ -17,6 +17,8 @@ class Paddler(Base):
     address = Column(String)
     email = Column(String)
     phone = Column(String)
+    emergency_name = Column(String)
+    emergency_phone = Column(String)
 
     # This is the version which is used in Python.
     #
