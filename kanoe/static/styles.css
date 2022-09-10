@@ -23,3 +23,9 @@ main {
 footer {
     margin-top: 50px
 }
+
+.txtedit {
+    display: none;
+    width: 95%;
+    height: 25px;
+}

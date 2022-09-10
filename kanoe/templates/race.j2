@@ -10,28 +10,37 @@
 
 <h1>Entries</h1>
 
-<table id="entries" class="table table-striped" style="width:100%">
-    <thead>
-        <tr>
-            <th>Entry #</th>
-            <th>Paddlers</th>
-            <th>Category</th>
-            <th>Division</th>
-            <th>Race #</th>
-        </tr>
-    </thead>
-    <tbody>
-{% for entry in entries %}
-        <tr>
-            <td>{{ entry.entry_number }}</td>
-            <td><a href="{{ url_for('entry', entry_id=entry.id) }}">{{ entry }}</a></td>
-            <td>{{ entry.category }}</td>
-            <td>{{ entry.division }}</td>
-            <td></td>
-        </tr>
-{% endfor %}
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="d-grid gap-2">
+            <a href="{{ url_for('race_results_bulk', race_id=race_id) }}" class="btn btn-primary" role="button">Capture Results</a>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <table id="entries" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Entry #</th>
+                    <th>Paddlers</th>
+                    <th>Category</th>
+                    <th>Division</th>
+                    <th>Race #</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for entry in entries %}
+                <tr>
+                    <td>{{ entry.entry_number }}</td>
+                    <td><a href="{{ url_for('entry', entry_id=entry.id) }}">{{ entry }}</a></td>
+                    <td>{{ entry.category }}</td>
+                    <td>{{ entry.division }}</td>
+                    <td></td>
+                </tr>
+        {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
 {% endblock %}
 
