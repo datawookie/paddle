@@ -68,8 +68,7 @@ $(document).ready(function () {
         $(this).hide();
     });
 
-    // SAve data.
-    $(".txtedit").focusout(function() {
+    var save_data = function() {
         var id = this.id;
         var split_id = id.split("_");
         var field_name = split_id[0];
@@ -93,6 +92,14 @@ $(document).ready(function () {
                 }
             }
         });
+    };
+
+    // Save data.
+    $(".txtedit").focusout(save_data);
+    $(".txtedit").keypress(function(event) {
+        if (event.which == 13) {    // Check that key pressed is Enter.
+            save_data.apply(this)
+        }
     });
 });
 </script>
