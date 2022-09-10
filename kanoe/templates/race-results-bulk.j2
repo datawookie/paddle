@@ -28,8 +28,6 @@
                     <td>{{ entry.entry_number }}</td>
                     <td></td>
                     <td><a href="{{ url_for('entry', entry_id=entry.id) }}">{{ entry }}</a></td>
-                    <!-- <td><input type="time" class="form-control" id="start_{{ entry.id }}" step="30"></td>
-                    <td><input type="time" class="form-control" id="finish" step="1"></td> -->
                     <td>
                         <div class="edit">{{ entry.time_start }}</div>
                         <input type="text" class="form-control txtedit" value="{{ entry.time_start }}" id="start_{{ entry.id }}">
@@ -63,10 +61,10 @@ $(document).ready(function () {
         ]
     });
 
-    // Show input element.
+    // Show input element. Times don't look editable until you click on them.
     $('.edit').click(function() {
         $('.txtedit').hide();
-        $(this).next('.txtedit').show().focus();
+        $(this).next('.txtedit').show().focus().select();
         $(this).hide();
     });
 
