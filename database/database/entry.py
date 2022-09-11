@@ -24,6 +24,7 @@ class Entry(Base):
     team_id = Column(Integer, ForeignKey(Team.id), index=True)
     boat_type = Column(boat_type, index=True)
     entry_number = Column(Integer)
+    race_number = Column(Integer)
     online = Column(Boolean)
     series = Column(Boolean)
     series_id = Column(Integer, ForeignKey(Series.id), index=True)
