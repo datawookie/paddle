@@ -1,4 +1,5 @@
 import datetime
+import logging
 from flask import render_template, request, url_for, flash, redirect, jsonify
 
 from . import app
@@ -54,7 +55,30 @@ def race_results_bulk(race_id):
     return render_template("race-results-bulk.j2", race_id=race_id, entries=entries)
 
 
-@app.route("/update", methods=("GET", "POST"))
+@app.route("/race/<race_id>/results/quick", methods=("GET", "POST"))
+def race_results_quick(race_id):
+    if request.method == "POST":
+        logging.warning("GOT POST")
+    entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
+    return render_template("race-results-quick.j2", race_id=race_id, entries=entries)
+
+
+@app.route("/api/get-entry", methods=("GET", "POST"))
+def get_entry():
+    if request.method == "POST":
+        race_number = request.form["race_number"]
+        entry = (
+            session.query(db.Entry).filter(db.Entry.race_number == race_number).one()
+        )
+        data = {
+            "paddlers": str(entry),
+            "time_start": entry.time_start,
+            "time_finish": entry.time_finish,
+        }
+        return jsonify(data)
+
+
+@app.route("/api/update", methods=("GET", "POST"))
 def update():
     if request.method == "POST":
         try:

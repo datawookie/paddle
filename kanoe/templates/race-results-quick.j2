@@ -1,0 +1,76 @@
+{% extends "base.j2" %}
+
+{% block title %}Capture Race Results{% endblock %}
+
+{% block styles %}
+{% include 'common/datatables-css.j2' %}
+{% endblock %}
+
+{% block content %}
+
+<h1>Capture Race Results</h1>  
+
+
+<form method="post">
+    <div class="row">
+        <div class="form-group col-sm-12">
+            <label for="title">Race Number</label>
+            <input type="number"
+                class="form-control"
+                id="race_number"
+                name="race_number"
+                placeholder="Race Number">
+        </div>
+        <div class="form-group col-sm-12">
+            <label for="paddlers">Paddler(s)</label>
+            <input type="text"
+                class="form-control"
+                id="paddlers"
+                name="paddlers"
+                placeholder="Paddlers"
+                disabled="disabled"
+                tabindex="-1">
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="start">Start time</label>
+            <input type="text" class="form-control time" id="start" step="30">
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="start">Finish time</label>
+            <input type="text" class="form-control time" id="finish" step="1">
+        </div>
+    <hr class="my-4">
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+{% include 'common/jquery-javascript.j2' %}
+{% include 'common/datatables-javascript.j2' %}
+<script type="text/javascript" class="init">
+$(document).ready(function () {
+    // Populate the Paddler(s) field based on chosen race number.
+    var select_race_number = function() {
+        $.ajax({
+            url: "/api/get-entry",
+            type: "post",
+            data: { race_number: $(this).val() },
+            success: function(response) {
+                $('#paddlers').val(response["paddlers"]);
+            }
+        });
+    };
+
+    $("#race_number").focusout(select_race_number);
+    $("#race_number").keypress(function(event) {
+        if (event.key == "Enter") {
+            // Don't submit form when press Enter on Race Number field.
+            event.preventDefault();
+            select_race_number.apply(this)
+        }
+    });
+});
+</script>
+{% endblock %}
