@@ -1,6 +1,15 @@
 import os
 from flask_bootstrap import Bootstrap5
 from flask import Flask
+import logging
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s [%(levelname)7s] %(message)s",
+    # This will clobber existing handlers.
+    force=True,
+)
+
 
 app = Flask(__name__)
 
