@@ -1,4 +1,5 @@
 import datetime
+import re
 import logging
 from flask import render_template, request, url_for, flash, redirect, jsonify
 
@@ -55,22 +56,61 @@ def race_results_bulk(race_id):
     return render_template("race-results-bulk.j2", race_id=race_id, entries=entries)
 
 
+def parse_time(time):
+    if not time:
+        return None
+    logging.info(f"Parsing time: {time}")
+    time = re.sub(":", "", time)
+    logging.debug(f"- Removed colons: {time}")
+    if len(time) != 6:
+        raise RuntimeError("Time too short (should have form HHMMSS or HH:MM:SS).")
+    time = datetime.datetime.strptime(time, "%H%M%S")
+    time = time.strftime("%H:%M:%S")
+    logging.debug(f"- Normalised: {time}")
+    return time
+
+
 @app.route("/race/<race_id>/results/quick", methods=("GET", "POST"))
 def race_results_quick(race_id):
     if request.method == "POST":
-        logging.warning("GOT POST")
-    entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
-    return render_template("race-results-quick.j2", race_id=race_id, entries=entries)
+        entry_id = request.form["entry_id"]
+        time_start = request.form["time_start"]
+        time_finish = request.form["time_finish"]
+
+        time_start = parse_time(time_start)
+        time_finish = parse_time(time_finish)
+
+        entry = session.query(db.Entry).get(entry_id)
+
+        if time_start:
+            entry.time_start = time_start
+        if time_finish:
+            entry.time_finish = time_finish
+
+        session.commit()
+
+        flash("Captured result!", "success")
+
+        return redirect(url_for("race_results_quick", race_id=race_id))
+
+    return render_template("race-results-quick.j2", race_id=race_id)
 
 
 @app.route("/api/get-entry", methods=("GET", "POST"))
 def get_entry():
     if request.method == "POST":
+        race_id = request.form["race_id"]
         race_number = request.form["race_number"]
         entry = (
-            session.query(db.Entry).filter(db.Entry.race_number == race_number).one()
+            session.query(db.Entry)
+            .filter(
+                db.Entry.race_id == race_id,
+                db.Entry.race_number == race_number,
+            )
+            .one()
         )
         data = {
+            "entry_id": entry.id,
             "paddlers": str(entry),
             "time_start": entry.time_start,
             "time_finish": entry.time_finish,
@@ -118,7 +158,6 @@ def entry_edit_seat(seat_id):
         paddler_id = request.form["paddler"]
         club_id = request.form["club"]
 
-        # seat.update({db.Seat.paddler_id: paddler_id})
         seat.paddler_id = paddler_id
         seat.club_id = club_id
         session.commit()
