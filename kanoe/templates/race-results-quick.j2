@@ -58,17 +58,25 @@ $(document).ready(function () {
 
     // Populate the Paddler(s) field based on chosen race number.
     var select_race_number = function() {
-        $.ajax({
-            url: "/api/get-entry",
-            type: "post",
-            data: { race_id: {{ race_id }}, race_number: $(this).val() },
-            success: function(response) {
-                $('#paddlers').val(response["paddlers"]);
-                $('#entry_id').val(response["entry_id"]);
-                $('#time_start').val(response["time_start"]);
-                $('#time_finish').val(response["time_finish"]);
-            }
-        });
+        if ($(this).val() === "") {
+            console.log("No race number specified.");
+            $('#paddlers').val("");
+            $('#entry_id').removeAttr("value");
+            $('#time_start').val("");
+            $('#time_finish').val("");
+        } else {
+            $.ajax({
+                url: "/api/get-entry",
+                type: "post",
+                data: { race_id: {{ race_id }}, race_number: $(this).val() },
+                success: function(response) {
+                    $('#paddlers').val(response["paddlers"]);
+                    $('#entry_id').val(response["entry_id"]);
+                    $('#time_start').val(response["time_start"]);
+                    $('#time_finish').val(response["time_finish"]);
+                }
+            });
+        }
     };
 
     $("#race_number").focusout(select_race_number);
