@@ -11,7 +11,7 @@
     <table>
       <tr>
         <th>Race:</th>
-        <td><a href="{{ url_for('race', race_id=entry.race.id) }}">{{ entry.race }}</a></td>
+        <td><a href="{{ url_for('kanoe.race', race_id=entry.race.id) }}">{{ entry.race }}</a></td>
       </tr>
       <tr>
         <th>Division:</th>
@@ -35,10 +35,10 @@
         <tbody>
           {% for seat in entry.seats %}
           <tr>
-            <td><a href="{{ url_for('paddler', paddler_id=seat.paddler.id) }}">{{ seat.paddler.name }}</a></td>
-            <td><a href="{{ url_for('club', club_id=seat.club.id) }}">{{ seat.club.id }}</a></td>
+            <td><a href="{{ url_for('kanoe.paddler', paddler_id=seat.paddler.id) }}">{{ seat.paddler.name }}</a></td>
+            <td><a href="{{ url_for('kanoe.club', club_id=seat.club.id) }}">{{ seat.club.id }}</a></td>
             <td>{{ seat.paddler.division }}</td>
-            <td><a href="{{ url_for('entry_edit_seat', seat_id=seat.id) }}"><i class="fas fa-edit"></i></a></td>
+            <td><a href="{{ url_for('kanoe.entry_edit_seat', seat_id=seat.id) }}"><i class="fas fa-edit"></i></a></td>
           </tr>
           {% endfor %}
         </tbody>

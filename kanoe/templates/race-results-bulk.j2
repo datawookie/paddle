@@ -27,7 +27,7 @@
                 <tr>
                     <td>{{ entry.entry_number }}</td>
                     <td></td>
-                    <td><a href="{{ url_for('entry', entry_id=entry.id) }}">{{ entry }}</a></td>
+                    <td><a href="{{ url_for('kanoe.entry', entry_id=entry.id) }}">{{ entry }}</a></td>
                     <td>
                         <div class="edit">{{ entry.time_start }}</div>
                         <input type="text" class="form-control txtedit" value="{{ entry.time_start }}" id="start_{{ entry.id }}">

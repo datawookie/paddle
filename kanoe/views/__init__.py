@@ -1,56 +1,58 @@
 import datetime
 import re
 import logging
-from flask import render_template, request, url_for, flash, redirect, jsonify
+from flask import Blueprint, render_template, request, url_for, flash, redirect, jsonify
 
-from .. import app
+# from .. import app
 import database as db
 
 session = db.Session()
 
+blueprint = Blueprint("kanoe", __name__, url_prefix="/")
 
-@app.route("/")
+
+@blueprint.route("/")
 def index():
     return render_template("index.j2")
 
 
-@app.route("/clubs")
+@blueprint.route("/clubs")
 def clubs():
     clubs = session.query(db.Club).all()
     return render_template("clubs.j2", clubs=clubs)
 
 
-@app.route("/club/<club_id>")
+@blueprint.route("/club/<club_id>")
 def club(club_id):
     club = session.query(db.Club).get(club_id)
     return render_template("club.j2", club=club)
 
 
-@app.route("/time-trial")
+@blueprint.route("/time-trial")
 def time_trial():
     members = session.query(db.Member).all()
     return render_template("time-trial.j2", members=members)
 
 
-@app.route("/member/<member_id>")
+@blueprint.route("/member/<member_id>")
 def member(member_id):
     member = session.query(db.Member).get(member_id)
     return render_template("member.j2", member=member)
 
 
-@app.route("/races")
+@blueprint.route("/races")
 def races():
     races = session.query(db.Race).all()
     return render_template("races.j2", races=races)
 
 
-@app.route("/race/<race_id>")
+@blueprint.route("/race/<race_id>")
 def race(race_id):
     entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
     return render_template("race.j2", race_id=race_id, entries=entries)
 
 
-@app.route("/race/<race_id>/results/bulk", methods=("GET", "POST"))
+@blueprint.route("/race/<race_id>/results/bulk", methods=("GET", "POST"))
 def race_results_bulk(race_id):
     entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
     return render_template("race-results-bulk.j2", race_id=race_id, entries=entries)
@@ -70,7 +72,7 @@ def parse_time(time):
     return time
 
 
-@app.route("/race/<race_id>/results/quick", methods=("GET", "POST"))
+@blueprint.route("/race/<race_id>/results/quick", methods=("GET", "POST"))
 def race_results_quick(race_id):
     if request.method == "POST":
         entry_id = request.form["entry_id"]
@@ -102,7 +104,7 @@ def race_results_quick(race_id):
     return render_template("race-results-quick.j2", race_id=race_id)
 
 
-@app.route("/api/get-entry", methods=("GET", "POST"))
+@blueprint.route("/api/get-entry", methods=("GET", "POST"))
 def get_entry():
     if request.method == "POST":
         race_id = request.form["race_id"]
@@ -124,7 +126,7 @@ def get_entry():
         return jsonify(data)
 
 
-@app.route("/api/update", methods=("GET", "POST"))
+@blueprint.route("/api/update", methods=("GET", "POST"))
 def update():
     if request.method == "POST":
         try:
@@ -148,13 +150,13 @@ def update():
         return jsonify(success)
 
 
-@app.route("/entry/<entry_id>")
+@blueprint.route("/entry/<entry_id>")
 def entry(entry_id):
     entry = session.query(db.Entry).get(entry_id)
     return render_template("entry.j2", entry=entry)
 
 
-@app.route("/seat/<seat_id>", methods=("GET", "POST"))
+@blueprint.route("/seat/<seat_id>", methods=("GET", "POST"))
 def entry_edit_seat(seat_id):
     seat = session.query(db.Seat).get(seat_id)
     paddlers = session.query(db.Paddler).order_by(db.Paddler.name).all()
@@ -177,7 +179,7 @@ def entry_edit_seat(seat_id):
     )
 
 
-@app.route("/paddlers", methods=("GET", "POST"))
+@blueprint.route("/paddlers", methods=("GET", "POST"))
 def paddlers():
     if request.method == "POST":
         first = request.form["first"]
@@ -227,7 +229,7 @@ def paddlers():
     return render_template("paddlers.j2", paddlers=paddlers)
 
 
-@app.route("/paddler/<paddler_id>")
+@blueprint.route("/paddler/<paddler_id>")
 def paddler(paddler_id):
     paddler = session.query(db.Paddler).get(paddler_id)
     return render_template("paddler.j2", paddler=paddler)

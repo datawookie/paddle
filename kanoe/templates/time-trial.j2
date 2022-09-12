@@ -22,7 +22,7 @@
 {% for member in members %}
     <tr>
         <td>
-            <a href="{{ url_for('member', member_id=member.id) }}">{{ member.name }}</a>
+            <a href="{{ url_for('kanoe.member', member_id=member.id) }}">{{ member.name }}</a>
         </td>
         <td>
             {{ member.time_trial_count }}

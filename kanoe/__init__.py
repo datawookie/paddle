@@ -10,15 +10,19 @@ logging.basicConfig(
     force=True,
 )
 
-
 app = Flask(__name__)
 
+# app.config["EXPLAIN_TEMPLATE_LOADING"] = True
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["SECRET_KEY"] = os.urandom(24).hex()
 
-bootstrap = Bootstrap5(app)
+# Initialise Flask-Bootstrap.
+#
+Bootstrap5(app)
 
-from . import views
+from .views import blueprint
+
+app.register_blueprint(blueprint)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
