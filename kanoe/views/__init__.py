@@ -3,7 +3,7 @@ import re
 import logging
 from flask import render_template, request, url_for, flash, redirect, jsonify
 
-from . import app
+from .. import app
 import database as db
 
 session = db.Session()
