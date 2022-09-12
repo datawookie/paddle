@@ -31,6 +31,8 @@ class Entry(Base):
 
     time_start = Column(String)
     time_finish = Column(String)
+    retired = Column(Boolean)
+    disqualified = Column(Boolean)
 
     category = relationship(Category, backref="entries", lazy="joined")
     race = relationship(Race, backref="entries", lazy="joined")

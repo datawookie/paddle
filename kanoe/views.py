@@ -76,6 +76,8 @@ def race_results_quick(race_id):
         entry_id = request.form["entry_id"]
         time_start = request.form["time_start"]
         time_finish = request.form["time_finish"]
+        retired = request.form.get("retired", False)
+        disqualified = request.form.get("disqualified", False)
 
         time_start = parse_time(time_start)
         time_finish = parse_time(time_finish)
@@ -86,6 +88,10 @@ def race_results_quick(race_id):
             entry.time_start = time_start
         if time_finish:
             entry.time_finish = time_finish
+        if retired:
+            entry.retired = True
+        if disqualified:
+            entry.disqualified = True
 
         session.commit()
 
