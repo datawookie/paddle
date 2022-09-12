@@ -8,6 +8,21 @@
 
 {% block content %}
 
+{#
+Form workflow:
+
+1. Type race number.
+2. Press tab (field with paddler names will be populated and focus will shift to start time field).
+3. If the start time is already populated then focus will shift to the finish time field, otherwise enter start time (or leave blank).
+4. Press tab (focus will advance to the finish time field).
+5. Enter finish time (or leave blank).
+6. Press tab (focus will shift to the Submit button).
+7. Press Enter to submit.
+8. Focus will shift back to the race number field. Repeat.
+
+You can also press enter in either the start time or finish time field to submit the form.
+#}
+
 <h1>Capture Race Results</h1>  
 
 <form method="post">
@@ -68,7 +83,7 @@
             </div>
         </div>
         <hr class="my-4">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
     </div>
 </form>
 
@@ -79,9 +94,10 @@
 {% include 'common/datatables-javascript.j2' %}
 <script type="text/javascript" class="init">
 $(document).ready(function () {
-    $(document).focus(function() {
-        $(this).select();
-    });
+    // Flashed messages disappear after a short delay.
+    setTimeout(function() {
+        $('.alert').fadeOut('slow');
+    }, 2000);
 
     // Populate the Paddler(s) field based on chosen race number.
     var select_race_number = function() {
@@ -101,6 +117,12 @@ $(document).ready(function () {
                     $('#entry_id').val(response["entry_id"]);
                     $('#time_start').val(response["time_start"]);
                     $('#time_finish').val(response["time_finish"]);
+                    if (response["time_start"] != null) {
+                        $('#time_finish').focus();
+                        if (response["time_finish"] != null) {
+                            $('#submit').focus();
+                        }
+                    }
                 }
             });
         }
