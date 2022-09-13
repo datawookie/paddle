@@ -61,7 +61,7 @@ def race_results_bulk(race_id):
 @blueprint.route("/race/<race_id>/results/display")
 def race_results_display(race_id):
     race = session.query(db.Race).get(race_id)
-    entries = (
+    results = (
         session.query(db.Entry)
         .filter(db.Entry.race_id == race_id)
         .filter(db.Entry.time_start != None)
@@ -69,20 +69,22 @@ def race_results_display(race_id):
         .all()
     )
 
-    print(entries)
-
     categories = {}
-
-    for entry in entries:
+    #
+    # Group results into categories.
+    #
+    for result in results:
         try:
-            categories[entry.category.label]
+            categories[result.category.label]
         except KeyError:
-            categories[entry.category.label] = []
+            categories[result.category.label] = []
 
-        categories[entry.category.label].append(entry)
-        print(str(entry) + " " + str(entry.category) + " " + str(entry.time))
+        categories[result.category.label].append(result)
 
-    print(categories)
+    # Sort results in each category.
+    for results in categories.values():
+        results.sort(key=lambda x: x.time, reverse=False)
+
     return render_template("race-results-display.j2", race=race, categories=categories)
 
 
