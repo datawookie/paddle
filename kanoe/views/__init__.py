@@ -1,10 +1,15 @@
+import os
+import json
 import datetime
 import re
 import logging
 from flask import Blueprint, render_template, request, url_for, flash, redirect, jsonify
+from werkzeug.utils import secure_filename
+from sqlalchemy.sql import func
 
 # from .. import app
 import database as db
+from .entry import load_entries
 
 session = db.Session()
 
@@ -40,8 +45,48 @@ def member(member_id):
     return render_template("member.j2", member=member)
 
 
-@blueprint.route("/races")
+UPLOAD_FOLDER = "/tmp"
+
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {"json"}
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@blueprint.route("/races", methods=("GET", "POST"))
 def races():
+    if request.method == "POST":
+        print(request.files)
+        print(request.form)
+        print(request.form.keys())
+
+        races = [key for key in request.form.keys() if re.match("race_id", key)]
+        races = [int(re.sub("race_id_", "", id)) for id in races]
+        races = [session.query(db.Race).get(id) for id in races]
+        print(races)
+
+        # There is a dictionary key "races_length" which comes from the "Show ... entries" option in the DataTable.
+        file = request.files.get("file")
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filename = os.path.join(UPLOAD_FOLDER, filename)
+            file.save(filename)
+
+            with open(filename, "rt") as file:
+                entries = file.read()
+                entries = json.loads(entries)
+
+            for race in races:
+                load_entries(race, entries)
+
+    # See https://coder.gay/1901509/sqlalchemy-query-for-object-with-count-of-relationship.
+    entries = (
+        session.query(db.Entry.race_id, func.count(db.Entry.race_id).label("count"))
+        .group_by(db.Entry.race_id)
+        .all()
+    )
+    print(entries)
+
     races = session.query(db.Race).all()
     return render_template("races.j2", races=races)
 

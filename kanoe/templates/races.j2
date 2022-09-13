@@ -10,31 +10,37 @@
 
 <h1>Races</h1>
 
-<table id="races" class="table table-striped" style="width:100%">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Date</th>
-        </tr>
-    </thead>
-    <tbody>
-{% for race in races %}
-        <tr>
-            <td><a href="{{ url_for('kanoe.race', race_id=race.id) }}">{{ race.name }}</a></td>
-            <td>{{ race.date }}</td>
-        </tr>
-{% endfor %}
-    </tbody>
-</table>
+<form method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="d-grid gap-2">
+                <input type="file" class="form-control-file" name="file">
+                <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <table id="races" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Entries</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for race in races %}
+                    <tr>
+                        <td><input type="checkbox" class="form-check-input" id="race_id_{{ race.id }}" name="race_id_{{ race.id }}"></td>
+                        <td><a href="{{ url_for('kanoe.race', race_id=race.id) }}">{{ race.name }}</a></td>
+                        <td>{{ race.date }}</td>
+                        <td><b>TBD</b></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
 
-{% endblock %}
-
-{% block scripts %}
-{% include 'common/jquery-javascript.j2' %}
-{% include 'common/datatables-javascript.j2' %}
-<script type="text/javascript" class="init">
-$(document).ready(function () {
-	$('#races').DataTable();
-});
-</script>
 {% endblock %}
