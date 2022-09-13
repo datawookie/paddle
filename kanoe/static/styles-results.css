@@ -2,6 +2,7 @@ body {
     background-color: black;
     color: var(--colour-yellow);
     font-size: 1.75em;
+    overflow: hidden;
 }
 
 table.result {
