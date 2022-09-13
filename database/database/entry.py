@@ -1,9 +1,10 @@
+import enum
+import datetime
 from .base import *
 from .race import *
 from .category import *
 from .series import *
 from .team import *
-import enum
 
 
 class BoatType(enum.Enum):
@@ -48,3 +49,12 @@ class Entry(Base):
     def __str__(self):
         names = [str(seat) for seat in self.seats]
         return " / ".join(names)
+
+    @property
+    def time(self):
+        if self.time_start and self.time_finish:
+            time_start = datetime.datetime.strptime(self.time_start, "%H:%M:%S")
+            time_finish = datetime.datetime.strptime(self.time_finish, "%H:%M:%S")
+            return time_finish - time_start
+        else:
+            return None

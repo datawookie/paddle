@@ -1,0 +1,38 @@
+{% extends "base-plain.j2" %}
+
+{% block title %}Results{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="/static/styles-results.css">
+{% endblock %}
+
+{% block content %}
+
+<h1>Results - {{ race.name }} ({{ race.date }})</h1>
+
+{% for category, results in categories.items() %}
+<h2>{{ category }}</h2>
+
+<table class="table result">
+    <thead>
+        <tr>
+            <th>Position</th>
+            <th>Race #</th>
+            <th>Paddler(s)</th>
+            <th>Time</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for result in results %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ result.race_number }}</td>
+            <td>{{ result }}</td>
+            <td>{{ result.time }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endfor %}
+
+{% endblock %}

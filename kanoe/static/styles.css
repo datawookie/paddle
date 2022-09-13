@@ -1,3 +1,7 @@
+:root {
+    --colour-yellow: #fed00c;
+}
+
 body {
     padding-top: 60px;
 }

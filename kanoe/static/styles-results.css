@@ -1,0 +1,37 @@
+body {
+    background-color: black;
+    color: var(--colour-yellow);
+    font-size: 1.75em;
+}
+
+table.result {
+    width: 100%;
+}
+
+.table {
+    color: var(--colour-yellow);
+}
+
+.table > tbody > tr > td,
+.table > thead > tr > th {
+    border-bottom: none;
+}
+
+.table > tbody {
+    border-top: none !important;
+    border-bottom: none;
+}
+
+.table > thead {
+    background-color: var(--colour-yellow);
+    color: black;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
