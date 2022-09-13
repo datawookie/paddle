@@ -36,3 +36,18 @@
 {% endfor %}
 
 {% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" class="init">
+var scroll = setInterval(function() {
+        // Scroll slowly down page.
+        window.scrollBy(0, 10);
+        // Hard reload page at bottom.
+        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+            setTimeout(() => { location.reload(true); }, 2000);
+        }
+    },
+    100
+);
+</script>
+{% endblock %}
