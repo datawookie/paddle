@@ -56,16 +56,11 @@ def allowed_file(filename):
 @blueprint.route("/races", methods=("GET", "POST"))
 def races():
     if request.method == "POST":
-        print(request.files)
-        print(request.form)
-        print(request.form.keys())
-
+        # Create a list of race IDs from the checkbox fields.
         races = [key for key in request.form.keys() if re.match("race_id", key)]
         races = [int(re.sub("race_id_", "", id)) for id in races]
         races = [session.query(db.Race).get(id) for id in races]
-        print(races)
 
-        # There is a dictionary key "races_length" which comes from the "Show ... entries" option in the DataTable.
         file = request.files.get("file")
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
@@ -79,15 +74,27 @@ def races():
             for race in races:
                 load_entries(race, entries)
 
-    # See https://coder.gay/1901509/sqlalchemy-query-for-object-with-count-of-relationship.
+        return redirect(url_for("races"))
+
+    # Count number of entries per race.
     entries = (
         session.query(db.Entry.race_id, func.count(db.Entry.race_id).label("count"))
         .group_by(db.Entry.race_id)
+        .subquery()
+    )
+    # Merge counts into races.
+    result = (
+        session.query(db.Race, entries.c.count)
+        .outerjoin(entries, entries.c.race_id == db.Race.id)
         .all()
     )
-    print(entries)
+    # Inject counts into Race objects.
+    for race, count in result:
+        race.count = count if count else 0
 
-    races = session.query(db.Race).all()
+    # Unzip the list, extracting races and counts separately (Race objects already contain counts).
+    races, _ = zip(*result)
+
     return render_template("races.j2", races=races)
 
 

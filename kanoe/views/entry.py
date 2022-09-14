@@ -1,9 +1,9 @@
 import datetime
 import string
+import logging
 from dataclasses import dataclass
 
 import database as db
-from database import logger
 
 session = db.Session()
 
@@ -28,7 +28,7 @@ def category_mapping(category):
     try:
         return CATEGORY_MAPPING[category]
     except KeyError:
-        logger.warning(f"🚨 Unable to map category '{category}'.")
+        logging.warning(f"🚨 Unable to map category '{category}'.")
 
 
 @dataclass
@@ -52,18 +52,18 @@ def load_entries(race, individuals):
         individual.first = string.capwords(individual.first)
         individual.last = string.capwords(individual.last)
         individual.category = category_mapping(individual.category)
-        logger.info(individual)
+        logging.info(individual)
 
         # Check for existing entry.
         #
         if individual.number not in entries:
-            logger.info(f"Add new entry: {individual.number}.")
+            logging.info(f"Add new entry: {individual.number}.")
             entries[individual.number] = []
 
         entries[individual.number].append(individual)
 
     for number, individuals in entries.items():
-        logger.info(f"Entry: {number}.")
+        logging.info(f"Entry: {number}.")
 
         # category = session.query(db.Category).get(individual.category)
         category = [individual.category for individual in individuals]
@@ -79,14 +79,14 @@ def load_entries(race, individuals):
             )
             print(category)
         else:
-            logger.warning(f"🚨 Category is missing.")
+            logging.warning(f"🚨 Category is missing.")
             continue
 
         entry = db.Entry(entry_number=number, category_id=category.id, race_id=race.id)
         session.add(entry)
 
         for individual in individuals:
-            logger.info(f"- {individual}.")
+            logging.info(f"- {individual}.")
 
             # Look for existing paddler.
             try:
@@ -100,7 +100,7 @@ def load_entries(race, individuals):
                     .one()
                 )
             except db.NoResultFound:
-                logger.debug("Paddler not found.")
+                logging.debug("Paddler not found.")
                 paddler = db.Paddler(
                     first=individual.first,
                     last=individual.last,
@@ -108,7 +108,7 @@ def load_entries(race, individuals):
                 )
                 session.add(paddler)
             else:
-                logger.debug(f"Paddler found: {paddler}.")
+                logging.debug(f"Paddler found: {paddler}.")
                 print(paddler)
 
             club = session.query(db.Club).get(individual.club)
