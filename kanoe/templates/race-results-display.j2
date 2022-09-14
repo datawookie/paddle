@@ -20,6 +20,7 @@
             <th>Race #</th>
             <th>Paddler(s)</th>
             <th>Team</th>
+            <th class="services">Services</th>
             <th>Time</th>
         </tr>
     </thead>
@@ -30,6 +31,7 @@
             <td>{{ result.race_number or "" }}</td>
             <td>{{ result }}</td>
             <td>{{ result.team or "" }}</td>
+            <td class="services">{% if result.services %}<i class="fas fa-check"></i>{% endif %}</td>
             <td>{{ result.time }}</td>
         </tr>
     {% endfor %}

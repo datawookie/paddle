@@ -12,6 +12,7 @@ class Seat(Base):
     club_id = Column(String(3), ForeignKey(Club.id), index=True)
     entry_id = Column(Integer, ForeignKey(Entry.id), index=True)
     team_id = Column(Integer, ForeignKey(Team.id), index=True)
+    services = Column(Boolean, server_default=expression.false())
     paid = Column(Numeric)
 
     team = relationship(Team, backref="entries", lazy="joined")

@@ -37,3 +37,7 @@ footer {
 hr {
     height: 3px !important;
 }
+
+td.services, th.services {
+    text-align: center;
+}

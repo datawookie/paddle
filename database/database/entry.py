@@ -58,3 +58,33 @@ class Entry(Base):
             return time_finish - time_start
         else:
             return None
+
+    @property
+    def team(self):
+        # An entry is only considered a team entry if all of the paddlers in the boat are on the same team.
+        #
+        # K1:
+        #
+        # - [None]                      paddler not in a team
+        # - ["Warriors"]                paddler in a team
+        #
+        # K2:
+        #
+        # - [None, None]                neither paddler in a team
+        # - ["Warriors", None]          paddler in a team + paddler not in a team
+        # - [None, "Warriors"]          paddler in a team + paddler not in a team
+        # - ["Warriors", "Warriors"]    both paddlers in same taem
+        # - ["Warriors", "Chiefs"]      paddlers in different teams
+        #
+        teams = [seat.team for seat in self.seats]
+        teams = list(set(teams))
+        if len(teams) == 1:
+            return teams[0]
+        else:
+            return None
+
+    @property
+    def services(self):
+        # An entry is only considered a services entry if all of the paddlers in the boat in the services.
+        services = [seat.services for seat in self.seats]
+        return all(services)

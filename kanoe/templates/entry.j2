@@ -7,7 +7,7 @@
 <h1>Entry</h1>
 
 <div class="row">
-  <div class="col">
+  <div class="col-md-8">
     <table>
       <tr>
         <th>Race:</th>
@@ -29,6 +29,8 @@
             <th scope="col">Paddler</th>
             <th scope="col">Club</th>
             <th scope="col">Division</th>
+            <th scope="col">Team</th>
+            <th scope="col" class="services">Services</th>
             <th scope="col">Paid</th>
             <th scope="col"></th>
           </tr>
@@ -39,15 +41,17 @@
             <td><a href="{{ url_for('kanoe.paddler', paddler_id=seat.paddler.id) }}">{{ seat.paddler.name }}</a></td>
             <td><a href="{{ url_for('kanoe.club', club_id=seat.club.id) }}">{{ seat.club.id }}</a></td>
             <td>{{ seat.paddler.division }}</td>
+            <td>{{ seat.team or "" }}</td>
+            <td class="services">{% if seat.services %}<i class="fas fa-check"></i>{% endif %}</td>
             <td>{{ "£ %.2f"|format(seat.paid) }}</td>
-            <td><a href="{{ url_for('kanoe.entry_edit_seat', seat_id=seat.id) }}"><i class="fas fa-edit"></i></a></td>
+            <td><a href="{{ url_for('kanoe.seat', seat_id=seat.id) }}"><i class="fas fa-edit"></i></a></td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
     </div>
   </div>
-  <div class="col">
+  <div class="col-md-4">
     <form method="post">
       <div class="row">
         <div class="form-group col-sm-6">
