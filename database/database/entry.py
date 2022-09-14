@@ -23,7 +23,6 @@ class Entry(Base):
     id = Column(Integer, primary_key=True)
     race_id = Column(Integer, ForeignKey(Race.id), index=True)
     category_id = Column(Integer, ForeignKey(Category.id), index=True)
-    team_id = Column(Integer, ForeignKey(Team.id), index=True)
     boat_type = Column(boat_type, index=True)
     entry_number = Column(Integer)
     race_number = Column(Integer)
@@ -36,7 +35,6 @@ class Entry(Base):
     retired = Column(Boolean)
     disqualified = Column(Boolean)
 
-    team = relationship(Team, backref="entries", lazy="joined")
     category = relationship(Category, backref="entries", lazy="joined")
     race = relationship(Race, backref="entries", lazy="joined")
 

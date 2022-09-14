@@ -11,8 +11,10 @@ class Seat(Base):
     paddler_id = Column(Integer, ForeignKey(Paddler.id), index=True)
     club_id = Column(String(3), ForeignKey(Club.id), index=True)
     entry_id = Column(Integer, ForeignKey(Entry.id), index=True)
+    team_id = Column(Integer, ForeignKey(Team.id), index=True)
     paid = Column(Numeric)
 
+    team = relationship(Team, backref="entries", lazy="joined")
     paddler = relationship(Paddler, backref="seats", lazy="joined")
     club = relationship("Club", backref="seats", lazy="joined")
     entry = relationship(Entry, backref="seats", lazy="joined")

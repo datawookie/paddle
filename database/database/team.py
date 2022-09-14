@@ -62,10 +62,13 @@ from .series import Series
 
 class Team(Base):
     __tablename__ = "team"
+    __table_args__ = (
+        UniqueConstraint("name", "series_id", name="uq_team_name_series"),
+    )
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    series_id = Column(Integer, ForeignKey(Series.id), index=True)
+    series_id = Column(Integer, ForeignKey(Series.id), index=True, nullable=False)
 
     series = relationship(Series, backref="teams", lazy="joined")
 
