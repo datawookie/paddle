@@ -1,0 +1,76 @@
+{% extends "base.j2" %}
+
+{% block title %}Allocate Race Numbers{% endblock %}
+
+{% block styles %}
+{% include 'common/datatables-css.j2' %}
+{% endblock %}
+
+{% block content %}
+
+<h1>Allocate Race Numbers</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-sm-8">
+            <table id="races" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Entries</th>
+                        <th>Numbers</th>
+                        <th>Excess</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                    <tr>
+                        <td class="align-middle">{{ category.label }}</td>
+                        <td class="align-middle">{{ category.count }}</td>
+                        <td class="align-middle">
+                            <input type="number" class="form-control number" value="{{ (((category.count/20)|round(0, 'ceil'))*20)|int }}" name="batch_{{ category.id }}">
+                        </td>
+                        <td class="align-middle excess"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <div class="d-grid">
+                <p>Total numbers allocated: <span id="total"></span></p>
+                <button type="submit" class="btn btn-primary">Allocate Numbers</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+
+
+{% block scripts %}
+{% include 'common/jquery-javascript.j2' %}
+<script type="text/javascript" class="init">
+$(document).ready(function () {
+    var set_excess = function() {
+        parent = $(this).parent();
+        count = parent.prev().text();
+        excess = $(this).val() - count;
+        parent.next().text(excess);
+
+        total = 0;
+        $(".number").each(function() {
+            total += +$(this).val();
+        });
+        console.log(total);
+        $("#total").text(total);
+    };
+    $(".number").change(set_excess);
+
+    $(".number").each(function(index) {
+        set_excess.apply(this);
+    });
+});
+</script>
+{% endblock %}

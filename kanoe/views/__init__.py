@@ -201,6 +201,37 @@ def race_results_quick(race_id):
     return render_template("race-results-quick.j2", race_id=race_id)
 
 
+@blueprint.route("/race/<race_id>/allocate-numbers", methods=("GET", "POST"))
+def race_allocate_numbers(race_id):
+    if request.method == "POST":
+        print(request.form)
+
+    # Count number of entries per race.
+    entries = (
+        session.query(db.Entry.category_id, func.count(db.Entry.id).label("count"))
+        .filter(db.Entry.race_id == race_id)
+        .group_by(db.Entry.category_id)
+        .subquery()
+    )
+    # Merge counts into races.
+    categories = (
+        session.query(db.Category, entries.c.count)
+        .outerjoin(entries, entries.c.category_id == db.Category.id)
+        .all()
+    )
+    # Inject counts into Category objects.
+    for category, count in categories:
+        category.count = count if count else 0
+
+    # Unzip the list, extracting categories and counts separately.
+    if categories:
+        categories, _ = zip(*categories)
+
+    return render_template(
+        "race-allocate-numbers.j2", race_id=race_id, categories=categories
+    )
+
+
 @blueprint.route("/api/get-entry", methods=("GET", "POST"))
 def get_entry():
     if request.method == "POST":
