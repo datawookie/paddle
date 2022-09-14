@@ -33,3 +33,7 @@ footer {
     width: 95%;
     height: 25px;
 }
+
+hr {
+    height: 3px !important;
+}

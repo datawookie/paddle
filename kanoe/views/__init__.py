@@ -56,25 +56,39 @@ def allowed_file(filename):
 @blueprint.route("/races", methods=("GET", "POST"))
 def races():
     if request.method == "POST":
-        # Create a list of race IDs from the checkbox fields.
-        races = [key for key in request.form.keys() if re.match("race_id", key)]
-        races = [int(re.sub("race_id_", "", id)) for id in races]
-        races = [session.query(db.Race).get(id) for id in races]
+        print(request.form)
+        name = request.form.get("name")
+        date = request.form.get("date")
 
-        file = request.files.get("file")
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            filename = os.path.join(UPLOAD_FOLDER, filename)
-            file.save(filename)
+        if name and not date:
+            flash("Race date must be supplied.", "danger")
+        elif date and not name:
+            flash("Race name must be supplied.", "danger")
+        else:
+            if name and date:
+                date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
+                race = db.Race(name=name, date=date)
+                session.add(race)
+                session.commit()
+            # Create a list of race IDs from the checkbox fields.
+            races = [key for key in request.form.keys() if re.match("race_id", key)]
+            races = [int(re.sub("race_id_", "", id)) for id in races]
+            races = [session.query(db.Race).get(id) for id in races]
 
-            with open(filename, "rt") as file:
-                entries = file.read()
-                entries = json.loads(entries)
+            file = request.files.get("file")
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                filename = os.path.join(UPLOAD_FOLDER, filename)
+                file.save(filename)
 
-            for race in races:
-                load_entries(race, entries)
+                with open(filename, "rt") as file:
+                    entries = file.read()
+                    entries = json.loads(entries)
 
-        return redirect(url_for("kanoe.races"))
+                for race in races:
+                    load_entries(race, entries)
+
+            return redirect(url_for("kanoe.races"))
 
     # Count number of entries per race.
     entries = (
