@@ -1,7 +1,7 @@
 from .base import *
 
 # A Junior Team comprises of between 3 and 8 paddlers, with at least 3 boats,
-# from any class, provided that all paddlers are under 19.  
+# from any class, provided that all paddlers are under 19.
 # A Senior Team comprises of between 3 and 8 paddlers, with at least 3 boats,
 # from any class. A Senior Team may include one or more junior crews. The Team
 # time is calculated by adding up the times of the fastest three boats at each
@@ -11,8 +11,12 @@ from .base import *
 # instead of K2s. In each race, 3 boats, paddled by nominated team members must
 # finish to qualify for the team event.
 
+
 class Team(Base):
     __tablename__ = "team"
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
+
+    def __str__(self):
+        return self.name

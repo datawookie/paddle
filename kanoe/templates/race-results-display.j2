@@ -19,6 +19,7 @@
             <th>Position</th>
             <th>Race #</th>
             <th>Paddler(s)</th>
+            <th>Team</th>
             <th>Time</th>
         </tr>
     </thead>
@@ -26,8 +27,9 @@
     {% for result in results %}
         <tr>
             <td>{{ loop.index }}</td>
-            <td>{{ result.race_number }}</td>
+            <td>{{ result.race_number or "" }}</td>
             <td>{{ result }}</td>
+            <td>{{ result.team or "" }}</td>
             <td>{{ result.time }}</td>
         </tr>
     {% endfor %}

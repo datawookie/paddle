@@ -2,6 +2,7 @@ import enum
 import datetime
 from .base import *
 from .race import *
+from .team import *
 from .category import *
 from .series import *
 from .team import *
@@ -35,6 +36,7 @@ class Entry(Base):
     retired = Column(Boolean)
     disqualified = Column(Boolean)
 
+    team = relationship(Team, backref="entries", lazy="joined")
     category = relationship(Category, backref="entries", lazy="joined")
     race = relationship(Race, backref="entries", lazy="joined")
 

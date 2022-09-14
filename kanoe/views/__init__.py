@@ -83,17 +83,18 @@ def races():
         .subquery()
     )
     # Merge counts into races.
-    result = (
+    races = (
         session.query(db.Race, entries.c.count)
         .outerjoin(entries, entries.c.race_id == db.Race.id)
         .all()
     )
     # Inject counts into Race objects.
-    for race, count in result:
+    for race, count in races:
         race.count = count if count else 0
 
     # Unzip the list, extracting races and counts separately (Race objects already contain counts).
-    races, _ = zip(*result)
+    if races:
+        races, _ = zip(*races)
 
     return render_template("races.j2", races=races)
 
@@ -181,7 +182,7 @@ def race_results_quick(race_id):
 
         flash("Captured result!", "success")
 
-        return redirect(url_for("race_results_quick", race_id=race_id))
+        return redirect(url_for("kanoe.race_results_quick", race_id=race_id))
 
     return render_template("race-results-quick.j2", race_id=race_id)
 
@@ -305,7 +306,7 @@ def paddlers():
 
             flash("Added a new paddler.", "success")
 
-            return redirect(url_for("paddlers"))
+            return redirect(url_for("kanoe.paddlers"))
 
     paddlers = session.query(db.Paddler).all()
     return render_template("paddlers.j2", paddlers=paddlers)
@@ -315,3 +316,18 @@ def paddlers():
 def paddler(paddler_id):
     paddler = session.query(db.Paddler).get(paddler_id)
     return render_template("paddler.j2", paddler=paddler)
+
+
+@blueprint.route("/teams", methods=("GET", "POST"))
+def teams():
+    if request.method == "POST":
+        name = request.form["name"]
+
+        team = db.Team(name=name)
+        session.add(team)
+        session.commit()
+
+        return redirect(url_for("kanoe.teams"))
+
+    teams = session.query(db.Team).all()
+    return render_template("teams.j2", teams=teams)

@@ -74,11 +74,9 @@ def load_entries(race, individuals):
         category = category[0]
         if category:
             # session.query(db.Club).get(individual.club)
-            print(category)
             category = (
                 session.query(db.Category).filter(db.Category.label == category).one()
             )
-            print(category)
         else:
             logging.warning(f"🚨 Category is missing.")
             continue
@@ -110,7 +108,6 @@ def load_entries(race, individuals):
                 session.add(paddler)
             else:
                 logging.debug(f"Paddler found: {paddler}.")
-                print(paddler)
 
             club = session.query(db.Club).get(individual.club)
 
