@@ -25,6 +25,7 @@ GENDER_LIST = [
 
 class Category(Base):
     __tablename__ = "category"
+    __table_args__ = (UniqueConstraint("label", name="uq_category_label"),)
 
     id = Column(Integer, primary_key=True)
     label = Column(String)

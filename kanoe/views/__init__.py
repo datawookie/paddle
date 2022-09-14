@@ -269,7 +269,7 @@ def entry_edit_seat(seat_id):
 
         flash("Updated seat.", "success")
 
-        return redirect(url_for("entry", entry_id=seat.entry.id))
+        return redirect(url_for("kanoe.entry", entry_id=seat.entry.id))
 
     return render_template(
         "entry-edit-seat.j2", seat=seat, paddlers=paddlers, clubs=clubs
