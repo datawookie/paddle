@@ -74,7 +74,7 @@ def races():
             for race in races:
                 load_entries(race, entries)
 
-        return redirect(url_for("races"))
+        return redirect(url_for("kanoe.races"))
 
     # Count number of entries per race.
     entries = (

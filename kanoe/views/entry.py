@@ -42,6 +42,7 @@ class Individual:
     klass: str
     category: str
     division: int
+    paid: float
 
 
 def load_entries(race, individuals):
@@ -113,6 +114,8 @@ def load_entries(race, individuals):
 
             club = session.query(db.Club).get(individual.club)
 
-            paddler.seats.append(db.Seat(club=club, entry_id=entry.id))
+            paddler.seats.append(
+                db.Seat(club=club, entry_id=entry.id, paid=individual.paid)
+            )
 
     session.commit()
