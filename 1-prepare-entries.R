@@ -39,7 +39,8 @@ entries <- entries %>%
     bcu = bc_number,
     bcu_expiry = expiry,
     club,
-    klass = class
+    klass = class,
+    paid
   )
 
 write_json(

@@ -8,7 +8,8 @@
     "bcu": 244907,
     "bcu_expiry": "2022-08-18",
     "club": "BAS",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5332,
@@ -19,7 +20,8 @@
     "bcu": 362581,
     "bcu_expiry": "2022-11-30",
     "club": "FOX",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5373,
@@ -30,7 +32,8 @@
     "bcu": 507076,
     "bcu_expiry": "2023-07-26",
     "club": "BAS",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5373,
@@ -41,7 +44,8 @@
     "bcu": 328830,
     "bcu_expiry": "2022-03-17",
     "club": "BAS",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5383,
@@ -52,7 +56,8 @@
     "bcu": 113621,
     "bcu_expiry": "2022-09-01",
     "club": "WEY",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5383,
@@ -63,7 +68,8 @@
     "bcu": 271681,
     "bcu_expiry": "2023-06-02",
     "club": "FOY",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5446,
@@ -74,7 +80,8 @@
     "bcu": 4903,
     "bcu_expiry": "2023-07-03",
     "club": "TON",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5446,
@@ -85,7 +92,8 @@
     "bcu": 483457,
     "bcu_expiry": "2023-07-03",
     "club": "TON",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5450,
@@ -96,7 +104,8 @@
     "bcu": 500552,
     "bcu_expiry": "2023-06-28",
     "club": "BOA",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5450,
@@ -107,7 +116,8 @@
     "bcu": 520814,
     "bcu_expiry": "2023-07-18",
     "club": "BOA",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5881,
@@ -118,7 +128,8 @@
     "bcu": 462569,
     "bcu_expiry": "2022-05-26",
     "club": "RAF",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5881,
@@ -129,7 +140,8 @@
     "bcu": 232072,
     "bcu_expiry": "2023-07-18",
     "club": "RAF",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5946,
@@ -140,7 +152,8 @@
     "bcu": 328509,
     "bcu_expiry": "2023-02-14",
     "club": "FOX",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5946,
@@ -151,7 +164,8 @@
     "bcu": 267931,
     "bcu_expiry": "2022-07-20",
     "club": "RUN",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5384,
@@ -162,7 +176,8 @@
     "bcu": 587840,
     "bcu_expiry": "2023-06-24",
     "club": "FOY",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5384,
@@ -173,7 +188,8 @@
     "bcu": 510936,
     "bcu_expiry": "2023-07-14",
     "club": "DEV",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5401,
@@ -184,7 +200,8 @@
     "bcu": 624958,
     "bcu_expiry": "2022-07-06",
     "club": "WEY",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5401,
@@ -195,7 +212,8 @@
     "bcu": 539730,
     "bcu_expiry": "2022-11-27",
     "club": "WEY",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5495,
@@ -206,7 +224,8 @@
     "bcu": null,
     "bcu_expiry": null,
     "club": "LAU",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5495,
@@ -217,7 +236,8 @@
     "bcu": null,
     "bcu_expiry": null,
     "club": "LAU",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5498,
@@ -228,7 +248,8 @@
     "bcu": null,
     "bcu_expiry": null,
     "club": "LAU",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5498,
@@ -239,7 +260,8 @@
     "bcu": null,
     "bcu_expiry": null,
     "club": "LAU",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5589,
@@ -250,7 +272,8 @@
     "bcu": 42395,
     "bcu_expiry": null,
     "club": "MARLBOROUGH",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5589,
@@ -261,7 +284,8 @@
     "bcu": 42395,
     "bcu_expiry": null,
     "club": "MARLBOROUGH",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5591,
@@ -272,7 +296,8 @@
     "bcu": 42395,
     "bcu_expiry": null,
     "club": "MARLBOROUGH",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5591,
@@ -283,7 +308,8 @@
     "bcu": 42395,
     "bcu_expiry": null,
     "club": "MARLBOROUGH",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5592,
@@ -294,7 +320,8 @@
     "bcu": 42395,
     "bcu_expiry": null,
     "club": "MARLBOROUGH",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5592,
@@ -305,7 +332,8 @@
     "bcu": 42395,
     "bcu_expiry": null,
     "club": "MARLBOROUGH",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5593,
@@ -316,7 +344,8 @@
     "bcu": 42395,
     "bcu_expiry": null,
     "club": "MARLBOROUGH",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5593,
@@ -327,7 +356,8 @@
     "bcu": 42395,
     "bcu_expiry": null,
     "club": "MARLBOROUGH",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5602,
@@ -338,7 +368,8 @@
     "bcu": 654354,
     "bcu_expiry": "2022-10-25",
     "club": "KIM",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5602,
@@ -349,7 +380,8 @@
     "bcu": 655206,
     "bcu_expiry": "2022-11-10",
     "club": "KIM",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5604,
@@ -360,7 +392,8 @@
     "bcu": 651577,
     "bcu_expiry": "2022-09-24",
     "club": "KIM",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5604,
@@ -371,7 +404,8 @@
     "bcu": 654356,
     "bcu_expiry": "2022-10-25",
     "club": "KIM",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5605,
@@ -382,7 +416,8 @@
     "bcu": 654720,
     "bcu_expiry": "2022-11-01",
     "club": "KIM",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5605,
@@ -393,7 +428,8 @@
     "bcu": 655184,
     "bcu_expiry": "2022-11-14",
     "club": "KIM",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5290,
@@ -404,7 +440,8 @@
     "bcu": 649926,
     "bcu_expiry": "2022-07-16",
     "club": "DEV",
-    "klass": "SFK"
+    "klass": "SFK",
+    "paid": 64
   },
   {
     "number": 5290,
@@ -415,7 +452,8 @@
     "bcu": 649927,
     "bcu_expiry": "2022-07-16",
     "club": "DEV",
-    "klass": "SFK"
+    "klass": "SFK",
+    "paid": 64
   },
   {
     "number": 5467,
@@ -426,7 +464,8 @@
     "bcu": 468264,
     "bcu_expiry": "2022-05-05",
     "club": "NOT",
-    "klass": "VFK"
+    "klass": "VFK",
+    "paid": 64
   },
   {
     "number": 5467,
@@ -437,7 +476,8 @@
     "bcu": 476313,
     "bcu_expiry": "2023-05-19",
     "club": "NOT",
-    "klass": "VFK"
+    "klass": "VFK",
+    "paid": 64
   },
   {
     "number": 5366,
@@ -448,7 +488,8 @@
     "bcu": null,
     "bcu_expiry": null,
     "club": "DAU",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5366,
@@ -459,7 +500,8 @@
     "bcu": null,
     "bcu_expiry": null,
     "club": "DAU",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5398,
@@ -470,7 +512,8 @@
     "bcu": null,
     "bcu_expiry": null,
     "club": "DAU",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5398,
@@ -481,7 +524,8 @@
     "bcu": null,
     "bcu_expiry": null,
     "club": "DAU",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5496,
@@ -492,7 +536,8 @@
     "bcu": null,
     "bcu_expiry": null,
     "club": "LAU",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5496,
@@ -503,7 +548,8 @@
     "bcu": null,
     "bcu_expiry": null,
     "club": "LAU",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5603,
@@ -514,7 +560,8 @@
     "bcu": 540381,
     "bcu_expiry": "2022-09-15",
     "club": "KIM",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5603,
@@ -525,7 +572,8 @@
     "bcu": 542150,
     "bcu_expiry": "2022-11-04",
     "club": "KIM",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5282,
@@ -536,7 +584,8 @@
     "bcu": 295612,
     "bcu_expiry": "2023-04-09",
     "club": "FOX",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5282,
@@ -547,7 +596,8 @@
     "bcu": 327530,
     "bcu_expiry": "2023-01-12",
     "club": "IND",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5302,
@@ -558,7 +608,8 @@
     "bcu": 268568,
     "bcu_expiry": "2023-04-13",
     "club": "BAN",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5302,
@@ -569,7 +620,8 @@
     "bcu": 338249,
     "bcu_expiry": "2023-07-14",
     "club": "BAN",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5309,
@@ -580,7 +632,8 @@
     "bcu": 9033,
     "bcu_expiry": "2022-10-31",
     "club": "RUN",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5309,
@@ -591,7 +644,8 @@
     "bcu": 329497,
     "bcu_expiry": "2023-03-15",
     "club": "RUN",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5315,
@@ -602,7 +656,8 @@
     "bcu": 522007,
     "bcu_expiry": "2023-05-22",
     "club": "SOU",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5315,
@@ -613,7 +668,8 @@
     "bcu": 605990,
     "bcu_expiry": "2022-05-11",
     "club": "POO",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5321,
@@ -624,7 +680,8 @@
     "bcu": 590897,
     "bcu_expiry": "2023-02-17",
     "club": "GLO",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5321,
@@ -635,7 +692,8 @@
     "bcu": 650264,
     "bcu_expiry": "2022-09-17",
     "club": "TRU",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5328,
@@ -646,7 +704,8 @@
     "bcu": 492509,
     "bcu_expiry": "2022-08-19",
     "club": "DEV",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5328,
@@ -657,7 +716,8 @@
     "bcu": 307851,
     "bcu_expiry": "2022-08-21",
     "club": "DEV",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5376,
@@ -668,7 +728,8 @@
     "bcu": 483874,
     "bcu_expiry": "2022-10-26",
     "club": "POO",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5376,
@@ -679,7 +740,8 @@
     "bcu": 287196,
     "bcu_expiry": "2022-12-05",
     "club": "POO",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5430,
@@ -690,7 +752,8 @@
     "bcu": 332124,
     "bcu_expiry": "2022-06-16",
     "club": "IND",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5430,
@@ -701,7 +764,8 @@
     "bcu": 229965,
     "bcu_expiry": "2022-05-31",
     "club": "BAD",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5433,
@@ -712,7 +776,8 @@
     "bcu": 230033,
     "bcu_expiry": "2023-07-14",
     "club": "TON",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5433,
@@ -723,7 +788,8 @@
     "bcu": 536213,
     "bcu_expiry": "2022-07-27",
     "club": "TON",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5480,
@@ -734,7 +800,8 @@
     "bcu": 499177,
     "bcu_expiry": "2023-01-03",
     "club": "BOA",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5480,
@@ -745,7 +812,8 @@
     "bcu": 642886,
     "bcu_expiry": "2023-08-20",
     "club": "BOA",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5926,
@@ -756,7 +824,8 @@
     "bcu": 309205,
     "bcu_expiry": "2022-09-18",
     "club": "BAD",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5926,
@@ -767,7 +836,8 @@
     "bcu": 73736,
     "bcu_expiry": "2022-12-24",
     "club": "BAD",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5301,
@@ -778,7 +848,8 @@
     "bcu": 302217,
     "bcu_expiry": "2022-02-18",
     "club": "CAM",
-    "klass": "SFK"
+    "klass": "SFK",
+    "paid": 64
   },
   {
     "number": 5301,
@@ -789,7 +860,8 @@
     "bcu": 330674,
     "bcu_expiry": "2022-11-10",
     "club": "CAM",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5311,
@@ -800,7 +872,8 @@
     "bcu": 254167,
     "bcu_expiry": "2023-03-06",
     "club": "RIC",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5311,
@@ -811,7 +884,8 @@
     "bcu": 335273,
     "bcu_expiry": "2022-07-03",
     "club": "RIC",
-    "klass": "VFK"
+    "klass": "VFK",
+    "paid": 64
   },
   {
     "number": 5339,
@@ -822,7 +896,8 @@
     "bcu": 401740,
     "bcu_expiry": "2022-07-16",
     "club": "DEV",
-    "klass": "SFK"
+    "klass": "SFK",
+    "paid": 64
   },
   {
     "number": 5339,
@@ -833,7 +908,8 @@
     "bcu": 590154,
     "bcu_expiry": "2023-01-25",
     "club": "DEV",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5497,
@@ -844,7 +920,8 @@
     "bcu": null,
     "bcu_expiry": null,
     "club": "LAU",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5497,
@@ -855,7 +932,8 @@
     "bcu": null,
     "bcu_expiry": null,
     "club": "LAU",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5564,
@@ -866,7 +944,8 @@
     "bcu": 291779,
     "bcu_expiry": "2022-07-22",
     "club": "LBZ",
-    "klass": "VFK"
+    "klass": "VFK",
+    "paid": 64
   },
   {
     "number": 5564,
@@ -877,7 +956,8 @@
     "bcu": 315668,
     "bcu_expiry": "2023-02-16",
     "club": "LBZ",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5566,
@@ -888,7 +968,8 @@
     "bcu": 610270,
     "bcu_expiry": "2023-08-21",
     "club": "RIC",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5566,
@@ -899,7 +980,8 @@
     "bcu": 502599,
     "bcu_expiry": "2023-04-27",
     "club": "RIC",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5590,
@@ -910,7 +992,8 @@
     "bcu": 42395,
     "bcu_expiry": null,
     "club": "MARLBOROUGH",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5590,
@@ -921,7 +1004,8 @@
     "bcu": 42395,
     "bcu_expiry": null,
     "club": "MARLBOROUGH",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5606,
@@ -932,7 +1016,8 @@
     "bcu": 654955,
     "bcu_expiry": "2022-11-06",
     "club": "KIM",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5606,
@@ -943,7 +1028,8 @@
     "bcu": 576366,
     "bcu_expiry": "2022-10-16",
     "club": "KIM",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5607,
@@ -954,7 +1040,8 @@
     "bcu": 654457,
     "bcu_expiry": "2022-10-27",
     "club": "KIM",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5607,
@@ -965,7 +1052,8 @@
     "bcu": 654480,
     "bcu_expiry": "2022-10-27",
     "club": "KIM",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5281,
@@ -976,7 +1064,8 @@
     "bcu": 484021,
     "bcu_expiry": "2022-05-21",
     "club": "LDN",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5281,
@@ -987,7 +1076,8 @@
     "bcu": 605411,
     "bcu_expiry": "2023-05-09",
     "club": "RDG",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5377,
@@ -998,7 +1088,8 @@
     "bcu": 329808,
     "bcu_expiry": "2023-06-14",
     "club": "GLO",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5377,
@@ -1009,7 +1100,8 @@
     "bcu": 615634,
     "bcu_expiry": "2023-06-14",
     "club": "GLO",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5557,
@@ -1020,7 +1112,8 @@
     "bcu": 82381,
     "bcu_expiry": "2022-12-17",
     "club": "NOR",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5557,
@@ -1031,7 +1124,8 @@
     "bcu": 588497,
     "bcu_expiry": "2022-12-03",
     "club": "NOR",
-    "klass": "JFK"
+    "klass": "JFK",
+    "paid": 48
   },
   {
     "number": 5283,
@@ -1042,7 +1136,8 @@
     "bcu": 500562,
     "bcu_expiry": "2023-03-04",
     "club": "IND",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5429,
@@ -1053,7 +1148,8 @@
     "bcu": 264178,
     "bcu_expiry": "2023-01-19",
     "club": "ACU",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5632,
@@ -1064,7 +1160,8 @@
     "bcu": 543707,
     "bcu_expiry": "2023-04-26",
     "club": "RDG",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5907,
@@ -1075,7 +1172,8 @@
     "bcu": 325722,
     "bcu_expiry": "2022-08-25",
     "club": "RDG",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5945,
@@ -1086,7 +1184,8 @@
     "bcu": 493987,
     "bcu_expiry": "2023-02-09",
     "club": "BAD",
-    "klass": "SMK"
+    "klass": "SMK",
+    "paid": 64
   },
   {
     "number": 5499,
@@ -1097,7 +1196,8 @@
     "bcu": null,
     "bcu_expiry": null,
     "club": "LAU",
-    "klass": "JMK"
+    "klass": "JMK",
+    "paid": 48
   },
   {
     "number": 5304,
@@ -1108,7 +1208,8 @@
     "bcu": 300811,
     "bcu_expiry": "2023-03-19",
     "club": "CAM",
-    "klass": "SFK"
+    "klass": "SFK",
+    "paid": 64
   },
   {
     "number": 5374,
@@ -1119,7 +1220,8 @@
     "bcu": 316811,
     "bcu_expiry": "2023-05-11",
     "club": "NOR",
-    "klass": "VFK"
+    "klass": "VFK",
+    "paid": 64
   },
   {
     "number": 5291,
@@ -1130,7 +1232,8 @@
     "bcu": 554446,
     "bcu_expiry": "2023-05-14",
     "club": "DEV",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5298,
@@ -1141,7 +1244,8 @@
     "bcu": 220946,
     "bcu_expiry": "2023-08-04",
     "club": "ADS",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5324,
@@ -1152,7 +1256,8 @@
     "bcu": 518908,
     "bcu_expiry": "2023-09-12",
     "club": "DEV",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5355,
@@ -1163,7 +1268,8 @@
     "bcu": 244300,
     "bcu_expiry": "2022-09-08",
     "club": "IND",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5432,
@@ -1174,7 +1280,8 @@
     "bcu": 326197,
     "bcu_expiry": "2022-12-21",
     "club": "BAS",
-    "klass": "VFK"
+    "klass": "VFK",
+    "paid": 64
   },
   {
     "number": 5441,
@@ -1185,7 +1292,8 @@
     "bcu": 60479,
     "bcu_expiry": "2022-11-01",
     "club": "TON",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5473,
@@ -1196,7 +1304,8 @@
     "bcu": 24497,
     "bcu_expiry": "2023-01-02",
     "club": "BOA",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5660,
@@ -1207,7 +1316,8 @@
     "bcu": 40148,
     "bcu_expiry": "2022-12-31",
     "club": "SOU",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5910,
@@ -1218,7 +1328,8 @@
     "bcu": 16495,
     "bcu_expiry": "2022-11-08",
     "club": "SOU",
-    "klass": "VMK"
+    "klass": "VMK",
+    "paid": 64
   },
   {
     "number": 5299,
@@ -1229,7 +1340,8 @@
     "bcu": 334941,
     "bcu_expiry": "2023-06-24",
     "club": "POO",
-    "klass": "SMC"
+    "klass": "SMC",
+    "paid": 64
   },
   {
     "number": 5299,
@@ -1240,7 +1352,8 @@
     "bcu": 463183,
     "bcu_expiry": "2023-04-22",
     "club": "POO",
-    "klass": "VMC"
+    "klass": "VMC",
+    "paid": 64
   },
   {
     "number": 5333,
@@ -1251,7 +1364,8 @@
     "bcu": 279637,
     "bcu_expiry": "2022-03-20",
     "club": "DEV",
-    "klass": "VMC"
+    "klass": "VMC",
+    "paid": 64
   },
   {
     "number": 5333,
@@ -1262,7 +1376,8 @@
     "bcu": 284808,
     "bcu_expiry": "2023-05-19",
     "club": "DEV",
-    "klass": "VMC"
+    "klass": "VMC",
+    "paid": 64
   },
   {
     "number": 5334,
@@ -1273,7 +1388,8 @@
     "bcu": 211282,
     "bcu_expiry": "2022-04-15",
     "club": "LBZ",
-    "klass": "SFC"
+    "klass": "SFC",
+    "paid": 64
   },
   {
     "number": 5334,
@@ -1284,7 +1400,8 @@
     "bcu": 49804,
     "bcu_expiry": "2023-04-15",
     "club": "LBZ",
-    "klass": "VMC"
+    "klass": "VMC",
+    "paid": 64
   },
   {
     "number": 5337,
@@ -1295,7 +1412,8 @@
     "bcu": null,
     "bcu_expiry": null,
     "club": "IND",
-    "klass": "VMC"
+    "klass": "VMC",
+    "paid": 64
   },
   {
     "number": 5337,
@@ -1306,7 +1424,8 @@
     "bcu": null,
     "bcu_expiry": null,
     "club": "LWC",
-    "klass": "VMC"
+    "klass": "VMC",
+    "paid": 64
   },
   {
     "number": 5447,
@@ -1317,7 +1436,8 @@
     "bcu": 287614,
     "bcu_expiry": "2023-06-30",
     "club": "TON",
-    "klass": "VMC"
+    "klass": "VMC",
+    "paid": 64
   },
   {
     "number": 5447,
@@ -1328,7 +1448,8 @@
     "bcu": 80205,
     "bcu_expiry": "2022-11-25",
     "club": "TON",
-    "klass": "VMC"
+    "klass": "VMC",
+    "paid": 64
   },
   {
     "number": 5614,
@@ -1339,7 +1460,8 @@
     "bcu": 607786,
     "bcu_expiry": "2022-10-22",
     "club": "PRA",
-    "klass": "SMC"
+    "klass": "SMC",
+    "paid": 64
   },
   {
     "number": 5614,
@@ -1350,7 +1472,8 @@
     "bcu": 607793,
     "bcu_expiry": "2022-10-22",
     "club": "PRA",
-    "klass": "VMC"
+    "klass": "VMC",
+    "paid": 64
   },
   {
     "number": 5725,
@@ -1361,7 +1484,8 @@
     "bcu": 571769,
     "bcu_expiry": "2022-12-03",
     "club": "IND",
-    "klass": "VMC"
+    "klass": "VMC",
+    "paid": 64
   },
   {
     "number": 5725,
@@ -1372,7 +1496,8 @@
     "bcu": 658475,
     "bcu_expiry": "2023-02-07",
     "club": "IND",
-    "klass": "VMC"
+    "klass": "VMC",
+    "paid": 64
   },
   {
     "number": 5306,
@@ -1383,7 +1508,8 @@
     "bcu": 327702,
     "bcu_expiry": "2022-11-17",
     "club": "POO",
-    "klass": "VMC"
+    "klass": "VMC",
+    "paid": 64
   },
   {
     "number": 5341,
@@ -1394,7 +1520,8 @@
     "bcu": 58497,
     "bcu_expiry": "2023-03-31",
     "club": "PAN",
-    "klass": "VFC"
+    "klass": "VFC",
+    "paid": 64
   },
   {
     "number": 5431,
@@ -1405,7 +1532,8 @@
     "bcu": 321154,
     "bcu_expiry": "2022-08-19",
     "club": "IND",
-    "klass": "VMC"
+    "klass": "VMC",
+    "paid": 64
   },
   {
     "number": 5440,
@@ -1416,7 +1544,8 @@
     "bcu": 237186,
     "bcu_expiry": "2023-07-18",
     "club": "IND",
-    "klass": "VMC"
+    "klass": "VMC",
+    "paid": 64
   },
   {
     "number": 5472,
@@ -1427,7 +1556,8 @@
     "bcu": 327490,
     "bcu_expiry": "2023-07-02",
     "club": "RDG",
-    "klass": "VMC"
+    "klass": "VMC",
+    "paid": 64
   },
   {
     "number": 5486,
@@ -1438,6 +1568,7 @@
     "bcu": 485492,
     "bcu_expiry": "2022-06-04",
     "club": "RDG",
-    "klass": "VFC"
+    "klass": "VFC",
+    "paid": 64
   }
 ]
