@@ -6,6 +6,7 @@ from .team import *
 from .category import *
 from .series import *
 from .team import *
+from .number import *
 
 
 class BoatType(enum.Enum):
@@ -25,7 +26,7 @@ class Entry(Base):
     category_id = Column(Integer, ForeignKey(Category.id), index=True)
     boat_type = Column(boat_type, index=True)
     entry_number = Column(Integer)
-    race_number = Column(Integer)
+    number_id = Column(Integer, ForeignKey(Number.id), index=True)
     online = Column(Boolean)
     series = Column(Boolean)
     series_id = Column(Integer, ForeignKey(Series.id), index=True)
@@ -37,6 +38,7 @@ class Entry(Base):
 
     category = relationship(Category, backref="entries", lazy="joined")
     race = relationship(Race, backref="entries", lazy="joined")
+    race_number = relationship(Number, backref="entries")
 
     @property
     def division(self):

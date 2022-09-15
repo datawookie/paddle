@@ -80,3 +80,9 @@ if __name__ == "__main__":
                 logger.debug("  - " + str(category))
             session.commit()
             logger.info("Done.")
+            logger.info("Populate number table...")
+            for number in range(db.MAX_NUMBER):
+                number = db.Number(id=number + 1)
+                session.add(number)
+            session.commit()
+            logger.info("Done.")
