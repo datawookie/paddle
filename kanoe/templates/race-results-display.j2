@@ -8,6 +8,7 @@
 
 {% block content %}
 
+{% if categories %}
 <h1>Results - {{ race.name }} ({{ race.date }})</h1>
 
 {% for category, results in categories.items() %}
@@ -39,9 +40,17 @@
 </table>
 {% endfor %}
 
+{% else %}
+<div class="results missing">
+<p>No results yet...<br><i class="fas fa-circle-notch fa-spin"></i></p>
+</div>
+{% endif %}
+
 {% endblock %}
 
 {% block scripts %}
+    {# Only scroll and reload if there are results. Will need to refresh page to get this started. #}
+    {% if categories %}
 <script type="text/javascript" class="init">
 var scroll = setInterval(function() {
         // Scroll slowly down page.
@@ -54,4 +63,5 @@ var scroll = setInterval(function() {
     100
 );
 </script>
+    {% endif %}
 {% endblock %}
