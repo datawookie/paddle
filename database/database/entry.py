@@ -20,6 +20,9 @@ boat_type = Enum(BoatType)
 
 class Entry(Base):
     __tablename__ = "entry"
+    __table_args__ = (
+        UniqueConstraint("race_id", "number_id", name="uq_entry_race_number"),
+    )
 
     id = Column(Integer, primary_key=True)
     race_id = Column(Integer, ForeignKey(Race.id), index=True)
