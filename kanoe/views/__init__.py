@@ -3,11 +3,19 @@ import json
 import datetime
 import re
 import logging
-from flask import Blueprint, render_template, request, url_for, flash, redirect, jsonify
+from flask import (
+    Blueprint,
+    render_template,
+    request,
+    url_for,
+    flash,
+    redirect,
+    jsonify,
+    abort,
+)
 from werkzeug.utils import secure_filename
 from sqlalchemy.sql import func
 
-# from .. import app
 import database as db
 from .entry import load_entries
 
@@ -236,7 +244,20 @@ def race_allocate_numbers(race_id):
 def get_entry():
     if request.method == "POST":
         race_id = request.form["race_id"]
+        # Get race number.
         race_number = request.form["race_number"]
+        try:
+            race_number = (
+                session.query(db.Number)
+                .filter(
+                    db.Number.id == race_number,
+                )
+                .one()
+            )
+        except db.NoResultFound:
+            logging.warning(f"Race number {race_number} not found.")
+            abort(404)
+        # Get corresponding entry.
         entry = (
             session.query(db.Entry)
             .filter(

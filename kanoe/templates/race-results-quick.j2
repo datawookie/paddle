@@ -113,6 +113,12 @@ $(document).ready(function () {
                 type: "post",
                 data: { race_id: {{ race_id }}, race_number: $(this).val() },
                 success: function(response) {
+                    $('#time_start').prop('disabled', false);
+                    $('#time_finish').prop('disabled', false);
+                    $('#retired').prop('disabled', false);
+                    $('#disqualified').prop('disabled', false);
+                    $('#submit').prop('disabled', false);
+
                     $('#paddlers').val(response["paddlers"]);
                     $('#entry_id').val(response["entry_id"]);
                     $('#time_start').val(response["time_start"]);
@@ -123,6 +129,16 @@ $(document).ready(function () {
                             $('#submit').focus();
                         }
                     }
+                },
+                error: function(jqXHR, textStatus) {
+                    $('#paddlers').val("Race number not found!");
+
+                    $('#time_start').prop('disabled', true);
+                    $('#time_finish').prop('disabled', true);
+                    $('#retired').prop('disabled', true);
+                    $('#disqualified').prop('disabled', true);
+                    $('#submit').prop('disabled', true);
+                    $('#race_number').focus();
                 }
             });
         }
