@@ -331,7 +331,6 @@ def seat(seat_id):
     seat = session.query(db.Seat).get(seat_id)
 
     if request.method == "POST":
-        print(request.form)
         paddler_id = request.form["paddler"]
         club_id = request.form["club"]
         team_id = request.form.get("team")
@@ -343,6 +342,8 @@ def seat(seat_id):
             seat.team_id = team_id
         if services:
             seat.services = True
+        else:
+            seat.services = False
         session.commit()
 
         flash("Updated seat.", "success")
