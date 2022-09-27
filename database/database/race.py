@@ -1,4 +1,5 @@
 from .base import *
+from .series import Series
 
 
 class Race(Base):
@@ -8,6 +9,9 @@ class Race(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     date = Column(Date, nullable=False)
+    series_id = Column(Integer, ForeignKey(Series.id), index=True)
+
+    series = relationship(Series, backref="races", lazy="joined")
 
     # TODO: Add other information from configuration file. For example:
     #
