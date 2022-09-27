@@ -61,6 +61,18 @@ def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+@blueprint.route("/races", methods=("POST",))
+def series_create():
+    if request.method == "POST":
+        name = request.form.get("name")
+
+        series = db.Series(name=name)
+        session.add(series)
+        session.commit()
+
+    return redirect(url_for("kanoe.races"))
+
+
 @blueprint.route("/races", methods=("GET", "POST"))
 def races():
     if request.method == "POST":
@@ -118,7 +130,9 @@ def races():
     if races:
         races, _ = zip(*races)
 
-    return render_template("races.j2", races=races)
+    serieses = session.query(db.Series).all()
+
+    return render_template("races.j2", races=races, serieses=serieses)
 
 
 @blueprint.route("/race/<race_id>")
