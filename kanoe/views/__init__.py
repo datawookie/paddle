@@ -128,12 +128,6 @@ def race(race_id):
     return render_template("race.j2", race=race, entries=entries)
 
 
-@blueprint.route("/race/<race_id>/results/bulk", methods=("GET", "POST"))
-def race_results_bulk(race_id):
-    entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
-    return render_template("race-results-bulk.j2", race_id=race_id, entries=entries)
-
-
 @blueprint.route("/race/<race_id>/results/display")
 def race_results_display(race_id):
     race = session.query(db.Race).get(race_id)
