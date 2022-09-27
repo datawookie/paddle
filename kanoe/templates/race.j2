@@ -4,7 +4,6 @@
 
 {% block styles %}
 {% include 'common/datatables-css.j2' %}
-{% include 'common/datatables-filter-css.j2' %}
 {% endblock %}
 
 {% block content %}
@@ -64,27 +63,9 @@
 {% block scripts %}
 {% include 'common/jquery-javascript.j2' %}
 {% include 'common/datatables-javascript.j2' %}
-{% include 'common/datatables-filter-javascript.j2' %}
 <script type="text/javascript" class="init">
 $(document).ready(function () {
-    // Uses Column Filter Integration (https://datatables.net/extensions/searchpanes/examples/advanced/columnFilter.html)
-	var table = $('#entries').DataTable({
-        dom: 'Plfrtip',
-        columnDefs: [
-            {
-                searchPanes: {
-                    show: true
-                },
-                targets: [2]
-            },
-            {
-                searchPanes: {
-                    show: false
-                },
-                targets: [3]
-            }
-        ]
-    });
+	var table = $('#entries').DataTable();
 });
 </script>
 {% endblock %}
