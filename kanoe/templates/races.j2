@@ -18,6 +18,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Date</th>
+                        <th>Series</th>
                         <th>Entries</th>
                         <th></th>
                     </tr>
@@ -27,6 +28,7 @@
                     <tr>
                         <td><a href="{{ url_for('kanoe.race', race_id=race.id) }}">{{ race.name }}</a></td>
                         <td>{{ race.date }}</td>
+                        <td>{{ race.series }}</td>
                         <td>{{ race.count }}</td>
                         <td><input type="checkbox" class="form-check-input" id="race_id_{{ race.id }}" name="race_id_{{ race.id }}"></td>
                     </tr>
