@@ -1,6 +1,6 @@
 {% extends "base-plain.j2" %}
 
-{% block title %}Results{% endblock %}
+{% block title %}Results: {{ race.name }} ({{ race.date }}){% endblock %}
 
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="/static/styles-results.css">
@@ -9,7 +9,7 @@
 {% block content %}
 
 {% if categories %}
-<h1>Results - {{ race.name }} ({{ race.date }})</h1>
+<h1>Results: {{ race.name }} ({{ race.date }})</h1>
 
 {% for category, results in categories.items() %}
 <h2>{{ category }}</h2>

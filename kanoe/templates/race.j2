@@ -1,6 +1,6 @@
 {% extends "base.j2" %}
 
-{% block title %}Entries{% endblock %}
+{% block title %}{{ race.name }} ({{ race.date }}){% endblock %}
 
 {% block styles %}
 {% include 'common/datatables-css.j2' %}
