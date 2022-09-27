@@ -207,7 +207,29 @@ def race_results_quick(race_id):
 @blueprint.route("/race/<race_id>/allocate-numbers", methods=("GET", "POST"))
 def race_allocate_numbers(race_id):
     if request.method == "POST":
-        print(request.form)
+        chunk = 1
+
+        for category_id, numbers in request.form.items():
+            category_id = int(category_id.replace("category_id_", ""))
+            numbers = int(numbers)
+
+            logging.debug(f"Allocating numbers for category ID = {category_id}.")
+            entries = (
+                session.query(db.Entry)
+                .filter(db.Entry.race_id == race_id)
+                .filter(db.Entry.category_id == category_id)
+                .all()
+            )
+            logging.debug(f"Found {len(entries)} entries.")
+
+            running = chunk
+            #
+            for entry in entries:
+                logging.debug(f"Allocating race number {running} to {entry}.")
+                entry.number_id = running
+                running += 1
+
+            chunk += numbers - (1 if chunk == 1 else 0)
 
     # Count number of entries per race.
     entries = (
@@ -229,6 +251,10 @@ def race_allocate_numbers(race_id):
     # Unzip the list, extracting categories and counts separately.
     if categories:
         categories, _ = zip(*categories)
+
+    # Drop empty categories.
+    #
+    categories = [category for category in categories if category.count > 0]
 
     return render_template(
         "race-allocate-numbers.j2", race_id=race_id, categories=categories
