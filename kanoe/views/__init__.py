@@ -231,6 +231,8 @@ def race_allocate_numbers(race_id):
 
             chunk += numbers - (1 if chunk == 1 else 0)
 
+        return redirect(url_for("kanoe.races"))
+
     # Count number of entries per race.
     entries = (
         session.query(db.Entry.category_id, func.count(db.Entry.id).label("count"))
