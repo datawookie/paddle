@@ -16,21 +16,21 @@
             <table id="races" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Category</th>
-                        <th>Entries</th>
-                        <th>Numbers</th>
-                        <th>Excess</th>
+                        <th class="text-center">Category</th>
+                        <th class="text-center">Entries</th>
+                        <th class="text-center">Numbers</th>
+                        <th class="text-center">Excess</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for category in categories %}
                     <tr>
                         <td class="align-middle">{{ category.label }}</td>
-                        <td class="align-middle">{{ category.count }}</td>
+                        <td class="align-middle text-end" data-index="{{ loop.index }}">{{ category.count }}</td>
                         <td class="align-middle">
-                            <input type="number" class="form-control number" value="{{ (((category.count/20)|round(0, 'ceil'))*20)|int }}" name="batch_{{ category.id }}">
+                            <input type="number" class="form-control number" value="{{ (((category.count/20)|round(0, 'ceil'))*20)|int }}" name="category_id_{{ category.id }}">
                         </td>
-                        <td class="align-middle excess"></td>
+                        <td class="align-middle text-end excess"></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -55,15 +55,21 @@
 $(document).ready(function () {
     var set_excess = function() {
         parent = $(this).parent();
+        // Number of entries for this category.
         count = parent.prev().text();
+        // Index for this category.
+        index = parent.prev().attr("data-index");
+        // Excess (allocated numbers - required numbers).
         excess = $(this).val() - count;
+        // Fix for first category (because numbering starts at 1).
+        excess -= (index == 1 ? 1 : 0);
+        // Update excess column.
         parent.next().text(excess);
 
         total = 0;
         $(".number").each(function() {
             total += +$(this).val();
         });
-        console.log(total);
         $("#total").text(total);
     };
     $(".number").change(set_excess);
