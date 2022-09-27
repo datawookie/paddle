@@ -7,4 +7,5 @@ kanoe.code-workspace
 *.json
 .~lock*
 kanoe.db
+kanoe.db-journal
 INFORMATION
