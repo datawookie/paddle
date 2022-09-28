@@ -65,6 +65,12 @@ You can also press enter in either the start time or finish time field to submit
                     <input type="text" class="form-control time" id="time_finish" name="time_finish">
                 </div>
             </div>
+            <div class="row">
+                <label class="col-sm-4 mt-1 col-form-label">Race time</label>
+                <div class="col-sm-8 mt-1">
+                    <input type="text" class="form-control time" id="time_race" disabled readonly>
+                </div>
+            </div>
         </div>
         <div class="col">
             <div class="row mt-2">
@@ -107,6 +113,7 @@ $(document).ready(function () {
             $('#entry_id').removeAttr("value");
             $('#time_start').val("");
             $('#time_finish').val("");
+            $('#time_race').val("");
         } else {
             $.ajax({
                 url: "/api/get-entry",
@@ -153,8 +160,39 @@ $(document).ready(function () {
         }
     });
 
+    var update_race_time = function() {
+        start = $("#time_start").val().split(":");
+        finish = $("#time_finish").val().split(":");
+
+        if (start.length == 3 && finish.length == 3) {
+            start = new Date(0, 0, 0, start[0], start[1], start[2]);
+            finish = new Date(0, 0, 0, finish[0], finish[1], finish[2]);
+            var diff = (finish.getTime() - start.getTime()) / 1000;
+
+            var hours = Math.floor(diff / 60 / 60);
+            diff -= hours * 60 * 60;
+            var minutes = Math.floor(diff / 60);
+            var seconds = diff - minutes * 60;
+
+            $('#time_race').val(String(hours).padStart(2, '0') + ":" + String(minutes).padStart(2, '0') + ":" + String(seconds).padStart(2, '0'));
+        }
+    };
+
     $('.time').focus(function() {
         $(this).select();
+    });
+    $('.time').focusout(function() {
+        console.log("Parsing time.");
+        // Get time and remove colons.
+        var time = $(this).val().replace(/:/g, "");
+        if (time != "") {
+            // Insert colons.
+            time = time.slice(0, 2) + ":" + time.slice(2, 4) + ":" + time.slice(4, 6);
+            console.log(time);
+            // Update time field.
+            $(this).val(time);
+            update_race_time();
+        }
     });
 });
 </script>
