@@ -17,6 +17,7 @@ from werkzeug.utils import secure_filename
 from sqlalchemy.sql import func
 
 import database as db
+from database.database import announcement
 from .entry import load_entries
 
 session = db.Session()
@@ -169,7 +170,14 @@ def race_results_display(race_id):
     for results in categories.values():
         results.sort(key=lambda x: x.time, reverse=False)
 
-    return render_template("race-results-display.j2", race=race, categories=categories)
+    announcements = session.query(db.Announcement).filter(db.Announcement.enabled).all()
+
+    return render_template(
+        "race-results-display.j2",
+        race=race,
+        categories=categories,
+        announcements=announcements,
+    )
 
 
 def parse_time(time):

@@ -46,6 +46,21 @@
 </div>
 {% endif %}
 
+{% if announcements %}
+<table class="table announcement">
+    <thead>
+        <tr>
+            <th><span>Announcements</span></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for msg in announcements %}
+        <tr><td><i class="fas fa-bullhorn fa-beat-fade"></i>&nbsp;&nbsp;&nbsp;{{ msg }}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
 {% endblock %}
 
 {% block scripts %}
@@ -57,10 +72,11 @@ var scroll = setInterval(function() {
         window.scrollBy(0, 10);
         // Hard reload page at bottom.
         if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-            setTimeout(() => { location.reload(true); }, 2000);
+            setTimeout(() => { location.reload(true); }, 5000);
         }
     },
-    100
+    // Scroll rate (larger number -> slower).
+    200
 );
 </script>
     {% endif %}

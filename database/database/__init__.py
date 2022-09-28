@@ -10,3 +10,4 @@ from .member import *
 from .trial import *
 from .entry import *
 from .series import *
+from .announcement import *
