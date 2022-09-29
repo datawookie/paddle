@@ -13,6 +13,7 @@
 <div class="d-grid gap-2">
     <a href="{{ url_for('kanoe.race_results_quick', race_id=race.id) }}" class="btn btn-primary" role="button">Capture Results</a>
     <a href="{{ url_for('kanoe.race_results_display', race_id=race.id) }}" class="btn btn-primary" role="button" target="_blank">Display Results</a>
+    <a href="{{ url_for('kanoe.race_results_validate', race_id=race.id) }}" class="btn btn-primary" role="button" target="_blank">Validate Results</a>
     <a href="{{ url_for('kanoe.race_allocate_numbers', race_id=race.id) }}" class="btn btn-primary" role="button">Allocate Race Numbers</a>
 </div>
 

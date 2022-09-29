@@ -1,0 +1,35 @@
+{% extends "base-fluid.j2" %}
+
+{% block title %}{{ race.name }} ({{ race.date }}) — Validation{% endblock %}
+
+{% block styles %}
+{% include 'common/datatables-css.j2' %}
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ race.name }} ({{ race.date }}) — Validation</h1>
+
+<div class="d-flex align-items-start">
+  <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+    <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start active" data-bs-target="#v-pills-home">Summary</button>
+    <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#v-pills-profile">Boats not started</button>
+    <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#v-pills-messages">Boats not finished</button>
+    <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#v-pills-missing-start">Missing start time</button>
+    <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#v-pills-missing-finish">Missing finish time</button>
+    <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#v-pills-suspect">Suspect race time</button>
+  </div>
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade show active" id="v-pills-home" aria-labelledby="v-pills-home-tab">A</div>
+    <div role="tabpanel" class="tab-pane fade" id="v-pills-profile">B</div>
+    <div role="tabpanel" class="tab-pane fade" id="v-pills-messages" aria-labelledby="v-pills-messages-tab">C</div>
+    <div role="tabpanel" class="tab-pane fade" id="v-pills-missing-start">D</div>
+    <div role="tabpanel" class="tab-pane fade" id="v-pills-missing-finish">E</div>
+    <div role="tabpanel" class="tab-pane fade" id="v-pills-suspect">F</div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
