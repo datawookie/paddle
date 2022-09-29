@@ -10,26 +10,66 @@
 
 <h1>{{ race.name }} ({{ race.date }}) — Validation</h1>
 
-<div class="d-flex align-items-start">
-  <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-    <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start active" data-bs-target="#v-pills-home">Summary</button>
-    <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#v-pills-profile">Boats not started</button>
-    <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#v-pills-messages">Boats not finished</button>
-    <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#v-pills-missing-start">Missing start time</button>
-    <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#v-pills-missing-finish">Missing finish time</button>
-    <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#v-pills-suspect">Suspect race time</button>
-  </div>
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane fade show active" id="v-pills-home" aria-labelledby="v-pills-home-tab">A</div>
-    <div role="tabpanel" class="tab-pane fade" id="v-pills-profile">B</div>
-    <div role="tabpanel" class="tab-pane fade" id="v-pills-messages" aria-labelledby="v-pills-messages-tab">C</div>
-    <div role="tabpanel" class="tab-pane fade" id="v-pills-missing-start">D</div>
-    <div role="tabpanel" class="tab-pane fade" id="v-pills-missing-finish">E</div>
-    <div role="tabpanel" class="tab-pane fade" id="v-pills-suspect">F</div>
-  </div>
+<div class="row">
+    <div class="col-md-9">
+            <div class="d-flex align-items-start">
+            <div class="nav flex-column nav-pills me-3" id="tab" role="tablist" aria-orientation="vertical">
+                <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start active" data-bs-target="#profile">Boats not started</button>
+                <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#not-finished">Boats not finished</button>
+                <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#missing-start">Missing start time</button>
+                <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#missing-finish">Missing finish time</button>
+                <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#suspect">Suspect race time</button>
+                <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#details">Details missing</button>
+            </div>
+            <div class="tab-content my-3 ms-3">
+                <div role="tabpanel" class="tab-pane fade show active" id="not-started">B</div>
+                <div role="tabpanel" class="tab-pane fade" id="not-finished">C</div>
+                <div role="tabpanel" class="tab-pane fade" id="missing-start">D</div>
+                <div role="tabpanel" class="tab-pane fade" id="missing-finish">E</div>
+                <div role="tabpanel" class="tab-pane fade" id="suspect">F</div>
+                <div role="tabpanel" class="tab-pane fade" id="details">
+                <!-- Missing name etc. -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td>Number of entries:</td>
+                    <td>{{ entries|length }}</td>
+                </tr>
+                <tr>
+                    <td>Number started:</td>
+                    <td>{{ entries|rejectattr('time_start', "none")|list|length }}</td>
+                </tr>
+                <tr>
+                    <td>Number not started:</td>
+                    <td>{{ entries|selectattr('time_start', "none")|list|length }}</td>
+                </tr>
+                <tr>
+                    <td>Number finished:</td>
+                    <td>{{ entries|rejectattr('time_finish', "none")|list|length }}</td>
+                </tr>
+                <tr>
+                    <td>Number not finished:</td>
+                    <td>{{ entries|selectattr('time_finish', "none")|list|length }}</td>
+                </tr>
+                <tr>
+                    <td>Number started but not finished:</td>
+                    <td>{{ entries|rejectattr('time_start', 'none')|selectattr('time_finish', "none")|list|length }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 {% endblock %}
 
 {% block scripts %}
+{% include 'common/jquery-javascript.j2' %}
+{% include 'common/datatables-javascript.j2' %}
+<script type="text/javascript" class="init">
+</script>
 {% endblock %}
