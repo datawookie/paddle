@@ -14,6 +14,12 @@
         {% endblock %}
     </head>
     <body>
+        <div class="fixed-top container-fluid">
+            <div class="container">
+            {% block header %}
+            {% endblock %}
+            </div>
+        </div>
         <main>
             <div class="container">
             {% block content %}

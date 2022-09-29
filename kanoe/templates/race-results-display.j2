@@ -6,8 +6,24 @@
     <link rel="stylesheet" type="text/css" href="/css/styles-results.css">
 {% endblock %}
 
-{% block content %}
+{% block header %}
+{% if announcements %}
+<table class="table announcement">
+    <thead>
+        <tr>
+            <th><span>Announcements</span></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for msg in announcements %}
+        <tr><td><i class="fas fa-bullhorn fa-beat-fade"></i>&nbsp;&nbsp;&nbsp;{{ msg }}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}
 
+{% block content %}
 {% if categories %}
 <h1>Results: {{ race.name }} ({{ race.date }})</h1>
 
@@ -45,22 +61,6 @@
 <p>No results yet...<br><i class="fas fa-circle-notch fa-spin"></i></p>
 </div>
 {% endif %}
-
-{% if announcements %}
-<table class="table announcement">
-    <thead>
-        <tr>
-            <th><span>Announcements</span></th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for msg in announcements %}
-        <tr><td><i class="fas fa-bullhorn fa-beat-fade"></i>&nbsp;&nbsp;&nbsp;{{ msg }}</td></tr>
-    {% endfor %}
-    </tbody>
-</table>
-{% endif %}
-
 {% endblock %}
 
 {% block scripts %}
@@ -69,7 +69,7 @@
 <script type="text/javascript" class="init">
 var scroll = setInterval(function() {
         // Scroll slowly down page.
-        window.scrollBy(0, 5);
+        window.scrollBy(0, 10);
         // Hard reload page at bottom.
         if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
             setTimeout(() => { location.reload(true); }, 5000);

@@ -48,5 +48,16 @@ h2 {
 }
 
 table.announcement {
-    margin-top: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px
+}
+
+.fixed-top {
+    background-color: #111111;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.fixed-top > .container {
+    padding-top: 0;
+    padding-bottom: 0;
 }
