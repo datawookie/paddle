@@ -27,7 +27,7 @@
     </thead>
     <tbody>
     {% for result in results %}
-        <tr>
+        <tr {% if loop.index > 3 %}class="muted"{% endif %}>
             <td>{{ loop.index }}</td>
             <td>{{ result.race_number or "" }}</td>
             <td>{{ result }}</td>

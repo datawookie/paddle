@@ -18,6 +18,10 @@ table.result {
     border-bottom: none;
 }
 
+tr.muted {
+    color: var(--colour-yellow-muted);
+}
+
 .table > tbody {
     border-top: none !important;
     border-bottom: none;
