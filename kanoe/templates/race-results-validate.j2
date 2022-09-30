@@ -12,21 +12,84 @@
 
 <div class="row">
     <div class="col-md-9">
-            <div class="d-flex align-items-start">
-            <div class="nav flex-column nav-pills me-3" id="tab" role="tablist" aria-orientation="vertical">
-                <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start active" data-bs-target="#profile">Boats not started</button>
-                <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#not-finished">Boats not finished</button>
-                <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#missing-start">Missing start time</button>
-                <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#missing-finish">Missing finish time</button>
-                <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#suspect">Suspect race time</button>
-                <button type="button" role="tab" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#details">Details missing</button>
+        <div class="d-flex align-items-start">
+            <div class="nav flex-column nav-pills me-3">
+                <button type="button" data-bs-toggle="pill" class="nav-link text-start active" data-bs-target="#not-started">Not started</button>
+                <button type="button" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#not-finished">Not finished</button>
+                <button type="button" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#missing-start">Missing start time</button>
+                <button type="button" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#suspect">Suspect race time</button>
+                <button type="button" data-bs-toggle="pill" class="nav-link text-start" data-bs-target="#details">Details missing</button>
             </div>
-            <div class="tab-content my-3 ms-3">
-                <div role="tabpanel" class="tab-pane fade show active" id="not-started">B</div>
-                <div role="tabpanel" class="tab-pane fade" id="not-finished">C</div>
-                <div role="tabpanel" class="tab-pane fade" id="missing-start">D</div>
-                <div role="tabpanel" class="tab-pane fade" id="missing-finish">E</div>
-                <div role="tabpanel" class="tab-pane fade" id="suspect">F</div>
+            <div class="tab-content ms-3">
+                <div role="tabpanel" class="tab-pane fade show active" id="not-started">
+                    <table class="table table-striped caption-top">
+                        <caption>Boats with neither a start time nor a finish time.</caption>
+                        <thead>
+                        <tr>
+                            <th scope="col">Race #</th>
+                            <th scope="col">Paddler(s)</th>
+                            <th scope="col">Category</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entry in entries|selectattr('time_start', "none")|selectattr('time_finish', "none") %}
+                        <tr>
+                            <td>{{ entry.race_number }}</td>
+                            <td>{{ entry }}</td>
+                            <td>{{ entry.category}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="not-finished">
+                    <table class="table table-striped caption-top">
+                        <caption>Boats with a start time but no finish time.</caption>
+                        <thead>
+                        <tr>
+                            <th scope="col">Race #</th>
+                            <th scope="col">Paddler(s)</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Start Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entry in entries|selectattr('time_finish', "none")|rejectattr('time_start', "none") %}
+                        <tr>
+                            <td>{{ entry.race_number }}</td>
+                            <td>{{ entry }}</td>
+                            <td>{{ entry.category }}</td>
+                            <td>{{ entry.time_start }}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="missing-start">
+                    <table class="table table-striped caption-top">
+                        <caption>Boats with a finish time but no start time.</caption>
+                        <thead>
+                        <tr>
+                            <th scope="col">Race #</th>
+                            <th scope="col">Paddler(s)</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Finish Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entry in entries|rejectattr('time_finish', "none")|selectattr('time_start', "none") %}
+                        <tr>
+                            <td>{{ entry.race_number }}</td>
+                            <td>{{ entry }}</td>
+                            <td>{{ entry.category }}</td>
+                            <td>{{ entry.time_finish }}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="suspect">
+                </div>
                 <div role="tabpanel" class="tab-pane fade" id="details">
                 <!-- Missing name etc. -->
                 </div>
@@ -45,20 +108,16 @@
                     <td>{{ entries|rejectattr('time_start', "none")|list|length }}</td>
                 </tr>
                 <tr>
-                    <td>Number not started:</td>
-                    <td>{{ entries|selectattr('time_start', "none")|list|length }}</td>
-                </tr>
-                <tr>
                     <td>Number finished:</td>
-                    <td>{{ entries|rejectattr('time_finish', "none")|list|length }}</td>
+                    <td>{{ entries|rejectattr('time_start', "none")|rejectattr('time_finish', "none")|list|length }}</td>
                 </tr>
                 <tr>
                     <td>Number not finished:</td>
-                    <td>{{ entries|selectattr('time_finish', "none")|list|length }}</td>
+                    <td>{{ entries|rejectattr('time_start', "none")|selectattr('time_finish', "none")|list|length }}</td>
                 </tr>
                 <tr>
-                    <td>Number started but not finished:</td>
-                    <td>{{ entries|rejectattr('time_start', 'none')|selectattr('time_finish', "none")|list|length }}</td>
+                    <td>Number not started:</td>
+                    <td>{{ entries|selectattr('time_start', "none")|list|length }}</td>
                 </tr>
             </tbody>
         </table>
