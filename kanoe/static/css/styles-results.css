@@ -37,8 +37,9 @@ h1 {
 }
 
 h2 {
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin-top: 75px;
+    margin-bottom: 10px;
+    font-size: 4rem;
 }
 
 .results.missing {
