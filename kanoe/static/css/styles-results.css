@@ -3,6 +3,7 @@ body {
     color: var(--colour-yellow);
     font-size: 1.75em;
     overflow: hidden;
+    padding-top: 0;
 }
 
 table.result {
@@ -34,6 +35,7 @@ tr.muted {
 
 h1 {
     text-align: center;
+    font-size: 4rem;
 }
 
 h2 {
@@ -53,12 +55,15 @@ table.announcement {
     margin-bottom: 10px
 }
 
-.fixed-top {
+footer {
+    margin-top: 0;
+}
+.fixed-bottom {
     background-color: #111111;
     padding-top: 0;
     padding-bottom: 0;
 }
-.fixed-top > .container {
-    padding-top: 0;
+.fixed-bottom > .container {
+    padding-top: 20px;
     padding-bottom: 0;
 }

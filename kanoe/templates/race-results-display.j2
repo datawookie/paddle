@@ -6,28 +6,30 @@
 <link rel="stylesheet" type="text/css" href="/css/styles-results.css">
 {% endblock %}
 
-{% block header %}
+{% block footer %}
 {% if announcements %}
-<table class="table announcement">
-    <thead>
-        <tr>
-            <th><span>Announcements</span></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for msg in announcements %}
-        <tr>
-            <td><i class="fas fa-bullhorn fa-beat-fade"></i>&nbsp;&nbsp;&nbsp;{{ msg }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container">
+    <table class="table announcement">
+        <thead>
+            <tr>
+                <th><span>Announcements</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for msg in announcements %}
+            <tr>
+                <td><i class="fas fa-bullhorn fa-beat-fade"></i>&nbsp;&nbsp;&nbsp;{{ msg }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endif %}
 {% endblock %}
 
 {% block content %}
 {% if categories %}
-<h1>Results: {{ race.name }} ({{ race.date }})</h1>
+<h1>{{ race.name }} ({{ race.date }})</h1>
 
 {% for category, results in categories.items() %}
 <h2>{{ category }}</h2>
@@ -67,19 +69,30 @@
 
 {% block scripts %}
 {# Only scroll and reload if there are results. Will need to refresh page to get this started. #}
-{% if categories %}
+{# If no results yet then reload to update announcements. #}
+{% include 'common/jquery-javascript.j2' %}
 <script type="text/javascript" class="init">
-    var scroll = setInterval(function () {
-        // Scroll slowly down page.
-        window.scrollBy(0, 10);
-        // Hard reload page at bottom.
-        //if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-        //    setTimeout(() => { location.reload(true); }, 5000);
-        // }
-    },
+    var footer_height = $("footer").height() + 50;
+    $(document).ready(function () {
+        // Set margin on body to accommodate the footer.
+        $('main').css("margin-bottom", footer_height + "px");
+    });
+
+    {% if categories %}
+    var scroll = setInterval(
+        function () {
+            // Scroll slowly down page.
+            window.scrollBy(0, 10);
+            // Hard reload page at bottom.
+            if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight + footer_height) {
+                setTimeout(() => { location.reload(true); }, 5000);
+            }
+        },
         // Scroll rate (larger number -> slower).
         200
     );
+    {% else %}
+    setTimeout(() => { location.reload(true); }, 15000);
+    {% endif %}
 </script>
-{% endif %}
 {% endblock %}

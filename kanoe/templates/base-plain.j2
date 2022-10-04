@@ -1,34 +1,35 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        {% block head %}
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        {% include 'common/load-css.j2' %}
-        {% block styles %}
-        {% endblock %}
+<head>
+    {% block head %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>{% block title %}{% endblock %}</title>
-        {% endblock %}
-    </head>
-    <body>
-        <div class="fixed-top container-fluid">
-            <div class="container">
-            {% block header %}
-            {% endblock %}
-            </div>
-        </div>
-        <main>
-            <div class="container">
+    {% include 'common/load-css.j2' %}
+    {% block styles %}
+    {% endblock %}
+
+    <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+</head>
+
+<body>
+    <main>
+        <div class="container">
             {% block content %}
             {% endblock %}
-            </div>
-        </main>
-
-        {% include 'common/load-js.j2' %}
-        {% block scripts %}
+        </div>
+    </main>
+    <footer class="fixed-bottom">
+        {% block footer %}
         {% endblock %}
-    </body>
+    </footer>
+
+    {% include 'common/load-js.j2' %}
+    {% block scripts %}
+    {% endblock %}
+</body>
+
 </html>
