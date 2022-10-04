@@ -62,7 +62,7 @@ def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@blueprint.route("/races", methods=("POST",))
+@blueprint.route("/series/create", methods=("GET", "POST"))
 def series_create():
     if request.method == "POST":
         name = request.form.get("name")
@@ -71,7 +71,9 @@ def series_create():
         session.add(series)
         session.commit()
 
-    return redirect(url_for("kanoe.races"))
+        return redirect(url_for("kanoe.races"))
+
+    return render_template("series-create.j2")
 
 
 @blueprint.route("/races", methods=("GET", "POST"))
