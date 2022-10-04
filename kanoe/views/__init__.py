@@ -77,39 +77,25 @@ def series_create():
 @blueprint.route("/races", methods=("GET", "POST"))
 def races():
     if request.method == "POST":
-        print(request.form)
-        name = request.form.get("name")
-        date = request.form.get("date")
+        # Create a list of race IDs from the checkbox fields.
+        races = [key for key in request.form.keys() if re.match("race_id", key)]
+        races = [int(re.sub("race_id_", "", id)) for id in races]
+        races = [session.query(db.Race).get(id) for id in races]
 
-        if name and not date:
-            flash("Race date must be supplied.", "danger")
-        elif date and not name:
-            flash("Race name must be supplied.", "danger")
-        else:
-            if name and date:
-                date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
-                race = db.Race(name=name, date=date)
-                session.add(race)
-                session.commit()
-            # Create a list of race IDs from the checkbox fields.
-            races = [key for key in request.form.keys() if re.match("race_id", key)]
-            races = [int(re.sub("race_id_", "", id)) for id in races]
-            races = [session.query(db.Race).get(id) for id in races]
+        file = request.files.get("file")
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filename = os.path.join(UPLOAD_FOLDER, filename)
+            file.save(filename)
 
-            file = request.files.get("file")
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                filename = os.path.join(UPLOAD_FOLDER, filename)
-                file.save(filename)
+            with open(filename, "rt") as file:
+                entries = file.read()
+                entries = json.loads(entries)
 
-                with open(filename, "rt") as file:
-                    entries = file.read()
-                    entries = json.loads(entries)
+            for race in races:
+                load_entries(race, entries)
 
-                for race in races:
-                    load_entries(race, entries)
-
-            return redirect(url_for("kanoe.races"))
+        return redirect(url_for("kanoe.races"))
 
     # Count number of entries per race.
     entries = (
@@ -141,6 +127,32 @@ def race(race_id):
     entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
     race = session.query(db.Race).get(race_id)
     return render_template("race.j2", race=race, entries=entries)
+
+
+@blueprint.route("/race/create", methods=("GET", "POST"))
+def race_create():
+    if request.method == "POST":
+        name = request.form.get("name")
+        date = request.form.get("date")
+        series_id = request.form.get("series")
+
+        if name and not date:
+            flash("Race date must be supplied.", "danger")
+        elif date and not name:
+            flash("Race name must be supplied.", "danger")
+        elif not date and not name:
+            flash("Race name and date must be supplied.", "danger")
+        else:
+            date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
+            series = session.query(db.Series).get(series_id)
+            race = db.Race(name=name, date=date, series_id=series.id)
+            session.add(race)
+            session.commit()
+
+            return redirect(url_for("kanoe.races"))
+
+    serieses = session.query(db.Series).order_by(db.Series.name.desc()).all()
+    return render_template("race-create.j2", serieses=serieses)
 
 
 @blueprint.route("/race/<race_id>/results/display")

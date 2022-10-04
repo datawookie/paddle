@@ -10,6 +10,11 @@
 
 <h1>Races</h1>
 
+<ul>
+    <li><a href="{{ url_for('kanoe.race_create') }}">Add a race</a></li>
+    <li><a href="{{ url_for('kanoe.series_create') }}">Add a series</a></li>
+</ul>
+
 <form method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="col-sm-6">
@@ -30,36 +35,19 @@
                         <td>{{ race.date }}</td>
                         <td>{{ race.series }}</td>
                         <td>{{ race.count }}</td>
-                        <td><input type="checkbox" class="form-check-input" id="race_id_{{ race.id }}" name="race_id_{{ race.id }}"></td>
+                        <td><input type="checkbox" class="form-check-input" id="race_id_{{ race.id }}"
+                                name="race_id_{{ race.id }}"></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
         <div class="col-sm-4 offset-sm-2">
-            <div class="d-grid gap-2">
-                <h2>Add a Race</h2>
-                <div class="form-group col-sm-12">
-                <label for="name">Name</label>
-                <input type="text"
-                       class="form-control"
-                       id="name"
-                       name="name"
-                       placeholder="Name"
-                       value="{{ request.form['name'] }}">
-                </div>
-                <div class="form-group col-sm-12">
-                    <label for="date">Date</label>
-                    <input id="date" name="date" class="form-control" type="date" value="{{ request.form['date'] }}">
-                </div>
-                <hr class="my-4">
-                <button type="submit" class="btn btn-primary">Add Race</button>
-            </div>
             <div class="d-grid gap-2 my-5">
                 <h2>Add Entries</h2>
                 <ol>
-                <li>Choose a JSON file with race entries.
-                <li>Select one or more races for the entries.
+                    <li>Choose a JSON file with race entries.
+                    <li>Select one or more races for the entries.
                 </ol>
                 <div class="form-group">
                     <label>JSON file</label>
@@ -69,18 +57,18 @@
                     <label>Race</label>
                     <select class="form-select form-select-sm" name="race">
                         <option value="" selected></option>
-                    {% for race in races %}
+                        {% for race in races %}
                         <option value="{{ race.id }}">{{ race.name }}</option>
-                    {% endfor %}
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Series</label>
                     <select class="form-select form-select-sm" name="series">
                         <option value="" selected></option>
-                    {% for series in serieses %}
+                        {% for series in serieses %}
                         <option value="{{ series.id }}">{{ series.name }}</option>
-                    {% endfor %}
+                        {% endfor %}
                     </select>
                 </div>
                 <hr class="my-4">
@@ -94,14 +82,10 @@
     <h2>Add a Series</h2>
     <div class="form-group col-sm-12">
         <label for="name">Name</label>
-        <input type="text"
-                class="form-control"
-                id="name"
-                name="name"
-                placeholder="Name">
-        </div>
-        <hr class="my-4">
-        <button type="submit" class="btn btn-primary">Add Series</button>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+    </div>
+    <hr class="my-4">
+    <button type="submit" class="btn btn-primary">Add Series</button>
     </div>
 </form>
 
