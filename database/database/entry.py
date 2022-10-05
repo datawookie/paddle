@@ -89,6 +89,14 @@ class Entry(Base):
             return None
 
     @property
+    def complete(self):
+        # An entry is considered complete if:
+        #
+        # - both paddlers have names.
+        #
+        return not any([seat.paddler.name == "" for seat in self.seats])
+
+    @property
     def services(self):
         # An entry is only considered a services entry if all of the paddlers in the boat in the services.
         services = [seat.services for seat in self.seats]

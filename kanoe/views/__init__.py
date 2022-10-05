@@ -273,7 +273,12 @@ def race_results_quick(race_id):
 def race_results_validate(race_id):
     entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
     race = session.query(db.Race).get(race_id)
-    return render_template("race-results-validate.j2", race=race, entries=entries)
+    return render_template(
+        "race-results-validate.j2",
+        race=race,
+        entries=entries,
+        time_between=time_between,
+    )
 
 
 @blueprint.route("/race/<race_id>/allocate-numbers", methods=("GET", "POST"))
