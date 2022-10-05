@@ -1,0 +1,53 @@
+{% extends "base.j2" %}
+
+{% block title %}Update a Race{% endblock %}
+
+{% block content %}
+
+<h1>Update Race</h1>
+
+<form method="post">
+    <div class="form-group col-sm-12">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ race.name }}"
+            disabled>
+    </div>
+    <div class="form-group col-sm-12">
+        <label for="date">Date</label>
+        <input id="date" name="date" class="form-control" type="date" value="{{ race.date }}" disabled>
+    </div>
+    <div class="form-group col-sm-12">
+        <label>Series</label>
+        <select class="form-select form-select" name="series" disabled>
+            {% for series in serieses %}
+            <option value="{{ series.id }}" {% if series.name==race.series.name %} selected{% endif %}>{{ series.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group col-sm-12">
+        <label>Start (minimum)</label>
+        <input type="text" class="form-control time" id="time_min_start" name="time_min_start"
+            value="{{ race.time_min_start if race.time_min_start else request.form['time_min_start'] }}">
+    </div>
+    <div class="form-group col-sm-12">
+        <label>Start (maximum)</label>
+        <input type="text" class="form-control time" id="time_max_start" name="time_max_start"
+            value="{{ race.time_max_start if race.time_max_start else request.form['time_max_start'] }}">
+    </div>
+    <div class="form-group col-sm-12">
+        <label>Finish (minimum)</label>
+        <input type="text" class="form-control time" id="time_min_finish" name="time_min_finish"
+            value="{{ race.time_min_finish if race.time_min_finish else request.form['time_min_finish'] }}">
+    </div>
+    <div class="form-group col-sm-12">
+        <label>Finish (maximum)</label>
+        <input type="text" class="form-control time" id="time_max_finish" name="time_max_finish"
+            value="{{ race.time_max_finish if race.time_max_finish else request.form['time_max_finish'] }}">
+    </div>
+    <hr class="my-4">
+    <button type="submit" class="btn btn-primary">Updates Race</button>
+    </div>
+</form>
+
+{% endblock %}

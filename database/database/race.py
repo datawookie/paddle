@@ -10,6 +10,10 @@ class Race(Base):
     name = Column(String, nullable=False)
     date = Column(Date, nullable=False)
     series_id = Column(Integer, ForeignKey(Series.id), index=True)
+    time_min_start = Column(String)
+    time_max_start = Column(String)
+    time_min_finish = Column(String)
+    time_max_finish = Column(String)
 
     series = relationship(Series, backref="races", lazy="joined")
 

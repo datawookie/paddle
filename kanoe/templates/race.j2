@@ -11,10 +11,15 @@
 <h1>{{ race.name }} ({{ race.date }})</h1>
 
 <div class="d-grid gap-2">
-    <a href="{{ url_for('kanoe.race_results_quick', race_id=race.id) }}" class="btn btn-primary" role="button">Capture Results</a>
-    <a href="{{ url_for('kanoe.race_results_display', race_id=race.id) }}" class="btn btn-primary" role="button" target="_blank">Display Results</a>
-    <a href="{{ url_for('kanoe.race_results_validate', race_id=race.id) }}" class="btn btn-primary" role="button">Validate Results</a>
-    <a href="{{ url_for('kanoe.race_allocate_numbers', race_id=race.id) }}" class="btn btn-primary" role="button">Allocate Race Numbers</a>
+    <a href="{{ url_for('kanoe.race_update', race_id=race.id) }}" class="btn btn-primary" role="button">Update Race</a>
+    <a href="{{ url_for('kanoe.race_results_quick', race_id=race.id) }}" class="btn btn-primary" role="button">Capture
+        Results</a>
+    <a href="{{ url_for('kanoe.race_results_display', race_id=race.id) }}" class="btn btn-primary" role="button"
+        target="_blank">Display Results</a>
+    <a href="{{ url_for('kanoe.race_results_validate', race_id=race.id) }}" class="btn btn-primary"
+        role="button">Validate Results</a>
+    <a href="{{ url_for('kanoe.race_allocate_numbers', race_id=race.id) }}" class="btn btn-primary"
+        role="button">Allocate Race Numbers</a>
 </div>
 
 <div class="row">
@@ -31,7 +36,7 @@
                 </tr>
             </thead>
             <tbody>
-        {% for entry in entries %}
+                {% for entry in entries %}
                 <tr>
                     <td>{{ entry.entry_number }}</td>
                     <td><a href="{{ url_for('kanoe.entry', entry_id=entry.id) }}">{{ entry }}</a></td>
@@ -40,7 +45,7 @@
                     <td>{{ entry.team or "" }}</td>
                     <td>{{ entry.race_number or "" }}</td>
                 </tr>
-        {% endfor %}
+                {% endfor %}
             </tbody>
         </table>
     </div>
@@ -52,8 +57,8 @@
 {% include 'common/jquery-javascript.j2' %}
 {% include 'common/datatables-javascript.j2' %}
 <script type="text/javascript" class="init">
-$(document).ready(function () {
-	var table = $('#entries').DataTable();
-});
+    $(document).ready(function () {
+        var table = $('#entries').DataTable();
+    });
 </script>
 {% endblock %}

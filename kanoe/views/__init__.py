@@ -18,6 +18,7 @@ from sqlalchemy.sql import func
 
 import database as db
 from database.database import announcement
+from .util import *
 from .entry import load_entries
 
 session = db.Session()
@@ -157,6 +158,48 @@ def race_create():
     return render_template("race-create.j2", serieses=serieses)
 
 
+@blueprint.route("/race/<race_id>/update", methods=("GET", "POST"))
+def race_update(race_id):
+    if request.method == "POST":
+        time_min_start = request.form.get("time_min_start")
+        time_max_start = request.form.get("time_max_start")
+        time_min_finish = request.form.get("time_min_finish")
+        time_max_finish = request.form.get("time_max_finish")
+
+        race = session.query(db.Race).get(race_id)
+
+        if not time_min_start:
+            flash("Minimum start time must be supplied.", "danger")
+        else:
+            time_min_start = parse_time(time_pad_seconds(time_min_start))
+            race.time_min_start = time_min_start
+
+        if not time_max_start:
+            flash("Maximum start time must be supplied.", "danger")
+        else:
+            time_max_start = parse_time(time_pad_seconds(time_max_start))
+            race.time_max_start = time_max_start
+
+        if not time_min_finish:
+            flash("Minimum finish time must be supplied.", "danger")
+        else:
+            time_min_finish = parse_time(time_pad_seconds(time_min_finish))
+            race.time_min_finish = time_min_finish
+
+        if not time_max_finish:
+            flash("Maximum finish time must be supplied.", "danger")
+        else:
+            time_max_finish = parse_time(time_pad_seconds(time_max_finish))
+            race.time_max_finish = time_max_finish
+
+        session.add(race)
+        session.commit()
+
+    serieses = session.query(db.Series).order_by(db.Series.name.desc()).all()
+    race = session.query(db.Race).get(race_id)
+    return render_template("race-update.j2", race=race, serieses=serieses)
+
+
 @blueprint.route("/race/<race_id>/results/display")
 def race_results_display(race_id):
     race = session.query(db.Race).get(race_id)
@@ -192,20 +235,6 @@ def race_results_display(race_id):
         categories=categories,
         announcements=announcements,
     )
-
-
-def parse_time(time):
-    if not time:
-        return None
-    logging.info(f"Parsing time: {time}")
-    time = re.sub(":", "", time)
-    logging.debug(f"- Removed colons: {time}")
-    if len(time) != 6:
-        raise RuntimeError("Time too short (should have form HHMMSS or HH:MM:SS).")
-    time = datetime.datetime.strptime(time, "%H%M%S")
-    time = time.strftime("%H:%M:%S")
-    logging.debug(f"- Normalised: {time}")
-    return time
 
 
 @blueprint.route("/race/<race_id>/results/quick", methods=("GET", "POST"))
