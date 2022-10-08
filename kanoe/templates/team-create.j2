@@ -1,0 +1,29 @@
+{% extends "base.j2" %}
+{% import "common/selector.j2" as selector %}
+
+{% block title %}Teams{% endblock %}
+
+{% block styles %}
+{% include 'common/datatables-css.j2' %}
+{% endblock %}
+
+{% block content %}
+
+<h1>Add a Team</h1>
+
+<form method="post">
+  <div class="row">
+    <div class="form-group col-sm-12">
+      <label for="title">Name</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Name"
+        value="{{ request.form['name'] }}">
+    </div>
+    <div class="form-group col-sm-12">
+      {{ selector.series(serieses) }}
+    </div>
+    <hr class="my-4">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+
+{% endblock %}
