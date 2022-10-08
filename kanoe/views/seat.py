@@ -13,8 +13,7 @@ def seat(seat_id):
 
         seat.paddler_id = paddler_id
         seat.club_id = club_id
-        if team_id:
-            seat.team_id = team_id
+        seat.team_id = team_id if team_id else None
         if services:
             seat.services = True
         else:
@@ -27,7 +26,11 @@ def seat(seat_id):
 
     paddlers = session.query(db.Paddler).order_by(db.Paddler.name).all()
     clubs = session.query(db.Club).all()
-    teams = session.query(db.Team).all()
+    teams = (
+        session.query(db.Team)
+        .filter(db.Team.series_id == seat.entry.race.series_id)
+        .all()
+    )
     return render_template(
         "seat.j2", seat=seat, paddlers=paddlers, clubs=clubs, teams=teams
     )

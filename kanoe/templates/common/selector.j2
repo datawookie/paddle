@@ -6,3 +6,13 @@
     {% endfor %}
 </select>
 {%- endmacro -%}
+
+{% macro team(teams, selected) -%}
+<label for="team">Team</label>
+<select class="form-select" class="form-control" id="team" name="team">
+    <option></option>
+    {% for team in teams %}
+    <option value="{{ team.id }}" {% if selected==team %} selected{% endif %}>{{ team }}</option>
+    {% endfor %}
+</select>
+{%- endmacro -%}
