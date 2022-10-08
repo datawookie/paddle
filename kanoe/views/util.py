@@ -3,6 +3,9 @@ import datetime
 import logging
 
 
+UPLOAD_FOLDER = "/tmp"
+
+
 def time_strip_colons(time):
     time = re.sub(":", "", time)
     logging.debug(f"- Removed colons: {time}")
@@ -34,3 +37,8 @@ def time_between(time, time_min, time_max):
     time_min = parse_time(time_min)
     time_max = parse_time(time_max)
     return (time >= time_min) & (time <= time_max)
+
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {"json"}
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS

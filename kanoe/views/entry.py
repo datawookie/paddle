@@ -3,9 +3,7 @@ import string
 import logging
 from dataclasses import dataclass
 
-import database as db
-
-session = db.Session()
+from .common import *
 
 CATEGORY_MAPPING = {
     "SK2": "K2 Senior",
@@ -116,3 +114,9 @@ def load_entries(race, individuals):
             )
 
     session.commit()
+
+
+@blueprint.route("/entry/<entry_id>")
+def entry(entry_id):
+    entry = session.query(db.Entry).get(entry_id)
+    return render_template("entry.j2", entry=entry)
