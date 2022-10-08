@@ -1,0 +1,8 @@
+{% macro series(serieses) -%}
+<label>Series</label>
+<select class="form-select form-select" name="series">
+    {% for series in serieses %}
+    <option value="{{ series.id }}">{{ series.name }}</option>
+    {% endfor %}
+</select>
+{%- endmacro -%}
