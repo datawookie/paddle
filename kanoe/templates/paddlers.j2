@@ -13,97 +13,26 @@
 <div class="row">
   <div class="col-sm-6">
     <table id="paddlers" class="table table-striped">
-        <thead>
-          <tr>
-              <th>Name</th>
-              <th>Division</th>
-          </tr>
-        </thead>
-        <tbody>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Division</th>
+        </tr>
+      </thead>
+      <tbody>
         {% for paddler in paddlers %}
-          <tr>
-              <td>
-                  <a href="{{ url_for('kanoe.paddler', paddler_id=paddler.id) }}">{{ paddler.name }}</a>
-              </td>
-              <td>{{ paddler.division }}</td>
-          </tr>
+        <tr>
+          <td>
+            <a href="{{ url_for('kanoe.paddler', paddler_id=paddler.id) }}">{{ paddler.name }}</a>
+          </td>
+          <td>{% if paddler.division %}{{ paddler.division }}{% endif %}</td>
+        </tr>
         {% endfor %}
-        </tbody>
+      </tbody>
     </table>
   </div>
   <div class="col-sm-6">
-    <h2>Add a Paddler</h2>
-    <form method="post">
-      <div class="row">
-        <div class="form-group col-sm-12">
-          <label for="title">Title</label>
-          <select class="form-select" class="form-control" id="title" name="title">
-            <option value=""></option>
-            <option value="Mr">Mr</option>
-            <option value="Mrs">Mrs</option>
-            <option value="Miss">Miss</option>
-            <option value="Ms">Ms</option>
-            <option value="Dr">Dr</option>
-          </select>
-        </div>
-        <div class="form-group col-sm-12">
-          <label for="first">First Name</label>
-          <input type="text"
-                class="form-control"
-                id="first"
-                name="first"
-                placeholder="Name"
-                value="{{ request.form['first'] }}">
-        </div>
-        <div class="form-group col-sm-12">
-          <label for="middle">Middle Name(s)</label>
-          <input type="text"
-                class="form-control"
-                id="middle"
-                name="middle"
-                placeholder="Name(s)"
-                value="{{ request.form['middle'] }}">
-        </div>
-        <div class="form-group col-sm-12">
-          <label for="last">Last Name</label>
-          <input type="text"
-                class="form-control"
-                id="last"
-                name="last"
-                placeholder="Name"
-                value="{{ request.form['last'] }}">
-        </div>
-        <div class="form-group col-sm-12">
-          <label for="dob">Date of Birth</label>
-          <input id="dob" name="dob" class="form-control" type="date" value="{{ request.form['dob'] }}">
-        </div>
-        <div class="form-group col-sm-12">
-          <label for="division">Division</label>
-          <input type="number" class="form-control" id="division" name="division" min="1" max="9" value="{{ request.form['division'] }}">
-        </div>
-        <h3>Emergency Contact</h3>
-        <div class="form-group col-sm-12">
-          <label for="emergency_name">Name</label>
-          <input type="text"
-                class="form-control"
-                id="emergency_name"
-                name="emergency_name"
-                placeholder="Name"
-                value="{{ request.form['emergency_name'] }}">
-        </div>
-        <div class="form-group col-sm-12">
-          <label for="emergency_phone">Phone</label>
-          <input type="text"
-                class="form-control"
-                id="emergency_phone"
-                name="emergency_phone"
-                placeholder="Phone"
-                value="{{ request.form['emergency_phone'] }}">
-        </div>
-        <hr class="my-4">
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
-    </form>
+    <a href="{{ url_for('kanoe.paddler') }}" class="btn btn-primary">Add a Paddler</a>
   </div>
 </div>
 
@@ -113,13 +42,13 @@
 {% include 'common/jquery-javascript.j2' %}
 {% include 'common/datatables-javascript.j2' %}
 <script type="text/javascript" class="init">
-$(document).ready(function () {
-	$('#paddlers').DataTable({
-    paging: true,
-    searching: true,
-    ordering: true,
-    info: true
-});
-});
+  $(document).ready(function () {
+    $('#paddlers').DataTable({
+      paging: true,
+      searching: true,
+      ordering: true,
+      info: true
+    });
+  });
 </script>
 {% endblock %}

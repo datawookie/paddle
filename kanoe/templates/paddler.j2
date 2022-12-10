@@ -4,6 +4,73 @@
 
 {% block content %}
 
-<h1>{{ paddler.name }}</h1>
+<h1>{% if paddler.name %}{{ paddler.name }}{% else %}New Paddler{% endif %}</h1>
+
+{% macro find_value(form, variable) -%}
+{% if form %}{{ form }}{% else %}{% if variable and variable is not none %}{{ variable }}{% endif %}{%
+endif %}
+{%- endmacro -%}
+
+<form method="post">
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>Paddler Details</h3>
+            <input type="hidden" id="paddler_id" name="paddler_id" value="{{ paddler.id }}">
+            <div class="mb-3">
+                <label for="title">Title</label>
+                <select class="form-select" class="form-control" id="title" name="title">
+                    <option value=""></option>
+                    <option {% if paddler.title=="Mr" %}selected {% endif %}value="Mr">Mr</option>
+                    <option {% if paddler.title=="Mrs" %}selected {% endif %}value="Mrs">Mrs</option>
+                    <option {% if paddler.title=="Miss" %}selected {% endif %}value="Miss">Miss</option>
+                    <option {% if paddler.title=="Ms" %}selected {% endif %}value="Ms">Ms</option>
+                    <option {% if paddler.title=="Dr" %}selected {% endif %}value="Dr">Dr</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="first">First Name</label>
+                <input type="text" class="form-control" id="first" name="first" placeholder="First Name"
+                    value="{{ find_value(request.form['first'], paddler.first) }}">
+            </div>
+            <div class="mb-3">
+                <label for="middle">Middle Name(s)</label>
+                <input type="text" class="form-control" id="middle" name="middle" placeholder="Middle Name(s)"
+                    value="{{ find_value(request.form['middle'], paddler.middle) }}">
+            </div>
+            <div class="mb-3">
+                <label for="last">Last Name</label>
+                <input type="text" class="form-control" id="last" name="last" placeholder="Last Name"
+                    value="{{ find_value(request.form['last'], paddler.last) }}">
+            </div>
+            <div class="mb-3">
+                <label for="dob">Date of Birth</label>
+                <input id="dob" name="dob" class="form-control" type="date"
+                    value="{{ find_value(request.form['dob'], paddler.dob) }}">
+            </div>
+            <div>
+                <label for="division">Division</label>
+                <input type="number" class="form-control" id="division" name="division" min="1" max="9"
+                    value="{{ find_value(request.form['division'], paddler.division) }}">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <h3>Emergency Contact</h3>
+            <div class="mb-3">
+                <label for="emergency_name">Name</label>
+                <input type="text" class="form-control" id="emergency_name" name="emergency_name"
+                    placeholder="Emergency Contact Name"
+                    value="{{ find_value(request.form['emergency_name'], paddler.emergency_name) }}">
+            </div>
+            <div>
+                <label for="emergency_phone">Phone</label>
+                <input type="text" class="form-control" id="emergency_phone" name="emergency_phone"
+                    placeholder="Emergency Contact Phone"
+                    value="{{ find_value(request.form['emergency_phone'], paddler.emergency_phone) }}">
+            </div>
+        </div>
+        <hr class="my-4">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
 
 {% endblock %}
