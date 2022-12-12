@@ -31,16 +31,25 @@ def paddler(paddler_id):
         title = request.form["title"]
         emergency_name = request.form["emergency_name"]
         emergency_phone = request.form["emergency_phone"]
+        bcu = request.form["bcu"]
+        bcu_expiry = request.form["bcu_expiry"]
 
         if dob:
             dob = datetime.datetime.strptime(dob, "%Y-%m-%d").date()
         else:
             dob = None
 
+        if bcu_expiry:
+            bcu_expiry = datetime.datetime.strptime(bcu_expiry, "%Y-%m-%d").date()
+        else:
+            bcu_expiry = None
+
         if middle == "":
             middle = None
         if title == "":
             title = None
+        if bcu == "":
+            bcu = None
 
         if not first:
             flash("First name is required!", "danger")
@@ -61,6 +70,8 @@ def paddler(paddler_id):
                 paddler.title = empty_to_none(title)
                 paddler.emergency_name = empty_to_none(emergency_name)
                 paddler.emergency_phone = empty_to_none(emergency_phone)
+                paddler.bcu = empty_to_none(bcu)
+                paddler.bcu_expiry = empty_to_none(bcu_expiry)
 
                 flash("Updated existing paddler.", "success")
             else:
@@ -74,6 +85,8 @@ def paddler(paddler_id):
                     title=title,
                     emergency_name=emergency_name,
                     emergency_phone=emergency_phone,
+                    bcu=bcu,
+                    bcu_expiry=bcu_expiry,
                 )
                 session.add(paddler)
 

@@ -50,7 +50,18 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <h3>Emergency Contact</h3>
+            <h3>BCU</h3>
+            <div class="mb-3">
+                <label for="bcu">BCU Number</label>
+                <input type="text" class="form-control" id="bcu" name="bcu" placeholder="BCU Number"
+                    value="{{ find_value(request.form['bcu'], paddler.bcu) }}">
+            </div>
+            <div>
+                <label for="bcu_expiry">BCU Expiry</label>
+                <input type="date" class="form-control" id="bcu_expiry" name="bcu_expiry"
+                    value="{{ find_value(request.form['bcu_expiry'], paddler.bcu_expiry) }}">
+            </div>
+            <h3 class="mt-2">Emergency Contact</h3>
             <div class="mb-3">
                 <label for="emergency_name">Name</label>
                 <input type="text" class="form-control" id="emergency_name" name="emergency_name"

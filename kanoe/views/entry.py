@@ -42,6 +42,10 @@ class Individual:
     division: int
     paid: float
 
+    def __post_init__(self):
+        if self.bcu_expiry:
+            self.bcu_expiry = datetime.datetime.strptime(self.bcu_expiry, "%Y-%m-%d")
+
 
 def load_entries(race, individuals):
     # Group entries (this handles K1 versus K2).
@@ -64,14 +68,12 @@ def load_entries(race, individuals):
     for number, individuals in entries.items():
         logging.info(f"Entry: {number}.")
 
-        # category = session.query(db.Category).get(individual.category)
         category = [individual.category for individual in individuals]
         # Unique categories.
         category = list(set(category))
         assert len(category) == 1
         category = category[0]
         if category:
-            # session.query(db.Club).get(individual.club)
             category = (
                 session.query(db.Category).filter(db.Category.label == category).one()
             )
@@ -106,6 +108,11 @@ def load_entries(race, individuals):
                 session.add(paddler)
             else:
                 logging.debug(f"Paddler found: {paddler}.")
+
+            if individual.bcu:
+                paddler.bcu = individual.bcu
+            if individual.bcu_expiry:
+                paddler.bcu_expiry = individual.bcu_expiry
 
             club = session.query(db.Club).get(individual.club)
 
