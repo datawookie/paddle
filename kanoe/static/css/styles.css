@@ -42,3 +42,7 @@ hr {
 td.services, th.services {
     text-align: center;
 }
+
+nav.sidebar ul > li.nav-item {
+    margin-bottom: 0.5rem !important;
+}

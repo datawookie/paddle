@@ -1,4 +1,4 @@
-{% extends "base.j2" %}
+{% extends "base-fluid.j2" %}
 {% import "common/selector.j2" as selector %}
 
 {% block title %}Entry Edit Seat{% endblock %}
@@ -40,4 +40,8 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block sidebar %}
+{% include 'sidebar-paddler.j2' %}
 {% endblock %}

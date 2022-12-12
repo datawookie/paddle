@@ -1,0 +1,22 @@
+<ul class="nav flex-column">
+    <li class="nav-item mb-2">
+        <a href="{{ url_for('kanoe.race_update', race_id=race.id) }}" class="btn btn-primary">Update
+            Race</a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ url_for('kanoe.race_results_quick', race_id=race.id) }}" class="btn btn-primary">Capture
+            Results</a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ url_for('kanoe.race_results_display', race_id=race.id) }}" class="btn btn-primary"
+            target="_blank">Display Results</a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ url_for('kanoe.race_results_validate', race_id=race.id) }}" class="btn btn-primary">Validate
+            Results</a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ url_for('kanoe.race_allocate_numbers', race_id=race.id) }}" class="btn btn-primary">Allocate Race
+            Numbers</a>
+    </li>
+</ul>
