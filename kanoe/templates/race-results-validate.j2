@@ -165,21 +165,20 @@
                 </tr>
                 <tr>
                     <td>Number started:</td>
-                    <td>{{ entries|rejectattr('time_start', "none")|list|length }}</td>
-                </tr>
-                <tr>
-                    <td>Number finished:</td>
-                    <td>{{ entries|rejectattr('time_start', "none")|rejectattr('time_finish', "none")|list|length }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Number not finished:</td>
-                    <td>{{ entries|rejectattr('time_start', "none")|selectattr('time_finish', "none")|list|length }}
-                    </td>
+                    <td>{{ entries|selectattr('started', 'equalto', True)|list|length }}</td>
                 </tr>
                 <tr>
                     <td>Number not started:</td>
-                    <td>{{ entries|selectattr('time_start', "none")|list|length }}</td>
+                    <td>{{ entries|selectattr('started', 'equalto', False)|list|length }}</td>
+                </tr>
+                <tr>
+                    <td>Number finished:</td>
+                    <td>{{ entries|selectattr('finished', 'equalto', True)|list|length }}</td>
+                </tr>
+                <tr>
+                    <td>Number not finished:</td>
+                    <td>{{ entries|selectattr('started', 'equalto', True)|selectattr('finished', 'equalto',
+                        False)|list|length }}</td>
                 </tr>
             </tbody>
         </table>
