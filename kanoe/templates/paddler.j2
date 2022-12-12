@@ -1,15 +1,11 @@
 {% extends "base.j2" %}
+{% from "macros.j2" import find_value %}
 
 {% block title %}{{ paddler.name }}{% endblock %}
 
 {% block content %}
 
 <h1>{% if paddler.name %}{{ paddler.name }}{% else %}New Paddler{% endif %}</h1>
-
-{% macro find_value(form, variable) -%}
-{% if form %}{{ form }}{% else %}{% if variable and variable is not none %}{{ variable }}{% endif %}{%
-endif %}
-{%- endmacro -%}
 
 <form method="post">
     <div class="row">

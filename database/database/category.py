@@ -35,3 +35,6 @@ class Category(Base):
 
     def __str__(self):
         return self.label
+
+    def __eq__(self, other):
+        return self.label == other

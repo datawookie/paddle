@@ -1,0 +1,4 @@
+{% macro find_value(form, variable) -%}
+{% if form %}{{ form }}{% else %}{% if variable and variable is not none %}{{ variable }}{% endif %}{%
+endif %}
+{%- endmacro -%}

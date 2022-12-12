@@ -116,7 +116,18 @@ def load_entries(race, individuals):
     session.commit()
 
 
-@blueprint.route("/entry/<entry_id>")
+@blueprint.route("/entry/<entry_id>", methods=("GET", "POST"))
 def entry(entry_id):
     entry = session.query(db.Entry).get(entry_id)
-    return render_template("entry.j2", entry=entry)
+
+    if request.method == "POST":
+        entry.category = (
+            session.query(db.Category)
+            .filter(db.Category.label == request.form["category"])
+            .one()
+        )
+        session.commit()
+
+        return redirect(url_for("kanoe.entry", entry_id=entry_id))
+
+    return render_template("entry.j2", entry=entry, categories=db.CATEGORY_LIST)
