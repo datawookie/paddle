@@ -60,12 +60,22 @@ def race(race_id):
     return render_template("race.j2", race=race, entries=entries)
 
 
-@blueprint.route("/race/create", methods=("GET", "POST"))
-def race_create():
+@blueprint.route("/race/<race_id>/update", methods=("GET", "POST"))
+@blueprint.route("/race/create", defaults={"race_id": None}, methods=("GET", "POST"))
+def race_update(race_id):
+    if race_id:
+        race = race = session.query(db.Race).get(race_id)
+    else:
+        race = None
+
     if request.method == "POST":
         name = request.form.get("name")
         date = request.form.get("date")
         series_id = request.form.get("series")
+        time_min_start = request.form.get("time_min_start")
+        time_max_start = request.form.get("time_max_start")
+        time_min_finish = request.form.get("time_min_finish")
+        time_max_finish = request.form.get("time_max_finish")
 
         if name and not date:
             flash("Race date must be supplied.", "danger")
@@ -73,58 +83,44 @@ def race_create():
             flash("Race name must be supplied.", "danger")
         elif not date and not name:
             flash("Race name and date must be supplied.", "danger")
+        elif not time_min_start:
+            flash("Minimum start time must be supplied.", "danger")
+        elif not time_max_start:
+            flash("Maximum start time must be supplied.", "danger")
+        elif not time_min_finish:
+            flash("Minimum finish time must be supplied.", "danger")
+        elif not time_max_finish:
+            flash("Maximum finish time must be supplied.", "danger")
         else:
             date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
             series = session.query(db.Series).get(series_id)
-            race = db.Race(name=name, date=date, series_id=series.id)
-            session.add(race)
+            time_min_start = parse_time(time_pad_seconds(time_min_start))
+            time_max_start = parse_time(time_pad_seconds(time_max_start))
+            time_min_finish = parse_time(time_pad_seconds(time_min_finish))
+            time_max_finish = parse_time(time_pad_seconds(time_max_finish))
+
+            if race:
+                # Update existing race.
+                race.name = name
+                race.date = date
+                race.series = series
+
+                flash("Updated existing race.", "success")
+            else:
+                # Create new race.
+                race = db.Race(name=name, date=date, series_id=series.id)
+                session.add(race)
+
+            race.time_min_start = time_min_start
+            race.time_max_start = time_max_start
+            race.time_min_finish = time_min_finish
+            race.time_max_finish = time_max_finish
+
             session.commit()
 
             return redirect(url_for("kanoe.races"))
 
     serieses = session.query(db.Series).order_by(db.Series.name.desc()).all()
-    return render_template("race-create.j2", serieses=serieses)
-
-
-@blueprint.route("/race/<race_id>/update", methods=("GET", "POST"))
-def race_update(race_id):
-    if request.method == "POST":
-        time_min_start = request.form.get("time_min_start")
-        time_max_start = request.form.get("time_max_start")
-        time_min_finish = request.form.get("time_min_finish")
-        time_max_finish = request.form.get("time_max_finish")
-
-        race = session.query(db.Race).get(race_id)
-
-        if not time_min_start:
-            flash("Minimum start time must be supplied.", "danger")
-        else:
-            time_min_start = parse_time(time_pad_seconds(time_min_start))
-            race.time_min_start = time_min_start
-
-        if not time_max_start:
-            flash("Maximum start time must be supplied.", "danger")
-        else:
-            time_max_start = parse_time(time_pad_seconds(time_max_start))
-            race.time_max_start = time_max_start
-
-        if not time_min_finish:
-            flash("Minimum finish time must be supplied.", "danger")
-        else:
-            time_min_finish = parse_time(time_pad_seconds(time_min_finish))
-            race.time_min_finish = time_min_finish
-
-        if not time_max_finish:
-            flash("Maximum finish time must be supplied.", "danger")
-        else:
-            time_max_finish = parse_time(time_pad_seconds(time_max_finish))
-            race.time_max_finish = time_max_finish
-
-        session.add(race)
-        session.commit()
-
-    serieses = session.query(db.Series).order_by(db.Series.name.desc()).all()
-    race = session.query(db.Race).get(race_id)
     return render_template("race-update.j2", race=race, serieses=serieses)
 
 
