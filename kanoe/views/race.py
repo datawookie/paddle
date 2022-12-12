@@ -165,8 +165,8 @@ def race_results_display(race_id):
     )
 
 
-@blueprint.route("/race/<race_id>/results/quick", methods=("GET", "POST"))
-def race_results_quick(race_id):
+@blueprint.route("/race/<race_id>/results/capture", methods=("GET", "POST"))
+def race_results_capture(race_id):
     if request.method == "POST":
         entry_id = request.form["entry_id"]
         time_start = request.form["time_start"]
@@ -192,9 +192,9 @@ def race_results_quick(race_id):
 
         flash("Captured result!", "success")
 
-        return redirect(url_for("kanoe.race_results_quick", race_id=race_id))
+        return redirect(url_for("kanoe.race_results_capture", race_id=race_id))
 
-    return render_template("race-results-quick.j2", race_id=race_id)
+    return render_template("race-results-capture.j2", race_id=race_id)
 
 
 @blueprint.route("/race/<race_id>/results/validate")

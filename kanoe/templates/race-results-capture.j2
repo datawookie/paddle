@@ -13,7 +13,8 @@ Form workflow:
 
 1. Type race number.
 2. Press tab (field with paddler names will be populated and focus will shift to start time field).
-3. If the start time is already populated then focus will shift to the finish time field, otherwise enter start time (or leave blank).
+3. If the start time is already populated then focus will shift to the finish time field, otherwise enter start time (or
+leave blank).
 4. Press tab (focus will advance to the finish time field).
 5. Enter finish time (or leave blank).
 6. Press tab (focus will shift to the Submit button).
@@ -23,7 +24,7 @@ Form workflow:
 You can also press enter in either the start time or finish time field to submit the form.
 #}
 
-<h1>Capture Race Results</h1>  
+<h1>Capture Race Results</h1>
 
 <form method="post">
     <input type="hidden" id="entry_id" name="entry_id">
@@ -32,37 +33,29 @@ You can also press enter in either the start time or finish time field to submit
             <div class="row">
                 <label for="title" class="col-sm-4 col-form-label">Race Number</label>
                 <div class="col-sm-8">
-                    <input type="number"
-                           class="form-control"
-                           id="race_number"
-                           placeholder="Race Number"
-                           autofocus>
+                    <input type="number" class="form-control" id="race_number" placeholder="Race Number" autofocus>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="row">
-                <input type="text"
-                       class="form-control"
-                       id="paddlers"
-                       name="paddlers"
-                       placeholder="Paddlers"
-                       disabled
-                       readonly
-                       tabindex="-1">
+                <input type="text" class="form-control" id="paddlers" name="paddlers" placeholder="Paddlers" disabled
+                    readonly tabindex="-1">
             </div>
         </div>
         <div class="col">
             <div class="row">
                 <label for="start" class="col-sm-4 col-form-label">Start time</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control time" id="time_start" name="time_start">
+                    <input type="text" class="form-control time" id="time_start" name="time_start"
+                        placeholder="HH:MM:SS">
                 </div>
             </div>
             <div class="row">
                 <label for="finish" class="col-sm-4 mt-1 col-form-label">Finish time</label>
                 <div class="col-sm-8 mt-1">
-                    <input type="text" class="form-control time" id="time_finish" name="time_finish">
+                    <input type="text" class="form-control time" id="time_finish" name="time_finish"
+                        placeholder="HH:MM:SS">
                 </div>
             </div>
             <div class="row">
@@ -76,13 +69,15 @@ You can also press enter in either the start time or finish time field to submit
             <div class="row mt-2">
                 <div class="col-md-6">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="1" tabindex="-1" id="retired" name="retired">
+                        <input class="form-check-input" type="checkbox" value="1" tabindex="-1" id="retired"
+                            name="retired">
                         <label class="form-check-label" for="retired">Retired</label>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="1" tabindex="-1" id="disqualified" name="disqualified">
+                        <input class="form-check-input" type="checkbox" value="1" tabindex="-1" id="disqualified"
+                            name="disqualified">
                         <label class="form-check-label" for="disqualified">Disqualified</label>
                     </div>
                 </div>
@@ -99,60 +94,61 @@ You can also press enter in either the start time or finish time field to submit
 {% include 'common/jquery-javascript.j2' %}
 {% include 'common/datatables-javascript.j2' %}
 <script type="text/javascript" class="init">
-$(document).ready(function () {
-    // Flashed messages disappear after a short delay.
-    setTimeout(function() {
-        $('.alert').fadeOut('slow');
-    }, 2000);
+    $(document).ready(function () {
+        // Flashed messages disappear after a short delay.
+        setTimeout(function () {
+            $('.alert').fadeOut('slow');
+        }, 2000);
 
-    // Populate the Paddler(s) field based on chosen race number.
-    var select_race_number = function() {
-        if ($(this).val() === "") {
-            console.log("No race number specified.");
-            $('#paddlers').val("");
-            $('#entry_id').removeAttr("value");
-            $('#time_start').val("");
-            $('#time_finish').val("");
-            $('#time_race').val("");
-        } else {
-            $.ajax({
-                url: "/api/get-entry",
-                type: "post",
-                data: { race_id: {{ race_id }}, race_number: $(this).val() },
-                success: function(response) {
-                    $('#time_start').prop('disabled', false);
-                    $('#time_finish').prop('disabled', false);
-                    $('#retired').prop('disabled', false);
-                    $('#disqualified').prop('disabled', false);
-                    $('#submit').prop('disabled', false);
+        // Populate the Paddler(s) field based on chosen race number.
+        var select_race_number = function () {
+            if ($(this).val() === "") {
+                console.log("No race number specified.");
+                $('#paddlers').val("");
+                $('#entry_id').removeAttr("value");
+                $('#time_start').val("");
+                $('#time_finish').val("");
+                $('#time_race').val("");
+            } else {
+                $.ajax({
+                    url: "/api/get-entry",
+                    type: "post",
+                    data: { race_id: {{ race_id }}, race_number: $(this).val()
+        },
+            success: function(response) {
+                $('#time_start').prop('disabled', false);
+        $('#time_finish').prop('disabled', false);
+        $('#retired').prop('disabled', false);
+        $('#disqualified').prop('disabled', false);
+        $('#submit').prop('disabled', false);
 
-                    $('#paddlers').val(response["paddlers"]);
-                    $('#entry_id').val(response["entry_id"]);
-                    $('#time_start').val(response["time_start"]);
-                    $('#time_finish').val(response["time_finish"]);
-                    if (response["time_start"] != null) {
-                        $('#time_finish').focus();
-                        if (response["time_finish"] != null) {
-                            $('#submit').focus();
-                        }
-                    }
-                },
-                error: function(jqXHR, textStatus) {
-                    $('#paddlers').val("Race number not found!");
+        $('#paddlers').val(response["paddlers"]);
+        $('#entry_id').val(response["entry_id"]);
+        $('#time_start').val(response["time_start"]);
+        $('#time_finish').val(response["time_finish"]);
+        if (response["time_start"] != null) {
+            $('#time_finish').focus();
+            if (response["time_finish"] != null) {
+                $('#submit').focus();
+            }
+        }
+    },
+        error: function (jqXHR, textStatus) {
+            $('#paddlers').val("Race number not found!");
 
-                    $('#time_start').prop('disabled', true);
-                    $('#time_finish').prop('disabled', true);
-                    $('#retired').prop('disabled', true);
-                    $('#disqualified').prop('disabled', true);
-                    $('#submit').prop('disabled', true);
-                    $('#race_number').focus();
-                }
+            $('#time_start').prop('disabled', true);
+            $('#time_finish').prop('disabled', true);
+            $('#retired').prop('disabled', true);
+            $('#disqualified').prop('disabled', true);
+            $('#submit').prop('disabled', true);
+            $('#race_number').focus();
+        }
             });
         }
     };
 
     $("#race_number").focusout(select_race_number);
-    $("#race_number").keypress(function(event) {
+    $("#race_number").keypress(function (event) {
         if (event.key == "Enter") {
             // Don't submit form when press Enter on Race Number field.
             event.preventDefault();
@@ -160,7 +156,7 @@ $(document).ready(function () {
         }
     });
 
-    var update_race_time = function() {
+    var update_race_time = function () {
         start = $("#time_start").val().split(":");
         finish = $("#time_finish").val().split(":");
 
@@ -178,10 +174,10 @@ $(document).ready(function () {
         }
     };
 
-    $('.time').focus(function() {
+    $('.time').focus(function () {
         $(this).select();
     });
-    $('.time').focusout(function() {
+    $('.time').focusout(function () {
         console.log("Parsing time.");
         // Get time and remove colons.
         var time = $(this).val().replace(/:/g, "");
