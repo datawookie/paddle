@@ -171,6 +171,8 @@ def race_results_capture(race_id):
         entry_id = request.form["entry_id"]
         time_start = request.form["time_start"]
         time_finish = request.form["time_finish"]
+        time_adjustment = request.form["time_adjustment"]
+        note = request.form["note"]
         retired = request.form.get("retired", False)
         disqualified = request.form.get("disqualified", False)
 
@@ -183,10 +185,14 @@ def race_results_capture(race_id):
             entry.time_start = time_start
         if time_finish:
             entry.time_finish = time_finish
+        if time_adjustment:
+            entry.time_adjustment = time_adjustment
         if retired:
             entry.retired = True
         if disqualified:
             entry.disqualified = True
+        if note:
+            entry.note = note
 
         session.commit()
 

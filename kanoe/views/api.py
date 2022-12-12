@@ -32,6 +32,8 @@ def get_entry():
             "paddlers": str(entry),
             "time_start": entry.time_start,
             "time_finish": entry.time_finish,
+            "time_adjustment": entry.time_adjustment,
+            "note": entry.note,
         }
         return jsonify(data)
 

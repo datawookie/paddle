@@ -36,8 +36,10 @@ class Entry(Base):
 
     time_start = Column(String)
     time_finish = Column(String)
-    retired = Column(Boolean)
-    disqualified = Column(Boolean)
+    time_adjustment = Column(Integer)
+    retired = Column(Boolean, default=False, nullable=False)
+    disqualified = Column(Boolean, default=False, nullable=False)
+    note = Column(Text)
 
     category = relationship(Category, backref="entries", lazy="joined")
     race = relationship(Race, backref="entries", lazy="joined")
@@ -60,7 +62,11 @@ class Entry(Base):
         if self.time_start and self.time_finish:
             time_start = datetime.datetime.strptime(self.time_start, "%H:%M:%S")
             time_finish = datetime.datetime.strptime(self.time_finish, "%H:%M:%S")
-            return time_finish - time_start
+            return (
+                time_finish
+                - time_start
+                + datetime.timedelta(seconds=(self.time_adjustment or 0))
+            )
         else:
             return None
 
@@ -101,3 +107,13 @@ class Entry(Base):
         # An entry is only considered a services entry if all of the paddlers in the boat in the services.
         services = [seat.services for seat in self.seats]
         return all(services)
+
+    @property
+    def started(self):
+        return self.time_start is not None
+
+    @property
+    def finished(self):
+        return self.time_start is not None and (
+            self.time_finish is not None or self.retired or self.disqualified
+        )

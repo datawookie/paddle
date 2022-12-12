@@ -64,6 +64,19 @@ You can also press enter in either the start time or finish time field to submit
                     <input type="text" class="form-control time" id="time_race" disabled readonly>
                 </div>
             </div>
+            <div class="row">
+                <label for="finish" class="col-sm-4 mt-1 col-form-label">Adjustment</label>
+                <div class="col-sm-8 mt-1">
+                    <input type="number" class="form-control" id="time_adjustment" name="time_adjustment"
+                        placeholder="Number of seconds">
+                </div>
+            </div>
+            <div class="row">
+                <label for="finish" class="col-sm-4 mt-1 col-form-label">Note</label>
+                <div class="col-sm-8 mt-1">
+                    <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+                </div>
+            </div>
         </div>
         <div class="col">
             <div class="row mt-2">
@@ -126,6 +139,8 @@ You can also press enter in either the start time or finish time field to submit
         $('#entry_id').val(response["entry_id"]);
         $('#time_start').val(response["time_start"]);
         $('#time_finish').val(response["time_finish"]);
+        $('#time_adjustment').val(response["time_adjustment"]);
+        $('#note').val(response["note"]);
         if (response["time_start"] != null) {
             $('#time_finish').focus();
             if (response["time_finish"] != null) {
@@ -159,11 +174,16 @@ You can also press enter in either the start time or finish time field to submit
     var update_race_time = function () {
         start = $("#time_start").val().split(":");
         finish = $("#time_finish").val().split(":");
+        adjustment = $("#time_adjustment").val();
 
         if (start.length == 3 && finish.length == 3) {
             start = new Date(0, 0, 0, start[0], start[1], start[2]);
             finish = new Date(0, 0, 0, finish[0], finish[1], finish[2]);
             var diff = (finish.getTime() - start.getTime()) / 1000;
+
+            // Apply adjustment.
+            //
+            diff += Number(adjustment);
 
             var hours = Math.floor(diff / 60 / 60);
             diff -= hours * 60 * 60;
@@ -189,6 +209,10 @@ You can also press enter in either the start time or finish time field to submit
             $(this).val(time);
             update_race_time();
         }
+    });
+    $('#time_adjustment').focusout(function () {
+        console.log("Parsing time adjustment.");
+        update_race_time();
     });
 });
 </script>
