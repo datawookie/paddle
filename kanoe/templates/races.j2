@@ -1,4 +1,4 @@
-{% extends "base.j2" %}
+{% extends "base-fluid.j2" %}
 
 {% block title %}Races{% endblock %}
 
@@ -9,11 +9,6 @@
 {% block content %}
 
 <h1>Races</h1>
-
-<ul>
-    <li><a href="{{ url_for('kanoe.race_create') }}">Add a race</a></li>
-    <li><a href="{{ url_for('kanoe.series_create') }}">Add a series</a></li>
-</ul>
 
 <form method="post" enctype="multipart/form-data">
     <div class="row">
@@ -78,4 +73,8 @@
     </div>
 </form>
 
+{% endblock %}
+
+{% block sidebar %}
+{% include 'sidebar-races.j2' %}
 {% endblock %}
