@@ -87,27 +87,50 @@ def load_entries(race, individuals):
         for individual in individuals:
             logging.info(f"- {individual}.")
 
+            paddler = None
+
             # Look for existing paddler.
-            try:
-                paddler = (
-                    session.query(db.Paddler)
-                    .filter(
-                        db.Paddler.first == individual.first,
-                        db.Paddler.last == individual.last,
-                        db.Paddler.division == individual.division,
+            #
+            if not paddler:
+                try:
+                    logging.debug("Matching paddler using name & BCU number.")
+                    paddler = (
+                        session.query(db.Paddler)
+                        .filter(
+                            db.Paddler.first == individual.first,
+                            db.Paddler.last == individual.last,
+                            db.Paddler.bcu == individual.bcu,
+                        )
+                        .one()
                     )
-                    .one()
-                )
-            except db.NoResultFound:
-                logging.debug("Paddler not found.")
+                    logging.debug("Paddler found.")
+                except db.NoResultFound:
+                    logging.debug("Paddler not found.")
+
+            if not paddler:
+                try:
+                    logging.debug("Matching paddler using name & division.")
+                    paddler = (
+                        session.query(db.Paddler)
+                        .filter(
+                            db.Paddler.first == individual.first,
+                            db.Paddler.last == individual.last,
+                            db.Paddler.division == individual.division,
+                        )
+                        .one()
+                    )
+                    logging.debug("Paddler found.")
+                except db.NoResultFound:
+                    logging.debug("Paddler not found.")
+
+            if not paddler:
+                logging.debug("Create new paddler.")
                 paddler = db.Paddler(
                     first=individual.first,
                     last=individual.last,
                     division=individual.division,
                 )
                 session.add(paddler)
-            else:
-                logging.debug(f"Paddler found: {paddler}.")
 
             if individual.bcu:
                 paddler.bcu = individual.bcu

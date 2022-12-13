@@ -50,7 +50,11 @@ def races():
 
     serieses = session.query(db.Series).all()
 
-    return render_template("races.j2", races=races, serieses=serieses)
+    paddler_count = session.query(func.count(db.Paddler.id)).scalar()
+
+    return render_template(
+        "races.j2", races=races, serieses=serieses, paddler_count=paddler_count
+    )
 
 
 @blueprint.route("/race/<race_id>")
