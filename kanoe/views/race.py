@@ -237,10 +237,16 @@ def race_allocate_numbers(race_id):
             #
             for entry in entries:
                 logging.debug(f"Allocating race number {running} to {entry}.")
-                entry.number_id = running
+                number = session.query(db.Number).filter(db.Number.id == running).one()
+                allocation = db.NumberAllocation(
+                    number_id=number.id, race_id=race_id, entry_id=entry.id
+                )
+                session.add(allocation)
                 running += 1
 
             chunk += numbers - (1 if chunk == 1 else 0)
+
+        session.commit()
 
         return redirect(url_for("kanoe.races"))
 

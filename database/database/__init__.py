@@ -11,3 +11,4 @@ from .trial import *
 from .entry import *
 from .series import *
 from .announcement import *
+from .number import *

@@ -30,6 +30,10 @@
             value="{{ find_value(request.form['division'], entry.division) }}">
         </div>
         <div class="mb-3">
+          <label for="division">Race Number</label>
+          <input type="number" class="form-control" disabled value="{{ entry.race_number }}">
+        </div>
+        <div class="mb-3">
           <label for="division">Team</label>
           <input type="text" class="form-control" disabled value="{{ entry.team if entry.team else '' }}">
         </div>

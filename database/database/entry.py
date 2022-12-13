@@ -6,7 +6,6 @@ from .team import *
 from .category import *
 from .series import *
 from .team import *
-from .number import *
 
 
 class BoatType(enum.Enum):
@@ -20,16 +19,12 @@ boat_type = Enum(BoatType)
 
 class Entry(Base):
     __tablename__ = "entry"
-    __table_args__ = (
-        UniqueConstraint("race_id", "number_id", name="uq_entry_race_number"),
-    )
 
     id = Column(Integer, primary_key=True)
     race_id = Column(Integer, ForeignKey(Race.id), index=True)
     category_id = Column(Integer, ForeignKey(Category.id), index=True)
     boat_type = Column(boat_type, index=True)
     entry_number = Column(Integer)
-    number_id = Column(Integer, ForeignKey(Number.id), index=True)
     online = Column(Boolean)
     series = Column(Boolean)
     series_id = Column(Integer, ForeignKey(Series.id), index=True)
@@ -43,7 +38,7 @@ class Entry(Base):
 
     category = relationship(Category, backref="entries", lazy="joined")
     race = relationship(Race, backref="entries", lazy="joined")
-    race_number = relationship(Number, backref="entries")
+    race_number = relationship("Number", secondary="number_entry", uselist=False)
 
     @property
     def division(self):
