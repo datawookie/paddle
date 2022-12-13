@@ -167,37 +167,39 @@ def entry(entry_id):
 def number_update(entry_id):
     entry = session.query(db.Entry).get(entry_id)
 
-    # if request.method == "POST":
-    #     entry.category = (
-    #         session.query(db.Category)
-    #         .filter(db.Category.label == request.form["category"])
-    #         .one()
-    #     )
-    #     session.commit()
+    if request.method == "POST":
+        # Deallocate old number (if still allocated).
+        if entry.race_number:
+            allocated = (
+                session.query(db.NumberAllocation)
+                .filter(db.NumberAllocation.entry_id == entry.id)
+                .one()
+            )
+            session.delete(allocated)
 
-    #     return redirect(url_for("kanoe.entry", entry_id=entry_id))
+        # Allocate new number.
+        allocation = db.NumberAllocation(
+            number_id=request.form["number"], entry_id=entry.id
+        )
+        session.add(allocation)
+        session.commit()
 
-    # return render_template("entry.j2", entry=entry, categories=db.CATEGORY_LIST)
+        return redirect(url_for("kanoe.entry", entry_id=entry.id))
 
-    # TODO: This doesn't discriminate between races.
-    #
+    sub_query = (
+        session.query(db.NumberAllocation.number_id, db.NumberAllocation.entry_id)
+        .join(db.Entry, db.NumberAllocation.entry_id == db.Entry.id)
+        .filter(db.Entry.race_id == entry.race_id)
+        .subquery()
+    )
     unallocated = (
         session.query(db.Number)
-        .outerjoin(db.NumberAllocation, db.Number.id == db.NumberAllocation.number_id)
-        .filter(db.NumberAllocation.entry_id == None)
+        .outerjoin(sub_query, sub_query.c.number_id == db.Number.id)
+        .filter(sub_query.c.entry_id == None)
         .all()
     )
 
-    print(unallocated)
-
-    # select * from number
-    # left join number_entry
-    # on
-    # number.id = number_entry.number_id
-    # where
-    # entry_id is null;
-
-    return render_template("entry-race-number.j2", entry=entry)
+    return render_template("entry-race-number.j2", entry=entry, numbers=unallocated)
 
 
 @blueprint.route("/entry/<entry_id>/number/deallocate", methods=("GET", "POST"))

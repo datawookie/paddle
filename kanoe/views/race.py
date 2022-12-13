@@ -238,9 +238,7 @@ def race_allocate_numbers(race_id):
             for entry in entries:
                 logging.debug(f"Allocating race number {running} to {entry}.")
                 number = session.query(db.Number).filter(db.Number.id == running).one()
-                allocation = db.NumberAllocation(
-                    number_id=number.id, race_id=race_id, entry_id=entry.id
-                )
+                allocation = db.NumberAllocation(number_id=number.id, entry_id=entry.id)
                 session.add(allocation)
                 running += 1
 
