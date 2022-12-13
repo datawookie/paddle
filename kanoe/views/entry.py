@@ -179,6 +179,24 @@ def number_update(entry_id):
 
     # return render_template("entry.j2", entry=entry, categories=db.CATEGORY_LIST)
 
+    # TODO: This doesn't discriminate between races.
+    #
+    unallocated = (
+        session.query(db.Number)
+        .outerjoin(db.NumberAllocation, db.Number.id == db.NumberAllocation.number_id)
+        .filter(db.NumberAllocation.entry_id == None)
+        .all()
+    )
+
+    print(unallocated)
+
+    # select * from number
+    # left join number_entry
+    # on
+    # number.id = number_entry.number_id
+    # where
+    # entry_id is null;
+
     return render_template("entry-race-number.j2", entry=entry)
 
 
