@@ -161,3 +161,37 @@ def entry(entry_id):
         return redirect(url_for("kanoe.entry", entry_id=entry_id))
 
     return render_template("entry.j2", entry=entry, categories=db.CATEGORY_LIST)
+
+
+@blueprint.route("/entry/<entry_id>/number", methods=("GET", "POST"))
+def number_update(entry_id):
+    entry = session.query(db.Entry).get(entry_id)
+
+    # if request.method == "POST":
+    #     entry.category = (
+    #         session.query(db.Category)
+    #         .filter(db.Category.label == request.form["category"])
+    #         .one()
+    #     )
+    #     session.commit()
+
+    #     return redirect(url_for("kanoe.entry", entry_id=entry_id))
+
+    # return render_template("entry.j2", entry=entry, categories=db.CATEGORY_LIST)
+
+    return render_template("entry-race-number.j2", entry=entry)
+
+
+@blueprint.route("/entry/<entry_id>/number/deallocate", methods=("GET", "POST"))
+def number_deallocate(entry_id):
+    entry = session.query(db.Entry).get(entry_id)
+
+    allocated = (
+        session.query(db.NumberAllocation)
+        .filter(db.NumberAllocation.entry_id == entry.id)
+        .one()
+    )
+    session.delete(allocated)
+    session.commit()
+
+    return redirect(url_for("kanoe.race", race_id=entry.race_id))

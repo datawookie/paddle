@@ -23,5 +23,4 @@ class NumberAllocation(Base):
 
     id = Column(Integer, primary_key=True)
     number_id = Column(Integer, ForeignKey(Number.id), nullable=False)
-    race_id = Column(Integer, ForeignKey(Race.id), nullable=False)
     entry_id = Column(Integer, ForeignKey(Entry.id), nullable=True)
