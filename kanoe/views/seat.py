@@ -4,12 +4,14 @@ from .common import *
 @blueprint.route("/seat/<seat_id>", methods=("GET", "POST"))
 def seat(seat_id):
     seat = session.query(db.Seat).get(seat_id)
+    print(request.form)
 
     if request.method == "POST":
         paddler_id = request.form["paddler"]
-        club_id = request.form["club"]
-        team_id = request.form.get("team")
+        club_id = request.form["club"] or None
+        team_id = request.form.get("team") or None
         services = request.form.get("services", None)
+        paid = request.form["paid"] or None
 
         seat.paddler_id = paddler_id
         seat.club_id = club_id
@@ -18,6 +20,7 @@ def seat(seat_id):
             seat.services = True
         else:
             seat.services = False
+        seat.paid = paid
         session.commit()
 
         flash("Updated seat.", "success")

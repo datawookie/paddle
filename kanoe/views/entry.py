@@ -151,25 +151,31 @@ def load_entries(race, individuals):
 def entry(entry_id):
     print(request.form)
     entry = session.query(db.Entry).get(entry_id)
-    print(entry)
 
     if request.method == "POST":
-        # This is a new entry.
-        if entry is None:
-            logging.info("Create new entry.")
-            race_id = request.form["race_id"]
-            race = session.query(db.Race).get(race_id)
-            print(race)
-            entry = db.Entry(race_id=race_id)
-            session.add(entry)
+        paddler_id = request.form.get("paddler_id")
+        if paddler_id:
+            logging.info("Add paddler to entry.")
+            paddler = session.query(db.Paddler).get(paddler_id)
+            seat = db.Seat(
+                paddler_id=paddler_id,
+                entry_id=entry.id,
+            )
+            session.add(seat)
+        else:
+            # This is a new entry.
+            if entry is None:
+                logging.info("Create new entry.")
+                race_id = request.form["race_id"]
+                race = session.query(db.Race).get(race_id)
+                entry = db.Entry(race_id=race_id)
+                session.add(entry)
 
-        # Update category.
-        category_id = request.form["category_id"]
-        entry.category = session.query(db.Category).get(category_id)
+            # Update category.
+            category_id = request.form["category_id"]
+            entry.category = session.query(db.Category).get(category_id)
 
         session.commit()
-
-        print(entry)
 
         return redirect(url_for("kanoe.entry", entry_id=entry.id))
 

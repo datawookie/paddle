@@ -11,4 +11,4 @@ class Club(Base):
         return "Club('%s', '%s')" % (self.id, self.name)
 
     def __str__(self):
-        return self.id
+        return f"{self.name} ({self.id})"

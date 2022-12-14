@@ -8,7 +8,7 @@
 <h1>Entry</h1>
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-3">
     <form method="post">
       <div>
         <div class="mb-3">
@@ -58,9 +58,11 @@
     </ul>
   </div>
 </div>
+
 {% if entry %}
+<h2 class="mt-2">Paddlers</h2>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-8">
     <div class="table-responsive">
       <table class="table table-striped table-sm">
         <thead>
@@ -82,7 +84,7 @@
             <td>{{ seat.paddler.division }}</td>
             <td>{{ seat.team or "" }}</td>
             <td class="services">{% if seat.services %}<i class="fas fa-check"></i>{% endif %}</td>
-            <td>{{ "£ %.2f"|format(seat.paid) }}</td>
+            <td>{% if seat.paid %}{{ "£ %.2f"|format(seat.paid) }}{% endif %}</td>
             <td><a href="{{ url_for('kanoe.seat', seat_id=seat.id) }}"><i class="fas fa-edit"></i></a></td>
           </tr>
           {% endfor %}
@@ -90,18 +92,21 @@
       </table>
     </div>
   </div>
+  <div class="col-md-4">
+    <form method="post">
+      <select class="form-select" class="form-control" id="paddler" name="paddler_id">
+        {% for paddler in paddlers %}
+        <option value="{{ paddler.id }}">{{ paddler }}</option>
+        {% endfor %}
+      </select>
+      <hr class="my-4">
+      <button type="submit" class="btn btn-primary">Add Paddler</button>
+    </form>
+  </div>
 </div>
 
 
-<form method="post">
-  <select class="form-select" class="form-control" id="paddler" name="paddler">
-    {% for paddler in paddlers %}
-    <option value="{{ paddler.id }}">{{ paddler }}</option>
-    {% endfor %}
-  </select>
-  <hr class="my-4">
-  <button type="submit" class="btn btn-primary">Add Paddler</button>
-</form>
+
 {% endif %}
 {% endblock %}
 
