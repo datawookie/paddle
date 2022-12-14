@@ -13,13 +13,18 @@
       <div>
         <div class="mb-3">
           <label for="race">Race</label>
-          <input type="text" class="form-control" disabled value="{{ entry.race }}">
+          <select class="form-select" class="form-control" id="race_id" name="race_id" {% if entry %} disabled{% endif
+            %}>
+            {% for race in races %}
+            <option value="{{ race.id }}" {% if entry.race==race %} selected{% endif %}>{{ race }}</option>
+            {% endfor %}
+          </select>
         </div>
         <div class="mb-3">
           <label for="race">Category</label>
-          <select class="form-select" class="form-control" id="category" name="category">
+          <select class="form-select" class="form-control" id="category_id" name="category_id">
             {% for category in categories %}
-            <option value="{{ category }}" {% if (entry.category==category) %} selected{% endif %}>{{ category }}
+            <option value="{{ category.id }}" {% if (entry.category==category) %} selected{% endif %}>{{ category }}
             </option>
             {% endfor %}
           </select>
@@ -43,7 +48,7 @@
         </div>
       </div>
       <hr class="my-4">
-      <button type="submit" class="btn btn-primary">Update</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
   <div class="col-md-8">
@@ -53,6 +58,7 @@
     </ul>
   </div>
 </div>
+{% if entry %}
 <div class="row">
   <div class="col-md-12">
     <div class="table-responsive">
@@ -85,6 +91,18 @@
     </div>
   </div>
 </div>
+
+
+<form method="post">
+  <select class="form-select" class="form-control" id="paddler" name="paddler">
+    {% for paddler in paddlers %}
+    <option value="{{ paddler.id }}">{{ paddler }}</option>
+    {% endfor %}
+  </select>
+  <hr class="my-4">
+  <button type="submit" class="btn btn-primary">Add Paddler</button>
+</form>
+{% endif %}
 {% endblock %}
 
 {% block sidebar %}

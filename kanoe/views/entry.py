@@ -147,20 +147,41 @@ def load_entries(race, individuals):
 
 
 @blueprint.route("/entry/<entry_id>", methods=("GET", "POST"))
+@blueprint.route("/entry/", defaults={"entry_id": None}, methods=("GET", "POST"))
 def entry(entry_id):
+    print(request.form)
     entry = session.query(db.Entry).get(entry_id)
+    print(entry)
 
     if request.method == "POST":
-        entry.category = (
-            session.query(db.Category)
-            .filter(db.Category.label == request.form["category"])
-            .one()
-        )
+        # This is a new entry.
+        if entry is None:
+            logging.info("Create new entry.")
+            race_id = request.form["race_id"]
+            race = session.query(db.Race).get(race_id)
+            print(race)
+            entry = db.Entry(race_id=race_id)
+            session.add(entry)
+
+        # Update category.
+        category_id = request.form["category_id"]
+        entry.category = session.query(db.Category).get(category_id)
+
         session.commit()
 
-        return redirect(url_for("kanoe.entry", entry_id=entry_id))
+        print(entry)
 
-    return render_template("entry.j2", entry=entry, categories=db.CATEGORY_LIST)
+        return redirect(url_for("kanoe.entry", entry_id=entry.id))
+
+    races = session.query(db.Race).all()
+    paddlers = session.query(db.Paddler).order_by(db.Paddler.first).all()
+    return render_template(
+        "entry.j2",
+        entry=entry,
+        categories=db.CATEGORY_LIST,
+        races=races,
+        paddlers=paddlers,
+    )
 
 
 @blueprint.route("/entry/<entry_id>/number", methods=("GET", "POST"))

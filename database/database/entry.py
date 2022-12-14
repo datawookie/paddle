@@ -42,8 +42,11 @@ class Entry(Base):
 
     @property
     def division(self):
-        # The division assigned to the boat is the minimum of the divisions of the paddlers.
-        return min([seat.paddler.division for seat in self.seats])
+        if self.seats:
+            # The division assigned to the boat is the minimum of the divisions of the paddlers.
+            return min([seat.paddler.division for seat in self.seats])
+        else:
+            return None
 
     def __repr__(self):
         return "Entry(%d)" % (self.entry_number)
