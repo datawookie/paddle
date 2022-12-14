@@ -52,30 +52,12 @@
 {% include 'common/datatables-filter-javascript.j2' %}
 <script type="text/javascript" class="init">
     $(document).ready(function () {
-        $('#entries tfoot th').each(function () {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-        });
-
         var table = $('#entries').DataTable({
             searchPanes: {
                 initCollapsed: true,
                 viewTotal: true
             },
             dom: 'Plfrtip'
-        });
-
-
-        table.columns().every(function () {
-            var that = this;
-
-            $('input', this.footer()).on('keyup change', function () {
-                if (that.search() !== this.value) {
-                    that
-                        .search(this.value)
-                        .draw();
-                }
-            });
         });
     });
 </script>
