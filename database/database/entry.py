@@ -42,9 +42,9 @@ class Entry(Base):
 
     @property
     def division(self):
-        if self.seats:
+        if self.crews:
             # The division assigned to the boat is the minimum of the divisions of the paddlers.
-            return min([seat.paddler.division for seat in self.seats])
+            return min([crew.paddler.division for crew in self.crews])
         else:
             return None
 
@@ -52,7 +52,7 @@ class Entry(Base):
         return "Entry(%d)" % (self.entry_number)
 
     def __str__(self):
-        names = [str(seat) for seat in self.seats]
+        names = [str(crew) for crew in self.crews]
         return " / ".join(names)
 
     @property
@@ -85,7 +85,7 @@ class Entry(Base):
         # - ["Warriors", "Warriors"]    both paddlers in same taem
         # - ["Warriors", "Chiefs"]      paddlers in different teams
         #
-        teams = [seat.team for seat in self.seats]
+        teams = [crew.team for crew in self.crews]
         teams = list(set(teams))
         if len(teams) == 1:
             return teams[0]
@@ -98,12 +98,12 @@ class Entry(Base):
         #
         # - both paddlers have names.
         #
-        return not any([seat.paddler.name == "" for seat in self.seats])
+        return not any([crew.paddler.name == "" for crew in self.crews])
 
     @property
     def services(self):
         # An entry is only considered a services entry if all of the paddlers in the boat in the services.
-        services = [seat.services for seat in self.seats]
+        services = [crew.services for crew in self.crews]
         return all(services)
 
     @property

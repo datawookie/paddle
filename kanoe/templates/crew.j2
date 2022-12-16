@@ -1,10 +1,10 @@
 {% extends "base-fluid.j2" %}
 {% import "common/selector.j2" as selector %}
 
-{% block title %}Entry Edit Seat{% endblock %}
+{% block title %}Entry Edit Crew{% endblock %}
 
 {% block content %}
-<h1>Entry Edit Seat</h1>
+<h1>Entry Edit Crew</h1>
 
 <div class="row">
   <div class="col-sm-6">
@@ -13,7 +13,7 @@
         <label for="paddler">Paddler</label>
         <select class="form-select" class="form-control" id="paddler" name="paddler">
           {% for paddler in paddlers %}
-          <option value="{{ paddler.id }}" {% if seat.paddler==paddler %} selected{% endif %}>{{ paddler }}</option>
+          <option value="{{ paddler.id }}" {% if crew.paddler==paddler %} selected{% endif %}>{{ paddler }}</option>
           {% endfor %}
         </select>
       </div>
@@ -22,21 +22,21 @@
         <select class="form-select" class="form-control" id="club" name="club">
           <option value="">No Club</option>
           {% for club in clubs %}
-          <option value="{{ club.id }}" {% if seat.club==club %} selected{% endif %}>{{ club }}</option>
+          <option value="{{ club.id }}" {% if crew.club==club %} selected{% endif %}>{{ club }}</option>
           {% endfor %}
         </select>
       </div>
       <div class="mb-3">
-        {{ selector.team(teams, seat.team) }}
+        {{ selector.team(teams, crew.team) }}
       </div>
       <div class="form-check mb-3">
         <input class="form-check-input" type="checkbox" value="1" id="services" name="services" {{ "checked" if
-          seat.services }}>
+          crew.services }}>
         <label class="form-check-label" for="retired">Services</label>
       </div>
       <div class="mb-3">
         <label for="club">Paid</label>
-        <input type="number" class="form-control number" id="paid" name="paid" value="{{ seat.paid|int }}">
+        <input type="number" class="form-control number" id="paid" name="paid" value="{{ crew.paid|int }}">
       </div>
       <hr class="my-4">
       <button type="submit" class="btn btn-primary">Submit</button>

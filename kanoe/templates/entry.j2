@@ -77,15 +77,15 @@
           </tr>
         </thead>
         <tbody>
-          {% for seat in entry.seats %}
+          {% for crew in entry.crews %}
           <tr>
-            <td><a href="{{ url_for('kanoe.paddler', paddler_id=seat.paddler.id) }}">{{ seat.paddler.name }}</a></td>
-            <td><a href="{{ url_for('kanoe.club', club_id=seat.club.id) }}">{{ seat.club.id }}</a></td>
-            <td>{{ seat.paddler.division }}</td>
-            <td>{{ seat.team or "" }}</td>
-            <td class="services">{% if seat.services %}<i class="fas fa-check"></i>{% endif %}</td>
-            <td>{% if seat.paid %}{{ "£ %.2f"|format(seat.paid) }}{% endif %}</td>
-            <td><a href="{{ url_for('kanoe.seat', seat_id=seat.id) }}"><i class="fas fa-edit"></i></a></td>
+            <td><a href="{{ url_for('kanoe.paddler', paddler_id=crew.paddler.id) }}">{{ crew.paddler.name }}</a></td>
+            <td><a href="{{ url_for('kanoe.club', club_id=crew.club.id) }}">{{ crew.club.id }}</a></td>
+            <td>{{ crew.paddler.division }}</td>
+            <td>{{ crew.team or "" }}</td>
+            <td class="services">{% if crew.services %}<i class="fas fa-check"></i>{% endif %}</td>
+            <td>{% if crew.paid %}{{ "£ %.2f"|format(crew.paid) }}{% endif %}</td>
+            <td><a href="{{ url_for('kanoe.crew', crew_id=crew.id) }}"><i class="fas fa-edit"></i></a></td>
           </tr>
           {% endfor %}
         </tbody>

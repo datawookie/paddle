@@ -139,8 +139,8 @@ def load_entries(race, individuals):
 
             club = session.query(db.Club).get(individual.club)
 
-            paddler.seats.append(
-                db.Seat(club=club, entry_id=entry.id, paid=individual.paid)
+            paddler.crews.append(
+                db.Crew(club=club, entry_id=entry.id, paid=individual.paid)
             )
 
     session.commit()
@@ -149,7 +149,6 @@ def load_entries(race, individuals):
 @blueprint.route("/entry/<entry_id>", methods=("GET", "POST"))
 @blueprint.route("/entry/", defaults={"entry_id": None}, methods=("GET", "POST"))
 def entry(entry_id):
-    print(request.form)
     entry = session.query(db.Entry).get(entry_id)
 
     if request.method == "POST":
@@ -157,11 +156,11 @@ def entry(entry_id):
         if paddler_id:
             logging.info("Add paddler to entry.")
             paddler = session.query(db.Paddler).get(paddler_id)
-            seat = db.Seat(
+            crew = db.Crew(
                 paddler_id=paddler_id,
                 entry_id=entry.id,
             )
-            session.add(seat)
+            session.add(crew)
         else:
             # This is a new entry.
             if entry is None:

@@ -5,7 +5,7 @@ from .team import *
 from .category import *
 from .paddler import *
 from .club import *
-from .seat import *
+from .crew import *
 from .member import *
 from .trial import *
 from .entry import *

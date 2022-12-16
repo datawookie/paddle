@@ -4,8 +4,8 @@ from .club import *
 from .entry import *
 
 
-class Seat(Base):
-    __tablename__ = "seat"
+class Crew(Base):
+    __tablename__ = "crew"
 
     id = Column(Integer, primary_key=True)
     paddler_id = Column(Integer, ForeignKey(Paddler.id), index=True)
@@ -16,13 +16,13 @@ class Seat(Base):
     paid = Column(Numeric)
 
     team = relationship(Team, backref="entries", lazy="joined")
-    paddler = relationship(Paddler, backref="seats", lazy="joined")
-    club = relationship("Club", backref="seats", lazy="joined")
-    entry = relationship(Entry, backref="seats", lazy="joined")
+    paddler = relationship(Paddler, backref="crews", lazy="joined")
+    club = relationship("Club", backref="crews", lazy="joined")
+    entry = relationship(Entry, backref="crews", lazy="joined")
 
     def __repr__(self):
         club = f"'{self.club.id}'" if self.club else "NONE"
-        return f"Seat(name='{self.paddler.name}', club={club})"
+        return f"Crew(name='{self.paddler.name}', club={club})"
 
     def __str__(self):
         club = f" ({self.club.id})" if self.club else ""

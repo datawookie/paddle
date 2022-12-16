@@ -6,7 +6,7 @@ from .entry import *
 from .member import *
 from .paddler import *
 from .race import *
-from .seat import *
+from .crew import *
 from .series import *
 from .team import *
 

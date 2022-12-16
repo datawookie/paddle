@@ -10,7 +10,6 @@ def teams():
 @blueprint.route("/team/create", methods=("GET", "POST"))
 def team_create():
     if request.method == "POST":
-        print(request.form)
         name = request.form["name"]
         series_id = request.form["series"]
 
