@@ -1,7 +1,10 @@
 import os
 from flask_bootstrap import Bootstrap5
+from flask_login import LoginManager
 from flask import Flask
 import logging
+
+from .views import blueprint
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -12,6 +15,10 @@ logging.basicConfig(
 
 app = Flask(__name__, static_url_path="")
 
+# Secret key for sessions.
+#
+app.secret_key = b"8842f61bd2e13ad8285f57a551e2e6cb3521f38740ac0358e74077714eea0c82"
+
 # app.config["EXPLAIN_TEMPLATE_LOADING"] = True
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["SECRET_KEY"] = os.urandom(24).hex()
@@ -20,7 +27,14 @@ app.config["SECRET_KEY"] = os.urandom(24).hex()
 #
 Bootstrap5(app)
 
-from .views import blueprint
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
+
 
 app.register_blueprint(blueprint)
 
