@@ -57,6 +57,7 @@ if __name__ == "__main__":
             logger.info("Creating tables...")
             db.Base.metadata.create_all(db.engine)
             logger.info("Done.")
+
             logger.info("Populate club table...")
             with open("club-list.csv", newline="") as file:
                 reader = csv.reader(file, delimiter=",")
@@ -73,16 +74,26 @@ if __name__ == "__main__":
                 logger.warning("Table already populated.")
             else:
                 logger.info("Done.")
+
             logger.info("Populate category table...")
             for category in db.CATEGORY_LIST:
                 category = db.Category(label=category)
                 session.add(category)
                 logger.debug("  - " + str(category))
-            session.commit()
+            try:
+                session.commit()
+            except db.IntegrityError:
+                session.rollback()
+                logger.warning("Table already populated.")
             logger.info("Done.")
+
             logger.info("Populate number table...")
             for number in range(db.MAX_NUMBER):
                 number = db.Number(id=number + 1)
                 session.add(number)
-            session.commit()
+            try:
+                session.commit()
+            except db.IntegrityError:
+                session.rollback()
+                logger.warning("Table already populated.")
             logger.info("Done.")

@@ -9,6 +9,7 @@ from .race import *
 from .crew import *
 from .series import *
 from .team import *
+from .user import *
 
 
 @blueprint.route("/")

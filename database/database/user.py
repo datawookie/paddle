@@ -1,21 +1,14 @@
 from .base import *
+from flask_login import UserMixin
 
 
-class User(db.Model):
+class User(UserMixin, Base):
     __tablename__ = "user"
 
-    email = Column(String, primary_key=True)
-    password = Column(String)
+    id = Column(Integer, primary_key=True)
+    email = Column(String)
+    pwd = Column(String)
     authenticated = Column(Boolean, default=False)
 
-    def is_active(self):
-        return True
-
-    def get_id(self):
-        return self.email
-
-    def is_authenticated(self):
-        return self.authenticated
-
-    def is_anonymous(self):
-        return False
+    def __repr__(self):
+        return f"User('{self.username}')"

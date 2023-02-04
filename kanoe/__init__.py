@@ -1,6 +1,7 @@
 import os
 from flask_bootstrap import Bootstrap5
 from flask_login import LoginManager
+from flask_bcrypt import Bcrypt
 from flask import Flask
 import logging
 
@@ -28,6 +29,11 @@ app.config["SECRET_KEY"] = os.urandom(24).hex()
 Bootstrap5(app)
 
 login_manager = LoginManager()
+#
+# login_manager.session_protection = "strong"
+# login_manager.login_view = "login"
+# login_manager.login_message_category = "info"
+#
 login_manager.init_app(app)
 
 
@@ -35,6 +41,8 @@ login_manager.init_app(app)
 def load_user(user_id):
     return User.get(user_id)
 
+
+bcrypt = Bcrypt(app)
 
 app.register_blueprint(blueprint)
 
