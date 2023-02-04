@@ -1,5 +1,6 @@
 import logging
-from flask_login import login_required
+from flask_login import login_required, login_user
+from flask_bcrypt import check_password_hash
 
 from .common import *
 from .util import is_safe_url
@@ -32,6 +33,16 @@ def register():
 
 @blueprint.route("/login", methods=["GET", "POST"])
 def login():
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        user = session.query(db.User).filter_by(email=form.email.data).first()
+        if check_password_hash(user.pwd, form.pwd.data):
+            login_user(user)
+            return redirect(url_for("kanoe.index"))
+        else:
+            flash("Invalid Username or password!", "danger")
+
     # Here we use a class of some kind to represent and validate our
     # client-side form data. For example, WTForms is a library that will
     # handle this for us, and we use a custom LoginForm to validate.
@@ -51,8 +62,6 @@ def login():
 
     #     return flask.redirect(next or flask.url_for("index"))
     # return flask.render_template("login.html", form=form)
-
-    form = LoginForm()
 
     return render_template("login.j2", form=form)
 

@@ -6,6 +6,7 @@ from flask import Flask
 import logging
 
 from .views import blueprint
+from .views.common import db, session
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -39,7 +40,7 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.get(user_id)
+    return session.query(db.User).get(user_id)
 
 
 bcrypt = Bcrypt(app)
