@@ -2,6 +2,7 @@ import datetime
 import string
 import logging
 from dataclasses import dataclass
+import pandas as pd
 
 from .common import *
 
@@ -20,6 +21,51 @@ CATEGORY_MAPPING = {
     "C2": "C2",
     "C1": "C1",
 }
+
+
+def load_xlsx(path):
+    data = pd.read_excel(path, sheet_name=None)
+
+    def prepare_sheet(df):
+        df.columns = [re.sub(" ", "_", col) for col in df.columns.str.lower()]
+        df["bc_number"] = df["bc_number"].astype("Int64")
+        return df
+
+    for key in list(data):
+        if key not in CATEGORY_MAPPING.keys():
+            data.pop(key)
+        else:
+            data[key] = prepare_sheet(data[key])
+            data[key]["category"] = key
+
+    data = pd.concat(data)
+
+    data = data.rename(
+        columns={
+            "div": "division",
+            "surname": "last",
+            "first_name": "first",
+            "bc_number": "bcu",
+            "expiry": "bcu_expiry",
+            "class": "klass",
+        }
+    )
+
+    return data[
+        [
+            "number",
+            "category",
+            "division",
+            "last",
+            "first",
+            "bcu",
+            "bcu_expiry",
+            "club",
+            "klass",
+            "due",
+            "paid",
+        ]
+    ]
 
 
 def category_mapping(category):
@@ -41,16 +87,34 @@ class Individual:
     category: str
     division: int
     paid: float
+    due: float
 
     def __post_init__(self):
         if self.bcu_expiry:
-            self.bcu_expiry = datetime.datetime.strptime(self.bcu_expiry, "%Y-%m-%d")
+            print(self.bcu_expiry)
+            print(type(self.bcu_expiry))
+            if pd.isnull(self.bcu_expiry):
+                self.bcu_expiry = None
+            else:
+                self.bcu_expiry = str(self.bcu_expiry)
+                self.bcu_expiry = datetime.datetime.strptime(
+                    self.bcu_expiry, "%Y-%m-%d %H:%M:%S"
+                )
+        if pd.isnull(self.bcu):
+            self.bcu = None
+        if self.division:
+            try:
+                self.division = int(self.division)
+            except ValueError:
+                self.division = None
 
 
 def load_entries(race, individuals):
+    individuals = individuals.to_dict("records")
     # Group entries (this handles K1 versus K2).
     entries = {}
     for individual in individuals:
+        logging.debug(individual)
         individual = Individual(**individual)
         individual.first = string.capwords(individual.first)
         individual.last = string.capwords(individual.last)
@@ -85,7 +149,7 @@ def load_entries(race, individuals):
         session.add(entry)
 
         for individual in individuals:
-            logging.info(f"- {individual}.")
+            logging.info(individual)
 
             paddler = None
 

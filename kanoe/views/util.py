@@ -46,5 +46,5 @@ def time_between(time, time_min, time_max):
 
 
 def allowed_file(filename):
-    ALLOWED_EXTENSIONS = {"json"}
+    ALLOWED_EXTENSIONS = {"xlsx"}
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS

@@ -37,7 +37,7 @@ class Paddler(Base):
         return cls.first + " " + cls.last
 
     def __repr__(self):
-        return f"Paddler(name='{self.name}')"
+        return f"Paddler(name='{self.name}', division={self.division})"
 
     def __str__(self):
         return self.name

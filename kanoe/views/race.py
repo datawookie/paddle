@@ -1,7 +1,8 @@
+import logging
 from werkzeug.utils import secure_filename
 
 from .common import *
-from .entry import load_entries
+from .entry import load_entries, load_xlsx
 from .util import *
 
 
@@ -15,13 +16,14 @@ def races():
 
         file = request.files.get("file")
         if file and allowed_file(file.filename):
+            logging.debug(f"Entries file: {file.filename}")
             filename = secure_filename(file.filename)
+            logging.debug(f"Entries file: {filename} (secure)")
             filename = os.path.join(UPLOAD_FOLDER, filename)
+            logging.debug(f"Entries file: {filename} (upload path)")
             file.save(filename)
 
-            with open(filename, "rt") as file:
-                entries = file.read()
-                entries = json.loads(entries)
+            entries = load_xlsx(filename)
 
             for race in races:
                 load_entries(race, entries)

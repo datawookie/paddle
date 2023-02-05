@@ -1,5 +1,10 @@
 # kanoe
 
+ Download entries from https://entries.gbcanoemarathon.co.uk/entries.
+
+ 1. Login.
+ 2. At top/right click on name and then "Newbucy CC Admin".
+
 ## App
 
 Running the app:

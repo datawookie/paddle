@@ -44,9 +44,12 @@ class Entry(Base):
     def division(self):
         if self.crews:
             # The division assigned to the boat is the minimum of the divisions of the paddlers.
-            return min([crew.paddler.division for crew in self.crews])
-        else:
-            return None
+            divisions = [crew.paddler.division for crew in self.crews]
+            divisions = [division for division in divisions if division is not None]
+            if divisions:
+                return min(divisions)
+
+        return None
 
     def __repr__(self):
         return "Entry(%d)" % (self.entry_number)
