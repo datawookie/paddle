@@ -204,7 +204,12 @@ def load_entries(race, individuals):
             club = session.query(db.Club).get(individual.club)
 
             paddler.crews.append(
-                db.Crew(club=club, entry_id=entry.id, paid=individual.paid)
+                db.Crew(
+                    club=club,
+                    entry_id=entry.id,
+                    due=individual.due,
+                    paid=individual.paid,
+                )
             )
 
     session.commit()

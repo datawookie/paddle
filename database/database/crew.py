@@ -13,6 +13,7 @@ class Crew(Base):
     entry_id = Column(Integer, ForeignKey(Entry.id), index=True)
     team_id = Column(Integer, ForeignKey(Team.id), index=True)
     services = Column(Boolean, server_default=expression.false())
+    due = Column(Numeric)
     paid = Column(Numeric)
 
     team = relationship(Team, backref="entries", lazy="joined")
