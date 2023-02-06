@@ -1,4 +1,4 @@
-{% extends "base.j2" %}
+{% extends "base-fluid.j2" %}
 {% from "macros.j2" import find_value %}
 
 {% block title %}{{ paddler.name }}{% endblock %}
@@ -80,4 +80,8 @@
     </div>
 </form>
 
+{% endblock %}
+
+{% block sidebar %}
+{% include 'sidebar-paddler.j2' %}
 {% endblock %}

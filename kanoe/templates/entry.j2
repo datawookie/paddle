@@ -52,10 +52,9 @@
     </form>
   </div>
   <div class="col-md-8">
-    <h3>Notes</h3>
-    <ul>
-      <li>An entry is only considered to be <em>services</em> if all paddlers in the boat are <em>services</em>.</li>
-    </ul>
+    {% if entry.note %}
+    <i class="fas fa-bell"></i> <strong>Note:</strong> {{ entry.note }}
+    {% endif %}
   </div>
 </div>
 
@@ -106,8 +105,6 @@
     </form>
   </div>
 </div>
-
-
 
 {% endif %}
 {% endblock %}
