@@ -43,8 +43,12 @@
           <input type="text" class="form-control" disabled value="{{ entry.team if entry.team else '' }}">
         </div>
         <div>
-          <label for="division">Services</label>
+          <label for="services">Services</label>
           <input type="checkbox" disabled{% if entry.services %} checked{% endif %} style="float: right;">
+        </div>
+        <div>
+          <label for="registered">Registered</label>
+          <input type="checkbox" disabled{% if entry.registered %} checked{% endif %} style="float: right;">
         </div>
       </div>
       <hr class="my-4">

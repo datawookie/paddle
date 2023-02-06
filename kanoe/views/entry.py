@@ -310,3 +310,12 @@ def number_deallocate(entry_id):
     session.commit()
 
     return redirect(url_for("kanoe.race", race_id=entry.race_id))
+
+
+@blueprint.route("/entry/<entry_id>/register", methods=(["GET"]))
+def entry_register(entry_id):
+    entry = session.query(db.Entry).get(entry_id)
+    entry.registered = True
+    session.commit()
+
+    return redirect(url_for("kanoe.entry", entry_id=entry_id))

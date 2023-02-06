@@ -1,4 +1,9 @@
 <ul class="nav flex-column">
+    {% if not entry.registered %}
+    <li class="nav-item mb-2">
+        <a href="{{ url_for('kanoe.entry_register', entry_id=entry.id) }}" class="btn btn-success">Register</a>
+    </li>
+    {% endif %}
     <li class="nav-item mb-2">
         <a href="{{ url_for('kanoe.number_update', entry_id=entry.id) }}" class="btn btn-primary">Update Race Number</a>
     </li>
