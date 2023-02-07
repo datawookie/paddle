@@ -1,4 +1,4 @@
-{% extends "base.j2" %}
+{% extends "base-fluid.j2" %}
 {% import "common/selector.j2" as selector %}
 
 {% block title %}Teams{% endblock %}
@@ -10,10 +10,6 @@
 {% block content %}
 
 <h1>Teams</h1>
-
-<ul>
-  <li><a href="{{ url_for('kanoe.team_create') }}">Add a team</a></li>
-</ul>
 
 <div class="row">
   <div class="col-sm-12">
@@ -51,4 +47,8 @@
     });
   });
 </script>
+{% endblock %}
+
+{% block sidebar %}
+{% include 'sidebar-team.j2' %}
 {% endblock %}
