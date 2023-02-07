@@ -1,7 +1,9 @@
 from .common import *
+from flask_login import login_required
 
 
 @blueprint.route("/crew/<crew_id>", methods=("GET", "POST"))
+@login_required
 def crew(crew_id):
     crew = session.query(db.Crew).get(crew_id)
 

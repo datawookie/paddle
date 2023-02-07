@@ -1,13 +1,17 @@
+from flask_login import login_required
+
 from .common import *
 
 
 @blueprint.route("/teams")
+@login_required
 def teams():
     teams = session.query(db.Team).all()
     return render_template("teams.j2", teams=teams)
 
 
 @blueprint.route("/team/create", methods=("GET", "POST"))
+@login_required
 def team_create():
     if request.method == "POST":
         name = request.form["name"]

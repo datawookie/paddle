@@ -1,10 +1,12 @@
 import logging
-from flask_login import login_required, login_user
+from flask_login import login_required, login_user, logout_user, current_user
 from flask_bcrypt import check_password_hash
 
 from .common import *
 from .util import is_safe_url
 from ..forms.login import LoginForm, RegisterForm
+
+from flask import session as flask_session
 
 
 @blueprint.route("/register", methods=["GET", "POST"])
@@ -39,29 +41,10 @@ def login():
         user = session.query(db.User).filter_by(email=form.email.data).first()
         if check_password_hash(user.pwd, form.pwd.data):
             login_user(user)
+            flask_session["user"] = current_user.email
             return redirect(url_for("kanoe.index"))
         else:
             flash("Invalid Username or password!", "danger")
-
-    # Here we use a class of some kind to represent and validate our
-    # client-side form data. For example, WTForms is a library that will
-    # handle this for us, and we use a custom LoginForm to validate.
-    # form = LoginForm()
-    # if form.validate_on_submit():
-    #     # Login and validate the user.
-    #     # user should be an instance of your `User` class
-    #     login_user(user)
-
-    #     flask.flash("Logged in successfully.")
-
-    #     next = flask.request.args.get("next")
-    #     # is_safe_url should check if the url is safe for redirects.
-    #     # See http://flask.pocoo.org/snippets/62/ for an example.
-    #     if not is_safe_url(next):
-    #         return flask.abort(400)
-
-    #     return flask.redirect(next or flask.url_for("index"))
-    # return flask.render_template("login.html", form=form)
 
     return render_template("login.j2", form=form)
 
@@ -70,4 +53,5 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(somewhere)
+    flask_session["user"] = None
+    return redirect(url_for("kanoe.index"))

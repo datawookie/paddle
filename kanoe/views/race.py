@@ -1,5 +1,6 @@
 import logging
 from werkzeug.utils import secure_filename
+from flask_login import login_required
 
 from .common import *
 from .entry import load_entries, load_xlsx
@@ -7,6 +8,7 @@ from .util import *
 
 
 @blueprint.route("/races", methods=("GET", "POST"))
+@login_required
 def races():
     if request.method == "POST":
         # Create a list of race IDs from the checkbox fields.
@@ -60,6 +62,7 @@ def races():
 
 
 @blueprint.route("/race/<race_id>")
+@login_required
 def race(race_id):
     entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
     race = session.query(db.Race).get(race_id)
@@ -131,6 +134,7 @@ def race_update(race_id):
 
 
 @blueprint.route("/race/<race_id>/results/display")
+@login_required
 def race_results_display(race_id):
     race = session.query(db.Race).get(race_id)
     results = (
@@ -168,6 +172,7 @@ def race_results_display(race_id):
 
 
 @blueprint.route("/race/<race_id>/results/capture", methods=("GET", "POST"))
+@login_required
 def race_results_capture(race_id):
     if request.method == "POST":
         entry_id = request.form["entry_id"]
@@ -206,6 +211,7 @@ def race_results_capture(race_id):
 
 
 @blueprint.route("/race/<race_id>/results/validate")
+@login_required
 def race_results_validate(race_id):
     entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
     race = session.query(db.Race).get(race_id)
@@ -218,6 +224,7 @@ def race_results_validate(race_id):
 
 
 @blueprint.route("/race/<race_id>/allocate-numbers", methods=("GET", "POST"))
+@login_required
 def race_allocate_numbers(race_id):
     if request.method == "POST":
         chunk = 1

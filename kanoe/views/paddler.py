@@ -1,3 +1,5 @@
+from flask_login import login_required
+
 from .common import *
 
 
@@ -9,6 +11,7 @@ def empty_to_none(text):
 
 
 @blueprint.route("/paddlers")
+@login_required
 def paddlers():
     paddlers = session.query(db.Paddler).all()
     return render_template("paddlers.j2", paddlers=paddlers)
@@ -16,6 +19,7 @@ def paddlers():
 
 @blueprint.route("/paddler/<paddler_id>", methods=("GET", "POST"))
 @blueprint.route("/paddler/", defaults={"paddler_id": None}, methods=("GET", "POST"))
+@login_required
 def paddler(paddler_id):
     if paddler_id:
         paddler = session.query(db.Paddler).get(paddler_id)

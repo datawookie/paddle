@@ -1,7 +1,10 @@
+from flask_login import login_required
+
 from .common import *
 
 
 @blueprint.route("/series/create", methods=("GET", "POST"))
+@login_required
 def series_create():
     if request.method == "POST":
         name = request.form.get("name")

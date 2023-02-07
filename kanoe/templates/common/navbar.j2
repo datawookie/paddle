@@ -10,6 +10,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ url_for('kanoe.index') }}">Home</a>
             </li>
+            {% if session["user"] %}
             <li class="nav-item active">
                 <a class="nav-link" href="{{ url_for('kanoe.races') }}">Races</a>
             </li>
@@ -20,8 +21,13 @@
                 <a class="nav-link" href="{{ url_for('kanoe.teams') }}">Teams</a>
             </li>
             <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('kanoe.logout') }}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item active">
                 <a class="nav-link" href="{{ url_for('kanoe.login') }}">Login</a>
             </li>
+            {% endif %}
             <!--
             <li class="nav-item active">
                 <a class="nav-link" href="{{ url_for('kanoe.time_trial') }}">Time Trial Results</a>

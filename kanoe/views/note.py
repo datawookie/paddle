@@ -1,9 +1,11 @@
 import logging
+from flask_login import login_required
 
 from .common import *
 
 
 @blueprint.route("/entry/note/add/<entry_id>", methods=("GET", "POST"))
+@login_required
 def entry_note_add(entry_id):
     if request.method == "POST":
         note = request.form.get("note")
@@ -17,6 +19,7 @@ def entry_note_add(entry_id):
 
 
 @blueprint.route("/entry/note/delete/<entry_id>", methods=("GET", "POST"))
+@login_required
 def entry_note_delete(entry_id):
     entry = session.query(db.Entry).get(entry_id)
     entry.note = None

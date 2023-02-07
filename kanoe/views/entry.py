@@ -3,6 +3,7 @@ import string
 import logging
 from dataclasses import dataclass
 import pandas as pd
+from flask_login import login_required
 
 from .common import *
 
@@ -217,6 +218,7 @@ def load_entries(race, individuals):
 
 @blueprint.route("/entry/<entry_id>", methods=("GET", "POST"))
 @blueprint.route("/entry/", defaults={"entry_id": None}, methods=("GET", "POST"))
+@login_required
 def entry(entry_id):
     entry = session.query(db.Entry).get(entry_id)
 
@@ -259,6 +261,7 @@ def entry(entry_id):
 
 
 @blueprint.route("/entry/<entry_id>/number", methods=("GET", "POST"))
+@login_required
 def number_update(entry_id):
     entry = session.query(db.Entry).get(entry_id)
 
@@ -298,6 +301,7 @@ def number_update(entry_id):
 
 
 @blueprint.route("/entry/<entry_id>/number/deallocate", methods=("GET", "POST"))
+@login_required
 def number_deallocate(entry_id):
     entry = session.query(db.Entry).get(entry_id)
 
@@ -313,6 +317,7 @@ def number_deallocate(entry_id):
 
 
 @blueprint.route("/entry/<entry_id>/register", methods=(["GET"]))
+@login_required
 def entry_register(entry_id):
     entry = session.query(db.Entry).get(entry_id)
     entry.registered = True
