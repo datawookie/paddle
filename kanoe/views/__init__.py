@@ -11,6 +11,7 @@ from .series import *
 from .team import *
 from .user import *
 from .note import *
+from .announcement import *
 
 
 @blueprint.route("/")

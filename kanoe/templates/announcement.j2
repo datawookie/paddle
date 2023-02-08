@@ -1,0 +1,19 @@
+{% extends "base-fluid.j2" %}
+
+{% block title %}Announcements{% endblock %}
+
+{% block content %}
+
+<h1>Announcements</h1>
+
+<ul>
+    {% for announcement in announcements %}
+    <li><a href="{{ url_for('kanoe.announcement_update', announcement_id=announcement.id) }}">{{ announcement }}</a>
+        {% endfor %}
+</ul>
+
+{% endblock %}
+
+{% block sidebar %}
+{% include 'sidebar-announcement.j2' %}
+{% endblock %}
