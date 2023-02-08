@@ -23,8 +23,14 @@ def parse_time(time):
         return None
     logging.debug(f"Parsing time: {time}")
     time = time_strip_colons(time)
-    if len(time) != 6:
-        raise RuntimeError("Time too short (should have form HHMMSS or HH:MM:SS).")
+    if len(time) == 2:
+        time += "0000"
+    elif len(time) == 4:
+        time += "00"
+    elif len(time) != 6:
+        raise RuntimeError(
+            f"Invalid time '{time}' (should have form HHMMSS or HH:MM:SS)."
+        )
     time = datetime.datetime.strptime(time, "%H%M%S")
     time = time.strftime("%H:%M:%S")
     logging.debug(f"- Normalised: {time}")

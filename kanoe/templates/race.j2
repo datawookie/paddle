@@ -22,6 +22,7 @@
                     <th>Division</th>
                     <th>Team</th>
                     <th>Race #</th>
+                    <th>Registered</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +34,7 @@
                     <td>{{ entry.division }}</td>
                     <td>{{ entry.team or "" }}</td>
                     <td>{{ entry.race_number or "" }}</td>
+                    <td class="text-center">{% if entry.registered %}<i class="fas fa-check"></i>{% endif %}</td>
                 </tr>
                 {% endfor %}
             </tbody>

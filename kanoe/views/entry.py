@@ -198,8 +198,10 @@ def load_entries(race, individuals):
                 session.add(paddler)
 
             if individual.bcu:
+                logging.debug("Update BCU number.")
                 paddler.bcu = individual.bcu
             if individual.bcu_expiry:
+                logging.debug("Update BCU number expiry.")
                 paddler.bcu_expiry = individual.bcu_expiry
 
             club = session.query(db.Club).get(individual.club)

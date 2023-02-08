@@ -134,7 +134,6 @@ def race_update(race_id):
 
 
 @blueprint.route("/race/<race_id>/results/display")
-@login_required
 def race_results_display(race_id):
     race = session.query(db.Race).get(race_id)
     results = (
