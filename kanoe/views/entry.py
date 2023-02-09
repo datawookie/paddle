@@ -228,7 +228,6 @@ def entry(entry_id):
         paddler_id = request.form.get("paddler_id")
         if paddler_id:
             logging.info("Add paddler to entry.")
-            paddler = session.query(db.Paddler).get(paddler_id)
             crew = db.Crew(
                 paddler_id=paddler_id,
                 entry_id=entry.id,
@@ -239,13 +238,12 @@ def entry(entry_id):
             if entry is None:
                 logging.info("Create new entry.")
                 race_id = request.form["race_id"]
-                race = session.query(db.Race).get(race_id)
                 entry = db.Entry(race_id=race_id)
                 session.add(entry)
 
             # Update category.
             category_id = request.form["category_id"]
-            entry.category = session.query(db.Category).get(category_id)
+            entry.category_id = category_id
 
         session.commit()
 
@@ -253,10 +251,11 @@ def entry(entry_id):
 
     races = session.query(db.Race).all()
     paddlers = session.query(db.Paddler).order_by(db.Paddler.first).all()
+    categories = session.query(db.Category).all()
     return render_template(
         "entry.j2",
         entry=entry,
-        categories=db.CATEGORY_LIST,
+        categories=categories,
         races=races,
         paddlers=paddlers,
     )
