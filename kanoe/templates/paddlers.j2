@@ -1,4 +1,4 @@
-{% extends "base.j2" %}
+{% extends "base-fluid.j2" %}
 
 {% block title %}Paddlers{% endblock %}
 
@@ -31,11 +31,12 @@
       </tbody>
     </table>
   </div>
-  <div class="col-sm-6">
-    <a href="{{ url_for('kanoe.paddler') }}" class="btn btn-primary">Add a Paddler</a>
-  </div>
 </div>
 
+{% endblock %}
+
+{% block sidebar %}
+{% include 'sidebar-paddler.j2' %}
 {% endblock %}
 
 {% block scripts %}
