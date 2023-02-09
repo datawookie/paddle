@@ -88,7 +88,7 @@
             <td>{{ crew.paddler.division }}</td>
             <td>{{ crew.team or "" }}</td>
             <td class="services">{% if crew.services %}<i class="fas fa-check"></i>{% endif %}</td>
-            <td>{{ "£ %.2f"|format(crew.due) }}</td>
+            <td>{% if crew.due %}{{ "£ %.2f"|format(crew.due) }}{% endif %}</td>
             <td>{% if crew.paid %}{{ "£ %.2f"|format(crew.paid) }}{% endif %}</td>
             <td><a href="{{ url_for('kanoe.crew', crew_id=crew.id) }}"><i class="fas fa-edit"></i></a></td>
           </tr>
