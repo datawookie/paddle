@@ -44,6 +44,11 @@ def load_user(user_id):
     return session.query(db.User).get(user_id)
 
 
+# This will disable login required (use for development and testing).
+#
+app.config["LOGIN_DISABLED"] = True
+
+
 bcrypt = Bcrypt(app)
 
 app.register_blueprint(blueprint)

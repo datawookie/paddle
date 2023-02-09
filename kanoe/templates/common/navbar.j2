@@ -10,7 +10,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ url_for('kanoe.index') }}">Home</a>
             </li>
-            {% if session["user"] %}
+            {% if session["user"] or config['LOGIN_DISABLED'] %}
             <li class="nav-item active">
                 <a class="nav-link" href="{{ url_for('kanoe.races') }}">Races</a>
             </li>
@@ -23,6 +23,9 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ url_for('kanoe.announcement') }}">Announcement</a>
             </li>
+            {% endif %}
+            {% if not config['LOGIN_DISABLED'] %}
+            {% if session["user"] %}
             <li class="nav-item active">
                 <a class="nav-link" href="{{ url_for('kanoe.logout') }}">Logout</a>
             </li>
@@ -30,6 +33,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ url_for('kanoe.login') }}">Login</a>
             </li>
+            {% endif %}
             {% endif %}
             <!--
             <li class="nav-item active">
