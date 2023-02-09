@@ -11,13 +11,15 @@
     <div class="form-group col-sm-6">
       <label for="note">Note</label>
       <input type="text" class="form-control" id="note" name="note" placeholder="Note"
-        value="{{ request.form['note'] }}">
+        value="{% if entry.note %}{{ entry.note }}{% endif %}">
       <hr class="my-4">
       <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-danger" name="delete">Delete</button>
     </div>
   </div>
 </form>
 {% endblock %}
 
 {% block sidebar %}
+{% include 'sidebar-note.j2' %}
 {% endblock %}
