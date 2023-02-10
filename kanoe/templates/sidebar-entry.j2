@@ -10,9 +10,13 @@
     <li class="nav-item mb-2">
         <a href="{{ url_for('kanoe.entry_note_update', entry_id=entry.id) }}" class="btn btn-primary">Update Note</a>
     </li>
+    {% if entry.race %}
     <li class="nav-item mb-2">
         <a href="{{ url_for('kanoe.race', race_id=entry.race.id) }}" class="btn btn-secondary">Go to Race</a>
     </li>
+    {% endif %}
 </ul>
 
+{% if entry.id %}
 <p>Entry ID: {{ entry.id }}</p>
+{% endif %}

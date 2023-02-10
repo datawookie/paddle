@@ -80,6 +80,14 @@
     </div>
 </form>
 
+<h3>Entries</h3>
+
+<ul>
+    {% for crew in paddler.crews %}
+    <li><a href="{{ url_for('kanoe.entry', entry_id=crew.entry.id) }}">{{ crew.entry }}</a> — {{ crew.entry.race }}</li>
+    {% endfor %}
+</ul>
+
 {% endblock %}
 
 {% block sidebar %}
