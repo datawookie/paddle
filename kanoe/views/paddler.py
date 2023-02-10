@@ -54,6 +54,8 @@ def paddler(paddler_id):
             title = None
         if bcu == "":
             bcu = None
+        if division == "":
+            division = None
 
         if not first:
             flash("First name is required!", "danger")
