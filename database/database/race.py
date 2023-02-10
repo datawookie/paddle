@@ -1,3 +1,5 @@
+import re
+
 from .base import *
 from .series import Series
 
@@ -31,3 +33,7 @@ class Race(Base):
 
     def __str__(self):
         return "%s (%s)" % (self.name, self.date)
+
+    @property
+    def slug(self):
+        return re.sub("[^a-zA-Z0-9]+", "-", self.name).lower()

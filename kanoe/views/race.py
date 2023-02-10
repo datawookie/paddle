@@ -1,3 +1,5 @@
+import tempfile
+import csv
 import logging
 from werkzeug.utils import secure_filename
 from flask_login import login_required
@@ -284,3 +286,20 @@ def race_allocate_numbers(race_id):
     return render_template(
         "race-allocate-numbers.j2", race_id=race_id, categories=categories
     )
+
+
+@blueprint.route("/race/<race_id>/export")
+@login_required
+def race_entries_export(race_id):
+    # path = "/etc/passwd"
+    entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
+    race = session.query(db.Race).get(race_id)
+    path = os.path.join(tempfile.mkdtemp(), race.slug + ".csv")
+    logging.info(path)
+
+    with open(path, "w", newline="") as fid:
+        spamwriter = csv.writer(fid, quoting=csv.QUOTE_NONNUMERIC)
+        for entry in entries:
+            spamwriter.writerow([entry, entry.id])
+
+    return send_file(path, as_attachment=True)

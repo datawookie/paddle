@@ -17,6 +17,9 @@
         <a href="{{ url_for('kanoe.race_allocate_numbers', race_id=race.id) }}" class="btn btn-primary">Allocate Race
             Numbers</a>
     </li>
+    <li class="nav-item d-grid gap-2">
+        <a href="{{ url_for('kanoe.race_entries_export', race_id=race.id) }}" class="btn btn-primary">Export</a>
+    </li>
 </ul>
 
 <h3>Results</h3>
