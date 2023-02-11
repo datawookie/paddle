@@ -9,7 +9,7 @@ from .entry import load_entries, load_xlsx
 from .util import *
 
 
-@blueprint.route("/races", methods=("GET", "POST"))
+@blueprint.route("/", methods=("GET", "POST"))
 @login_required
 def races():
     if request.method == "POST":
@@ -56,11 +56,7 @@ def races():
 
     serieses = session.query(db.Series).all()
 
-    paddler_count = session.query(func.count(db.Paddler.id)).scalar()
-
-    return render_template(
-        "races.j2", races=races, serieses=serieses, paddler_count=paddler_count
-    )
+    return render_template("races.j2", races=races, serieses=serieses)
 
 
 @blueprint.route("/race/<race_id>")

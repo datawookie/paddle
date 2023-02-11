@@ -12,8 +12,3 @@ from .team import *
 from .user import *
 from .note import *
 from .announcement import *
-
-
-@blueprint.route("/")
-def index():
-    return render_template("index.j2")
