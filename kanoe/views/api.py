@@ -16,17 +16,21 @@ def get_entry():
                 .one()
             )
         except db.NoResultFound:
-            logging.warning(f"Race number {race_number} not found.")
+            logging.warning(f"🚨 Race number {race_number} not found.")
             abort(404)
         # Get corresponding entry.
-        entry = (
-            session.query(db.Entry)
-            .filter(
-                db.Entry.race_id == race_id,
-                db.Entry.race_number == race_number,
+        try:
+            entry = (
+                session.query(db.Entry)
+                .filter(
+                    db.Entry.race_id == race_id,
+                    db.Entry.race_number == race_number,
+                )
+                .one()
             )
-            .one()
-        )
+        except db.NoResultFound:
+            logging.warning(f"🚨 Entry for race number {race_number} not found.")
+            abort(404)
         data = {
             "entry_id": entry.id,
             "paddlers": str(entry),
