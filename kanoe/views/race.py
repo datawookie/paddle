@@ -214,6 +214,37 @@ def race_results_validate(race_id):
     )
 
 
+@blueprint.route("/race/<race_id>/results/export")
+@login_required
+def race_results_export(race_id):
+    race = session.query(db.Race).get(race_id)
+    path = os.path.join(tempfile.mkdtemp(), race.slug + "-results.csv")
+
+    results = (
+        session.query(db.Entry)
+        .filter(db.Entry.race_id == race_id)
+        .filter(db.Entry.time_start != None)
+        .filter(db.Entry.time_finish != None)
+        .all()
+    )
+
+    categories = db.entries_get_categories(results)
+
+    # Sort results in each category.
+    for results in categories.values():
+        results.sort(key=lambda x: x.time, reverse=False)
+
+    with open(path, "w", newline="") as fid:
+        spamwriter = csv.writer(fid, quoting=csv.QUOTE_NONNUMERIC)
+        for results in categories.values():
+            for position, result in enumerate(results):
+                spamwriter.writerow(
+                    [result.category, position + 1, str(result), result.time]
+                )
+
+    return send_file(path, as_attachment=True)
+
+
 @blueprint.route("/race/<race_id>/allocate-numbers", methods=("GET", "POST"))
 @login_required
 def race_allocate_numbers(race_id):
@@ -278,14 +309,13 @@ def race_allocate_numbers(race_id):
     )
 
 
-@blueprint.route("/race/<race_id>/export")
+@blueprint.route("/race/<race_id>/entries/export")
 @login_required
 def race_entries_export(race_id):
-    # path = "/etc/passwd"
-    entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
     race = session.query(db.Race).get(race_id)
-    path = os.path.join(tempfile.mkdtemp(), race.slug + ".csv")
-    logging.info(path)
+    path = os.path.join(tempfile.mkdtemp(), race.slug + "-entries.csv")
+
+    entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
 
     with open(path, "w", newline="") as fid:
         spamwriter = csv.writer(fid, quoting=csv.QUOTE_NONNUMERIC)

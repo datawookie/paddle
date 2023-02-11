@@ -37,4 +37,7 @@
         <a href="{{ url_for('kanoe.race_results_validate', race_id=race.id) }}" class="btn btn-primary">Validate
             Results</a>
     </li>
+    <li class="nav-item d-grid gap-2">
+        <a href="{{ url_for('kanoe.race_results_export', race_id=race.id) }}" class="btn btn-primary">Export</a>
+    </li>
 </ul>
