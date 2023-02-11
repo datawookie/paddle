@@ -29,7 +29,7 @@ def crew(crew_id):
         return redirect(url_for("kanoe.entry", entry_id=crew.entry.id))
 
     paddlers = session.query(db.Paddler).order_by(db.Paddler.name).all()
-    clubs = session.query(db.Club).all()
+    clubs = session.query(db.Club).order_by(db.Club.name).all()
     teams = (
         session.query(db.Team)
         .filter(db.Team.series_id == crew.entry.race.series_id)
