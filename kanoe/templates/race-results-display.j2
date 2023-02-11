@@ -35,14 +35,22 @@
 <h2>{{ category }}</h2>
 
 <table class="table table-sm result">
+    <colgroup>
+        <col span="1" style="width: 3%;">
+        <col span="1" style="width: 3%;">
+        <col span="1" style="width: 40%;">
+        <col span="1" style="width: 12%;">
+        <col span="1" style="width: 10%;">
+        <col span="1" style="width: 7%; text-align: center;">
+    </colgroup>
     <thead>
         <tr>
-            <th>Position</th>
-            <th>Race #</th>
-            <th>Paddler(s)</th>
+            <th></th>
+            <th></th>
+            <th>Crew</th>
             <th>Team</th>
             <th class="services">Services</th>
-            <th>Time</th>
+            <th style="text-align: center;">Time</th>
         </tr>
     </thead>
     <tbody>
@@ -53,7 +61,7 @@
             <td>{{ result }}</td>
             <td>{{ result.team or "" }}</td>
             <td class="services">{% if result.services %}<i class="fas fa-check"></i>{% endif %}</td>
-            <td>{{ result.time }}</td>
+            <td style="text-align: center;">{{ result.time }}</td>
         </tr>
         {% endfor %}
     </tbody>
