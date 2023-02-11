@@ -250,7 +250,9 @@ def entry(entry_id):
         return redirect(url_for("kanoe.entry", entry_id=entry.id))
 
     races = session.query(db.Race).all()
-    paddlers = session.query(db.Paddler).order_by(db.Paddler.first).all()
+    paddlers = (
+        session.query(db.Paddler).order_by(db.Paddler.first, db.Paddler.last).all()
+    )
     categories = session.query(db.Category).all()
     return render_template(
         "entry.j2",
