@@ -146,17 +146,7 @@ def race_results_display(race_id):
         .all()
     )
 
-    categories = {}
-    #
-    # Group results into categories.
-    #
-    for result in results:
-        try:
-            categories[result.category.label]
-        except KeyError:
-            categories[result.category.label] = []
-
-        categories[result.category.label].append(result)
+    categories = db.entries_get_categories(results)
 
     # Sort results in each category.
     for results in categories.values():

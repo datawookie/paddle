@@ -119,3 +119,19 @@ class Entry(Base):
         return self.time_start is not None and (
             self.time_finish is not None or self.retired or self.disqualified
         )
+
+
+def entries_get_categories(entries):
+    categories = {}
+    #
+    # Group results into categories.
+    #
+    for entry in entries:
+        try:
+            categories[entry.category.label]
+        except KeyError:
+            categories[entry.category.label] = []
+
+        categories[entry.category.label].append(entry)
+
+    return categories
