@@ -93,11 +93,11 @@
             window.scrollBy(0, 10);
             // Hard reload page at bottom.
             if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight + footer_height) {
-                setTimeout(() => { location.reload(true); }, 5000);
+                setTimeout(() => { location.reload(true); }, 1000);
             }
         },
         // Scroll rate (larger number -> slower).
-        200
+        50
     );
     {% else %}
     setTimeout(() => { location.reload(true); }, 15000);
