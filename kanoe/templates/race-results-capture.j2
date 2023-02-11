@@ -201,10 +201,10 @@ You can also press enter in either the start time or finish time field to submit
         console.log("Parsing time.");
         // Get time and remove colons.
         var time = $(this).val().replace(/:/g, "");
+        time = time.padEnd(6, '0');
         if (time != "") {
             // Insert colons.
             time = time.slice(0, 2) + ":" + time.slice(2, 4) + ":" + time.slice(4, 6);
-            console.log(time);
             // Update time field.
             $(this).val(time);
             update_race_time();
