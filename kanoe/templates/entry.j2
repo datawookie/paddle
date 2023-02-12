@@ -55,7 +55,22 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
-  <div class="col-md-8">
+  <div class="col-md-3 offset-md-2">
+    <table style="width: 100%;">
+      <tr>
+        <th>Start Time:</th>
+        <td style="text-align: right;">{% if entry.time_start %}{{ entry.time_start }}{% else %}--:--:--{% endif %}</td>
+      </tr>
+      <tr>
+        <th>Finish Time:</th>
+        <td style="text-align: right;">{% if entry.time_finish %}{{ entry.time_finish }}{% else %}--:--:--{% endif %}
+        </td>
+      </tr>
+      <tr>
+        <th>Elapsed Time:</th>
+        <td style="text-align: right;">{% if entry.time %}{{ entry.time }}{% else %}--:--:--{% endif %}</td>
+      </tr>
+    </table>
     {% if entry.note %}
     <i class="fas fa-bell"></i> <strong>Note:</strong> {{ entry.note }}
     {% endif %}
