@@ -21,7 +21,7 @@ def time_strip_colons(time):
 def parse_time(time):
     if not time:
         return None
-    logging.debug(f"Parsing time: {time}")
+    logging.debug(f"Parsing time:     {time}")
     time = time_strip_colons(time)
     if len(time) == 2:
         time += "0000"
@@ -33,7 +33,7 @@ def parse_time(time):
         )
     time = datetime.datetime.strptime(time, "%H%M%S")
     time = time.strftime("%H:%M:%S")
-    logging.debug(f"- Normalised: {time}")
+    logging.debug(f"- Normalised:     {time}")
     return time
 
 
