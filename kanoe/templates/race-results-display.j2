@@ -36,20 +36,14 @@
 
 <table class="table table-sm result">
     <colgroup>
-        <col span="1" style="width: 3%;">
-        <col span="1" style="width: 3%;">
-        <col span="1" style="width: 40%;">
-        <col span="1" style="width: 12%;">
-        <col span="1" style="width: 10%;">
-        <col span="1" style="width: 7%; text-align: center;">
+        <col span="1" style="width: 5%;">
+        <col span="1" style="width: 85%;">
+        <col span="1" style="width: 10%; text-align: center;">
     </colgroup>
     <thead>
         <tr>
-            <th></th>
             <th>#</th>
             <th>Crew</th>
-            <th>Team</th>
-            <th class="services">Services</th>
             <th style="text-align: center;">Time</th>
         </tr>
     </thead>
@@ -57,10 +51,7 @@
         {% for result in results %}
         <tr {% if loop.index> 3 %}class="muted"{% endif %}>
             <td>{{ loop.index }}</td>
-            <td>{{ result.race_number or "" }}</td>
             <td>{{ result }}</td>
-            <td>{{ result.team or "" }}</td>
-            <td class="services">{% if result.services %}<i class="fas fa-check"></i>{% endif %}</td>
             <td style="text-align: center;">{{ result.time }}</td>
         </tr>
         {% endfor %}
