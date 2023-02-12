@@ -198,11 +198,11 @@ You can also press enter in either the start time or finish time field to submit
         $(this).select();
     });
     $('.time').focusout(function () {
-        console.log("Parsing time.");
         // Get time and remove colons.
         var time = $(this).val().replace(/:/g, "");
-        time = time.padEnd(6, '0');
         if (time != "") {
+            console.log("Parsing time '" + time + "'.");
+            time = time.padEnd(6, '0');
             // Insert colons.
             time = time.slice(0, 2) + ":" + time.slice(2, 4) + ":" + time.slice(4, 6);
             // Update time field.
