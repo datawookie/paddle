@@ -16,24 +16,22 @@
         <table id="entries" class="table table-striped display nowrap" style="width:100%">
             <thead>
                 <tr>
-                    <th>Entry #</th>
+                    <th>Race #</th>
                     <th>Paddler(s)</th>
                     <th>Category</th>
                     <th>Division</th>
                     <th>Team</th>
-                    <th>Race #</th>
                     <th>Registered</th>
                 </tr>
             </thead>
             <tbody>
                 {% for entry in entries %}
                 <tr>
-                    <td>{{ entry.entry_number }}</td>
+                    <td>{{ entry.race_number or "" }}</td>
                     <td><a href="{{ url_for('kanoe.entry', entry_id=entry.id) }}">{{ entry }}</a></td>
                     <td>{{ entry.category }}</td>
                     <td>{{ entry.division }}</td>
                     <td>{{ entry.team or "" }}</td>
-                    <td>{{ entry.race_number or "" }}</td>
                     <td class="text-center">{% if entry.registered %}<i class="fas fa-check"></i>{% endif %}</td>
                 </tr>
                 {% endfor %}
