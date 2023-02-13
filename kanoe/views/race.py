@@ -3,6 +3,7 @@ import csv
 import logging
 from werkzeug.utils import secure_filename
 from flask_login import login_required
+from flask_weasyprint import HTML, render_pdf
 
 from .common import *
 from .entry import load_entries, load_xlsx
@@ -210,9 +211,9 @@ def race_results_validate(race_id):
     )
 
 
-@blueprint.route("/race/<race_id>/results/export")
+@blueprint.route("/race/<race_id>/results/export/csv")
 @login_required
-def race_results_export(race_id):
+def race_results_export_csv(race_id):
     race = session.query(db.Race).get(race_id)
     path = os.path.join(tempfile.mkdtemp(), race.slug + "-results.csv")
 
@@ -239,6 +240,39 @@ def race_results_export(race_id):
                 )
 
     return send_file(path, as_attachment=True)
+
+
+@blueprint.route("/race/<race_id>/results/paginated")
+@login_required
+def race_results_paginated(race_id):
+    race = session.query(db.Race).get(race_id)
+
+    results = (
+        session.query(db.Entry)
+        .filter(db.Entry.race_id == race_id)
+        .filter(db.Entry.time_start != None)
+        .filter(db.Entry.time_finish != None)
+        .all()
+    )
+
+    categories = db.entries_get_categories(results)
+
+    # Sort results in each category.
+    for results in categories.values():
+        results.sort(key=lambda x: x.time, reverse=False)
+
+    return render_template(
+        "race-results-paginated.j2",
+        race=race,
+        categories=categories,
+        timestamp=datetime.datetime.now(),
+    )
+
+
+@blueprint.route("/race/<race_id>/results/export/pdf")
+@login_required
+def race_results_export_pdf(race_id):
+    return render_pdf(url_for("kanoe.race_results_paginated", race_id=race_id))
 
 
 @blueprint.route("/race/<race_id>/allocate-numbers", methods=("GET", "POST"))

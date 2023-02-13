@@ -1,0 +1,74 @@
+@page {
+    size: A4;
+    margin: 1cm 1cm 1cm 1cm;
+    @bottom-right {
+        content: counter(page) "/" counter(pages);
+        font-size: 12px;
+    }
+}
+
+footer, header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    font-size: 12px;
+}
+footer {
+    background-color: lightgray;
+    color: black;
+    bottom: 0cm;
+    height: 1cm;
+    padding: 0 0.5em 0 0.5em;
+    display: flex;
+    align-items: center;
+}
+
+footer .title {
+    float: left;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.timestamp {
+    float: right;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+div.break {
+    page-break-before: always;
+}
+
+h1 {
+    font-size: 20px;
+
+}
+
+h2 {
+    font-size: 16px;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    font-size: 12px;
+}
+
+td.position {
+    width: 5%;
+}
+
+td.paddler {
+    width: 40%;
+}
+
+td.club {
+    width: 45%;
+}
+
+td.time {
+    width: 10%;
+}

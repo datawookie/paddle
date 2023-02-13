@@ -10,10 +10,11 @@ from .views.common import db, session
 
 logging.basicConfig(
     level=logging.DEBUG,
-    format="%(asctime)s [%(levelname)7s] %(message)s",
+    format="%(asctime)s [%(levelname)7s] %(name)s %(message)s",
     # This will clobber existing handlers.
     force=True,
 )
+logging.getLogger("fontTools").setLevel(logging.WARNING)
 
 app = Flask(__name__, static_url_path="")
 

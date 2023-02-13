@@ -1,0 +1,45 @@
+{% extends "base-minimal.j2" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/css/paginated.css">
+{% endblock %}
+
+{% block footer %}
+<div style="width: 100%;">
+    <div class="title">
+        {{ race.name }} ({{ race.date }})
+    </div>
+    <div class="timestamp">
+        {{ timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+{% for category, results in categories.items() %}
+<div class="break">
+    <h1 style="text-align: center;">{{ race.name }} ({{ race.date }})</h1>
+
+    <h2>{{ category }}</h2>
+
+    <table>
+        {% for result in results %}
+        <tr>
+            <td class="position">{{ loop.index }}</td>
+            <td class="paddler">
+                {% for crew in result.crews %}
+                {{ crew.paddler.name }}{% if not loop.last %} / {% endif %}
+                {% endfor %}
+            </td>
+            <td class="club">
+                {{ result.crews | map(attribute='club') | map(attribute='name') | unique | join(' / ') }}
+            </td>
+            <td class="time">{{ result.time }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endfor %}
+
+{% endblock %}
