@@ -25,23 +25,25 @@
     <table class="border">
         <thead>
             <tr>
-                <th style="text-align: center;">Crew</th>
-                <th style="width: 12%; text-align: center;">Category</th>
-                <th style="width: 8%; text-align: center;">Services</th>
-                <th style="width: 12%; text-align: center;">Team</th>
-                <th style="width: 3%; text-align: center;">#</th>
+                <th style="width: 4%; text-align: center;">#</th>
+                <th style="text-align: center;" colspan="6">Crew</th>
+                <th style="width: 13%; text-align: center;">Category</th>
                 <th style="width: 3%; text-align: center;"><i class="fas fa-check"></i></th>
-                <th style="width: 25%; text-align: center;">Note</th>
+                <th style="text-align: center;">Note</th>
             </tr>
         </thead>
         <tbody>
             {% for entry in entries %}
             <tr>
-                <td>{{ entry }}</td>
-                <td style="text-align: center;">{{ entry.category }}</td>
-                <td></td>
-                <td></td>
                 <td style="text-align: center;">{{ entry.race_number }}</td>
+                <td style="width: 15%;">{{ entry.crews[0].paddler.last }}</td>
+                <td style="width: 13%;">{{ entry.crews[0].paddler.first }}</td>
+                <td style="width: 4%; text-align: center;">{{ entry.crews[0].club.id }}</td>
+                <td style="width: 15%;">{% if entry.crews[1] %}{{ entry.crews[1].paddler.last }}{% endif %}</td>
+                <td style="width: 13%;">{% if entry.crews[1] %}{{ entry.crews[1].paddler.first }}{% endif %}</td>
+                <td style="width: 4%; text-align: center;">{% if entry.crews[1] %}{{ entry.crews[1].club.id }}{% endif
+                    %}</td>
+                <td style="text-align: center;">{{ entry.category }}</td>
                 <td></td>
                 <td></td>
             </tr>

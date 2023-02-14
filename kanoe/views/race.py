@@ -3,7 +3,8 @@ import csv
 import logging
 from werkzeug.utils import secure_filename
 from flask_login import login_required
-from flask_weasyprint import HTML, render_pdf
+from flask_weasyprint import render_pdf
+from openpyxl import Workbook
 
 from .common import *
 from .entry import load_entries, load_xlsx
@@ -232,10 +233,10 @@ def race_results_export_csv(race_id):
         results.sort(key=lambda x: x.time, reverse=False)
 
     with open(path, "w", newline="") as fid:
-        spamwriter = csv.writer(fid, quoting=csv.QUOTE_NONNUMERIC)
+        writer = csv.writer(fid, quoting=csv.QUOTE_NONNUMERIC)
         for results in categories.values():
             for position, result in enumerate(results):
-                spamwriter.writerow(
+                writer.writerow(
                     [result.category, position + 1, str(result), result.time]
                 )
 
@@ -272,7 +273,11 @@ def race_results_paginated(race_id):
 @blueprint.route("/race/<race_id>/results/export/pdf")
 @login_required
 def race_results_export_pdf(race_id):
-    return render_pdf(url_for("kanoe.race_results_paginated", race_id=race_id))
+    race = session.query(db.Race).get(race_id)
+    return render_pdf(
+        url_for("kanoe.race_results_paginated", race_id=race_id),
+        download_filename=race.slug + "-results.pdf",
+    )
 
 
 @blueprint.route("/race/<race_id>/allocate-numbers", methods=("GET", "POST"))
@@ -339,18 +344,52 @@ def race_allocate_numbers(race_id):
     )
 
 
-@blueprint.route("/race/<race_id>/entries/export/csv")
+@blueprint.route("/race/<race_id>/entries/export/xlsx")
 @login_required
-def race_entries_export_csv(race_id):
+def race_entries_export_xlsx(race_id):
     race = session.query(db.Race).get(race_id)
-    path = os.path.join(tempfile.mkdtemp(), race.slug + "-entries.csv")
+    path = os.path.join(tempfile.mkdtemp(), race.slug + "-entries.xlsx")
 
     entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
 
-    with open(path, "w", newline="") as fid:
-        spamwriter = csv.writer(fid, quoting=csv.QUOTE_NONNUMERIC)
+    categories = db.entries_get_categories(entries)
+    # Sort by last name of first paddler in crew.
+    for entries in categories.values():
+        entries.sort(key=lambda x: x.crews[0].paddler.last, reverse=False)
+
+    workbook = Workbook()
+
+    # grab the active worksheet
+    sheet = workbook.active
+
+    sheet.column_dimensions["A"].width = 5
+    sheet.column_dimensions["B"].width = 20
+    sheet.column_dimensions["C"].width = 5
+    sheet.column_dimensions["D"].width = 20
+    sheet.column_dimensions["E"].width = 20
+    sheet.column_dimensions["F"].width = 5
+    sheet.column_dimensions["G"].width = 20
+    sheet.column_dimensions["H"].width = 20
+    sheet.column_dimensions["I"].width = 5
+
+    for entries in categories.values():
         for entry in entries:
-            spamwriter.writerow([entry, entry.id])
+            row = [
+                entry.id,
+                entry.category.label,
+                entry.category.id,
+                entry.crews[0].paddler.last,
+                entry.crews[0].paddler.first,
+                entry.crews[0].club.id if entry.crews[0].club else None,
+                entry.crews[1].paddler.last if len(entry.crews) == 2 else None,
+                entry.crews[1].paddler.first if len(entry.crews) == 2 else None,
+                entry.crews[1].club.id
+                if len(entry.crews) == 2 and entry.crews[1].club
+                else None,
+            ]
+            sheet.append(row)
+
+    workbook.save(path)
 
     return send_file(path, as_attachment=True)
 
@@ -378,4 +417,8 @@ def race_entries_paginated(race_id):
 @blueprint.route("/race/<race_id>/entries/export/pdf")
 @login_required
 def race_entries_export_pdf(race_id):
-    return render_pdf(url_for("kanoe.race_entries_paginated", race_id=race_id))
+    race = session.query(db.Race).get(race_id)
+    return render_pdf(
+        url_for("kanoe.race_entries_paginated", race_id=race_id),
+        download_filename=race.slug + "-entries.pdf",
+    )

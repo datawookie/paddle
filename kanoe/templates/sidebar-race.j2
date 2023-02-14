@@ -18,7 +18,8 @@
             Numbers</a>
     </li>
     <li class="nav-item d-grid gap-2">
-        <a href="{{ url_for('kanoe.race_entries_export_csv', race_id=race.id) }}" class="btn btn-primary">Export CSV</a>
+        <a href="{{ url_for('kanoe.race_entries_export_xlsx', race_id=race.id) }}" class="btn btn-primary">Export
+            XLSX</a>
     </li>
     <li class="nav-item d-grid gap-2">
         <a href="{{ url_for('kanoe.race_entries_export_pdf', race_id=race.id) }}" class="btn btn-primary">Export PDF</a>

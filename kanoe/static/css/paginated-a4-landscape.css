@@ -77,21 +77,6 @@ table.border th {
 }
 
 td {
-    font-size: 12px;
-}
-
-td.position {
-    width: 5%;
-}
-
-td.paddler {
-    width: 40%;
-}
-
-td.club {
-    width: 45%;
-}
-
-td.time {
-    width: 10%;
+    font-size: 14px;
+    padding: 2px;
 }
