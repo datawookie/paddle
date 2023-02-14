@@ -339,9 +339,9 @@ def race_allocate_numbers(race_id):
     )
 
 
-@blueprint.route("/race/<race_id>/entries/export")
+@blueprint.route("/race/<race_id>/entries/export/csv")
 @login_required
-def race_entries_export(race_id):
+def race_entries_export_csv(race_id):
     race = session.query(db.Race).get(race_id)
     path = os.path.join(tempfile.mkdtemp(), race.slug + "-entries.csv")
 
@@ -353,3 +353,29 @@ def race_entries_export(race_id):
             spamwriter.writerow([entry, entry.id])
 
     return send_file(path, as_attachment=True)
+
+
+@blueprint.route("/race/<race_id>/entries/paginated")
+@login_required
+def race_entries_paginated(race_id):
+    race = session.query(db.Race).get(race_id)
+
+    entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
+
+    categories = db.entries_get_categories(entries)
+    # Sort by last name of first paddler in crew.
+    for entries in categories.values():
+        entries.sort(key=lambda x: x.crews[0].paddler.last, reverse=False)
+
+    return render_template(
+        "race-entries-paginated.j2",
+        race=race,
+        categories=categories,
+        timestamp=datetime.datetime.now(),
+    )
+
+
+@blueprint.route("/race/<race_id>/entries/export/pdf")
+@login_required
+def race_entries_export_pdf(race_id):
+    return render_pdf(url_for("kanoe.race_entries_paginated", race_id=race_id))

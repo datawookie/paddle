@@ -1,0 +1,54 @@
+{% extends "base-minimal.j2" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/css/paginated-a4-landscape.css">
+{% include 'common/load-css-font-awesome.j2' %}
+{% endblock %}
+
+{% block footer %}
+<div style="width: 100%;">
+    <div class="title">
+        {{ race.name }} ({{ race.date }})
+    </div>
+    <div class="timestamp">
+        {{ timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+{% for category, entries in categories.items() %}
+<div class="break">
+    <h1 style="text-align: center;">{{ race.name }} ({{ race.date }}) — {{ category }}</h1>
+
+    <table class="border">
+        <thead>
+            <tr>
+                <th style="text-align: center;">Crew</th>
+                <th style="width: 12%; text-align: center;">Category</th>
+                <th style="width: 8%; text-align: center;">Services</th>
+                <th style="width: 12%; text-align: center;">Team</th>
+                <th style="width: 3%; text-align: center;">#</th>
+                <th style="width: 3%; text-align: center;"><i class="fas fa-check"></i></th>
+                <th style="width: 25%; text-align: center;">Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries %}
+            <tr>
+                <td>{{ entry }}</td>
+                <td style="text-align: center;">{{ entry.category }}</td>
+                <td></td>
+                <td></td>
+                <td style="text-align: center;">{{ entry.race_number }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endfor %}
+
+{% endblock %}
