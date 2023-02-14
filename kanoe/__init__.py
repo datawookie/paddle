@@ -15,6 +15,7 @@ logging.basicConfig(
     force=True,
 )
 logging.getLogger("fontTools").setLevel(logging.WARNING)
+logging.getLogger("weasyprint").setLevel(logging.ERROR)
 
 app = Flask(__name__, static_url_path="")
 
