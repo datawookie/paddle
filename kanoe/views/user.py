@@ -3,7 +3,6 @@ from flask_login import login_required, login_user, logout_user, current_user
 from flask_bcrypt import check_password_hash
 
 from .common import *
-from .util import is_safe_url
 from ..forms.login import LoginForm, RegisterForm
 
 from flask import session as flask_session
@@ -27,7 +26,7 @@ def register():
 
         session.add(newuser)
         session.commit()
-        flash(f"Account Succesfully created", "success")
+        flash("Account Succesfully created", "success")
         return redirect(url_for("kanoe.login"))
 
     return render_template("login.j2", form=form)

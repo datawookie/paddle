@@ -28,4 +28,4 @@ class RegisterForm(LoginForm):
 
     def validate_email(self, email):
         if session.query(db.User).filter_by(email=email.data).first():
-            raise ValidationError("Email already registered!")
+            raise RuntimeError("Email already registered!")

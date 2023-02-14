@@ -5,7 +5,6 @@ from .race import *
 from .team import *
 from .category import *
 from .series import *
-from .team import *
 
 
 class BoatType(enum.Enum):
