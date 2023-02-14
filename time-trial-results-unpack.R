@@ -61,4 +61,3 @@ dbAppendTable(
   "time_trial_result",
   data %>% select(time_trial_id, member_id, time)
 )
-
