@@ -143,7 +143,7 @@ def load_entries(race, individuals):
                 session.query(db.Category).filter(db.Category.label == category).one()
             )
         else:
-            logging.warning(f"🚨 Category is missing.")
+            logging.warning("🚨 Category is missing.")
             continue
 
         entry = db.Entry(entry_number=number, category_id=category.id, race_id=race.id)
@@ -296,7 +296,7 @@ def number_update(entry_id):
     unallocated = (
         session.query(db.Number)
         .outerjoin(sub_query, sub_query.c.number_id == db.Number.id)
-        .filter(sub_query.c.entry_id == None)
+        .filter(sub_query.c.entry_id.is_(None))
         .all()
     )
 

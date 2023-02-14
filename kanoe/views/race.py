@@ -138,8 +138,8 @@ def race_results_display(race_id):
     results = (
         session.query(db.Entry)
         .filter(db.Entry.race_id == race_id)
-        .filter(db.Entry.time_start != None)
-        .filter(db.Entry.time_finish != None)
+        .filter(db.Entry.time_start.is_not(None))
+        .filter(db.Entry.time_finish.is_not(None))
         .all()
     )
 
@@ -220,8 +220,8 @@ def race_results_export_csv(race_id):
     results = (
         session.query(db.Entry)
         .filter(db.Entry.race_id == race_id)
-        .filter(db.Entry.time_start != None)
-        .filter(db.Entry.time_finish != None)
+        .filter(db.Entry.time_start.is_not(None))
+        .filter(db.Entry.time_finish.is_not(None))
         .all()
     )
 
@@ -250,8 +250,8 @@ def race_results_paginated(race_id):
     results = (
         session.query(db.Entry)
         .filter(db.Entry.race_id == race_id)
-        .filter(db.Entry.time_start != None)
-        .filter(db.Entry.time_finish != None)
+        .filter(db.Entry.time_start.is_not(None))
+        .filter(db.Entry.time_finish.is_not(None))
         .all()
     )
 
