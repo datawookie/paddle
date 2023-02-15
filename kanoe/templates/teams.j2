@@ -17,6 +17,7 @@
       <thead>
         <tr>
           <th>Name</th>
+          <th>Type</th>
           <th>Series</th>
         </tr>
       </thead>
@@ -24,6 +25,7 @@
         {% for team in teams %}
         <tr>
           <td>{{ team.name }}</td>
+          <td>{{ team.type.name }}</td>
           <td>{{ team.series }}</td>
         </tr>
         {% endfor %}
