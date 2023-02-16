@@ -105,12 +105,11 @@ from .series import Series
 # just mean that the team adds just 3 seconds to the Series not any more…!
 
 
-class TeamType(enum.Enum):
-    junior = 1
-    senior = 2
+class TeamType(Base):
+    __tablename__ = "team_type"
 
-
-team_type = Enum(TeamType)
+    id = Column(Integer, primary_key=True)
+    label = Column(String)
 
 
 class Team(Base):
@@ -121,9 +120,10 @@ class Team(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    type = Column(team_type, index=True, nullable=False)
+    team_type_id = Column(Integer, ForeignKey(TeamType.id), nullable=False)
     series_id = Column(Integer, ForeignKey(Series.id), index=True, nullable=False)
 
+    type = relationship(TeamType, backref="teams")
     series = relationship(Series, backref="teams", lazy="joined")
 
     def __str__(self):

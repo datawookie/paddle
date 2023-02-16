@@ -111,11 +111,21 @@ def upgrade() -> None:
     )
     op.create_index(op.f("ix_race_series_id"), "race", ["series_id"], unique=False)
     op.create_table(
+        "team_type",
+        sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column("label", sa.String(), nullable=True),
+        sa.PrimaryKeyConstraint("id"),
+    )
+    op.create_table(
         "team",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("name", sa.String(), nullable=True),
-        sa.Column("type", sa.Enum("junior", "senior", name="teamtype"), nullable=False),
+        sa.Column("team_type_id", sa.Integer(), nullable=True),
         sa.Column("series_id", sa.Integer(), nullable=False),
+        sa.ForeignKeyConstraint(
+            ["team_type_id"],
+            ["team_type.id"],
+        ),
         sa.ForeignKeyConstraint(
             ["series_id"],
             ["series.id"],
@@ -124,7 +134,6 @@ def upgrade() -> None:
         sa.UniqueConstraint("name", "series_id", name="uq_team_name_series"),
     )
     op.create_index(op.f("ix_team_series_id"), "team", ["series_id"], unique=False)
-    op.create_index(op.f("ix_team_type"), "team", ["type"], unique=False)
     op.create_table(
         "time_trial_result",
         sa.Column("id", sa.Integer(), nullable=False),
@@ -262,9 +271,9 @@ def downgrade() -> None:
         op.f("ix_time_trial_result_member_id"), table_name="time_trial_result"
     )
     op.drop_table("time_trial_result")
-    op.drop_index(op.f("ix_team_type"), table_name="team")
     op.drop_index(op.f("ix_team_series_id"), table_name="team")
     op.drop_table("team")
+    op.drop_table("team_type")
     op.drop_index(op.f("ix_race_series_id"), table_name="race")
     op.drop_table("race")
     op.drop_table("user")
