@@ -19,6 +19,9 @@
         value="{{ request.form['name'] }}">
     </div>
     <div class="form-group col-sm-12">
+      {{ selector.team_type(types) }}
+    </div>
+    <div class="form-group col-sm-12">
       {{ selector.series(serieses) }}
     </div>
     <hr class="my-4">

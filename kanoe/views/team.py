@@ -1,3 +1,4 @@
+import logging
 from flask_login import login_required
 
 from .common import *
@@ -15,13 +16,19 @@ def teams():
 def team_create():
     if request.method == "POST":
         name = request.form["name"]
+        team_type_id = request.form["team_type"]
         series_id = request.form["series"]
 
-        team = db.Team(name=name, series_id=series_id)
+        team = db.Team(name=name, series_id=series_id, team_type_id=team_type_id)
         session.add(team)
         session.commit()
 
         return redirect(url_for("kanoe.teams"))
 
+    types = session.query(db.TeamType).all()
     serieses = session.query(db.Series).order_by(db.Series.name.desc()).all()
-    return render_template("team-create.j2", serieses=serieses)
+    return render_template(
+        "team-create.j2",
+        serieses=serieses,
+        types=types,
+    )

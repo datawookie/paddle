@@ -111,6 +111,9 @@ class TeamType(Base):
     id = Column(Integer, primary_key=True)
     label = Column(String, nullable=False)
 
+    def __str__(self):
+        return self.label
+
 
 class Team(Base):
     __tablename__ = "team"
@@ -126,5 +129,5 @@ class Team(Base):
     type = relationship(TeamType, backref="teams")
     series = relationship(Series, backref="teams", lazy="joined")
 
-    def __str__(self):
-        return self.name
+    def __repr__(self):
+        return f"Team(id={self.id}, name='{self.name}', type={self.team_type_id} {self.type})"

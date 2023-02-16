@@ -7,6 +7,15 @@
 </select>
 {%- endmacro -%}
 
+{% macro team_type(types) -%}
+<label>Type</label>
+<select class="form-select form-select" name="team_type">
+    {% for type in types %}
+    <option value="{{ type.id }}">{{ type.label }}</option>
+    {% endfor %}
+</select>
+{%- endmacro -%}
+
 {% macro team(teams, selected) -%}
 <label for="team">Team</label>
 <select class="form-select" class="form-control" id="team" name="team">
