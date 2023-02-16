@@ -109,7 +109,7 @@ class TeamType(Base):
     __tablename__ = "team_type"
 
     id = Column(Integer, primary_key=True)
-    label = Column(String)
+    label = Column(String, nullable=False)
 
 
 class Team(Base):
