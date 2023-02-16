@@ -32,3 +32,14 @@ def team_create():
         serieses=serieses,
         types=types,
     )
+
+
+@blueprint.route("/team/<team_id>")
+@login_required
+def team(team_id):
+    team = session.query(db.Team).get(team_id)
+
+    return render_template(
+        "team.j2",
+        team=team,
+    )

@@ -38,10 +38,6 @@
           <label for="division">Race Number</label>
           <input type="number" class="form-control" disabled value="{{ entry.race_number }}">
         </div>
-        <div class="mb-3">
-          <label for="division">Team</label>
-          <input type="text" class="form-control" disabled value="{{ entry.team if entry.team else '' }}">
-        </div>
         <div>
           <label for="services">Services</label>
           <input type="checkbox" disabled{% if entry.services %} checked{% endif %} style="float: right;">

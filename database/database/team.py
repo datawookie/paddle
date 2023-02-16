@@ -131,3 +131,6 @@ class Team(Base):
 
     def __repr__(self):
         return f"Team(id={self.id}, name='{self.name}', type={self.team_type_id} {self.type})"
+
+    def __str__(self):
+        return self.name

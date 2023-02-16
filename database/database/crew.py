@@ -16,7 +16,7 @@ class Crew(Base):
     due = Column(Numeric)
     paid = Column(Numeric)
 
-    team = relationship(Team, backref="entries", lazy="joined")
+    team = relationship(Team, backref="crews", lazy="joined")
     paddler = relationship(Paddler, backref="crews", lazy="joined")
     club = relationship("Club", backref="crews", lazy="joined")
     entry = relationship(Entry, backref="crews", lazy="joined")
