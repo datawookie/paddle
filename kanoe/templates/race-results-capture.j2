@@ -151,11 +151,19 @@ You can also press enter in either the start time or finish time field to submit
         error: function (jqXHR, textStatus) {
             $('#paddlers').val("Race number not found!");
 
+            $('#time_start').val("");
+            $('#time_finish').val("");
+            $('#time_race').val("");
+            $('#time_adjustment').val("");
+            $('#note').val("");
+
             $('#time_start').prop('disabled', true);
             $('#time_finish').prop('disabled', true);
             $('#retired').prop('disabled', true);
             $('#disqualified').prop('disabled', true);
             $('#submit').prop('disabled', true);
+            $('#time_adjustment').prop('disabled', true);
+            $('#note').prop('disabled', true);
             $('#race_number').focus();
         }
             });
