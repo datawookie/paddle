@@ -39,6 +39,7 @@ def time_pad_seconds(time):
 
 
 def time_between(time, time_min, time_max):
+    logging.debug(f"Check if {time} is between {time_min} and {time_max}.")
     time = parse_time(time)
     time_min = parse_time(time_min)
     time_max = parse_time(time_max)

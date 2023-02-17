@@ -22,6 +22,7 @@
                     <th>Division</th>
                     <th>Team</th>
                     <th>Registered</th>
+                    <th>Time</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +34,11 @@
                     <td>{{ entry.division }}</td>
                     <td>{{ entry.team or "" }}</td>
                     <td class="text-center">{% if entry.registered %}<i class="fas fa-check"></i>{% endif %}</td>
+                    {% if entry.time %}
+                    <td data-sort="{{ entry.time.total_seconds() }}">{{ entry.time }}</td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
