@@ -4,9 +4,14 @@ from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from flask import Flask
 import logging
+import warnings
 
 from .views import blueprint
 from .views.common import db, session
+
+# Turn deprecation warnings into errors.
+#
+warnings.warn("error", DeprecationWarning)
 
 logging.basicConfig(
     level=logging.DEBUG,
