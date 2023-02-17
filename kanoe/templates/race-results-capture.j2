@@ -185,6 +185,14 @@ You can also press enter in either the start time or finish time field to submit
             //
             diff += Number(adjustment);
 
+            if (diff <= 0) {
+                $('#time_race').css('background-color', '{{ colour.BACKGROUND_WARNING }}');
+                $('#submit').prop('disabled', true);
+            } else {
+                $('#time_race').css('background-color', '');
+                $('#submit').prop('disabled', false);
+            }
+
             var hours = Math.floor(diff / 60 / 60);
             diff -= hours * 60 * 60;
             var minutes = Math.floor(diff / 60);
