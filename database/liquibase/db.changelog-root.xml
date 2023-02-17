@@ -1,0 +1,8 @@
+<databaseChangeLog>
+    <include file="changesets/8d8d70c226fa/setup.sql"/>
+    <include file="changesets/c84b26c56825/setup.sql"/>
+    <include file="changesets/915a89d96e8b/setup.sql"/>
+    <include file="changesets/09b05f0d065c/setup.sql"/>
+    <include file="changesets/a82fa9a9e38b/setup.sql"/>
+    <include file="changesets/c110e697b81a/setup.sql"/>
+</databaseChangeLog>
