@@ -51,24 +51,33 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
-  <div class="col-md-3 offset-md-2">
-    <table style="width: 100%;">
-      <tr>
-        <th>Start Time:</th>
-        <td style="text-align: right;">{% if entry.time_start %}{{ entry.time_start }}{% else %}--:--:--{% endif %}</td>
-      </tr>
-      <tr>
-        <th>Finish Time:</th>
-        <td style="text-align: right;">{% if entry.time_finish %}{{ entry.time_finish }}{% else %}--:--:--{% endif %}
-        </td>
-      </tr>
-      <tr>
-        <th>Elapsed Time:</th>
-        <td style="text-align: right;">{% if entry.time %}{{ entry.time }}{% else %}--:--:--{% endif %}</td>
-      </tr>
-    </table>
+  <div class="col-md-6 offset-md-2">
+    <div class="times">
+      {% if entry.time %}
+      <div class="time-elapsed">
+        {{ entry.time }}
+      </div>
+      <div class="text-muted">Elapsed Time</div>
+      {% endif %}
+      <div class="mt-4">
+        {% if entry.time_start %}
+        <div class="time-start-finish">
+          {{ entry.time_start }}
+        </div>
+        <div class="text-muted">Start Time</div>
+        {% endif %}
+        {% if entry.time_finish %}
+        <div class="time-start-finish mt-1">
+          {{ entry.time_finish }}
+        </div>
+        <div class="text-muted">Finish Time</div>
+        {% endif %}
+      </div>
+    </div>
     {% if entry.note %}
-    <i class="fas fa-bell"></i> <strong>Note:</strong> {{ entry.note }}
+    <div class="p-3 mt-2 bg-info text-black">
+      <i class="fas fa-bell"></i> <strong>Note:</strong> {{ entry.note }}
+    </div>
     {% endif %}
   </div>
 </div>
