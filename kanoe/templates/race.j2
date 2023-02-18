@@ -13,36 +13,40 @@
 
 <div class="row">
     <div class="col-sm-12">
-        <table id="entries" class="table table-striped display nowrap" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Race #</th>
-                    <th>Paddler(s)</th>
-                    <th>Category</th>
-                    <th>Division</th>
-                    <th>Team</th>
-                    <th>Registered</th>
-                    <th>Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for entry in entries %}
-                <tr>
-                    <td>{{ entry.race_number or "" }}</td>
-                    <td><a href="{{ url_for('kanoe.entry', entry_id=entry.id) }}">{{ entry }}</a></td>
-                    <td>{{ entry.category }}</td>
-                    <td>{{ entry.division }}</td>
-                    <td>{{ entry.team or "" }}</td>
-                    <td class="text-center">{% if entry.registered %}<i class="fas fa-check"></i>{% endif %}</td>
-                    {% if entry.time %}
-                    <td data-sort="{{ entry.time.total_seconds() }}">{{ entry.time }}</td>
-                    {% else %}
-                    <td></td>
-                    {% endif %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <!-- This wrapper is to prevent the "plain" table being shown for a moment before being converted to a DataTable. -->
+        <!-- Now it is converted to a DataTable before being shown. See JavaScript at end where it's made visible. -->
+        <div id="wrapper" style="visibility: hidden;">
+            <table id="entries" class="table table-striped display nowrap" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>Race #</th>
+                        <th>Paddler(s)</th>
+                        <th>Category</th>
+                        <th>Division</th>
+                        <th>Team</th>
+                        <th>Registered</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in entries %}
+                    <tr>
+                        <td>{{ entry.race_number or "" }}</td>
+                        <td><a href="{{ url_for('kanoe.entry', entry_id=entry.id) }}">{{ entry }}</a></td>
+                        <td>{{ entry.category }}</td>
+                        <td>{{ entry.division }}</td>
+                        <td>{{ entry.team or "" }}</td>
+                        <td class="text-center">{% if entry.registered %}<i class="fas fa-check"></i>{% endif %}</td>
+                        {% if entry.time %}
+                        <td data-sort="{{ entry.time.total_seconds() }}">{{ entry.time }}</td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -69,6 +73,7 @@
             ],
             dom: 'Plfrtip'
         });
+        $('#wrapper').css('visibility', 'visible');
     });
 </script>
 {% endblock %}
