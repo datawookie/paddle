@@ -16,6 +16,7 @@
       <thead>
         <tr>
           <th>Name</th>
+          <th>Age Group</th>
           <th>Division</th>
         </tr>
       </thead>
@@ -25,6 +26,7 @@
           <td>
             <a href="{{ url_for('kanoe.paddler', paddler_id=paddler.id) }}">{{ paddler.name }}</a>
           </td>
+          <td>{% if paddler.age_group %}{{ paddler.age_group }}{% endif %}</td>
           <td>{% if paddler.division %}{{ paddler.division }}{% endif %}</td>
         </tr>
         {% endfor %}

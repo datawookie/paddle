@@ -1,13 +1,7 @@
 from flask_login import login_required
 
 from .common import *
-
-
-def empty_to_none(text):
-    if text == "":
-        return None
-    else:
-        return text
+from .util import empty_to_none
 
 
 @blueprint.route("/paddlers")
@@ -26,12 +20,15 @@ def paddler(paddler_id):
     else:
         paddler = None
 
+    age_groups = session.query(db.AgeGroup).all()
+
     if request.method == "POST":
         first = request.form["first"]
         middle = request.form["middle"]
         last = request.form["last"]
         division = request.form["division"]
         dob = request.form["dob"]
+        age_group_id = request.form["age_group_id"]
         title = request.form["title"]
         emergency_name = request.form["emergency_name"]
         emergency_phone = request.form["emergency_phone"]
@@ -48,14 +45,15 @@ def paddler(paddler_id):
         else:
             bcu_expiry = None
 
-        if middle == "":
-            middle = None
-        if title == "":
-            title = None
-        if bcu == "":
-            bcu = None
-        if division == "":
-            division = None
+        age_group_id = empty_to_none(age_group_id)
+        first = empty_to_none(first)
+        middle = empty_to_none(middle)
+        last = empty_to_none(last)
+        title = empty_to_none(title)
+        bcu = empty_to_none(bcu)
+        division = empty_to_none(division)
+        emergency_name = empty_to_none(emergency_name)
+        emergency_phone = empty_to_none(emergency_phone)
 
         if not first:
             flash("First name is required!", "danger")
@@ -68,16 +66,17 @@ def paddler(paddler_id):
             #
             if paddler:
                 # Update existing paddler.
-                paddler.first = empty_to_none(first)
-                paddler.middle = empty_to_none(middle)
-                paddler.last = empty_to_none(last)
-                paddler.division = empty_to_none(division)
-                paddler.dob = empty_to_none(dob)
-                paddler.title = empty_to_none(title)
-                paddler.emergency_name = empty_to_none(emergency_name)
-                paddler.emergency_phone = empty_to_none(emergency_phone)
-                paddler.bcu = empty_to_none(bcu)
-                paddler.bcu_expiry = empty_to_none(bcu_expiry)
+                paddler.first = first
+                paddler.middle = middle
+                paddler.last = last
+                paddler.division = division
+                paddler.dob = dob
+                paddler.age_group_id = age_group_id
+                paddler.title = title
+                paddler.emergency_name = emergency_name
+                paddler.emergency_phone = emergency_phone
+                paddler.bcu = bcu
+                paddler.bcu_expiry = bcu_expiry
 
                 flash("Updated existing paddler.", "success")
             else:
@@ -88,6 +87,7 @@ def paddler(paddler_id):
                     last=last,
                     division=division,
                     dob=dob,
+                    age_group_id=age_group_id,
                     title=title,
                     emergency_name=emergency_name,
                     emergency_phone=emergency_phone,
@@ -102,4 +102,4 @@ def paddler(paddler_id):
 
             return redirect(url_for("kanoe.paddlers"))
 
-    return render_template("paddler.j2", paddler=paddler)
+    return render_template("paddler.j2", paddler=paddler, age_groups=age_groups)
