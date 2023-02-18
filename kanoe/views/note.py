@@ -11,11 +11,13 @@ def entry_note_update(entry_id):
 
     if request.method == "POST":
         if "delete" in request.form:
-            entry.note = None
+            note = None
         else:
-            note = request.form.get("note")
-            entry.note = note
+            note = request.form.get("note").strip()
+            if note == "":
+                note = None
 
+        entry.note = note
         session.commit()
 
         return redirect(url_for("kanoe.entry", entry_id=entry.id))
