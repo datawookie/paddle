@@ -1,4 +1,5 @@
 from .base import *
+from .age_group import AgeGroup
 
 
 class Paddler(Base):
@@ -19,6 +20,9 @@ class Paddler(Base):
     phone = Column(String)
     emergency_name = Column(String)
     emergency_phone = Column(String)
+    age_group_id = Column(Integer, ForeignKey(AgeGroup.id), index=True)
+
+    age_group = relationship(AgeGroup, backref="paddlers", lazy="joined")
 
     # This is the version which is used in Python.
     #

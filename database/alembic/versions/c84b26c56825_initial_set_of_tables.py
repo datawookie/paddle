@@ -53,6 +53,12 @@ def upgrade() -> None:
         sa.PrimaryKeyConstraint("id"),
     )
     op.create_table(
+        "age_group",
+        sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column("label", sa.String(), nullable=True),
+        sa.PrimaryKeyConstraint("id"),
+    )
+    op.create_table(
         "paddler",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("bcu", sa.Integer(), nullable=True),
@@ -64,12 +70,20 @@ def upgrade() -> None:
         sa.Column("last", sa.String(), nullable=True),
         sa.Column("suffix", sa.String(), nullable=True),
         sa.Column("dob", sa.Date(), nullable=True),
+        sa.Column("age_group_id", sa.Integer(), nullable=True),
         sa.Column("address", sa.String(), nullable=True),
         sa.Column("email", sa.String(), nullable=True),
         sa.Column("phone", sa.String(), nullable=True),
         sa.Column("emergency_name", sa.String(), nullable=True),
         sa.Column("emergency_phone", sa.String(), nullable=True),
+        sa.ForeignKeyConstraint(
+            ["age_group_id"],
+            ["age_group.id"],
+        ),
         sa.PrimaryKeyConstraint("id"),
+    )
+    op.create_index(
+        op.f("ix_paddler_age_group_id"), "paddler", ["age_group_id"], unique=False
     )
     op.create_table(
         "series",
@@ -113,14 +127,14 @@ def upgrade() -> None:
     op.create_table(
         "team_type",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("label", sa.String(), nullable=True),
+        sa.Column("label", sa.String(), nullable=False),
         sa.PrimaryKeyConstraint("id"),
     )
     op.create_table(
         "team",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("name", sa.String(), nullable=True),
-        sa.Column("team_type_id", sa.Integer(), nullable=True),
+        sa.Column("team_type_id", sa.Integer(), nullable=False),
         sa.Column("series_id", sa.Integer(), nullable=False),
         sa.ForeignKeyConstraint(
             ["team_type_id"],
@@ -279,6 +293,10 @@ def downgrade() -> None:
     op.drop_table("user")
     op.drop_table("time_trial")
     op.drop_table("series")
+    op.drop_constraint(None, "paddler", type_="foreignkey")
+    op.drop_index(op.f("ix_paddler_age_group_id"), table_name="paddler")
+    op.drop_column("paddler", "age_group_id")
+    op.drop_table("age_group")
     op.drop_table("paddler")
     op.drop_table("number")
     op.drop_table("member")

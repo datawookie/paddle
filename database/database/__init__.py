@@ -4,6 +4,7 @@ from .race import *
 from .team import *
 from .category import *
 from .paddler import *
+from .age_group import *
 from .club import *
 from .crew import *
 from .member import *
