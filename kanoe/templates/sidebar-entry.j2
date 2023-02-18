@@ -10,6 +10,10 @@
     <li class="nav-item mb-2">
         <a href="{{ url_for('kanoe.entry_note_update', entry_id=entry.id) }}" class="btn btn-primary">Update Note</a>
     </li>
+    <li class="nav-item mb-2">
+        <a href="{{ url_for('kanoe.race_results_capture', race_id=entry.race.id) }}" class="btn btn-primary">Capture
+            Result</a>
+    </li>
     {% if entry.race %}
     <li class="nav-item mb-2">
         <a href="{{ url_for('kanoe.race', race_id=entry.race.id) }}" class="btn btn-secondary">Go to Race</a>
