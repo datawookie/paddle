@@ -193,6 +193,7 @@ def upgrade() -> None:
         sa.Column("time_adjustment", sa.Integer(), nullable=True),
         sa.Column("registered", sa.Boolean(), nullable=False),
         sa.Column("retired", sa.Boolean(), nullable=False),
+        sa.Column("scratched", sa.Boolean(), nullable=False),
         sa.Column("disqualified", sa.Boolean(), nullable=False),
         sa.Column("note", sa.Text(), nullable=True),
         sa.ForeignKeyConstraint(

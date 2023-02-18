@@ -144,6 +144,7 @@ CREATE TABLE entry (
     time_adjustment INTEGER,
     registered BOOLEAN NOT NULL,
     retired BOOLEAN NOT NULL,
+    scratched BOOLEAN NOT NULL,
     disqualified BOOLEAN NOT NULL,
     note TEXT,
     PRIMARY KEY (id),

@@ -33,6 +33,7 @@ class Entry(Base):
     time_adjustment = Column(Integer)
     registered = Column(Boolean, default=False, nullable=False)
     retired = Column(Boolean, default=False, nullable=False)
+    scratched = Column(Boolean, default=False, nullable=False)
     disqualified = Column(Boolean, default=False, nullable=False)
     note = Column(Text)
 
