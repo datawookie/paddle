@@ -37,6 +37,9 @@ def get_entry():
             "time_start": entry.time_start,
             "time_finish": entry.time_finish,
             "time_adjustment": entry.time_adjustment,
+            "scratched": entry.scratched,
+            "retired": entry.retired,
+            "disqualified": entry.disqualified,
             "note": entry.note,
         }
         return jsonify(data)

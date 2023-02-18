@@ -80,14 +80,21 @@ You can also press enter in either the start time or finish time field to submit
         </div>
         <div class="col">
             <div class="row mt-2">
-                <div class="col-md-6">
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="1" tabindex="-1" id="scratched"
+                            name="scratched">
+                        <label class="form-check-label" for="scratched">Scratched</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="1" tabindex="-1" id="retired"
                             name="retired">
                         <label class="form-check-label" for="retired">Retired</label>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="1" tabindex="-1" id="disqualified"
                             name="disqualified">
@@ -129,8 +136,15 @@ You can also press enter in either the start time or finish time field to submit
                     data: { race_id: {{ race_id }}, race_number: $(this).val()
         },
             success: function(response) {
-                $('#time_start').prop('disabled', false);
-        $('#time_finish').prop('disabled', false);
+                if (response["scratched"] || response["disqualified"] || response["retired"]) {
+            $('#time_start').prop('disabled', true);
+            $('#time_finish').prop('disabled', true);
+            $('#time_adjustment').prop('disabled', true);
+        } else {
+            $('#time_start').prop('disabled', false);
+            $('#time_finish').prop('disabled', false);
+            $('#time_adjustment').prop('disabled', false);
+        }
         $('#retired').prop('disabled', false);
         $('#disqualified').prop('disabled', false);
         $('#submit').prop('disabled', false);
@@ -140,6 +154,9 @@ You can also press enter in either the start time or finish time field to submit
         $('#time_start').val(response["time_start"]);
         $('#time_finish').val(response["time_finish"]);
         $('#time_adjustment').val(response["time_adjustment"]);
+        $("#scratched").prop("checked", response["scratched"]);
+        $("#retired").prop("checked", response["retired"]);
+        $("#disqualified").prop("checked", response["disqualified"]);
         $('#note').val(response["note"]);
         if (response["time_start"] != null) {
             $('#time_finish').focus();

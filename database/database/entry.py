@@ -53,7 +53,12 @@ class Entry(Base):
         return None
 
     def __repr__(self):
-        return f"Entry(id={self.id}, category_id={self.category_id}, entry_number={self.entry_number})"
+        return "Entry(id=%d, category_id=%d, entry_number=%d, scratched=%d)" % (
+            self.id,
+            self.category_id,
+            self.entry_number,
+            self.scratched,
+        )
 
     def __str__(self):
         names = [str(crew) for crew in self.crews]
