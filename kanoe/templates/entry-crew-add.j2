@@ -1,22 +1,26 @@
 {% extends "base-fluid.j2" %}
 {% from "macros.j2" import find_value %}
 
-{% block title %}Race Number{% endblock %}
+{% block title %}Add Crew{% endblock %}
 
 {% block content %}
 <h1>Add Crew</h1>
 
-<form method="post">
-  <select class="form-select" class="form-control" id="paddler" name="paddler_id">
-    {% for paddler in paddlers %}
-    <option value="{{ paddler.id }}">{{ paddler }}</option>
-    {% endfor %}
-  </select>
-  <hr class="my-4">
-  <button type="submit" class="btn btn-primary">Add Paddler</button>
-</form>
+<div class="row">
+  <div class="col-md-6">
+    <form method="post">
+      <select class="form-select" class="form-control" id="paddler" name="paddler_id">
+        {% for paddler in paddlers %}
+        <option value="{{ paddler.id }}">{{ paddler }}</option>
+        {% endfor %}
+      </select>
+      <hr class="my-4">
+      <button type="submit" class="btn btn-primary">Add Paddler</button>
+    </form>
+  </div>
+</div>
 {% endblock %}
 
 {% block sidebar %}
-{% include 'sidebar-entry.j2' %}
+{% include 'sidebar-crew.j2' %}
 {% endblock %}
