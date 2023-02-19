@@ -20,9 +20,8 @@
                 <thead>
                     <tr>
                         <th>Race #</th>
-                        <th>Paddler(s)</th>
+                        <th>Crew</th>
                         <th>Category</th>
-                        <th>Division</th>
                         <th>Team</th>
                         <th>Registered</th>
                         <th>Time</th>
@@ -34,7 +33,6 @@
                         <td>{{ entry.race_number or "" }}</td>
                         <td><a href="{{ url_for('kanoe.entry', entry_id=entry.id) }}">{{ entry }}</a></td>
                         <td>{{ entry.category }}</td>
-                        <td>{{ entry.division }}</td>
                         <td>{{ entry.team or "" }}</td>
                         <td class="text-center">{% if entry.registered %}<i class="fas fa-check"></i>{% endif %}</td>
                         {% if entry.time %}
