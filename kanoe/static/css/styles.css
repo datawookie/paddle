@@ -60,3 +60,12 @@ nav.sidebar ul > li.nav-item {
     line-height: 56px;
     height: 60px;
 }
+
+a {
+    text-decoration: none;
+}
+
+.table-sm > :not(caption) > * > * {
+    padding-top: 0;
+    padding-bottom: 0;
+}
