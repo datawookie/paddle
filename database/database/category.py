@@ -1,3 +1,4 @@
+import re
 from .base import *
 
 
@@ -38,3 +39,7 @@ class Category(Base):
 
     def __eq__(self, other):
         return self.label == other
+
+    @property
+    def crew_count(self):
+        return int(re.sub("[^12]+", "", self.label))
