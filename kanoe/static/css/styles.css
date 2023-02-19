@@ -49,9 +49,9 @@ nav.sidebar ul > li.nav-item {
 
 .times .time-elapsed {
     display: inline-block;
-    font-size: 196px;
-    line-height: 150px;
-    height: 160px;
+    font-size: 144px;
+    line-height: 108px;
+    height: 115px;
 }
 
 .times .time-start-finish {
