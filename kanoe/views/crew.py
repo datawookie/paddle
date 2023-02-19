@@ -38,3 +38,21 @@ def crew(crew_id):
     return render_template(
         "crew.j2", crew=crew, paddlers=paddlers, clubs=clubs, teams=teams
     )
+
+
+@blueprint.route(
+    "/crew/<crew_id>/delete",
+    methods=(
+        "GET",
+        "POST",
+    ),
+)
+@login_required
+def crew_delete(crew_id):
+    crew = session.query(db.Crew).get(crew_id)
+    entry_id = crew.entry.id
+
+    session.delete(crew)
+    session.commit()
+
+    return redirect(url_for("kanoe.entry", entry_id=entry_id))

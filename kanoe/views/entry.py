@@ -250,16 +250,12 @@ def entry(entry_id):
         return redirect(url_for("kanoe.entry", entry_id=entry.id))
 
     races = session.query(db.Race).all()
-    paddlers = (
-        session.query(db.Paddler).order_by(db.Paddler.first, db.Paddler.last).all()
-    )
     categories = session.query(db.Category).all()
     return render_template(
         "entry.j2",
         entry=entry,
         categories=categories,
         races=races,
-        paddlers=paddlers,
     )
 
 
@@ -327,3 +323,32 @@ def entry_register(entry_id):
     session.commit()
 
     return redirect(url_for("kanoe.entry", entry_id=entry_id))
+
+
+@blueprint.route("/entry/<entry_id>/crew/add", methods=(["GET", "POST"]))
+@login_required
+def entry_crew_add(entry_id):
+    entry = session.query(db.Entry).get(entry_id)
+
+    if request.method == "POST":
+        paddler_id = request.form.get("paddler_id")
+        if paddler_id:
+            logging.info("Add paddler to entry.")
+            crew = db.Crew(
+                paddler_id=paddler_id,
+                entry_id=entry.id,
+            )
+            session.add(crew)
+
+        session.commit()
+
+        return redirect(url_for("kanoe.entry", entry_id=entry.id))
+
+    paddlers = (
+        session.query(db.Paddler).order_by(db.Paddler.first, db.Paddler.last).all()
+    )
+    return render_template(
+        "entry-crew-add.j2",
+        entry=entry,
+        paddlers=paddlers,
+    )
