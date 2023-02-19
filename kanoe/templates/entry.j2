@@ -9,6 +9,7 @@
 
 <div class="row">
   <div class="col-md-3">
+    <h3>Details</h3>
     <form method="post">
       <div>
         <div class="mb-3">
@@ -52,27 +53,36 @@
     </form>
   </div>
   <div class="col-md-4">
+    <h3>Crew</h3>
     {% for crew in entry.crews %}
     <div class="h-30 p-3 mb-2 bg-light border rounded-3">
-      <h3><a href="{{ url_for('kanoe.paddler', paddler_id=crew.paddler.id) }}">{{ crew.paddler.name }}</a></h3>
       <div class="row">
         <div class="col-md-8">
-          <table>
+          <h3><a href="{{ url_for('kanoe.paddler', paddler_id=crew.paddler.id) }}">{{ crew.paddler.name }}</a></h3>
+          <table class="table table-sm table-borderless">
             <tr>
               <th>Club</th>
-              <td><a href="{{ url_for('kanoe.club', club_id=crew.club.id) }}">{{ crew.club.id }}</a></td>
+              <td style="text-align: right;">
+                <a href="{{ url_for('kanoe.club', club_id=crew.club.id) }}">{{ crew.club.id }}</a>
+              </td>
             </tr>
             <tr>
               <th>Division</th>
-              <td>{{ crew.paddler.division }}</td>
+              <td style="text-align: right;">{{ crew.paddler.division or "" }}</td>
             </tr>
             <tr>
               <th>Team</th>
-              <td>{{ crew.team or "" }}</td>
+              <td style="text-align: right;">
+                <a href="{{ url_for('kanoe.team', team_id=crew.team.id) }}">
+                  {{ crew.team or "" }}
+                </a>
+              </td>
             </tr>
             <tr>
               <th>Services</th>
-              <td class="services">{% if crew.services %}<i class="fas fa-check"></i>{% endif %}</td>
+              <td style="text-align: right;" class="services">
+                {% if crew.services %}<i class="fas fa-check"></i>{% endif %}
+              </td>
             </tr>
           </table>
         </div>
@@ -90,10 +100,13 @@
     </div>
     {% endfor %}
     {% if entry %}
+    {% if not entry.crew_complete %}
     <a href="{{ url_for('kanoe.entry_crew_add', entry_id=entry.id) }}" class="btn btn-primary">Add Crew</a>
+    {% endif %}
     {% endif %}
   </div>
   <div class="col-md-4">
+    <h3>Times</h3>
     <div class="times">
       {% if entry.time %}
       <div class="time-elapsed">

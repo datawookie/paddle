@@ -110,6 +110,10 @@ class Entry(Base):
         return not any([crew.paddler.name == "" for crew in self.crews])
 
     @property
+    def crew_complete(self):
+        return len(self.crews) >= self.category.crew_count
+
+    @property
     def services(self):
         # An entry is only considered a services entry if all of the paddlers in the boat in the services.
         services = [crew.services for crew in self.crews]
