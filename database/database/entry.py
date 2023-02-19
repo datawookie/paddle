@@ -1,5 +1,6 @@
 import enum
 import datetime
+from collections import OrderedDict
 from .base import *
 from .race import *
 from .team import *
@@ -131,16 +132,24 @@ class Entry(Base):
 
 
 def entries_get_categories(entries):
-    categories = {}
+    # Get all categories from entries.
     #
+    categories = set()
+    #
+    for entry in entries:
+        categories.add((entry.category.id, entry.category.label))
+
+    # Sort categories by ID.
+    #
+    categories = OrderedDict(sorted(categories, key=lambda t: t[0]))
+
+    # Use labels as keys.
+    #
+    categories = {label: [] for id, label in categories.items()}
+
     # Group results into categories.
     #
     for entry in entries:
-        try:
-            categories[entry.category.label]
-        except KeyError:
-            categories[entry.category.label] = []
-
         categories[entry.category.label].append(entry)
 
     return categories
