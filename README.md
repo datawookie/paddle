@@ -67,3 +67,16 @@ To prepare the SQL script for Liquibase, annotate it according to the following 
 Each changeset needs to be added to the master XML file `db.changelog-root.xml`.
 
 Further documentation can be found [here](https://docs.liquibase.com/concepts/basic/sql-format.html).
+
+## Testing
+
+- https://flask.palletsprojects.com/en/2.2.x/testing/
+
+To run test suite:
+
+```bash
+# Run all tests.
+pytest
+# Run all tests and show console output (useful for debugging).
+pytest -s
+```

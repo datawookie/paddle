@@ -36,14 +36,10 @@ from sqlalchemy.pool import SingletonThreadPool
 from .config import *
 
 
-FLASK_TESTING = os.environ.get("FLASK_TESTING", "False") == "True"
-
-if FLASK_TESTING:
-    CONNECTION_STRING = "sqlite:///kanoe-testing.db"
-else:
-    CONNECTION_STRING = "sqlite:///kanoe.db"
-
+CONNECTION_STRING = os.environ.get("CONNECTION_STRING", "sqlite:///kanoe.db")
 CONNECTION_ARGS = {"check_same_thread": False}
+
+logging.info(f"Connection string: {CONNECTION_STRING}.")
 
 LIMIT_DAILY = sqlalchemy.text("1000")
 UUID_GENERATE_V4 = sqlalchemy.text("uuid_generate_v4()")
