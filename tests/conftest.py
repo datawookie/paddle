@@ -3,9 +3,6 @@ import tempfile
 import logging
 import pytest
 
-import database as db
-from kanoe import factory
-
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)7s] %(message)s",
@@ -16,6 +13,9 @@ logging.basicConfig(
 _, DB_PATH = tempfile.mkstemp(".db")
 #
 os.environ["CONNECTION_STRING"] = f"sqlite:///{DB_PATH}"
+
+import database as db  # noqa: E402
+from kanoe import factory  # noqa: E402
 
 db.Base.metadata.create_all(db.engine)
 session = db.Session()
