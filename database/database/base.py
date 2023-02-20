@@ -7,8 +7,7 @@ from sqlalchemy.orm import (
     backref,
     reconstructor,
 )
-from sqlalchemy.orm import joinedload, lazyload, noload
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import joinedload, lazyload, noload, declarative_base
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy import (
     Enum,
