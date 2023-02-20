@@ -5,4 +5,5 @@
     <include file="changesets/09b05f0d065c/setup.sql"/>
     <include file="changesets/a82fa9a9e38b/setup.sql"/>
     <include file="changesets/c110e697b81a/setup.sql"/>
+    <include file="changesets/4f370a25634c/setup.sql"/>
 </databaseChangeLog>
