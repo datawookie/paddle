@@ -1,4 +1,5 @@
 import sys
+import logging
 import sqlalchemy
 from sqlalchemy.orm import (
     sessionmaker,
@@ -34,7 +35,14 @@ from sqlalchemy.pool import SingletonThreadPool
 
 from .config import *
 
-CONNECTION_STRING = "sqlite:///kanoe.db"
+
+FLASK_TESTING = os.environ.get("FLASK_TESTING", "False") == "True"
+
+if FLASK_TESTING:
+    CONNECTION_STRING = "sqlite:///kanoe-testing.db"
+else:
+    CONNECTION_STRING = "sqlite:///kanoe.db"
+
 CONNECTION_ARGS = {"check_same_thread": False}
 
 LIMIT_DAILY = sqlalchemy.text("1000")
@@ -56,6 +64,4 @@ Session = scoped_session(session_factory)
 
 # ---------------------------------------------------------------------------------------------------------------------
 
-Base = declarative_base(
-    # metadata=MetaData(schema="public")
-)
+Base = declarative_base()
