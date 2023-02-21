@@ -1,4 +1,4 @@
-{% extends "base.j2" %}
+{% extends "base-fluid.j2" %}
 
 {% block title %}Capture Race Results{% endblock %}
 
@@ -108,6 +108,10 @@ You can also press enter in either the start time or finish time field to submit
     </div>
 </form>
 
+{% endblock %}
+
+{% block sidebar %}
+{% include 'sidebar-race-results-capture.j2' %}
 {% endblock %}
 
 {% block scripts %}
