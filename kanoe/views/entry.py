@@ -31,6 +31,10 @@ def load_xlsx(path):
     def prepare_sheet(df):
         df.columns = [re.sub(" ", "_", col) for col in df.columns.str.lower()]
         # Strip off "BC" prefix (not always present?).
+        #
+        # BC - British Canoeing
+        # SCA - Scottish Canoe Association
+        #
         df["bc_number"] = df["bc_number"].str.replace("^(BC|SCA) +", "", regex=True)
         # Remove any remaining text (but only if there are no numbers!).
         df["bc_number"] = df["bc_number"].str.replace("^[^0-9]+", "", regex=True)
