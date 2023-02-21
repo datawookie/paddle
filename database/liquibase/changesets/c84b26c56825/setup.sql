@@ -1,8 +1,7 @@
 --liquibase formatted sql
 --changeset datawookie:c84b26c56825
 --precondition-sql-check expectedResult:1 SELECT COUNT(*) FROM alembic_version WHERE version_num = '8d8d70c226fa'
-
--- Running upgrade 8d8d70c226fa -> c84b26c56825
+--comment Running upgrade 8d8d70c226fa -> c84b26c56825
 
 CREATE TABLE announcement (
     id INTEGER NOT NULL,

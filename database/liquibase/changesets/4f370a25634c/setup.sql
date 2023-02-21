@@ -1,7 +1,7 @@
 --liquibase formatted sql
 --changeset datawookie:4f370a25634c
-
--- Running upgrade c110e697b81a -> 4f370a25634c
+--precondition-sql-check expectedResult:1 SELECT COUNT(*) FROM alembic_version WHERE version_num = 'c110e697b81a'
+--comment Running upgrade c110e697b81a -> 4f370a25634c
 
 INSERT INTO age_group (id, label) VALUES (1, 'Junior');
 INSERT INTO age_group (id, label) VALUES (2, 'Senior');

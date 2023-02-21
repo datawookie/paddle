@@ -1,8 +1,7 @@
 --liquibase formatted sql
 --changeset datawookie:a82fa9a9e38b
 --precondition-sql-check expectedResult:1 SELECT COUNT(*) FROM alembic_version WHERE version_num = '09b05f0d065c'
-
--- Running upgrade 09b05f0d065c -> a82fa9a9e38b
+--comment Running upgrade 09b05f0d065c -> a82fa9a9e38b
 
 INSERT INTO number (id) VALUES (1);
 INSERT INTO number (id) VALUES (2);

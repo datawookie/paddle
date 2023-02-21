@@ -1,8 +1,7 @@
 --liquibase formatted sql
 --changeset datawookie:915a89d96e8b
 --precondition-sql-check expectedResult:1 SELECT COUNT(*) FROM alembic_version WHERE version_num = 'c84b26c56825'
-
--- Running upgrade c84b26c56825 -> 915a89d96e8b
+--comment Running upgrade c84b26c56825 -> 915a89d96e8b
 
 INSERT INTO club (id, name) VALUES ('4AS', 'Newark 4 As');
 INSERT INTO club (id, name) VALUES ('ABF', 'Aberfan');
