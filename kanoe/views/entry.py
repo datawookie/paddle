@@ -3,6 +3,7 @@ import string
 import logging
 from dataclasses import dataclass
 import pandas as pd
+import numpy as np
 from flask_login import login_required
 
 from .common import *
@@ -29,6 +30,12 @@ def load_xlsx(path):
 
     def prepare_sheet(df):
         df.columns = [re.sub(" ", "_", col) for col in df.columns.str.lower()]
+        # Strip off "BC" prefix (not always present?).
+        df["bc_number"] = df["bc_number"].str.replace("^(BC|SCA) +", "", regex=True)
+        # Remove any remaining text (but only if there are no numbers!).
+        df["bc_number"] = df["bc_number"].str.replace("^[^0-9]+", "", regex=True)
+        # Empty string is missing.
+        df["bc_number"] = df["bc_number"].replace("", np.NaN)
         df["bc_number"] = df["bc_number"].astype("Int64")
         return df
 
