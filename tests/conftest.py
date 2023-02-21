@@ -17,29 +17,44 @@ os.environ["CONNECTION_STRING"] = f"sqlite:///{DB_PATH}"
 import database as db  # noqa: E402
 from kanoe import factory  # noqa: E402
 
-db.Base.metadata.create_all(db.engine)
-session = db.Session()
 
-session.add(db.Series(name="Series"))
+@pytest.fixture(scope="session")
+def database():
+    db.Base.metadata.create_all(db.engine)
+    session = db.Session()
 
-session.add(db.Club(id="GRY", name="Gryffindor"))
-session.add(db.Club(id="HUF", name="Hufflepuff"))
-
-session.add(db.TeamType(label="Junior"))
-session.add(db.TeamType(label="Senior"))
-
-for category in db.CATEGORY_LIST:
-    session.add(db.Category(label=category))
-
-for number in range(1, 21):
-    session.add(db.Number(id=number))
+    yield session
+    session.close()
 
 
-session.commit()
+@pytest.fixture(scope="session")
+def session(database):
+    session = database
+
+    db.Base.metadata.create_all(db.engine)
+    session = db.Session()
+
+    session.add(db.Series(name="Series"))
+
+    session.add(db.Club(id="GRY", name="Gryffindor"))
+    session.add(db.Club(id="HUF", name="Hufflepuff"))
+
+    session.add(db.TeamType(label="Junior"))
+    session.add(db.TeamType(label="Senior"))
+
+    for category in db.CATEGORY_LIST:
+        session.add(db.Category(label=category))
+
+    for number in range(1, 21):
+        session.add(db.Number(id=number))
+
+    session.commit()
+
+    yield session
 
 
 @pytest.fixture
-def app():
+def app(session):
     app = factory()
     app.config.update(
         {
