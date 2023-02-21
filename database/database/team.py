@@ -130,7 +130,9 @@ class Team(Base):
     series = relationship(Series, backref="teams", lazy="joined")
 
     def __repr__(self):
-        return f"Team(id={self.id}, name='{self.name}', type={self.team_type_id} {self.type})"
+        return (
+            f"Team(id={self.id}, name='{self.name}', team_type_id={self.team_type_id})"
+        )
 
     def __str__(self):
         return self.name
