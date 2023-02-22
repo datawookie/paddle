@@ -2,6 +2,14 @@ from .base import *
 from .age_group import AgeGroup
 
 
+def combine_names(first, middle, last):
+    name = [first, middle, last]
+    name = list(filter(lambda item: item is not None, name))
+    name = " ".join(name)
+    name = name.strip()
+    return name
+
+
 class Paddler(Base):
     __tablename__ = "paddler"
 
@@ -28,11 +36,7 @@ class Paddler(Base):
     #
     @hybrid_property
     def name(self):
-        name = [self.first, self.middle, self.last]
-        name = list(filter(lambda item: item is not None, name))
-        name = " ".join(name)
-        name = name.strip()
-        return name
+        return combine_names(self.first, self.middle, self.last)
 
     # This is the version which is used in SQLAlchemy expressions (like sorting).
     #
