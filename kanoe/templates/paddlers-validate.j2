@@ -1,0 +1,42 @@
+{% extends "base-fluid.j2" %}
+
+{% block title %}Paddlers{% endblock %}
+
+{% block styles %}
+{% include 'common/datatables-css.j2' %}
+{% endblock %}
+
+{% block content %}
+
+<h1>Validate Paddlers</h1>
+
+<h2>Duplicate Names</h2>
+
+{% for name, paddlers in duplicates.items() %}
+{{ name }}
+<ul>
+  {% for paddler in paddlers %}
+  <li><a href="{{ url_for('kanoe.paddler', paddler_id=paddler.id) }}">{{ paddler }}</a></li>
+  {% endfor %}
+</ul>
+{% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+{% include 'sidebar-paddlers.j2' %}
+{% endblock %}
+
+{% block scripts %}
+{% include 'common/jquery-javascript.j2' %}
+{% include 'common/datatables-javascript.j2' %}
+<script type="text/javascript" class="init">
+  $(document).ready(function () {
+    $('#paddlers').DataTable({
+      paging: true,
+      searching: true,
+      ordering: true,
+      info: true
+    });
+  });
+</script>
+{% endblock %}

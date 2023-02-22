@@ -11,6 +11,36 @@ def paddlers():
     return render_template("paddlers.j2", paddlers=paddlers)
 
 
+@blueprint.route("/paddlers/validate")
+@login_required
+def paddlers_validate():
+    # Gather counts of paddlers grouped by first and last name.
+    counts = (
+        session.query(
+            func.count(), db.Paddler.first, db.Paddler.middle, db.Paddler.last
+        )
+        .group_by(db.Paddler.first, db.Paddler.middle, db.Paddler.last)
+        .order_by(db.Paddler.last)
+        .all()
+    )
+    # Filter out entries which have a count > 1.
+    counts = [count for count in counts if count[0] > 1]
+    # Retrieve duplicated paddlers.
+    duplicates = {}
+    for count, first, middle, last in counts:
+        name = db.combine_names(first, middle, last)
+        duplicates[name] = (
+            session.query(db.Paddler)
+            .filter(
+                db.Paddler.first == first,
+                db.Paddler.middle == middle,
+                db.Paddler.last == last,
+            )
+            .all()
+        )
+    return render_template("paddlers-validate.j2", duplicates=duplicates)
+
+
 @blueprint.route("/paddler/<paddler_id>", methods=("GET", "POST"))
 @blueprint.route("/paddler/", defaults={"paddler_id": None}, methods=("GET", "POST"))
 @login_required
