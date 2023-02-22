@@ -80,3 +80,11 @@ pytest
 # Run all tests and show console output (useful for debugging).
 pytest -s
 ```
+
+### Coverage
+
+To get a coverage report:
+
+```bash
+pytest --cov
+```
