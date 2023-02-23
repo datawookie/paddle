@@ -5,9 +5,6 @@
     </li>
     {% endif %}
     <li class="nav-item d-grid mb-2">
-        <a href="{{ url_for('kanoe.number_update', entry_id=entry.id) }}" class="btn btn-primary">Update Race Number</a>
-    </li>
-    <li class="nav-item d-grid mb-2">
         <a href="{{ url_for('kanoe.entry_note_update', entry_id=entry.id) }}" class="btn btn-primary">Update Note</a>
     </li>
     {% if entry.race %}

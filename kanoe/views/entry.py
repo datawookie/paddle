@@ -256,74 +256,48 @@ def entry(entry_id):
             category_id = request.form["category_id"]
             entry.category_id = category_id
 
+        # Either assign new number or remove existing number.
+        race_number = request.form.get("race_number")
+        entry.race_number = session.query(db.Number).get(race_number)
+
         session.commit()
 
         return redirect(url_for("kanoe.entry", entry_id=entry.id))
 
     races = session.query(db.Race).all()
     categories = session.query(db.Category).all()
+
+    # Find numbers which are already allocated for this race.
+    taken = (
+        session.query(db.NumberAllocation.number_id)
+        .join(db.Entry, db.NumberAllocation.entry_id == db.Entry.id)
+        .filter(db.Entry.race_id == entry.race_id)
+        .subquery()
+    )
+    # Do LEFT JOIN  between numbers and taken numbers.
+    numbers = (
+        session.query(db.Number.id)
+        .join(taken, db.Number.id == taken.c.number_id, isouter=True)
+        .order_by(db.Number.id)
+    )
+    # Filter out only numbers which are not taken (and possibly the already selected number).
+    if entry.race_number:
+        numbers = numbers.filter(
+            (taken.c.number_id == entry.race_number.id)
+            | (taken.c.number_id == None)  # noqa: E711
+        )
+    else:
+        numbers = numbers.filter((taken.c.number_id == None))  # noqa: E711
+    # Just get the number IDs.
+    numbers = [r.id for r in numbers]
+
     return render_template(
         "entry.j2",
         entry=entry,
         categories=categories,
         races=races,
+        numbers=numbers,
     )
-
-
-@blueprint.route("/entry/<entry_id>/number", methods=("GET", "POST"))
-@login_required
-def number_update(entry_id):
-    entry = session.query(db.Entry).get(entry_id)
-
-    if request.method == "POST":
-        # Deallocate old number (if still allocated).
-        if entry.race_number:
-            allocated = (
-                session.query(db.NumberAllocation)
-                .filter(db.NumberAllocation.entry_id == entry.id)
-                .one()
-            )
-            session.delete(allocated)
-
-        # Allocate new number.
-        allocation = db.NumberAllocation(
-            number_id=request.form["number"], entry_id=entry.id
-        )
-        session.add(allocation)
-        session.commit()
-
-        return redirect(url_for("kanoe.entry", entry_id=entry.id))
-
-    sub_query = (
-        session.query(db.NumberAllocation.number_id, db.NumberAllocation.entry_id)
-        .join(db.Entry, db.NumberAllocation.entry_id == db.Entry.id)
-        .filter(db.Entry.race_id == entry.race_id)
-        .subquery()
-    )
-    unallocated = (
-        session.query(db.Number)
-        .outerjoin(sub_query, sub_query.c.number_id == db.Number.id)
-        .filter(sub_query.c.entry_id.is_(None))
-        .all()
-    )
-
-    return render_template("entry-race-number.j2", entry=entry, numbers=unallocated)
-
-
-@blueprint.route("/entry/<entry_id>/number/deallocate", methods=("GET", "POST"))
-@login_required
-def number_deallocate(entry_id):
-    entry = session.query(db.Entry).get(entry_id)
-
-    allocated = (
-        session.query(db.NumberAllocation)
-        .filter(db.NumberAllocation.entry_id == entry.id)
-        .one()
-    )
-    session.delete(allocated)
-    session.commit()
-
-    return redirect(url_for("kanoe.race", race_id=entry.race_id))
 
 
 @blueprint.route("/entry/<entry_id>/register", methods=(["GET"]))

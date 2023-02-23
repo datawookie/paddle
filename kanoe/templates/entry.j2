@@ -37,7 +37,12 @@
         </div>
         <div class="mb-3">
           <label for="division">Race Number</label>
-          <input type="number" class="form-control" disabled value="{{ entry.race_number }}">
+          <select class="form-select" class="form-control" id="race_number" name="race_number">
+            <option value=""></option>
+            {% for number in numbers %}
+            <option {% if number==entry.race_number.id %} selected{% endif %}>{{ number }}</option>
+            {% endfor %}
+          </select>
         </div>
         <div>
           <label for="services">Services</label>
