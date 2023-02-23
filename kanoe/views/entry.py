@@ -278,6 +278,9 @@ def entry(entry_id):
     numbers = (
         session.query(db.Number.id)
         .join(taken, db.Number.id == taken.c.number_id, isouter=True)
+        .filter(
+            (db.Number.lost == False) | (db.Number.lost == None)  # noqa: E711, E712
+        )
         .order_by(db.Number.id)
     )
     # Filter out only numbers which are not taken (and possibly the already selected number).
