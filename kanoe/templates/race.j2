@@ -24,6 +24,7 @@
                         <th>Category</th>
                         <th>Team</th>
                         <th>Registered</th>
+                        <th></th>
                         <th>Time</th>
                     </tr>
                 </thead>
@@ -35,6 +36,8 @@
                         <td>{{ entry.category }}</td>
                         <td>{{ entry.team or "" }}</td>
                         <td class="text-center">{% if entry.registered %}<i class="fas fa-check"></i>{% endif %}</td>
+                        <td>{% if entry.time_start %}❱{% endif %}{% if entry.time_start and entry.time_finish %}❰{%
+                            endif %}</td>
                         {% if entry.time %}
                         <td data-sort="{{ entry.time.total_seconds() }}">{{ entry.time }}</td>
                         {% else %}
