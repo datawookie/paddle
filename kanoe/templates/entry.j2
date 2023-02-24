@@ -14,8 +14,7 @@
       <div>
         <div class="mb-3">
           <label for="race">Race</label>
-          <select class="form-select" class="form-control" id="race_id" name="race_id" {% if entry %} disabled{% endif
-            %}>
+          <select class="form-select" class="form-control" id="race_id" name="race_id">
             {% for race in races %}
             <option value="{{ race.id }}" {% if entry.race==race %} selected{% endif %}>{{ race }}</option>
             {% endfor %}

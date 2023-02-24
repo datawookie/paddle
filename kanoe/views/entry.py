@@ -237,6 +237,9 @@ def entry(entry_id):
 
     if request.method == "POST":
         paddler_id = request.form.get("paddler_id")
+        race_id = request.form["race_id"]
+        category_id = request.form["category_id"]
+
         if paddler_id:
             logging.info("Add paddler to entry.")
             crew = db.Crew(
@@ -248,12 +251,14 @@ def entry(entry_id):
             # This is a new entry.
             if entry is None:
                 logging.info("Create new entry.")
-                race_id = request.form["race_id"]
                 entry = db.Entry(race_id=race_id)
                 session.add(entry)
+            else:
+                # Update race.
+                if entry.race_id != race_id:
+                    entry.race_id = race_id
 
             # Update category.
-            category_id = request.form["category_id"]
             entry.category_id = category_id
 
         # Either assign new number or remove existing number.
