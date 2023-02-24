@@ -52,6 +52,14 @@ engine = sqlalchemy.create_engine(
     echo=False,  # Set to True to get SQL statements.
 )
 
+# Ensure that SQLite enforces foreign key constraints.
+#
+sqlalchemy.event.listen(
+    engine,
+    "connect",
+    lambda dbapi_con, con_record: dbapi_con.execute("pragma foreign_keys=ON"),
+)
+
 session_factory = sessionmaker(
     bind=engine,
     autoflush=True,
