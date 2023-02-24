@@ -11,7 +11,7 @@
 
 <ul class="nav flex-column">
     <li class="nav-item d-grid gap-2">
-        <a href="{{ url_for('kanoe.entry') }}" class="btn btn-primary">Add Entry</a>
+        <a href="{{ url_for('kanoe.entry', race_id=race.id) }}" class="btn btn-primary">Add Entry</a>
     </li>
     <li class="nav-item d-grid gap-2">
         <a href="{{ url_for('kanoe.race_allocate_numbers', race_id=race.id) }}" class="btn btn-primary">Allocate Race

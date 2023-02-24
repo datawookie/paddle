@@ -234,6 +234,12 @@ def load_entries(race, individuals):
 @login_required
 def entry(entry_id):
     entry = session.query(db.Entry).get(entry_id)
+    race_id = request.args.get("race_id")
+    #
+    races = session.query(db.Race)
+    if race_id:
+        races = races.filter(db.Race.id == race_id)
+    races = races.all()
 
     if request.method == "POST":
         paddler_id = request.form.get("paddler_id")
@@ -269,7 +275,6 @@ def entry(entry_id):
 
         return redirect(url_for("kanoe.entry", entry_id=entry.id))
 
-    races = session.query(db.Race).all()
     categories = session.query(db.Category).all()
 
     # Only consider race numbers for existing entry.
