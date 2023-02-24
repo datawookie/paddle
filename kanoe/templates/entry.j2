@@ -36,7 +36,8 @@
         </div>
         <div class="mb-3">
           <label for="division">Race Number</label>
-          <select class="form-select" class="form-control" id="race_number" name="race_number">
+          <select class="form-select" class="form-control" id="race_number" name="race_number" {% if not numbers %}
+            disabled{% endif %}>
             <option value=""></option>
             {% for number in numbers %}
             <option {% if number==entry.race_number.id %} selected{% endif %}>{{ number }}</option>

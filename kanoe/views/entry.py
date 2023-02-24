@@ -272,32 +272,36 @@ def entry(entry_id):
     races = session.query(db.Race).all()
     categories = session.query(db.Category).all()
 
-    # Find numbers which are already allocated for this race.
-    taken = (
-        session.query(db.NumberAllocation.number_id)
-        .join(db.Entry, db.NumberAllocation.entry_id == db.Entry.id)
-        .filter(db.Entry.race_id == entry.race_id)
-        .subquery()
-    )
-    # Do LEFT JOIN  between numbers and taken numbers.
-    numbers = (
-        session.query(db.Number.id)
-        .join(taken, db.Number.id == taken.c.number_id, isouter=True)
-        .filter(
-            (db.Number.lost == False) | (db.Number.lost == None)  # noqa: E711, E712
+    # Only consider race numbers for existing entry.
+    if entry:
+        # Find numbers which are already allocated for this race.
+        taken = (
+            session.query(db.NumberAllocation.number_id)
+            .join(db.Entry, db.NumberAllocation.entry_id == db.Entry.id)
+            .filter(db.Entry.race_id == entry.race_id)
+            .subquery()
         )
-        .order_by(db.Number.id)
-    )
-    # Filter out only numbers which are not taken (and possibly the already selected number).
-    if entry.race_number:
-        numbers = numbers.filter(
-            (taken.c.number_id == entry.race_number.id)
-            | (taken.c.number_id == None)  # noqa: E711
+        # Do LEFT JOIN  between numbers and taken numbers.
+        numbers = (
+            session.query(db.Number.id)
+            .join(taken, db.Number.id == taken.c.number_id, isouter=True)
+            .filter(
+                (db.Number.lost == False) | (db.Number.lost == None)  # noqa: E711, E712
+            )
+            .order_by(db.Number.id)
         )
+        # Filter out only numbers which are not taken (and possibly the already selected number).
+        if entry.race_number:
+            numbers = numbers.filter(
+                (taken.c.number_id == entry.race_number.id)
+                | (taken.c.number_id == None)  # noqa: E711
+            )
+        else:
+            numbers = numbers.filter((taken.c.number_id == None))  # noqa: E711
+        # Just get the number IDs.
+        numbers = [r.id for r in numbers]
     else:
-        numbers = numbers.filter((taken.c.number_id == None))  # noqa: E711
-    # Just get the number IDs.
-    numbers = [r.id for r in numbers]
+        numbers = []
 
     return render_template(
         "entry.j2",
