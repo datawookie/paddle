@@ -37,12 +37,14 @@
 <table class="table table-sm result">
     <colgroup>
         <col span="1" style="width: 5%;">
-        <col span="1" style="width: 85%;">
+        <col span="1" style="width: 5%;">
+        <col span="1">
         <col span="1" style="width: 10%; text-align: center;">
     </colgroup>
     <thead>
         <tr>
-            <th>#</th>
+            <th></th>
+            <td>#</td>
             <th>Crew</th>
             <th style="text-align: center;">Time</th>
         </tr>
@@ -51,6 +53,7 @@
         {% for result in results %}
         <tr {% if loop.index> 3 %}class="muted"{% endif %}>
             <td>{{ loop.index }}</td>
+            <td>{{ result.race_number }}</td>
             <td>{{ result }}</td>
             <td style="text-align: center;">{{ result.time }}</td>
         </tr>
@@ -94,7 +97,7 @@
             }
         },
         // Delay to check for reload.
-        1000
+        3000
     );
     {% else %}
     setTimeout(() => { location.reload(true); }, 15000);
