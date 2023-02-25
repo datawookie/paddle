@@ -12,19 +12,17 @@
 <h1>Races</h1>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="row">
+            <!-- Future races. -->
             {% for race in races if race.future %}
-            <div class="col-md-6">
+            <div class="col-md-4">
                 {{ race_card(race) }}
             </div>
             {% endfor %}
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="row">
+            <!-- Past races. -->
             {% for race in races if race.past %}
-            <div class="col-md-12">
+            <div class="col-md-4">
                 {{ race_card(race) }}
             </div>
             {% endfor %}
