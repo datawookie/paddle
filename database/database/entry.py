@@ -1,11 +1,13 @@
 import enum
+import logging
+
 import datetime
 from collections import OrderedDict
 from .base import *
-from .race import *
-from .team import *
-from .category import *
-from .series import *
+from .race import Race
+from .team import Team
+from .category import Category
+from .series import Series
 
 
 class BoatType(enum.Enum):
