@@ -14,6 +14,9 @@
         <a href="{{ url_for('kanoe.entry', race_id=race.id) }}" class="btn btn-primary">Add Entry</a>
     </li>
     <li class="nav-item d-grid gap-2">
+        <a href="{{ url_for('kanoe.race_entry_bulk', race_id=race.id) }}" class="btn btn-primary">Add Entries</a>
+    </li>
+    <li class="nav-item d-grid gap-2">
         <a href="{{ url_for('kanoe.race_allocate_numbers', race_id=race.id) }}" class="btn btn-primary">Allocate Race
             Numbers</a>
     </li>

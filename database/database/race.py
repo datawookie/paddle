@@ -1,4 +1,6 @@
 import re
+from datetime import datetime
+import logging
 
 from .base import *
 from .series import Series
@@ -37,3 +39,11 @@ class Race(Base):
     @property
     def slug(self):
         return re.sub("[^a-zA-Z0-9]+", "-", self.name).lower()
+
+    @property
+    def past(self):
+        return datetime.today().date() > self.date
+
+    @property
+    def future(self):
+        return not self.past

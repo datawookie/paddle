@@ -1,0 +1,33 @@
+{% extends "base-fluid.j2" %}
+{% from "macros.j2" import find_value %}
+
+{% block title %}Add Race Entries{% endblock %}
+
+{% block content %}
+
+<h1>Add Entries from XLSX</h1>
+
+<form method="post" enctype="multipart/form-data">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="d-grid gap-2">
+        <ol>
+          <li>Choose an XLSX file with race entries.
+          <li>Select one or more races for the entries.
+        </ol>
+        <div class="form-group">
+          <label>XLSX file</label>
+          <input type="file" class="form-control-file" name="file">
+        </div>
+        <hr class="my-4">
+        <button type="submit" class="btn btn-primary" value="Upload">Add Entries</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+{% endblock %}
+
+{% block sidebar %}
+{% include 'sidebar-race.j2' %}
+{% endblock %}

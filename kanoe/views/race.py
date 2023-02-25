@@ -14,28 +14,6 @@ from .util import *
 @blueprint.route("/", methods=("GET", "POST"))
 @login_required
 def races():
-    if request.method == "POST":
-        # Create a list of race IDs from the checkbox fields.
-        races = [key for key in request.form.keys() if re.match("race_id", key)]
-        races = [int(re.sub("race_id_", "", id)) for id in races]
-        races = [session.query(db.Race).get(id) for id in races]
-
-        file = request.files.get("file")
-        if file and allowed_file(file.filename):
-            logging.debug(f"Entries file: {file.filename}")
-            filename = secure_filename(file.filename)
-            logging.debug(f"Entries file: {filename} (secure)")
-            filename = os.path.join(UPLOAD_FOLDER, filename)
-            logging.debug(f"Entries file: {filename} (upload path)")
-            file.save(filename)
-
-            entries = load_xlsx(filename)
-
-            for race in races:
-                load_entries(race, entries)
-
-        return redirect(url_for("kanoe.races"))
-
     # Count number of entries per race.
     entries = (
         session.query(db.Entry.race_id, func.count(db.Entry.race_id).label("count"))
@@ -430,4 +408,33 @@ def race_entries_export_pdf(race_id):
     return render_pdf(
         url_for("kanoe.race_entries_paginated", race_id=race_id),
         download_filename=race.slug + "-entries.pdf",
+    )
+
+
+@blueprint.route("/race/<race_id>/entries/import/xlsx", methods=("GET", "POST"))
+@login_required
+def race_entry_bulk(race_id):
+    race = session.query(db.Race).get(race_id)
+
+    if request.method == "POST":
+        logging.info(request.form)
+        logging.info(request.files)
+
+        file = request.files.get("file")
+        if file and allowed_file(file.filename):
+            logging.debug(f"Entries file: {file.filename}")
+            filename = secure_filename(file.filename)
+            logging.debug(f"Entries file: {filename} (secure)")
+            filename = os.path.join(UPLOAD_FOLDER, filename)
+            logging.debug(f"Entries file: {filename} (upload path)")
+            file.save(filename)
+
+            entries = load_xlsx(filename)
+            load_entries(race, entries)
+
+        return redirect(url_for("kanoe.races"))
+
+    return render_template(
+        "race-entries-bulk.j2",
+        race=race,
     )

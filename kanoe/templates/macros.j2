@@ -2,3 +2,24 @@
 {% if form %}{{ form }}{% else %}{% if variable and variable is not none %}{{ variable }}{% endif %}{%
 endif %}
 {%- endmacro -%}
+
+{% macro race_card(race) -%}
+<div class="h-30 p-3 mb-2 {% if race.past %}bg-secondary{% else %}bg-light{% endif %} border rounded-3">
+    <h3><a href="{{ url_for('kanoe.race', race_id=race.id) }}">{{ race.name }}</a></h3>
+
+    <table class="table table-sm table-borderless">
+        <tr>
+            <th>Date</th>
+            <td style="text-align: right;">{{ race.date }}</td>
+        </tr>
+        <tr>
+            <th>Series</th>
+            <td style="text-align: right;">{{ race.series }}</td>
+        </tr>
+        <tr>
+            <th>Entries</th>
+            <td style="text-align: right;">{{ race.count }}</td>
+        </tr>
+    </table>
+</div>
+{%- endmacro -%}
