@@ -229,6 +229,8 @@ You can also press enter in either the start time or finish time field to submit
             var seconds = diff - minutes * 60;
 
             $('#time_race').val(String(hours).padStart(2, '0') + ":" + String(minutes).padStart(2, '0') + ":" + String(seconds).padStart(2, '0'));
+        } else {
+            $('#time_race').val("");
         }
     };
 
@@ -245,8 +247,8 @@ You can also press enter in either the start time or finish time field to submit
             time = time.slice(0, 2) + ":" + time.slice(2, 4) + ":" + time.slice(4, 6);
             // Update time field.
             $(this).val(time);
-            update_race_time();
         }
+        update_race_time();
     });
     $('#time_adjustment').focusout(function () {
         console.log("Parsing time adjustment.");
