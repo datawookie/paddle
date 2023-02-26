@@ -436,9 +436,6 @@ def race_entry_bulk(race_id):
     race = session.query(db.Race).get(race_id)
 
     if request.method == "POST":
-        logging.info(request.form)
-        logging.info(request.files)
-
         file = request.files.get("file")
         if file and allowed_file(file.filename):
             logging.debug(f"Entries file: {file.filename}")

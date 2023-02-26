@@ -131,7 +131,6 @@ def load_entries(race, individuals):
         individual.first = string.capwords(individual.first)
         individual.last = string.capwords(individual.last)
         individual.category = category_mapping(individual.category)
-        logging.info(individual)
 
         # Check for existing entry.
         #
@@ -161,8 +160,6 @@ def load_entries(race, individuals):
         session.add(entry)
 
         for individual in individuals:
-            logging.info(individual)
-
             paddler = None
 
             # Look for existing paddler.
@@ -242,7 +239,6 @@ def entry(entry_id):
     races = races.all()
 
     if request.method == "POST":
-        logging.info(request.form)
         if request.form.get("action") == "delete":
             logging.info(f"Delete entry (ID = {entry.id}).")
             for crew in entry.crews:
