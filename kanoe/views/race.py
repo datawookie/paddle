@@ -166,10 +166,19 @@ def race_results_capture(race_id):
 
         entry = session.query(db.Entry).get(entry_id)
 
+        # Start time.
         if time_start:
             entry.time_start = time_start
+        if not time_start and entry.time_start:
+            logging.info("Remove start time.")
+            entry.time_start = None
+        # Finish time.
         if time_finish:
             entry.time_finish = time_finish
+        if not time_finish and entry.time_finish:
+            logging.info("Remove finish time.")
+            entry.time_finish = None
+
         if time_adjustment:
             entry.time_adjustment = time_adjustment
         if scratched:
