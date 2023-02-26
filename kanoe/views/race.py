@@ -16,23 +16,33 @@ from .util import *
 def races():
     # Count number of entries per race.
     entries = (
-        session.query(db.Entry.race_id, func.count(db.Entry.race_id).label("count"))
+        session.query(
+            db.Entry.race_id,
+            func.count(db.Entry.id.distinct()).label("count_entry"),
+            func.count(db.Crew.id.distinct()).label("count_paddler"),
+        )
+        .join(db.Crew, db.Entry.id == db.Crew.entry_id)
         .group_by(db.Entry.race_id)
         .subquery()
     )
     # Merge counts into races.
     races = (
-        session.query(db.Race, entries.c.count)
+        session.query(
+            db.Race,
+            entries.c.count_entry,
+            entries.c.count_paddler,
+        )
         .outerjoin(entries, entries.c.race_id == db.Race.id)
         .all()
     )
     # Inject counts into Race objects.
-    for race, count in races:
-        race.count = count if count else 0
+    for race, count_entry, count_paddler in races:
+        race.count_entries = count_entry if count_entry else 0
+        race.count_paddlers = count_paddler if count_paddler else 0
 
     # Unzip the list, extracting races and counts separately (Race objects already contain counts).
     if races:
-        races, _ = zip(*races)
+        races, _, _ = zip(*races)
 
     serieses = session.query(db.Series).all()
 
