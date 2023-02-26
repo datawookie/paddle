@@ -1,5 +1,5 @@
 {% extends "base-fluid.j2" %}
-{% from "macros.j2" import find_value %}
+{% from "macros.j2" import find_value, button_delete %}
 
 {% block title %}Entry{% endblock %}
 
@@ -55,6 +55,7 @@
       </div>
       <hr class="my-4">
       <button type="submit" class="btn btn-primary">Submit</button>
+      {{ button_delete() }}
     </form>
   </div>
   <div class="col-md-4">

@@ -242,38 +242,50 @@ def entry(entry_id):
     races = races.all()
 
     if request.method == "POST":
-        paddler_id = request.form.get("paddler_id")
-        race_id = request.form["race_id"]
-        category_id = request.form["category_id"]
+        logging.info(request.form)
+        if request.form.get("action") == "delete":
+            logging.info(f"Delete entry (ID = {entry.id}).")
+            for crew in entry.crews:
+                logging.info("Delete crew (ID = {crew.id}).")
+                session.delete(crew)
+            session.delete(entry)
 
-        if paddler_id:
-            logging.info("Add paddler to entry.")
-            crew = db.Crew(
-                paddler_id=paddler_id,
-                entry_id=entry.id,
-            )
-            session.add(crew)
+            session.commit()
+
+            return redirect(url_for("kanoe.race", race_id=entry.race.id))
         else:
-            # This is a new entry.
-            if entry is None:
-                logging.info("Create new entry.")
-                entry = db.Entry(race_id=race_id)
-                session.add(entry)
+            paddler_id = request.form.get("paddler_id")
+            race_id = request.form["race_id"]
+            category_id = request.form["category_id"]
+
+            if paddler_id:
+                logging.info("Add paddler to entry.")
+                crew = db.Crew(
+                    paddler_id=paddler_id,
+                    entry_id=entry.id,
+                )
+                session.add(crew)
             else:
-                # Update race.
-                if entry.race_id != race_id:
-                    entry.race_id = race_id
+                # This is a new entry.
+                if entry is None:
+                    logging.info("Create new entry.")
+                    entry = db.Entry(race_id=race_id)
+                    session.add(entry)
+                else:
+                    # Update race.
+                    if entry.race_id != race_id:
+                        entry.race_id = race_id
 
-            # Update category.
-            entry.category_id = category_id
+                # Update category.
+                entry.category_id = category_id
 
-        # Either assign new number or remove existing number.
-        race_number = request.form.get("race_number")
-        entry.race_number = session.query(db.Number).get(race_number)
+            # Either assign new number or remove existing number.
+            race_number = request.form.get("race_number")
+            entry.race_number = session.query(db.Number).get(race_number)
 
-        session.commit()
+            session.commit()
 
-        return redirect(url_for("kanoe.entry", entry_id=entry.id))
+            return redirect(url_for("kanoe.entry", entry_id=entry.id))
 
     categories = session.query(db.Category).all()
 
