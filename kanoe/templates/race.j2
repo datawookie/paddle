@@ -29,7 +29,7 @@
                 </thead>
                 <tbody>
                     {% for entry in entries %}
-                    <tr>
+                    <tr{% if entry.scratched %} style="background-color: lightgrey;" {% endif %}>
                         <td>{{ entry.race_number or "" }}</td>
                         <td><a href="{{ url_for('kanoe.entry', entry_id=entry.id) }}">{{ entry }}</a></td>
                         <td>{{ entry.category }}</td>
@@ -38,10 +38,13 @@
                         {% if entry.time %}
                         <td data-sort="{{ entry.time.total_seconds() }}">{{ entry.time }}</td>
                         {% else %}
-                        <td>{% if entry.time_start %}<i class="fa-solid fa-sync fa-spin"></i>{% endif %}</td>
+                        <td class="text-center">
+                            {% if entry.time_start %}<i class="fa-solid fa-sync fa-spin"></i>{%
+                            endif %}
+                        </td>
                         {% endif %}
-                    </tr>
-                    {% endfor %}
+                        </tr>
+                        {% endfor %}
                 </tbody>
             </table>
         </div>
