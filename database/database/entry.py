@@ -132,6 +132,11 @@ class Entry(Base):
             self.time_finish is not None or self.retired or self.disqualified
         )
 
+    @property
+    def clubs(self):
+        clubs = [crew.club.id for crew in self.crews]
+        return "/".join(clubs)
+
 
 def entries_get_categories(entries):
     # Get all categories from entries.
