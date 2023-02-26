@@ -1,7 +1,7 @@
 body {
     background-color: black;
     color: var(--colour-yellow);
-    font-size: 1.75em;
+    font-size: 2.5em;
     overflow: hidden;
     padding-top: 0;
 }
@@ -21,6 +21,9 @@ table.result {
 
 tr.muted {
     color: var(--colour-yellow-muted);
+}
+tr.bolded {
+    font-weight: 500;
 }
 
 .table > tbody {
