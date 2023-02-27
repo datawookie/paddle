@@ -70,3 +70,13 @@ footer {
     padding-top: 20px;
     padding-bottom: 0;
 }
+
+select.form-select {
+    background-color: black;
+    border-color: var(--colour-yellow);
+    color: var(--colour-yellow);
+}
+
+button.btn {
+    background-color: var(--colour-yellow);
+}

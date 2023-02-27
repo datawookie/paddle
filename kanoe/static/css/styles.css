@@ -69,3 +69,12 @@ a {
     padding-top: 0;
     padding-bottom: 0;
 }
+
+.dropdown-menu {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.nav-item.d-grid.mb-0 {
+    margin-bottom: 0 !important;
+}

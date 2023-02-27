@@ -121,8 +121,43 @@ def race_update(race_id):
     return render_template("race-update.j2", race=race, serieses=serieses)
 
 
-@blueprint.route("/race/<race_id>/results/display")
-def race_results_display(race_id):
+@blueprint.route("/race/<race_id>/results/category", methods=("GET", "POST"))
+def race_results_category(race_id):
+    race = session.query(db.Race).get(race_id)
+    categories = session.query(db.Category).all()
+    category = None
+    results = None
+
+    if request.method == "POST":
+        category_id = int(request.form.get("category_id"))
+        category = session.query(db.Category).get(category_id)
+
+        results = (
+            session.query(db.Entry)
+            .filter(db.Entry.race_id == race_id)
+            .filter(db.Entry.time_start.is_not(None))
+            .filter(db.Entry.time_finish.is_not(None))
+            .filter(db.Entry.category_id == category_id)
+            .all()
+        )
+
+        # Sort by finish time.
+        results.sort(key=lambda x: x.time, reverse=False)
+
+        # Keep only top 3.
+        results = results[:3]
+
+    return render_template(
+        "race-results-category.j2",
+        race=race,
+        category=category,
+        categories=categories,
+        results=results,
+    )
+
+
+@blueprint.route("/race/<race_id>/results/scrolling")
+def race_results_scrolling(race_id):
     race = session.query(db.Race).get(race_id)
     results = (
         session.query(db.Entry)
@@ -141,7 +176,7 @@ def race_results_display(race_id):
     announcements = session.query(db.Announcement).filter(db.Announcement.enabled).all()
 
     return render_template(
-        "race-results-display.j2",
+        "race-results-scrolling.j2",
         race=race,
         categories=categories,
         announcements=announcements,
