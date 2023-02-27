@@ -156,7 +156,7 @@ def race_results_capture(race_id):
         time_start = request.form.get("time_start")
         time_finish = request.form.get("time_finish")
         time_adjustment = request.form.get("time_adjustment")
-        note = request.form["note"]
+        note = request.form.get("note")
         scratched = request.form.get("scratched", False)
         retired = request.form.get("retired", False)
         disqualified = request.form.get("disqualified", False)

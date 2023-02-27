@@ -148,7 +148,10 @@ You can also press enter in either the start time or finish time field to submit
             $('#time_start').prop('disabled', false);
             $('#time_finish').prop('disabled', false);
             $('#time_adjustment').prop('disabled', false);
+            $('#note').prop('disabled', false);
         }
+        $("#paddlers").removeClass("bg-danger");
+        $('#scratched').prop('disabled', false);
         $('#retired').prop('disabled', false);
         $('#disqualified').prop('disabled', false);
         $('#submit').prop('disabled', false);
@@ -172,6 +175,7 @@ You can also press enter in either the start time or finish time field to submit
     },
         error: function (jqXHR, textStatus) {
             $('#paddlers').val("Race number not found!");
+            $("#paddlers").addClass("bg-danger");
 
             $('#time_start').val("");
             $('#time_finish').val("");
@@ -181,6 +185,7 @@ You can also press enter in either the start time or finish time field to submit
 
             $('#time_start').prop('disabled', true);
             $('#time_finish').prop('disabled', true);
+            $('#scratched').prop('disabled', true);
             $('#retired').prop('disabled', true);
             $('#disqualified').prop('disabled', true);
             $('#submit').prop('disabled', true);
