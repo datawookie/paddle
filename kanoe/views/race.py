@@ -144,8 +144,8 @@ def race_results_category(race_id):
         # Sort by finish time.
         results.sort(key=lambda x: x.time, reverse=False)
 
-        # Keep only top 3.
-        results = results[:3]
+        # Keep only top 10.
+        results = results[:10]
 
     return render_template(
         "race-results-category.j2",

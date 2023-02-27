@@ -7,11 +7,11 @@
 {% endblock %}
 
 {% block content %}
-<h1>{{ race.name }} ({{ race.date }})</h1>
+<h1 class="mb-0">{{ race.name }} ({{ race.date }})</h1>
 
 <form method="post">
     <div class="row">
-        <div class="row mb-3">
+        <div class="row mb-3 mt-0">
             <label for="inputEmail3" class="col-sm-2 col-form-label">Category</label>
             <div class="col-sm-4 pt-4">
                 <select class="form-select" class="form-control" id="category" name="category_id">
@@ -28,7 +28,8 @@
     </div>
 </form>
 
-<h2>{{ category }}</h2>
+{% if results %}
+<h2 class="mt-1">{{ category }}</h2>
 
 <table class="table table-sm result">
     <colgroup>
@@ -56,4 +57,5 @@
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
 {% endblock %}
