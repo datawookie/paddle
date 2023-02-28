@@ -34,8 +34,9 @@ def upgrade() -> None:
     )
     op.create_table(
         "club",
-        sa.Column("id", sa.String(length=3), nullable=False),
+        sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("name", sa.String(), nullable=True),
+        sa.Column("code_regex", sa.String(), nullable=True),
         sa.PrimaryKeyConstraint("id"),
     )
     op.create_table(
