@@ -3,6 +3,16 @@ from flask_login import login_required
 from .common import *
 
 
+@blueprint.route("/series/<series_id>")
+@login_required
+def series(series_id):
+    series = session.query(db.Series).get(series_id)
+    return render_template(
+        "series.j2",
+        series=series,
+    )
+
+
 @blueprint.route("/series/create", methods=("GET", "POST"))
 @login_required
 def series_create():

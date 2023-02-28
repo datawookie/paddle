@@ -1,0 +1,20 @@
+{% extends "base-fluid.j2" %}
+{% from "macros.j2" import race_card %}
+
+{% block title %}Series{% endblock %}
+
+{% block styles %}
+{% endblock %}
+
+{% block content %}
+<h1>Series</h1>
+
+<ul>
+    {% for race in series.races %}
+    <li>{{ race }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

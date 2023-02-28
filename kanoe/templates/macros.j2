@@ -14,7 +14,9 @@ endif %}
         </tr>
         <tr>
             <th>Series</th>
-            <td style="text-align: right;">{{ race.series }}</td>
+            <td style="text-align: right;">
+                <a href="{{ url_for('kanoe.series', series_id=race.series.id) }}">{{ race.series }}</a>
+            </td>
         </tr>
         <tr>
             <th>Entries</th>
