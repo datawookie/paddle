@@ -103,8 +103,6 @@ class Individual:
 
     def __post_init__(self):
         if self.bcu_expiry:
-            print(self.bcu_expiry)
-            print(type(self.bcu_expiry))
             if pd.isnull(self.bcu_expiry):
                 self.bcu_expiry = None
             else:
@@ -139,6 +137,10 @@ def load_entries(race, individuals):
             entries[individual.number] = []
 
         entries[individual.number].append(individual)
+
+    clubs = session.query(db.Club).all()
+    #
+    clubs = {club.code_regex: club.id for club in clubs}
 
     for number, individuals in entries.items():
         logging.info(f"Entry: {number}.")
@@ -212,11 +214,26 @@ def load_entries(race, individuals):
                 logging.debug("Update BCU number expiry.")
                 paddler.bcu_expiry = individual.bcu_expiry
 
-            club = session.query(db.Club).get(individual.club)
+            # Search for matching club.
+            #
+            club_id = []
+            #
+            for regex, id in clubs.items():
+                if re.match(regex, individual.club):
+                    club_id.append(id)
+                    logging.debug("Matching club found.")
+
+            if len(club_id) == 0:
+                club_id = None
+            elif len(club_id) == 1:
+                club_id = club_id[0]
+            else:
+                # There is more than one matching club.
+                abort(404)
 
             paddler.crews.append(
                 db.Crew(
-                    club=club,
+                    club_id=club_id,
                     entry_id=entry.id,
                     due=individual.due,
                     paid=individual.paid,
