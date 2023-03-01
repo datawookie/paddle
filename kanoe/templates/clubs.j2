@@ -7,12 +7,11 @@
 <h1>Clubs</h1>
 
 <table>
-{% for club in clubs %}
+    {% for club in clubs %}
     <tr>
-        <td><a href="{{ url_for('kanoe.club', club_id=club.id) }}">{{ club.id }}</a></td>
-        <td>{{ club.name }}</td>
+        <td><a href="{{ url_for('kanoe.club', club_id=club.id) }}">{{ club.name }}</td>
     </tr>
-{% endfor %}
+    {% endfor %}
 </table>
 
 {% endblock %}

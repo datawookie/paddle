@@ -22,9 +22,9 @@ class Crew(Base):
     entry = relationship(Entry, backref="crews", lazy="joined")
 
     def __repr__(self):
-        club = f"'{self.club.id}'" if self.club else "NONE"
-        return f"Crew(name='{self.paddler.name}', club={club})"
+        club = f"'{self.club.id}'" if self.club else "None"
+        return f"Crew(name='{self.paddler.name}', club_id={club})"
 
     def __str__(self):
-        club = f" ({self.club.id})" if self.club else ""
+        club = f" ({self.club.code})" if self.club else ""
         return f"{self.paddler.name}{club}"
