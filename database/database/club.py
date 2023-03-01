@@ -9,7 +9,11 @@ class Club(Base):
     code_regex = Column(String())
 
     def __repr__(self):
-        return "Club(%d, '%s')" % (self.id, self.name)
+        return "Club(id=%d, name='%s', regex='%s')" % (
+            self.id,
+            self.name,
+            self.code_regex,
+        )
 
     def __str__(self):
         return f"{self.name}"
