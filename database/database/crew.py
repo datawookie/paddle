@@ -19,7 +19,7 @@ class Crew(Base):
     team = relationship(Team, backref="crews", lazy="joined")
     paddler = relationship(Paddler, backref="crews", lazy="joined")
     club = relationship("Club", backref="crews", lazy="joined")
-    entry = relationship(Entry, backref="crews", lazy="joined")
+    entry = relationship(Entry, lazy="joined")
 
     def __repr__(self):
         club = f"'{self.club.id}'" if self.club else "None"

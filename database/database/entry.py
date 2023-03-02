@@ -43,6 +43,8 @@ class Entry(Base):
     category = relationship(Category, backref="entries", lazy="joined")
     race = relationship(Race, backref="entries", lazy="joined")
     race_number = relationship("Number", secondary="number_entry", uselist=False)
+    # Don't use a backref here so that can order by paddler ID.
+    crews = relationship("Crew", lazy="joined", order_by="Crew.paddler_id")
 
     @property
     def division(self):
