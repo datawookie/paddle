@@ -11,9 +11,23 @@
 
 <ul>
     {% for race in series.races %}
-    <li>{{ race }}</li>
+    <li>{{ race }} {{ race.past }}</li>
     {% endfor %}
 </ul>
+
+{% for category, crews in categories.items() %}
+<h2>{{ category }}</h2>
+<ul>
+    {% for crew, entries in crews.items() %}
+    <li>{{ crew }} {{ entries|length }}</li>
+    <ul>
+        {% for entry in entries %}
+        <li>{{ entry }}</li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+</ul>
+{% endfor %}
 {% endblock %}
 
 {% block sidebar %}
