@@ -1,5 +1,7 @@
 import enum
+import hashlib
 import logging
+from functools import cached_property
 
 import datetime
 from collections import OrderedDict
@@ -58,16 +60,17 @@ class Entry(Base):
         return None
 
     def __repr__(self):
-        return "Entry(id=%d, category_id=%d, entry_number=%d, scratched=%d)" % (
-            self.id,
-            self.category_id,
-            self.entry_number,
-            self.scratched,
-        )
+        return "Entry(id=%d)" % (self.id,)
 
     def __str__(self):
         names = [str(crew) for crew in self.crews]
         return " / ".join(names)
+
+    @cached_property
+    def crew_hash(self):
+        paddlers = [str(crew.paddler.id) for crew in self.crews]
+        paddlers = ",".join(paddlers)
+        return hashlib.md5(paddlers.encode("utf-8")).hexdigest()
 
     @property
     def time(self):
