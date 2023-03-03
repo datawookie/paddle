@@ -143,6 +143,24 @@ class Entry(Base):
         return "/".join(clubs)
 
 
+class EntrySet:
+    def __init__(self, entries):
+        # Get paddler names for all entries.
+        names = [tuple(crew.paddler.name for crew in entry.crews) for entry in entries]
+        # There should only be one set of paddler names for all entries in set.
+        names = list(set(names))
+        assert len(names) == 1
+        names = names[0]
+        # Concatenate names.
+        self.name = " / ".join(names)
+
+        # Total time for all entries in set.
+        self.time = sum([entry.time for entry in entries], datetime.timedelta())
+
+    def __repr__(self):
+        return f"EntrySet(name='{self.name}', time='{self.time}')"
+
+
 def entries_get_categories(entries):
     # Get all categories from entries.
     #

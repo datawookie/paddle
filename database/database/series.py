@@ -1,3 +1,5 @@
+import re
+
 from .base import *
 
 
@@ -9,3 +11,7 @@ class Series(Base):
 
     def __str__(self):
         return self.name
+
+    @property
+    def slug(self):
+        return re.sub("[^a-zA-Z0-9]+", "-", self.name).lower()

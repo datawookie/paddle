@@ -15,20 +15,27 @@
     {% endfor %}
 </ul>
 
-{% for category, crews in categories.items() %}
+{% for category, sets in categories.items() %}
 <h2>{{ category }}</h2>
-<ul>
-    {% for crew, entries in crews.items() %}
-    <li>{{ crew }} {{ entries|length }}</li>
-    <ul>
-        {% for entry in entries %}
-        <li>{{ entry }}</li>
-        {% endfor %}
-    </ul>
-    {% endfor %}
-</ul>
+<div class="row">
+    <div class="col-md-4">
+        <table id="teams" class="table table-sm table-striped">
+            <thead></thead>
+            <tbody>
+                {% for set in sets %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ set.name }}</td>
+                    <td style="width: 20%; text-align: right;">{{ set.time }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endfor %}
 {% endblock %}
 
 {% block sidebar %}
+{% include 'sidebar-series.j2' %}
 {% endblock %}

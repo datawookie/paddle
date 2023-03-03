@@ -1,12 +1,12 @@
 from flask_login import login_required
+from flask_weasyprint import render_pdf
 
 from .common import *
 
 
-@blueprint.route("/series/<series_id>")
-@login_required
-def series(series_id):
+def series_results(series_id):
     series = session.query(db.Series).get(series_id)
+
     # Find past races in series.
     races = session.query(db.Race.id).filter(db.Race.series_id == series_id)
     # Find entries for races in series.
@@ -40,14 +40,50 @@ def series(series_id):
                 crews[entry.crew_hash].append(entry)
             except KeyError:
                 crews[entry.crew_hash] = [entry]
+
         # Keep only crews who have finished all races in series.
-        crews = {k: v for k, v in crews.items() if len(v) == races_past}
+        crews = [entries for entries in crews.values() if len(entries) == races_past]
+
+        crews = [db.EntrySet(entries) for entries in crews]
+        crews = sorted(crews, key=lambda x: x.time)
+
         categories[category] = crews
+
+    return series, categories
+
+
+@blueprint.route("/series/<series_id>")
+@login_required
+def series(series_id):
+    series, categories = series_results(series_id)
 
     return render_template(
         "series.j2",
         series=series,
         categories=categories,
+    )
+
+
+@blueprint.route("/series/<series_id>/results/paginated")
+@login_required
+def series_results_paginated(series_id):
+    series, categories = series_results(series_id)
+
+    return render_template(
+        "series-results-paginated.j2",
+        series=series,
+        categories=categories,
+        timestamp=datetime.datetime.now(),
+    )
+
+
+@blueprint.route("/series/<series_id>/results/export/pdf")
+@login_required
+def series_results_export_pdf(series_id):
+    series = session.query(db.Series).get(series_id)
+    return render_pdf(
+        url_for("kanoe.series_results_paginated", series_id=series_id),
+        download_filename=series.slug + "-results.pdf",
     )
 
 
