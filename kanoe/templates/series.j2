@@ -9,17 +9,31 @@
 {% block content %}
 <h1>Series</h1>
 
-<ul>
-    {% for race in series.races %}
-    <li>{{ race }} {{ race.past }}</li>
-    {% endfor %}
-</ul>
+{% for type, teams in types.items() %}
+<h2>{{ type }} Teams</h2>
+<div class="row">
+    <div class="col-md-4">
+        <table class="table table-sm table-striped">
+            <thead></thead>
+            <tbody>
+                {% for team in teams %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ team[0] }}</td>
+                    <td style="width: 20%; text-align: right;">{{ team[1] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endfor %}
 
 {% for category, sets in categories.items() %}
 <h2>{{ category }}</h2>
 <div class="row">
     <div class="col-md-4">
-        <table id="teams" class="table table-sm table-striped">
+        <table class="table table-sm table-striped">
             <thead></thead>
             <tbody>
                 {% for set in sets %}

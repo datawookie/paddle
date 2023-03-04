@@ -4,9 +4,54 @@ from flask_weasyprint import render_pdf
 from .common import *
 
 
-def series_results(series_id):
+def series_results_team(series_id):
     series = session.query(db.Series).get(series_id)
+    # Find past races in series.
+    races = session.query(db.Race).filter(db.Race.series_id == series_id).all()
+    races = [race for race in races if race.past]
 
+    totals = {}
+    #
+    for team in session.query(db.Team).filter(db.Team.series_id == series_id).all():
+        total = datetime.timedelta()
+        #
+        for race in races:
+            crews = (
+                session.query(db.Crew)
+                .filter(db.Crew.team_id == team.id, db.Crew.entry.has(race_id=race.id))
+                .all()
+            )
+            entries = set([crew.entry for crew in crews])
+            # Get times for all entries.
+            times = [entry.time for entry in entries if entry.time]
+            # Keep only top 3 times.
+            times = sorted(times)
+            times = times[:3]
+            # Don't qualify unless at least three finishers in each race.
+            if len(times) == 3:
+                total += sum(times, datetime.timedelta())
+            else:
+                total = None
+                break
+
+        if total:
+            try:
+                totals[team.type.label]
+            except KeyError:
+                totals[team.type.label] = {}
+
+            totals[team.type.label][team] = total
+
+    # Sort teams within type.
+    #
+    for type, teams in totals.items():
+        totals[type] = sorted(teams.items(), key=lambda team: team[1])
+
+    return series, totals
+
+
+def series_results_category(series_id):
+    series = session.query(db.Series).get(series_id)
     # Find past races in series.
     races = session.query(db.Race.id).filter(db.Race.series_id == series_id)
     # Find entries for races in series.
@@ -55,24 +100,28 @@ def series_results(series_id):
 @blueprint.route("/series/<series_id>")
 @login_required
 def series(series_id):
-    series, categories = series_results(series_id)
+    series, categories = series_results_category(series_id)
+    _, types = series_results_team(series_id)
 
     return render_template(
         "series.j2",
         series=series,
         categories=categories,
+        types=types,
     )
 
 
 @blueprint.route("/series/<series_id>/results/paginated")
 @login_required
 def series_results_paginated(series_id):
-    series, categories = series_results(series_id)
+    series, categories = series_results_category(series_id)
+    _, types = series_results_team(series_id)
 
     return render_template(
         "series-results-paginated.j2",
         series=series,
         categories=categories,
+        types=types,
         timestamp=datetime.datetime.now(),
     )
 

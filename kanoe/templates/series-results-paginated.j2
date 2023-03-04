@@ -16,6 +16,23 @@
 {% endblock %}
 
 {% block content %}
+{% for type, teams in types.items() %}
+<div class="break">
+    <h1 style="text-align: center;">{{ series.name }}</h1>
+
+    <h2>{{ type }} Teams</h2>
+
+    <table>
+        {% for team in teams %}
+        <tr>
+            <td class="position">{{ loop.index }}</td>
+            <td class="paddler">{{ team[0] }}</td>
+            <td class="time">{{ team[1] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endfor %}
 {% for category, results in categories.items() %}
 <div class="break">
     <h1 style="text-align: center;">{{ series.name }}</h1>

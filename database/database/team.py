@@ -111,6 +111,9 @@ class TeamType(Base):
     id = Column(Integer, primary_key=True)
     label = Column(String, nullable=False)
 
+    def __repr__(self):
+        return f"TeamType(id={self.id}, label='{self.label}')"
+
     def __str__(self):
         return self.label
 
