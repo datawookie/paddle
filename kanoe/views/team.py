@@ -39,7 +39,13 @@ def team_create():
 def team(team_id):
     team = session.query(db.Team).get(team_id)
 
+    entries = set()
+    #
+    for crew in team.crews:
+        entries.add(crew.entry)
+
     return render_template(
         "team.j2",
         team=team,
+        entries=entries,
     )

@@ -14,21 +14,19 @@ Series: {{ team.series }}
 <div class="row">
   <div class="col-md-6">
     <table class="table table-striped table-sm">
-      <thead>
+      <tbody>
         <tr>
-          <th>Paddler</th>
+          <th>Crew</th>
           <th>Race</th>
           <th>Category</th>
           <th>Time</th>
         </tr>
-      </thead>
-      <tbody>
-        {% for crew in team.crews %}
+        {% for entry in entries %}
         <tr>
-          <td><a href="{{ url_for('kanoe.paddler', paddler_id=crew.paddler_id) }}">{{ crew }}</a></td>
-          <td><a href="{{ url_for('kanoe.race', race_id=crew.entry.race_id) }}">{{ crew.entry.race.name }}</a></td>
-          <td>{{ crew.entry.category }}</td>
-          <td>{{ crew.entry.time }}</td>
+          <td><a href="{{ url_for('kanoe.entry', entry_id=entry.id) }}">{{ entry }}</a></td>
+          <td><a href="{{ url_for('kanoe.race', race_id=entry.race_id) }}">{{ entry.race.name }}</a></td>
+          <td>{{ entry.category }}</td>
+          <td>{{ entry.time }}</td>
         </tr>
         {% endfor %}
       </tbody>
