@@ -46,7 +46,7 @@ def paddlers_validate():
 @login_required
 def paddler(paddler_id):
     if paddler_id:
-        paddler = session.query(db.Paddler).get(paddler_id)
+        paddler = session.get(db.Paddler, paddler_id)
     else:
         paddler = None
 

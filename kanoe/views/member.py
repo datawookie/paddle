@@ -9,5 +9,5 @@ def time_trial():
 
 @blueprint.route("/member/<member_id>")
 def member(member_id):
-    member = session.query(db.Member).get(member_id)
+    member = session.get(db.Member, member_id)
     return render_template("member.j2", member=member)

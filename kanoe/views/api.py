@@ -53,7 +53,7 @@ def update():
             value = request.form["value"]
             edit_id = request.form["edit_id"]
 
-            entry = session.query(db.Entry).get(edit_id)
+            entry = session.get(db.Entry, edit_id)
 
             if field == "start":
                 entry.time_start = value

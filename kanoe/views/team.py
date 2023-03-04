@@ -37,7 +37,7 @@ def team_create():
 @blueprint.route("/team/<team_id>")
 @login_required
 def team(team_id):
-    team = session.query(db.Team).get(team_id)
+    team = session.get(db.Team, team_id)
 
     entries = set()
     #

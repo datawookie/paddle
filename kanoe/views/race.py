@@ -53,7 +53,7 @@ def races():
 @login_required
 def race(race_id):
     entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
-    race = session.query(db.Race).get(race_id)
+    race = session.get(db.Race, race_id)
     return render_template("race.j2", race=race, entries=entries)
 
 
@@ -61,7 +61,7 @@ def race(race_id):
 @blueprint.route("/race/create", defaults={"race_id": None}, methods=("GET", "POST"))
 def race_update(race_id):
     if race_id:
-        race = race = session.query(db.Race).get(race_id)
+        race = race = session.get(db.Race, race_id)
     else:
         race = None
 
@@ -90,7 +90,7 @@ def race_update(race_id):
             flash("Maximum finish time must be supplied.", "danger")
         else:
             date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
-            series = session.query(db.Series).get(series_id)
+            series = session.get(db.Series, series_id)
             time_min_start = parse_time(time_pad_seconds(time_min_start))
             time_max_start = parse_time(time_pad_seconds(time_max_start))
             time_min_finish = parse_time(time_pad_seconds(time_min_finish))
@@ -123,14 +123,14 @@ def race_update(race_id):
 
 @blueprint.route("/race/<race_id>/results/category", methods=("GET", "POST"))
 def race_results_category(race_id):
-    race = session.query(db.Race).get(race_id)
+    race = session.get(db.Race, race_id)
     categories = session.query(db.Category).all()
     category = None
     results = None
 
     if request.method == "POST":
         category_id = int(request.form.get("category_id"))
-        category = session.query(db.Category).get(category_id)
+        category = session.get(db.Category, category_id)
 
         results = (
             session.query(db.Entry)
@@ -158,7 +158,7 @@ def race_results_category(race_id):
 
 @blueprint.route("/race/<race_id>/results/scrolling")
 def race_results_scrolling(race_id):
-    race = session.query(db.Race).get(race_id)
+    race = session.get(db.Race, race_id)
     results = (
         session.query(db.Entry)
         .filter(db.Entry.race_id == race_id)
@@ -199,7 +199,7 @@ def race_results_capture(race_id):
         time_start = parse_time(time_start)
         time_finish = parse_time(time_finish)
 
-        entry = session.query(db.Entry).get(entry_id)
+        entry = session.get(db.Entry, entry_id)
 
         # Start time.
         if time_start:
@@ -244,7 +244,7 @@ def race_results_capture(race_id):
 @login_required
 def race_results_validate(race_id):
     entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
-    race = session.query(db.Race).get(race_id)
+    race = session.get(db.Race, race_id)
     return render_template(
         "race-results-validate.j2",
         race=race,
@@ -256,7 +256,7 @@ def race_results_validate(race_id):
 @blueprint.route("/race/<race_id>/results/export/csv")
 @login_required
 def race_results_export_csv(race_id):
-    race = session.query(db.Race).get(race_id)
+    race = session.get(db.Race, race_id)
     path = os.path.join(tempfile.mkdtemp(), race.slug + "-results.csv")
 
     results = (
@@ -287,7 +287,7 @@ def race_results_export_csv(race_id):
 @blueprint.route("/race/<race_id>/results/paginated")
 @login_required
 def race_results_paginated(race_id):
-    race = session.query(db.Race).get(race_id)
+    race = session.get(db.Race, race_id)
 
     results = (
         session.query(db.Entry)
@@ -314,7 +314,7 @@ def race_results_paginated(race_id):
 @blueprint.route("/race/<race_id>/results/export/pdf")
 @login_required
 def race_results_export_pdf(race_id):
-    race = session.query(db.Race).get(race_id)
+    race = session.get(db.Race, race_id)
     return render_pdf(
         url_for("kanoe.race_results_paginated", race_id=race_id),
         download_filename=race.slug + "-results.pdf",
@@ -388,7 +388,7 @@ def race_allocate_numbers(race_id):
 @blueprint.route("/race/<race_id>/entries/export/xlsx")
 @login_required
 def race_entries_export_xlsx(race_id):
-    race = session.query(db.Race).get(race_id)
+    race = session.get(db.Race, race_id)
     path = os.path.join(tempfile.mkdtemp(), race.slug + "-entries.xlsx")
 
     entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
@@ -438,7 +438,7 @@ def race_entries_export_xlsx(race_id):
 @blueprint.route("/race/<race_id>/entries/paginated")
 @login_required
 def race_entries_paginated(race_id):
-    race = session.query(db.Race).get(race_id)
+    race = session.get(db.Race, race_id)
 
     entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
 
@@ -458,7 +458,7 @@ def race_entries_paginated(race_id):
 @blueprint.route("/race/<race_id>/entries/export/pdf")
 @login_required
 def race_entries_export_pdf(race_id):
-    race = session.query(db.Race).get(race_id)
+    race = session.get(db.Race, race_id)
     return render_pdf(
         url_for("kanoe.race_entries_paginated", race_id=race_id),
         download_filename=race.slug + "-entries.pdf",
@@ -468,7 +468,7 @@ def race_entries_export_pdf(race_id):
 @blueprint.route("/race/<race_id>/entries/import/xlsx", methods=("GET", "POST"))
 @login_required
 def race_entry_bulk(race_id):
-    race = session.query(db.Race).get(race_id)
+    race = session.get(db.Race, race_id)
 
     if request.method == "POST":
         file = request.files.get("file")

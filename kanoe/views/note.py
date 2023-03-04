@@ -7,7 +7,7 @@ from .common import *
 @blueprint.route("/entry/note/add/<entry_id>", methods=("GET", "POST"))
 @login_required
 def entry_note_update(entry_id):
-    entry = session.query(db.Entry).get(entry_id)
+    entry = session.get(db.Entry, entry_id)
 
     if request.method == "POST":
         if "delete" in request.form:

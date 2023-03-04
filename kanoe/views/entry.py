@@ -247,7 +247,7 @@ def load_entries(race, individuals):
 @blueprint.route("/entry/", defaults={"entry_id": None}, methods=("GET", "POST"))
 @login_required
 def entry(entry_id):
-    entry = session.query(db.Entry).get(entry_id)
+    entry = session.get(db.Entry, entry_id)
     race_id = request.args.get("race_id")
     #
     races = session.query(db.Race)
@@ -294,7 +294,7 @@ def entry(entry_id):
 
             # Either assign new number or remove existing number.
             race_number = request.form.get("race_number")
-            entry.race_number = session.query(db.Number).get(race_number)
+            entry.race_number = session.get(db.Number, race_number)
 
             session.commit()
 
@@ -345,7 +345,7 @@ def entry(entry_id):
 @blueprint.route("/entry/<entry_id>/register", methods=(["GET"]))
 @login_required
 def entry_register(entry_id):
-    entry = session.query(db.Entry).get(entry_id)
+    entry = session.get(db.Entry, entry_id)
     entry.registered = True
     session.commit()
 
@@ -355,7 +355,7 @@ def entry_register(entry_id):
 @blueprint.route("/entry/<entry_id>/crew/add", methods=(["GET", "POST"]))
 @login_required
 def entry_crew_add(entry_id):
-    entry = session.query(db.Entry).get(entry_id)
+    entry = session.get(db.Entry, entry_id)
 
     if request.method == "POST":
         paddler_id = request.form.get("paddler_id")

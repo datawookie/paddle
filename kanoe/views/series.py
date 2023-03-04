@@ -5,7 +5,7 @@ from .common import *
 
 
 def series_results_team(series_id):
-    series = session.query(db.Series).get(series_id)
+    series = session.get(db.Series, series_id)
     # Find past races in series.
     races = session.query(db.Race).filter(db.Race.series_id == series_id).all()
     races = [race for race in races if race.past]
@@ -51,7 +51,7 @@ def series_results_team(series_id):
 
 
 def series_results_category(series_id):
-    series = session.query(db.Series).get(series_id)
+    series = session.get(db.Series, series_id)
     # Find past races in series.
     races = session.query(db.Race.id).filter(db.Race.series_id == series_id)
     # Find entries for races in series.
@@ -129,7 +129,7 @@ def series_results_paginated(series_id):
 @blueprint.route("/series/<series_id>/results/export/pdf")
 @login_required
 def series_results_export_pdf(series_id):
-    series = session.query(db.Series).get(series_id)
+    series = session.get(db.Series, series_id)
     return render_pdf(
         url_for("kanoe.series_results_paginated", series_id=series_id),
         download_filename=series.slug + "-results.pdf",

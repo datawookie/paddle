@@ -5,7 +5,7 @@ from flask_login import login_required
 @blueprint.route("/crew/<crew_id>", methods=("GET", "POST"))
 @login_required
 def crew(crew_id):
-    crew = session.query(db.Crew).get(crew_id)
+    crew = session.get(db.Crew, crew_id)
 
     if request.method == "POST":
         paddler_id = request.form["paddler"]
@@ -49,7 +49,7 @@ def crew(crew_id):
 )
 @login_required
 def crew_delete(crew_id):
-    crew = session.query(db.Crew).get(crew_id)
+    crew = session.get(db.Crew, crew_id)
     entry_id = crew.entry.id
 
     session.delete(crew)

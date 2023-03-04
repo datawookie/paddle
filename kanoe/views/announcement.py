@@ -14,7 +14,7 @@ def announcement():
 @blueprint.route("/announcement/<announcement_id>", methods=("GET", "POST"))
 @login_required
 def announcement_update(announcement_id):
-    announcement = session.query(db.Announcement).get(announcement_id)
+    announcement = session.get(db.Announcement, announcement_id)
 
     if request.method == "POST":
         if "delete" in request.form:
