@@ -1,4 +1,5 @@
 import os
+import datetime
 import tempfile
 import logging
 import pytest
@@ -35,6 +36,18 @@ def session(database):
     session = db.Session()
 
     session.add(db.Series(name="Hogwarts"))
+
+    session.add(
+        db.Race(
+            name="Quidditch World Series",
+            date=datetime.datetime.strptime("1997-06-26", "%Y-%m-%d").date(),
+            series_id=1,
+            time_min_start="08:00:00",
+            time_max_start="10:00:00",
+            time_min_finish="09:00:00",
+            time_max_finish="12:00:00",
+        )
+    )
 
     session.add(db.Club(code_regex="GRY|GFR", name="Gryffindor"))
     session.add(db.Club(code_regex="HUF", name="Hufflepuff"))
