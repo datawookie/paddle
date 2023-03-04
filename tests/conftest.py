@@ -34,7 +34,7 @@ def session(database):
     db.Base.metadata.create_all(db.engine)
     session = db.Session()
 
-    session.add(db.Series(name="Series"))
+    session.add(db.Series(name="Hogwarts"))
 
     session.add(db.Club(code_regex="GRY|GFR", name="Gryffindor"))
     session.add(db.Club(code_regex="HUF", name="Hufflepuff"))
