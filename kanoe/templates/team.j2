@@ -18,6 +18,8 @@ Series: {{ team.series }}
         <tr>
           <th>Paddler</th>
           <th>Race</th>
+          <th>Category</th>
+          <th>Time</th>
         </tr>
       </thead>
       <tbody>
@@ -25,6 +27,8 @@ Series: {{ team.series }}
         <tr>
           <td><a href="{{ url_for('kanoe.paddler', paddler_id=crew.paddler_id) }}">{{ crew }}</a></td>
           <td><a href="{{ url_for('kanoe.race', race_id=crew.entry.race_id) }}">{{ crew.entry.race.name }}</a></td>
+          <td>{{ crew.entry.category }}</td>
+          <td>{{ crew.entry.time }}</td>
         </tr>
         {% endfor %}
       </tbody>
