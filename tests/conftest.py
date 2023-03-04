@@ -36,8 +36,8 @@ def session(database):
 
     session.add(db.Series(name="Series"))
 
-    session.add(db.Club(id="GRY", name="Gryffindor"))
-    session.add(db.Club(id="HUF", name="Hufflepuff"))
+    session.add(db.Club(code_regex="GRY|GFR", name="Gryffindor"))
+    session.add(db.Club(code_regex="HUF", name="Hufflepuff"))
 
     session.add(db.TeamType(label="Junior"))
     session.add(db.TeamType(label="Senior"))
