@@ -124,7 +124,6 @@ def load_entries(race, individuals):
     # Group entries (this handles K1 versus K2).
     entries = {}
     for individual in individuals:
-        logging.debug(individual)
         individual = Individual(**individual)
         individual.first = string.capwords(individual.first)
         individual.last = string.capwords(individual.last)
@@ -133,7 +132,7 @@ def load_entries(race, individuals):
         # Check for existing entry.
         #
         if individual.number not in entries:
-            logging.info(f"Add new entry: {individual.number}.")
+            logging.debug(f"Add new entry: {individual.number}.")
             entries[individual.number] = []
 
         entries[individual.number].append(individual)
