@@ -217,18 +217,18 @@ def load_entries(race, individuals):
             #
             club_id = []
             #
+            logging.debug(f"Searching for club '{individual.club}'.")
             for regex, id in clubs.items():
                 if re.match(regex, individual.club):
                     club_id.append(id)
                     logging.debug("Matching club found.")
 
             if len(club_id) == 0:
-                club_id = None
+                abort(404, description=f"No matched club ('{individual.club}')!")
             elif len(club_id) == 1:
                 club_id = club_id[0]
             else:
-                # There is more than one matching club.
-                abort(404)
+                abort(404, description=f"Multiple matched clubs ('{individual.club}')!")
 
             paddler.crews.append(
                 db.Crew(

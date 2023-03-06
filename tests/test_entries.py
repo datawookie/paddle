@@ -17,3 +17,16 @@ def test_entries_import_xlsx(client):
         },
     )
     assert response.status_code == HTTP_STATUS_FOUND
+
+
+@pytest.mark.ui
+def test_entries_import_xlsx_unknown_club(client):
+    RACE_ID = 1
+
+    response = client.post(
+        f"/race/{RACE_ID}/entries/import/xlsx",
+        data={
+            "file": (resources / "entries-unknown-club.xlsx").open("rb"),
+        },
+    )
+    assert response.status_code == HTTP_STATUS_NOT_FOUND
