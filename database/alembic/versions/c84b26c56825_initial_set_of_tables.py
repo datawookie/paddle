@@ -186,8 +186,6 @@ def upgrade() -> None:
             "boat_type", sa.Enum("K1", "K2", "C", name="boattype"), nullable=True
         ),
         sa.Column("entry_number", sa.Integer(), nullable=True),
-        sa.Column("online", sa.Boolean(), nullable=True),
-        sa.Column("series", sa.Boolean(), nullable=True),
         sa.Column("series_id", sa.Integer(), nullable=True),
         sa.Column("time_start", sa.String(), nullable=True),
         sa.Column("time_finish", sa.String(), nullable=True),

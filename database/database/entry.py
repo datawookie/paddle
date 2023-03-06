@@ -29,8 +29,6 @@ class Entry(Base):
     category_id = Column(Integer, ForeignKey(Category.id), index=True)
     boat_type = Column(boat_type, index=True)
     entry_number = Column(Integer)
-    online = Column(Boolean)
-    series = Column(Boolean)
     series_id = Column(Integer, ForeignKey(Series.id), index=True)
 
     time_start = Column(String)

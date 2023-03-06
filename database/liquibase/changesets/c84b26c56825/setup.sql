@@ -135,8 +135,6 @@ CREATE TABLE entry (
     category_id INTEGER,
     boat_type VARCHAR(2),
     entry_number INTEGER,
-    online BOOLEAN,
-    series BOOLEAN,
     series_id INTEGER,
     time_start VARCHAR,
     time_finish VARCHAR,
