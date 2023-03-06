@@ -97,17 +97,55 @@ def series_results_category(series_id):
     return series, categories
 
 
+def series_results_services(series_id):
+    series = session.get(db.Series, series_id)
+    # Find past races in series.
+    races = session.query(db.Race.id).filter(db.Race.series_id == series_id)
+    # Find entries for races in series.
+    entries = session.query(db.Entry)
+    entries = (
+        entries.filter(db.Entry.race_id.in_(races))
+        .filter(db.Entry.time_start.is_not(None))
+        .filter(db.Entry.time_finish.is_not(None))
+        .filter(db.Entry.time_finish.is_not(None))
+    )
+    entries = entries.all()
+
+    races = session.query(db.Race).filter(db.Race.series_id == series_id).all()
+    races_past = len([race for race in races if race.past])
+
+    # Keep only services entries.
+    entries = [entry for entry in entries if entry.services]
+
+    crews = {}
+    for entry in entries:
+        try:
+            crews[entry.crew_hash].append(entry)
+        except KeyError:
+            crews[entry.crew_hash] = [entry]
+
+    # Keep only crews who have finished all races in series.
+    crews = [entries for entries in crews.values() if len(entries) == races_past]
+
+    crews = [db.EntrySet(entries) for entries in crews]
+    crews = sorted(crews, key=lambda x: x.time)
+
+    return series, crews
+
+
 @blueprint.route("/series/<series_id>")
 @login_required
 def series(series_id):
     series, categories = series_results_category(series_id)
     _, types = series_results_team(series_id)
+    _, services = series_results_services(series_id)
 
     return render_template(
         "series.j2",
         series=series,
         categories=categories,
         types=types,
+        services=services,
     )
 
 
@@ -116,12 +154,14 @@ def series(series_id):
 def series_results_paginated(series_id):
     series, categories = series_results_category(series_id)
     _, types = series_results_team(series_id)
+    _, services = series_results_services(series_id)
 
     return render_template(
         "series-results-paginated.j2",
         series=series,
         categories=categories,
         types=types,
+        services=services,
         timestamp=datetime.datetime.now(),
     )
 

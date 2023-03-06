@@ -33,6 +33,23 @@
     </table>
 </div>
 {% endfor %}
+
+<div class="break">
+    <h1 style="text-align: center;">{{ series.name }} Series Results</h1>
+
+    <h2>Services</h2>
+
+    <table>
+        {% for team in services %}
+        <tr>
+            <td class="position">{{ loop.index }}</td>
+            <td class="paddler">{{ team.name }}</td>
+            <td class="time">{{ team.time }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
 {% for category, results in categories.items() %}
 <div class="break">
     <h1 style="text-align: center;">{{ series.name }} Series Results</h1>
