@@ -1,148 +1,148 @@
-code,name
-4AS,Newark 4 As
-ABF,Aberfan
-ACU,Army Canoe Union
-ADS,Addlestone
-ANK,Anker Valley
-AVN,Avon
-BAD,Barking & Dagenham
-BAN,Banbury & District
-BAS,Basingstoke Canal
-BCC,Basingstoke Canal
-BED,Bedford School
-BEJ,Bourne End Junior
-BLU,Blundell's School
-BOA,Bradford On Avon
-BPR,Burton Phoenix Racers
-BPS,Broadland Paddle Sport
-BRE,Brecon
-BRI,Bristol
-BRK,Break Out
-BRY,Bryanston School
-BSF,Bishops Stortford
-BTH,Bath
-BUR,Burton
-CAM,Cambridge
-CDF,Cardiff Bay Kayakers
-CEL,Celbridge
-CHE,Chester
-CHU,Churcher's College
-CKP,Cokethorpe School
-CLM,Chelmsford
-CNI,Canoe Northern Ireland
-COK,Cokethorpe School
-CRA,Cranleigh School
-DAU,Dauntsey's School
-DCP,Dyffryn Conwy
-DEV,Devizes
-DUD,Duddon
-DWR,Cardiff
-EAL,Ealing
-ELM,Elmbridge
-ENG,Royal Engineers
-ERN,Erne Paddlers
-ESK,Edinburgh Schools Kayak
-EXE,Exeter
-FLA,Fladbury
-FOR,Forth
-FOX,Falcon (Oxford)
-FOY,Fowey River
-GAI,Gailey
-GLO,Gloucester
-GLS,Glanford & Scunthorpe
-GLW,Glasgow
-HAS,Hastings & District
-HEM,Hemel Hempstead
-HEN,Henley
-HER,Hereford
-HUN,Huntingdon
-HYM,Herts Young Mariners Base
-ICH,Ichthus
-IND,Independent
-IPS,Ipswich
-KCC,Kilcullen
-KEL,Kelly College
-KIM,Kimbolton School
-KIN,Kingston (Hull)
-KIR,Kirkcaldy
-LAK,Lakeland
-LAU,Launceston College
-LBZ,Leighton Buzzard
-LDN,London Tideway
-LEA,Leaside
-LEE,Lee Valley
-LIN,Lincoln
-LKR,Linlithgow
-LON,Longridge
-LOR,Lord Wandsworth College
-LWC,Lord Wandsworth College
-LOU,Loughborough University
-MAD,Macclesfield & District
-MAI,Maidstone
-MAL,Malton & Norton
-MAR,Marlborough College
-MDN,Meridian
-MER,Mercia
-MKS,Mount Kelly School
-MLO,Marlow
-MVR,Manvers Waterfront
-NAI,Nairn
-NBY,Newbury
-NEW,Newbury
-NMC,North Merchiston
-NOR,Norwich
-NOT,Nottingham
-NSK,North East Sea Kayak
-OSC,Ocean Sports Club
-OXU,Oxford University
-PAN,Pangbourne
-PEN,Pennine
-PLY,Plymouth College
-PNZ,Penzance
-POO,Poole Harbour
-PPL,Paddleplus
-PRA,Paddlesport Racers
-PUT,Putney Bridge
-RAF,Royal Air Force
-RDG,Reading
-REA,Reading
-RHS,Royal Hospital School
-RIC,Richmond
-RLS,Royal Leamington Spa
-RMC,Royal Marines
-RMK,Royal Marines
-RNP,Royal Navy
-ROY,Royal
-RUN,Runcorn
-SER,Seren
-SHK,The Sharks
-SHP,Shropshire
-SKR,Strathclyde
-SLP,Salmon Leap
-SOL,Solihull
-SOR,Soar Valley
-SOU,Southampton
-SOW,Special Olympic Wales
-SPS,Scottish Performance Squad
-STO,Stoke Racers
-SUT,Sutton Bingham & District
-SWA,Swansea
-SWY,Stornoway
-TAM,Tamar Valley Nomads
-TAU,Taunton
-TON,Tonbridge
-TRE,Trentham
-TRU,Truro
-TTN,Thomastown Paddlers
-UKF,United Kingdom Armed Forces
-VIK,Viking
-WCP,West Coast Paddlers
-WCR,Winchester & District
-WEY,Wey
-WIN,Winchester
-WOK,Wokingham
-WOL,Wolverhampton
-WOP,Wear Whoppers
-WOR,Worcester
-WRC,White Rose (Leeds)
-WYC,Wiltshire Youth
+"code","name","services"
+"4AS","Newark 4 As",0
+"ABF","Aberfan",0
+"ACU","Army Canoe Union",1
+"ADS","Addlestone",0
+"ANK","Anker Valley",0
+"AVN","Avon",0
+"BAD","Barking & Dagenham",0
+"BAN","Banbury & District",0
+"BAS","Basingstoke Canal",0
+"BCC","Basingstoke Canal",0
+"BED","Bedford School",0
+"BEJ","Bourne End Junior",0
+"BLU","Blundell's School",0
+"BOA","Bradford On Avon",0
+"BPR","Burton Phoenix Racers",0
+"BPS","Broadland Paddle Sport",0
+"BRE","Brecon",0
+"BRI","Bristol",0
+"BRK","Break Out",0
+"BRY","Bryanston School",0
+"BSF","Bishops Stortford",0
+"BTH","Bath",0
+"BUR","Burton",0
+"CAM","Cambridge",0
+"CDF","Cardiff Bay Kayakers",0
+"CEL","Celbridge",0
+"CHE","Chester",0
+"CHU","Churcher's College",0
+"CKP","Cokethorpe School",0
+"CLM","Chelmsford",0
+"CNI","Canoe Northern Ireland",0
+"COK","Cokethorpe School",0
+"CRA","Cranleigh School",0
+"DAU","Dauntsey's School",0
+"DCP","Dyffryn Conwy",0
+"DEV","Devizes",0
+"DUD","Duddon",0
+"DWR","Cardiff",0
+"EAL","Ealing",0
+"ELM","Elmbridge",0
+"ENG","Royal Engineers",1
+"ERN","Erne Paddlers",0
+"ESK","Edinburgh Schools Kayak",0
+"EXE","Exeter",0
+"FLA","Fladbury",0
+"FOR","Forth",0
+"FOX","Falcon (Oxford)",0
+"FOY","Fowey River",0
+"GAI","Gailey",0
+"GLO","Gloucester",0
+"GLS","Glanford & Scunthorpe",0
+"GLW","Glasgow",0
+"HAS","Hastings & District",0
+"HEM","Hemel Hempstead",0
+"HEN","Henley",0
+"HER","Hereford",0
+"HUN","Huntingdon",0
+"HYM","Herts Young Mariners Base",0
+"ICH","Ichthus",0
+"IND","Independent",0
+"IPS","Ipswich",0
+"KCC","Kilcullen",0
+"KEL","Kelly College",0
+"KIM","Kimbolton School",0
+"KIN","Kingston (Hull)",0
+"KIR","Kirkcaldy",0
+"LAK","Lakeland",0
+"LAU","Launceston College",0
+"LBZ","Leighton Buzzard",0
+"LDN","London Tideway",0
+"LEA","Leaside",0
+"LEE","Lee Valley",0
+"LIN","Lincoln",0
+"LKR","Linlithgow",0
+"LON","Longridge",0
+"LOR","Lord Wandsworth College",0
+"LWC","Lord Wandsworth College",0
+"LOU","Loughborough University",0
+"MAD","Macclesfield & District",0
+"MAI","Maidstone",0
+"MAL","Malton & Norton",0
+"MAR","Marlborough College",0
+"MDN","Meridian",0
+"MER","Mercia",0
+"MKS","Mount Kelly School",0
+"MLO","Marlow",0
+"MVR","Manvers Waterfront",0
+"NAI","Nairn",0
+"NBY","Newbury",0
+"NEW","Newbury",0
+"NMC","North Merchiston",0
+"NOR","Norwich",0
+"NOT","Nottingham",0
+"NSK","North East Sea Kayak",0
+"OSC","Ocean Sports Club",0
+"OXU","Oxford University",0
+"PAN","Pangbourne",0
+"PEN","Pennine",0
+"PLY","Plymouth College",0
+"PNZ","Penzance",0
+"POO","Poole Harbour",0
+"PPL","Paddleplus",0
+"PRA","Paddlesport Racers",0
+"PUT","Putney Bridge",0
+"RAF","Royal Air Force",1
+"RDG","Reading",0
+"REA","Reading",0
+"RHS","Royal Hospital School",0
+"RIC","Richmond",0
+"RLS","Royal Leamington Spa",0
+"RMC","Royal Marines",1
+"RMK","Royal Marines",1
+"RNP","Royal Navy",1
+"ROY","Royal",0
+"RUN","Runcorn",0
+"SER","Seren",0
+"SHK","The Sharks",0
+"SHP","Shropshire",0
+"SKR","Strathclyde",0
+"SLP","Salmon Leap",0
+"SOL","Solihull",0
+"SOR","Soar Valley",0
+"SOU","Southampton",0
+"SOW","Special Olympic Wales",0
+"SPS","Scottish Performance Squad",0
+"STO","Stoke Racers",0
+"SUT","Sutton Bingham & District",0
+"SWA","Swansea",0
+"SWY","Stornoway",0
+"TAM","Tamar Valley Nomads",0
+"TAU","Taunton",0
+"TON","Tonbridge",0
+"TRE","Trentham",0
+"TRU","Truro",0
+"TTN","Thomastown Paddlers",0
+"UKF","United Kingdom Armed Forces",1
+"VIK","Viking",0
+"WCP","West Coast Paddlers",0
+"WCR","Winchester & District",0
+"WEY","Wey",0
+"WIN","Winchester",0
+"WOK","Wokingham",0
+"WOL","Wolverhampton",0
+"WOP","Wear Whoppers",0
+"WOR","Worcester",0
+"WRC","White Rose (Leeds)",0
+"WYC","Wiltshire Youth",0

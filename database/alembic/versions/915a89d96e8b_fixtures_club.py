@@ -24,17 +24,19 @@ def upgrade() -> None:
         reader = csv.reader(file, delimiter=",")
         # Skip header record.
         next(reader)
+        # Group club data by name (for capturing multiple REGEX).
         for row in reader:
             try:
-                clubs[row[1]].append(row[0])
+                clubs[row[1]]["regex"].append(row[0])
             except KeyError:
-                clubs[row[1]] = [row[0]]
+                clubs[row[1]] = {"regex": [row[0]], "services": row[2]}
 
-    for name, codes in clubs.items():
-        club_regex = "|".join(codes)
+    for name, data in clubs.items():
+        club_regex = "|".join(data["regex"])
+        services = bool(int(data["services"]))
         op.bulk_insert(
             db.Club.__table__,
-            [{"name": name, "code_regex": club_regex}],
+            [{"name": name, "code_regex": club_regex, "services": services}],
         )
 
 
