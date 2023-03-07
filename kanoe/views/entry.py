@@ -223,12 +223,19 @@ def load_entries(race, individuals):
                     club_id.append(id)
                     logging.debug("Matching club found.")
 
-            if len(club_id) == 0:
-                abort(404, description=f"No matched club ('{individual.club}')!")
-            elif len(club_id) == 1:
+            # There should only be one matched club.
+            #
+            # If there are no matches or multiple matches then roll back all entries.
+            #
+            if len(club_id) == 1:
                 club_id = club_id[0]
             else:
-                abort(404, description=f"Multiple matched clubs ('{individual.club}')!")
+                session.rollback()
+
+                if len(club_id) == 0:
+                    abort(404, f"No matched club ('{individual.club}')!")
+                else:
+                    abort(404, f"Multiple matched clubs ('{individual.club}')!")
 
             paddler.crews.append(
                 db.Crew(
