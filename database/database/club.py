@@ -7,6 +7,7 @@ class Club(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     code_regex = Column(String())
+    services = Column(Boolean, server_default=expression.false())
 
     def __repr__(self):
         return "Club(id=%d, name='%s', regex='%s')" % (

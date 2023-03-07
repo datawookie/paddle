@@ -1,0 +1,31 @@
+"""Add club.services
+
+Revision ID: f58b19f13496
+Revises: 4f370a25634c
+Create Date: 2023-03-07 05:48:30.625844
+
+"""
+from alembic import op
+import sqlalchemy as sa
+
+
+# revision identifiers, used by Alembic.
+revision = "f58b19f13496"
+down_revision = "4f370a25634c"
+branch_labels = None
+depends_on = None
+
+
+def upgrade() -> None:
+    op.add_column(
+        "club",
+        sa.Column("services", sa.Boolean(), server_default=sa.text("0"), nullable=True),
+    )
+    op.drop_column("entry", "online")
+    op.drop_column("entry", "series")
+
+
+def downgrade() -> None:
+    op.add_column("entry", sa.Column("series", sa.BOOLEAN(), nullable=True))
+    op.add_column("entry", sa.Column("online", sa.BOOLEAN(), nullable=True))
+    op.drop_column("club", "services")
