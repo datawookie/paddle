@@ -229,6 +229,9 @@ def load_entries(race, individuals):
             #
             if len(club_id) == 1:
                 club_id = club_id[0]
+                # TODO: This is inefficient. Would be better to load services
+                #       information into club dictionary above.
+                club = session.get(db.Club, club_id)
             else:
                 session.rollback()
 
@@ -243,6 +246,7 @@ def load_entries(race, individuals):
                     entry_id=entry.id,
                     due=individual.due,
                     paid=individual.paid,
+                    services=club.services,
                 )
             )
 
