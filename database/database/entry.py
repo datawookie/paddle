@@ -123,7 +123,7 @@ class Entry(Base):
     def services(self):
         # An entry is only considered a services entry if all of the paddlers in the boat in the services.
         services = [crew.services for crew in self.crews]
-        return all(services)
+        return len(services) > 0 and all(services)
 
     @property
     def started(self):
