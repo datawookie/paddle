@@ -9,18 +9,31 @@ def crew(crew_id):
 
     if request.method == "POST":
         paddler_id = request.form["paddler"]
-        club_id = request.form["club"] or None
-        team_id = request.form.get("team") or None
-        services = request.form.get("services", None)
+        club_id = request.form.get("club", None)
+        team_id = request.form.get("team", None)
+        services = request.form.get("services", "0") == "1"
         paid = request.form["paid"] or None
 
-        crew.paddler_id = paddler_id
+        if club_id is not None:
+            club_id = int(club_id)
+            club = session.get(db.Club, club_id)
+            if crew.club_id == club_id:
+                logging.info("Not changing club.")
+            else:
+                if crew.club_id is None:
+                    logging.info("Setting club.")
+                else:
+                    logging.info("Changing club.")
+
+                if not crew.services and club.services:
+                    logging.info("Setting services because club is services.")
+                    services = True
+
         crew.club_id = club_id
+
+        crew.paddler_id = paddler_id
         crew.team_id = team_id if team_id else None
-        if services:
-            crew.services = True
-        else:
-            crew.services = False
+        crew.services = services
         crew.paid = paid
         session.commit()
 

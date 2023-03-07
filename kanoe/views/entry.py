@@ -366,7 +366,7 @@ def entry_crew_add(entry_id):
     if request.method == "POST":
         paddler_id = request.form.get("paddler_id")
         if paddler_id:
-            logging.info("Add paddler to entry.")
+            logging.info("Add crew to entry.")
             crew = db.Crew(
                 paddler_id=paddler_id,
                 entry_id=entry.id,
