@@ -5,8 +5,4 @@
 
 ALTER TABLE club ADD COLUMN services BOOLEAN DEFAULT 0;
 
-ALTER TABLE entry DROP COLUMN online;
-
-ALTER TABLE entry DROP COLUMN series;
-
 UPDATE alembic_version SET version_num='f58b19f13496' WHERE alembic_version.version_num = '4f370a25634c';

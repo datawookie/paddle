@@ -13,7 +13,7 @@ import database as db
 
 # revision identifiers, used by Alembic.
 revision = "915a89d96e8b"
-down_revision = "c84b26c56825"
+down_revision = "f58b19f13496"
 branch_labels = None
 depends_on = None
 

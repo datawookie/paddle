@@ -1,7 +1,7 @@
 --liquibase formatted sql
 --changeset datawookie:09b05f0d065c
 --precondition-sql-check expectedResult:1 SELECT COUNT(*) FROM alembic_version WHERE version_num = '915a89d96e8b'
---comment Running upgrade 915a89d96e8b -> 09b05f0d065c
+--comment Running upgrade c84b26c56825 -> 09b05f0d065c
 
 INSERT INTO category (label) VALUES ('K2 Senior');
 INSERT INTO category (label) VALUES ('K2 Junior');

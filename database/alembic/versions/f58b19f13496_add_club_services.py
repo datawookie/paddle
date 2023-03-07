@@ -21,11 +21,7 @@ def upgrade() -> None:
         "club",
         sa.Column("services", sa.Boolean(), server_default=sa.text("0"), nullable=True),
     )
-    op.drop_column("entry", "online")
-    op.drop_column("entry", "series")
 
 
 def downgrade() -> None:
     op.add_column("entry", sa.Column("series", sa.BOOLEAN(), nullable=True))
-    op.add_column("entry", sa.Column("online", sa.BOOLEAN(), nullable=True))
-    op.drop_column("club", "services")
