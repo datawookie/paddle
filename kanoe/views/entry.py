@@ -142,7 +142,7 @@ def load_entries(race, individuals):
     clubs = {club.code_regex: club.id for club in clubs}
 
     for number, individuals in entries.items():
-        logging.info(f"Entry: {number}.")
+        logging.info(f"Entry:   {number}.")
 
         category = [individual.category for individual in individuals]
         # Unique categories.
@@ -153,6 +153,7 @@ def load_entries(race, individuals):
             category = (
                 session.query(db.Category).filter(db.Category.label == category).one()
             )
+            logging.info(f"Category: {category}.")
         else:
             logging.warning("🚨 Category is missing.")
             continue
@@ -213,32 +214,33 @@ def load_entries(race, individuals):
                 logging.debug("Update BCU number expiry.")
                 paddler.bcu_expiry = individual.bcu_expiry
 
-            # Search for matching club.
-            #
-            club_id = []
-            #
-            logging.debug(f"Searching for club '{individual.club}'.")
-            for regex, id in clubs.items():
-                if re.match(regex, individual.club):
-                    club_id.append(id)
-                    logging.debug("Matching club found.")
-
-            # There should only be one matched club.
-            #
-            # If there are no matches or multiple matches then roll back all entries.
-            #
-            if len(club_id) == 1:
-                club_id = club_id[0]
-                # TODO: This is inefficient. Would be better to load services
-                #       information into club dictionary above.
-                club = session.get(db.Club, club_id)
+            if isinstance(individual.club, float) and np.isnan(individual.club):
+                logging.warning("Club is missing.")
+                club_id = None
             else:
-                session.rollback()
+                logging.debug(f"Searching for club '{individual.club}'.")
+                club_id = []
+                for regex, id in clubs.items():
+                    if re.match(regex, individual.club):
+                        club_id.append(id)
+                        logging.debug("Matching club found.")
 
-                if len(club_id) == 0:
-                    abort(404, f"No matched club ('{individual.club}')!")
+                # There should only be one matched club.
+                #
+                # If there are no matches or multiple matches then roll back all entries.
+                #
+                if len(club_id) == 1:
+                    club_id = club_id[0]
+                    # TODO: This is inefficient. Would be better to load services
+                    #       information into club dictionary above.
+                    club = session.get(db.Club, club_id)
                 else:
-                    abort(404, f"Multiple matched clubs ('{individual.club}')!")
+                    session.rollback()
+
+                    if len(club_id) == 0:
+                        abort(404, f"No matched club ('{individual.club}')!")
+                    else:
+                        abort(404, f"Multiple matched clubs ('{individual.club}')!")
 
             paddler.crews.append(
                 db.Crew(
