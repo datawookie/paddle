@@ -1,3 +1,4 @@
+from datetime import date
 from .base import *
 from .age_group import AgeGroup
 
@@ -49,3 +50,14 @@ class Paddler(Base):
 
     def __str__(self):
         return self.name
+
+    @property
+    def registered(self):
+        if not self.bcu:
+            # No BCU number.
+            return False
+        elif self.bcu_expiry and self.bcu_expiry <= date.today():
+            # BCU number has expired.
+            return False
+        else:
+            return True
