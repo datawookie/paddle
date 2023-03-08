@@ -137,7 +137,8 @@ class Entry(Base):
 
     @property
     def clubs(self):
-        clubs = [crew.club.id for crew in self.crews]
+        clubs = [crew.club for crew in self.crews]
+        clubs = [club.code for club in clubs]
         return "/".join(clubs)
 
 
