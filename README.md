@@ -85,6 +85,8 @@ pytest
 pytest -s
 ```
 
+Tests are run by CI/CD. Coverage report can be found at https://datawookie.gitlab.io/kanoe/.
+
 ### Coverage
 
 To get a coverage report:
