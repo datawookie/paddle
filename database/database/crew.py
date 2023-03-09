@@ -22,8 +22,9 @@ class Crew(Base):
     entry = relationship(Entry, lazy="joined", overlaps="crews")
 
     def __repr__(self):
-        club = f"'{self.club.id}'" if self.club else "None"
-        return f"Crew(name='{self.paddler.name}', club_id={club})"
+        club_id = f"{self.club.id}" if self.club else "None"
+        entry_id = f"{self.entry.id}" if self.entry else "None"
+        return f"Crew(id={self.id}, name='{self.paddler.name}', club_id={club_id}, entry_id={entry_id})"
 
     def __str__(self):
         club = f" ({self.club.code})" if self.club else ""

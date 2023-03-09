@@ -132,4 +132,9 @@ def paddler(paddler_id):
 
             return redirect(url_for("kanoe.paddlers"))
 
+    logging.debug(f"* {repr(paddler)}")
+    logging.debug("  Crews:")
+    for crew in paddler.crews:
+        logging.debug(f"    - {repr(crew)}")
+
     return render_template("paddler.j2", paddler=paddler, age_groups=age_groups)
