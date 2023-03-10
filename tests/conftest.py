@@ -19,8 +19,10 @@ import database as db  # noqa: E402
 from kanoe import factory  # noqa: E402
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="class")
 def database():
+    # Recreate database from scratch.
+    db.Base.metadata.drop_all(db.engine)
     db.Base.metadata.create_all(db.engine)
     session = db.Session()
 
@@ -28,7 +30,7 @@ def database():
     session.close()
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="class")
 def session(database):
     session = database
 
@@ -39,7 +41,7 @@ def session(database):
 
     session.add(
         db.Race(
-            name="Quidditch World Series",
+            name="Quidditch World Cup",
             date=datetime.datetime.strptime("1997-06-26", "%Y-%m-%d").date(),
             series_id=1,
             time_min_start="08:00:00",

@@ -23,7 +23,7 @@
             </div>
             <div class="form-group mb-3">
                 <label>Series</label>
-                <select class="form-select form-select" name="series">
+                <select class="form-select form-select" name="series_id">
                     {% for series in serieses %}
                     <option value="{{ series.id }}" {% if race and series.name==race.series.name %} selected{% endif %}>
                         {{

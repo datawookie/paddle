@@ -1,0 +1,3 @@
+class TestRunner:
+    ID_SERIES_HOGWARTS = 1
+    ID_RACE_QUIDDITCH_WORLD_CUP = 1

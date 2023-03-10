@@ -92,5 +92,7 @@ Tests are run by CI/CD. Coverage report can be found at https://datawookie.gitla
 To get a coverage report:
 
 ```bash
-pytest --cov
+pytest --cov-report html:public --cov
 ```
+
+The report will be written to `public/`.

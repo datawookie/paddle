@@ -61,14 +61,14 @@ def race(race_id):
 @blueprint.route("/race/create", defaults={"race_id": None}, methods=("GET", "POST"))
 def race_update(race_id):
     if race_id:
-        race = race = session.get(db.Race, race_id)
+        race = session.get(db.Race, race_id)
     else:
         race = None
 
     if request.method == "POST":
         name = request.form.get("name")
         date = request.form.get("date")
-        series_id = request.form.get("series")
+        series_id = request.form.get("series_id")
         time_min_start = request.form.get("time_min_start")
         time_max_start = request.form.get("time_max_start")
         time_min_finish = request.form.get("time_min_finish")
@@ -105,8 +105,11 @@ def race_update(race_id):
                 flash("Updated existing race.", "success")
             else:
                 # Create new race.
-                race = db.Race(name=name, date=date, series_id=series.id)
+                race = db.Race(name=name, date=date)
                 session.add(race)
+
+            if series:
+                race.series_id = series.id
 
             race.time_min_start = time_min_start
             race.time_max_start = time_max_start
@@ -480,7 +483,9 @@ def race_entry_bulk(race_id):
             logging.debug(f"Entries file: {filename} (upload path)")
             file.save(filename)
 
+            logging.debug("Reading entries from XLSX file.")
             entries = load_xlsx(filename)
+            logging.debug("Adding entries.")
             load_entries(race, entries)
 
         return redirect(url_for("kanoe.races"))
