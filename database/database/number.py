@@ -17,6 +17,9 @@ class Number(Base):
     def __str__(self):
         return str(self.id)
 
+    def __int__(self):
+        return int(self.id)
+
 
 class NumberAllocation(Base):
     __tablename__ = "number_entry"
