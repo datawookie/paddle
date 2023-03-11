@@ -69,7 +69,8 @@
             <tr>
               <th>Club</th>
               <td style="text-align: right;">
-                <a href="{{ url_for('kanoe.club', club_id=crew.club.id) }}">{{ crew.club.code }}</a>
+                <a href="{{ url_for('kanoe.club', club_id=crew.club.id) }}">{% if crew.club %}{{ crew.club }}{% endif
+                  %}</a>
               </td>
             </tr>
             <tr>
