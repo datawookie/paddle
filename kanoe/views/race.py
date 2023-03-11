@@ -418,20 +418,21 @@ def race_entries_export_xlsx(race_id):
 
     for entries in categories.values():
         for entry in entries:
-            row = [
-                entry.id,
-                entry.category.label,
-                entry.category.id,
-                entry.crews[0].paddler.last,
-                entry.crews[0].paddler.first,
-                entry.crews[0].club.id if entry.crews[0].club else None,
-                entry.crews[1].paddler.last if len(entry.crews) == 2 else None,
-                entry.crews[1].paddler.first if len(entry.crews) == 2 else None,
-                entry.crews[1].club.id
-                if len(entry.crews) == 2 and entry.crews[1].club
-                else None,
-            ]
-            sheet.append(row)
+            if entry.race_number:
+                row = [
+                    int(entry.race_number),
+                    entry.category.label,
+                    entry.category.id,
+                    entry.crews[0].paddler.last,
+                    entry.crews[0].paddler.first,
+                    entry.crews[0].club.code if entry.crews[0].club else None,
+                    entry.crews[1].paddler.last if len(entry.crews) == 2 else None,
+                    entry.crews[1].paddler.first if len(entry.crews) == 2 else None,
+                    entry.crews[1].club.code
+                    if len(entry.crews) == 2 and entry.crews[1].club
+                    else None,
+                ]
+                sheet.append(row)
 
     workbook.save(path)
 
