@@ -18,6 +18,7 @@ class Race(Base):
     time_max_start = Column(String)
     time_min_finish = Column(String)
     time_max_finish = Column(String)
+    time_adjustment = Column(Integer)
 
     series = relationship(Series, backref="races", lazy="joined")
 
