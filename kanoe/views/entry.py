@@ -158,7 +158,12 @@ def load_entries(race, individuals):
             logging.warning("🚨 Category is missing.")
             continue
 
-        entry = db.Entry(entry_number=number, category_id=category.id, race_id=race.id)
+        entry = db.Entry(
+            entry_number=number,
+            category_id=category.id,
+            race_id=race.id,
+            time_adjustment=race.time_adjustment,
+        )
         session.add(entry)
 
         for individual in individuals:
@@ -283,6 +288,8 @@ def entry(entry_id):
             race_id = request.form["race_id"]
             category_id = request.form["category_id"]
 
+            race = session.get(db.Race, race_id)
+
             if paddler_id:
                 logging.info("Add paddler to entry.")
                 crew = db.Crew(
@@ -294,7 +301,9 @@ def entry(entry_id):
                 # This is a new entry.
                 if entry is None:
                     logging.info("Create new entry.")
-                    entry = db.Entry(race_id=race_id)
+                    entry = db.Entry(
+                        race_id=race_id, time_adjustment=race.time_adjustment
+                    )
                     session.add(entry)
                 else:
                     # Update race.
