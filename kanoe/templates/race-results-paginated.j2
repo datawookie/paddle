@@ -33,7 +33,16 @@
                 {% endfor %}
             </td>
             <td class="club">
-                {{ result.crews | map(attribute='club') | map(attribute='name') | unique | join(' / ') }}
+                {{ result.crews | map(attribute='club') | map(attribute='name', default='?') | unique
+                | join(' / ')
+                }}
+            </td>
+            <td class="age">
+                {% for crew in result.crews %}
+                <span class="abbreviation">{% if crew.paddler.age_group %}{{ crew.paddler.age_group.abbreviation }}{%
+                    else %}—{% endif %}</span>
+                {% if not loop.last %} / {% endif %}
+                {% endfor %}
             </td>
             <td class="time">{{ result.time }}</td>
         </tr>

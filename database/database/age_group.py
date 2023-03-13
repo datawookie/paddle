@@ -9,3 +9,7 @@ class AgeGroup(Base):
 
     def __str__(self):
         return self.label
+
+    @property
+    def abbreviation(self):
+        return self.label[0]
