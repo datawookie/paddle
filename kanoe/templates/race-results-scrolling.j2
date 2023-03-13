@@ -91,13 +91,15 @@
     );
     var reload = setInterval(
         // Hard reload page at bottom.
-        function () {
-            if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight + footer_height) {
-                location.reload(true);
+        function reloader() {
+            // Round up here because sometimes the page position is fractionally smaller that what's expected.
+            if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.scrollHeight + footer_height) {
+                // Don't reload immediately, otherwise no time to see results at bottom.
+                setInterval(location.reload(true), 5000);
             }
         },
         // Delay to check for reload.
-        3000
+        5000
     );
     {% else %}
     setTimeout(() => { location.reload(true); }, 15000);
