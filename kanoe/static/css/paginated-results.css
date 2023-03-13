@@ -1,0 +1,33 @@
+table {
+    width: 100%;
+}
+
+td {
+    font-size: 12px;
+}
+
+td.position {
+    width: 5%;
+}
+
+td.paddler {
+    width: 40%;
+}
+
+td.club {
+    width: 40%;
+}
+
+td.age {
+    width: 5%;
+}
+
+td.age .abbreviation {
+    display: inline-block;
+    width: 1em;
+    text-align: center;
+}
+
+td.time {
+    width: 10%;
+}

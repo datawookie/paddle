@@ -48,27 +48,3 @@ h1 {
 h2 {
     font-size: 16px;
 }
-
-table {
-    width: 100%;
-}
-
-td {
-    font-size: 12px;
-}
-
-td.position {
-    width: 5%;
-}
-
-td.paddler {
-    width: 40%;
-}
-
-td.club {
-    width: 45%;
-}
-
-td.time {
-    width: 10%;
-}
