@@ -18,14 +18,18 @@
 
 {% block content %}
 
+{% set ROWS_PER_PAGE = 30 -%}
+
 {% for category, results in categories.items() %}
+    {% for result in results %}
+        {% if (loop.index % ROWS_PER_PAGE) == 1 %}
 <div class="break">
     <h1 style="text-align: center;">{{ race.name }} ({{ race.date }})</h1>
 
     <h2>{{ category }}</h2>
 
     <table>
-        {% for result in results %}
+        {% endif %}
         <tr>
             <td class="position">{{ loop.index }}</td>
             <td class="paddler">
@@ -47,9 +51,11 @@
             </td>
             <td class="time">{{ result.time }}</td>
         </tr>
-        {% endfor %}
+        {% if loop.last or ((loop.index + 1) % ROWS_PER_PAGE) == 1 %}
     </table>
 </div>
+        {% endif %}
+    {% endfor %}
 {% endfor %}
 
 {% endblock %}
