@@ -55,5 +55,20 @@
             splash.classList.add('hidden');
         }, 500);
     })
+    if (!document.cookie.split('; ').find(row => row.startsWith('doSomethingOnlyOnce'))) {
+        // When will cookie expire?
+        //
+        var date = new Date();
+        date.setTime(date.getTime()+(5*1000));
+
+        document.cookie = "doSomethingOnlyOnce=true; expires="+date.toGMTString()+"; SameSite=None; Secure";
+
+        const output = document.getElementById('do-once');
+        console.log("FIRST TIME");
+        splash.style.opacity = 1;
+    } else {
+        splash.style.opacity = 1;
+        console.log("OR NOT!");
+    }
 </script>
 {% endblock %}
