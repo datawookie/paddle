@@ -6,6 +6,7 @@ from flask_login import login_required
 from flask_weasyprint import render_pdf
 from openpyxl import Workbook
 
+from ..config import __version__
 from .common import *
 from .entry import load_entries, load_xlsx
 from .util import *
@@ -46,7 +47,9 @@ def races():
 
     serieses = session.query(db.Series).all()
 
-    return render_template("races.j2", races=races, serieses=serieses)
+    return render_template(
+        "races.j2", races=races, serieses=serieses, version=__version__
+    )
 
 
 @blueprint.route("/race/<race_id>")

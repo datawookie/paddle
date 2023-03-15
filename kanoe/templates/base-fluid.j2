@@ -20,6 +20,8 @@
     <header>
         {% include 'common/navbar.j2' %}
     </header>
+    {% block preface %}
+    {% endblock %}
     <div class="container-fluid">
         <div class="row">
             <nav class="col-md-2 d-none d-md-block sidebar">
@@ -37,6 +39,8 @@
             </main>
         </div>
     </div>
+    {% block epilogue %}
+    {% endblock %}
     <footer>
         {% include 'common/footer.j2' %}
     </footer>

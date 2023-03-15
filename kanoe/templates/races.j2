@@ -7,8 +7,18 @@
 {% include 'common/datatables-css.j2' %}
 {% endblock %}
 
-{% block content %}
+{% block preface %}
+<div class="splash">
+    <div class="splash-header">
+        <div>
+            <h1>kanoe</h1>
+            <h2>v. {{ version }}</h2>
+        </div>
+    </div>
+</div>
+{% endblock %}
 
+{% block content %}
 <h1>Races</h1>
 
 <div class="row">
@@ -29,9 +39,21 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
 
 {% block sidebar %}
 {% include 'sidebar-races.j2' %}
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" class="init">
+    var splash = document.querySelector('.splash');
+
+    splash.addEventListener('click',() => {
+        splash.style.opacity = 0;
+        setTimeout(() => {
+            splash.classList.add('hidden');
+        }, 500);
+    })
+</script>
 {% endblock %}
