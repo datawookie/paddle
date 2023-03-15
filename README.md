@@ -5,6 +5,11 @@
  1. Login.
  2. At top/right click on name and then "Newbucy CC Admin".
 
+## Setup
+
+1. Install SQLite3.
+2. Create a virtual environment and install Python packages.
+
 ## App
 
 Running the app:
