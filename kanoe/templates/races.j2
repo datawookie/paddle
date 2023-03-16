@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block preface %}
+{% if not request.cookies.get("nosplash") %}
 <div class="splash">
     <div class="splash-header">
         <div>
@@ -16,6 +17,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -49,21 +51,17 @@
 <script type="text/javascript" class="init">
     var splash = document.querySelector('.splash');
 
-    if (!document.cookie.split('; ').find(row => row.startsWith('showsplash'))) {
+    splash.addEventListener('click', () => {
+        splash.style.opacity = 0;
+    })
+
+    if (!document.cookie.split('; ').find(row => row.startsWith('nosplash'))) {
         // When will cookie expire?
         //
         var date = new Date();
         date.setTime(date.getTime()+(5*1000));
 
-        document.cookie = "showsplash=true; expires="+date.toGMTString()+"; SameSite=None; Secure";
-
-        splash.style.opacity = 1;
-
-        splash.addEventListener('click', () => {
-            splash.style.opacity = 0;
-        })
-    } else {
-        splash.style.opacity = 0;
+        document.cookie = "nosplash=true; expires="+date.toGMTString()+"; SameSite=None; Secure";
     }
 </script>
 {% endblock %}
