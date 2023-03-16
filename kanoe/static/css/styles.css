@@ -89,7 +89,7 @@ a {
     transform : translate(-50%,-50%);
     background-color: rgba(0,0,0);
     transition : all ease-in-out 600ms;
-    z-index: 10;
+    z-index: 5000;
 }
 .splash-header {
     height : 90%;
@@ -99,6 +99,9 @@ a {
     justify-content: center;
     align-items : center;
     text-align: center;
+}
+.splash-content {
+    width: 500px;
 }
 
 .splash-header h1 {
