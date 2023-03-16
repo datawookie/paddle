@@ -60,7 +60,7 @@
         // When will cookie expire?
         //
         var date = new Date();
-        date.setTime(date.getTime()+(5*1000));
+        date.setTime(date.getTime()+(6*60*60*1000));
 
         document.cookie = "nosplash=true; expires="+date.toGMTString()+"; SameSite=None; Secure";
     }
