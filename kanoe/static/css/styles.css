@@ -80,22 +80,21 @@ a {
 }
 
 .splash {
-    cursor : pointer;
-    position : fixed;
-    top : 50%;
-    left : 50%;
-    height : 100%;
-    width : 100%;
-    transform : translate(-50%,-50%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: 100%;
+    transform: translate(-50%,-50%);
     background-color: rgba(0,0,0);
-    transition : all ease-in-out 600ms;
+    transition: all ease-in-out 600ms;
     z-index: 5000;
 }
 .splash-header {
-    height : 90%;
-    color : white;
-    font-size : 30px;
-    display : flex;
+    height: 90%;
+    color: white;
+    font-size: 30px;
+    display: flex;
     justify-content: center;
     align-items : center;
     text-align: center;
