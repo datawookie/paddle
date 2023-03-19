@@ -39,4 +39,5 @@ td.age .abbreviation {
 
 td.time {
     width: 10%;
+    text-align: right;
 }
