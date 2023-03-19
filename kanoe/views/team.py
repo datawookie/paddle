@@ -57,7 +57,12 @@ def team(team_id):
             races[race]["entries"], key=lambda entry: entry.time
         )
         top = races[race]["entries"][:3]
-        races[race]["time"] = sum([entry.time for entry in top], datetime.timedelta())
+        if len(top) == 3:
+            races[race]["time"] = sum(
+                [entry.time for entry in top], datetime.timedelta()
+            )
+        else:
+            races[race]["time"] = None
 
     return render_template(
         "team.j2",

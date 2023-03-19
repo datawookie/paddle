@@ -19,9 +19,9 @@ Series: {{ team.series }}
     <table class="table table-striped table-sm">
       <tbody>
         <tr>
-          <th>Crew</th>
-          <th>Race</th>
-          <th>Category</th>
+          <th style="width: 40%;">Crew</th>
+          <th style="width: 30%;">Race</th>
+          <th style="width: 20%;">Category</th>
           <th>Time</th>
         </tr>
         {% for entry in data["entries"] %}
@@ -37,7 +37,9 @@ Series: {{ team.series }}
   </div>
 </div>
 
+{% if data["time"] %}
 Time: {{ data["time"] }}
+{% endif %}
 {% endfor %}
 
 {% endblock %}
