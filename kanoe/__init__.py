@@ -59,5 +59,16 @@ def factory():
 
 app = factory()
 
+
+@app.template_filter("timedelta_hours")
+def timedelta_hours(timedelta):
+    seconds = timedelta.total_seconds()
+    hours = seconds // 3600
+    seconds -= hours * 3600
+    minutes = seconds // 60
+    seconds -= minutes * 60
+    return "%02d:%02d:%02d" % (hours, minutes, seconds)
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

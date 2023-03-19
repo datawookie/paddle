@@ -20,7 +20,7 @@
                 <tr>
                     <td>{{ loop.index }}</td>
                     <td>{{ team[0] }}</td>
-                    <td style="width: 20%; text-align: right;">{{ team[1] }}</td>
+                    <td style="width: 20%; text-align: right;">{{ team[1] | timedelta_hours }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

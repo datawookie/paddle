@@ -27,7 +27,7 @@
         <tr>
             <td class="position">{{ loop.index }}</td>
             <td class="paddler">{{ team[0] }}</td>
-            <td class="time">{{ team[1] }}</td>
+            <td class="time">{{ team[1] | timedelta_hours }}</td>
         </tr>
         {% endfor %}
     </table>
