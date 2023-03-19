@@ -44,8 +44,23 @@ def team(team_id):
     for crew in team.crews:
         entries.add(crew.entry)
 
+    races = list(set([entry.race for entry in entries]))
+    races = sorted(races, key=lambda race: race.date)
+    races = {race: {"entries": []} for race in races}
+
+    for entry in entries:
+        if entry.time:
+            races[entry.race]["entries"].append(entry)
+
+    for race in races:
+        races[race]["entries"] = sorted(
+            races[race]["entries"], key=lambda entry: entry.time
+        )
+        top = races[race]["entries"][:3]
+        races[race]["time"] = sum([entry.time for entry in top], datetime.timedelta())
+
     return render_template(
         "team.j2",
         team=team,
-        entries=entries,
+        races=races,
     )

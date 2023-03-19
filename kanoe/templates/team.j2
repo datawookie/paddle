@@ -11,8 +11,11 @@ Name: {{ team.name }}<br>
 Type: {{ team.type }}<br>
 Series: {{ team.series }}
 
+{% for race, data in races.items() %}
+<h2 class="mt-4">{{ race }}</h2>
+
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <table class="table table-striped table-sm">
       <tbody>
         <tr>
@@ -21,7 +24,7 @@ Series: {{ team.series }}
           <th>Category</th>
           <th>Time</th>
         </tr>
-        {% for entry in entries %}
+        {% for entry in data["entries"] %}
         <tr>
           <td><a href="{{ url_for('kanoe.entry', entry_id=entry.id) }}">{{ entry }}</a></td>
           <td><a href="{{ url_for('kanoe.race', race_id=entry.race_id) }}">{{ entry.race.name }}</a></td>
@@ -33,6 +36,9 @@ Series: {{ team.series }}
     </table>
   </div>
 </div>
+
+Time: {{ data["time"] }}
+{% endfor %}
 
 {% endblock %}
 
