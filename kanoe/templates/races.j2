@@ -12,7 +12,7 @@
 <div class="splash">
     <div class="splash-header">
         <div class="splash-content">
-            <h1>kanoe</h1>
+            <h1>paddle</h1>
             <img src="/img/paddle.svg" width="100%">
             <h2>{{ version }}</h2>
         </div>
@@ -53,7 +53,7 @@
     var splash = document.querySelector('.splash');
 
     splash.addEventListener('click', () => {
-        splash.style.opacity = 0;
+        splash.parentElement.removeChild(splash);
     })
 
     if (!document.cookie.split('; ').find(row => row.startsWith('nosplash'))) {
