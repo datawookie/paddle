@@ -61,7 +61,7 @@ class Entry(Base):
         return "Entry(id=%d)" % (self.id,)
 
     def __str__(self):
-        names = [str(crew) for crew in self.crews]
+        names = sorted([str(crew) for crew in self.crews])
         return " / ".join(names)
 
     @cached_property
