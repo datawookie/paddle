@@ -44,6 +44,13 @@ def team(team_id):
     for crew in team.crews:
         entries.add(crew.entry)
 
+    # Keep only team entries.
+    #
+    # This will eliminate, for example, K2 crews where one of the paddlers is not on
+    # the team.
+    #
+    entries = [entry for entry in entries if entry.team == team]
+
     races = list(set([entry.race for entry in entries]))
     races = sorted(races, key=lambda race: race.date)
     races = {race: {"entries": []} for race in races}

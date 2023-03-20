@@ -22,6 +22,7 @@ def series_results_team(series_id):
                 .all()
             )
             entries = set([crew.entry for crew in crews])
+            entries = [entry for entry in entries if entry.team == team]
             # Get times for all entries.
             times = [entry.time for entry in entries if entry.time]
             # Keep only top 3 times.
