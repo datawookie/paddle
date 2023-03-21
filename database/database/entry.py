@@ -144,14 +144,22 @@ class Entry(Base):
 
 class EntrySet:
     def __init__(self, entries):
-        # Get paddler names for all entries.
-        names = [tuple(crew.paddler.name for crew in entry.crews) for entry in entries]
-        # There should only be one set of paddler names for all entries in set.
-        names = list(set(names))
-        assert len(names) == 1
-        names = names[0]
-        # Concatenate names.
-        self.name = " / ".join(names)
+        names = {}
+
+        for entry in entries:
+            for crew in entry.crews:
+                try:
+                    names[crew.paddler.name]
+                except KeyError:
+                    names[crew.paddler.name] = []
+
+                names[crew.paddler.name].append(crew.club.name)
+
+        # If a paddler is linked to multiple clubs then they are joined with "+".
+        names = {name: "+".join(set(club)) for name, club in names.items()}
+
+        self.name = " / ".join(names.keys())
+        self.club = " / ".join(names.values())
 
         # Total time for all entries in set.
         self.time = sum([entry.time for entry in entries], datetime.timedelta())

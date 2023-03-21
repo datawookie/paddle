@@ -1,7 +1,7 @@
 {% extends "base-minimal.j2" %}
 
 {% block styles %}
-<link rel="stylesheet" type="text/css" href="/css/paginated-a4-portrait.css">
+<link rel="stylesheet" type="text/css" href="/css/paginated-a4-landscape.css">
 <link rel="stylesheet" type="text/css" href="/css/paginated-results.css">
 {% endblock %}
 
@@ -62,6 +62,7 @@
         <tr>
             <td class="position">{{ loop.index }}</td>
             <td class="paddler">{{ result.name }}</td>
+            <td class="club">{{ result.club }}</td>
             <td class="time">{{ result.time }}</td>
         </tr>
         {% endfor %}
