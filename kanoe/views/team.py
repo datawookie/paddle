@@ -2,6 +2,7 @@ import logging
 from flask_login import login_required
 
 from .common import *
+from .series import series_team
 
 
 @blueprint.route("/teams")
@@ -37,39 +38,7 @@ def team_create():
 @blueprint.route("/team/<team_id>")
 @login_required
 def team(team_id):
-    team = session.get(db.Team, team_id)
-
-    entries = set()
-    #
-    for crew in team.crews:
-        entries.add(crew.entry)
-
-    # Keep only team entries.
-    #
-    # This will eliminate, for example, K2 crews where one of the paddlers is not on
-    # the team.
-    #
-    entries = [entry for entry in entries if entry.team == team]
-
-    races = list(set([entry.race for entry in entries]))
-    races = sorted(races, key=lambda race: race.date)
-    races = {race: {"entries": []} for race in races}
-
-    for entry in entries:
-        if entry.time:
-            races[entry.race]["entries"].append(entry)
-
-    for race in races:
-        races[race]["entries"] = sorted(
-            races[race]["entries"], key=lambda entry: entry.time
-        )
-        top = races[race]["entries"][:3]
-        if len(top) == 3:
-            races[race]["time"] = sum(
-                [entry.time for entry in top], datetime.timedelta()
-            )
-        else:
-            races[race]["time"] = None
+    team, races = series_team(team_id)
 
     return render_template(
         "team.j2",

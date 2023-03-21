@@ -4,38 +4,72 @@ from flask_weasyprint import render_pdf
 from .common import *
 
 
+def series_team(team_id):
+    team = session.get(db.Team, team_id)
+
+    entries = set()
+    #
+    for crew in team.crews:
+        entries.add(crew.entry)
+
+    # Keep only team entries.
+    #
+    # This will eliminate, for example, K2 crews where one of the paddlers is not on
+    # the team.
+    #
+    entries = [entry for entry in entries if entry.team == team]
+
+    races = list(set([entry.race for entry in entries]))
+    races = sorted(races, key=lambda race: race.date)
+    races = {race: {"entries": []} for race in races}
+
+    for entry in entries:
+        if entry.time:
+            races[entry.race]["entries"].append(entry)
+
+    for race in races:
+        races[race]["entries"] = sorted(
+            races[race]["entries"], key=lambda entry: entry.time
+        )
+        top = races[race]["entries"][:3]
+        if len(top) == 3:
+            races[race]["time"] = sum(
+                [entry.time for entry in top], datetime.timedelta()
+            )
+        else:
+            races[race]["time"] = None
+
+    return team, races
+
+
 def series_results_team(series_id):
     series = session.get(db.Series, series_id)
-    # Find past races in series.
-    races = session.query(db.Race).filter(db.Race.series_id == series_id).all()
-    races = [race for race in races if race.past]
+    # Find finished races in series.
+    series_races = session.query(db.Race).filter(db.Race.series_id == series_id).all()
+    series_races = [race for race in series_races if race.past]
+
+    # Get results for all teams.
+    teams = session.query(db.Team).filter(db.Team.series_id == series_id).all()
+    teams = {team: series_team(team.id)[1] for team in teams}
 
     totals = {}
     #
-    for team in session.query(db.Team).filter(db.Team.series_id == series_id).all():
+    for team, races in teams.items():
         total = datetime.timedelta()
-        #
-        for race in races:
-            crews = (
-                session.query(db.Crew)
-                .filter(db.Crew.team_id == team.id, db.Crew.entry.has(race_id=race.id))
-                .all()
-            )
-            entries = set([crew.entry for crew in crews])
-            entries = [entry for entry in entries if entry.team == team]
-            # Get times for all entries.
-            times = [entry.time for entry in entries if entry.time]
-            # Keep only top 3 times.
-            times = sorted(times)
-            times = times[:3]
-            # Don't qualify unless at least three finishers in each race.
-            if len(times) == 3:
-                total += sum(times, datetime.timedelta())
-            else:
-                total = None
-                break
 
-        if total:
+        # Ensure that team has result for all finished races in series.
+        for race in series_races:
+            try:
+                time = races[race].get("time")
+            except KeyError:
+                # Race is missing.
+                time = None
+
+            if time is not None:
+                total += time
+            else:
+                break
+        else:
             try:
                 totals[team.type.label]
             except KeyError:
@@ -46,7 +80,7 @@ def series_results_team(series_id):
     # Sort teams within type.
     #
     for type, teams in totals.items():
-        totals[type] = sorted(teams.items(), key=lambda team: team[1])
+        totals[type] = dict(sorted(teams.items(), key=lambda team: team[1]))
 
     return series, totals
 

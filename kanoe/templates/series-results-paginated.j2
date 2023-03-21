@@ -24,11 +24,11 @@
     <h2>{{ type }} Teams</h2>
 
     <table>
-        {% for team in teams %}
+        {% for team, time in teams.items() %}
         <tr>
             <td class="position">{{ loop.index }}</td>
-            <td class="paddler">{{ team[0] }}</td>
-            <td class="time">{{ team[1] | timedelta_hours }}</td>
+            <td class="paddler">{{ team }}</td>
+            <td class="time">{{ time | timedelta_hours }}</td>
         </tr>
         {% endfor %}
     </table>
