@@ -1,12 +1,13 @@
 .venv
 *.pyc
-kanoe.code-workspace
+*.code-workspace
 .Rproj.user
 .Rhistory
 *.xlsx
 *.json
 .~lock*
 *.db
+*.log
 INFORMATION
 log.txt
 .coverage

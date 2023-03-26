@@ -1,4 +1,4 @@
-# kanoe
+# paddle
 
  Download entries from https://entries.gbcanoemarathon.co.uk/entries.
 
@@ -8,23 +8,30 @@
 ## Setup
 
 1. Install SQLite3.
-2. Create a virtual environment and install Python packages.
+2. `apt-get install -y libpangocairo-1.0-0`.
+3. Create a virtual environment and install Python packages.
 
 ## App
 
 Running the app:
 
 ```
-flask --app kanoe run
+flask --app paddle run
 ```
 
 During development you will want to run the app in debug mode:
 
 ```
-flask --app kanoe --debug run
+flask --app paddle --debug run
 ```
 
 The app will be available on http://127.0.0.1:5000.
+
+When running on EC2 use:
+
+```
+flask --app paddle --debug run --host 0.0.0.0
+```
 
 ## Users
 
@@ -39,7 +46,7 @@ Followed these articles to setup user management:
 
 Using Alembic to create migration scripts.
 
-At present the Alembic migrations are applied to a `kanoe.db` file in the `database/` folder. So you'll need to move the file to that location first.
+At present the Alembic migrations are applied to a `paddle.db` file in the `database/` folder. So you'll need to move the file to that location first.
 
 Commands used:
 
@@ -90,7 +97,7 @@ pytest
 pytest -s
 ```
 
-Tests are run by CI/CD. Coverage report can be found at https://datawookie.gitlab.io/kanoe/.
+Tests are run by CI/CD. Coverage report can be found at https://datawookie.gitlab.io/paddle/.
 
 ### Coverage
 

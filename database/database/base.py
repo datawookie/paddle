@@ -36,7 +36,7 @@ from sqlalchemy.pool import SingletonThreadPool
 from .config import *
 
 
-CONNECTION_STRING = os.environ.get("CONNECTION_STRING", "sqlite:///kanoe.db")
+CONNECTION_STRING = os.environ.get("CONNECTION_STRING", "sqlite:///paddle.db")
 CONNECTION_ARGS = {"check_same_thread": False}
 
 logging.info(f"Connection string: {CONNECTION_STRING}.")
