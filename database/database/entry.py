@@ -153,7 +153,8 @@ class EntrySet:
                 except KeyError:
                     names[crew.paddler.name] = []
 
-                names[crew.paddler.name].append(crew.club.name)
+                if crew.club:
+                    names[crew.paddler.name].append(crew.club.name)
 
         # If a paddler is linked to multiple clubs then they are joined with "+".
         names = {name: "+".join(set(club)) for name, club in names.items()}
