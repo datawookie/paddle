@@ -91,13 +91,32 @@
     </div>
 </form>
 
-<h3>Entries</h3>
+<h3 class="mt-3">Entries</h3>
 
-<ul>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Crew</th>
+            <th>Race</th>
+            <th>Time</th>
+        </tr>
+    </thead>
+    <tbody>
     {% for crew in paddler.crews %}
-    <li><a href="{{ url_for('kanoe.entry', entry_id=crew.entry.id) }}">{{ crew.entry }}</a> — {{ crew.entry.race }}</li>
+        <tr>
+            <td>
+                <a href="{{ url_for('kanoe.entry', entry_id=crew.entry.id) }}">{{ crew.entry }}</a>
+            </td>
+            <td>
+                {{ crew.entry.race }}
+            </td>
+            <td>
+                {{ crew.entry.time }}
+            </td>
+        </tr>
     {% endfor %}
-</ul>
+    </tbody>
+</table>
 
 {% endblock %}
 
