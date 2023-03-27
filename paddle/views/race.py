@@ -239,6 +239,8 @@ def race_results_capture(race_id):
 
         session.commit()
 
+        flash("Captured result!", "success")
+
         return redirect(url_for("kanoe.race_results_capture", race_id=race_id))
 
     return render_template("race-results-capture.j2", race_id=race_id)
