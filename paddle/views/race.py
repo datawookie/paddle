@@ -239,7 +239,28 @@ def race_results_capture(race_id):
 
         session.commit()
 
-        flash("Captured result!", "success")
+        message = []
+        #
+        if entry.scratched:
+            message = ["scratched"]
+        elif entry.disqualified:
+            message = ["disqualified"]
+        elif entry.retired:
+            message = ["retired"]
+        else:
+            if entry.time_start:
+                message.append(f"start: {entry.time_start}")
+            if entry.time_finish:
+                message.append(f"finish: {entry.time_finish}")
+        #
+        if message:
+            message = "; ".join(message)
+        else:
+            message = ""
+        #
+        message = str(entry) + " — " + message + "."
+
+        flash(message, "success")
 
         return redirect(url_for("kanoe.race_results_capture", race_id=race_id))
 

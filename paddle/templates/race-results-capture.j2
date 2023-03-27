@@ -103,6 +103,7 @@ You can also press enter in either the start time or finish time field to submit
                 </div>
             </div>
         </div>
+        <button type="submit" hidden id="submit">Submit</button>
     </div>
 </form>
 
@@ -129,7 +130,7 @@ You can also press enter in either the start time or finish time field to submit
         // Flashed messages disappear after a short delay.
         setTimeout(function () {
             $('.alert').fadeOut('slow');
-        }, 2000);
+        }, 3000);
 
         // Populate the Paddler(s) field based on chosen race number.
         var select_race_number = function () {
