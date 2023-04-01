@@ -1,6 +1,6 @@
 import logging
 
-from ..common import *
+from ...common import *
 
 
 @blueprint.route("/race/<race_id>/results/capture", methods=("GET", "POST"))

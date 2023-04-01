@@ -5,7 +5,6 @@ from ..common import *
 from ..entry import load_entries, load_xlsx
 from ..util import *
 
-from .capture import *
 from .entries import *
 from .results import *
 
