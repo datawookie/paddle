@@ -1,5 +1,3 @@
-from flask_login import login_required
-
 from .common import *
 from .util import empty_to_none
 

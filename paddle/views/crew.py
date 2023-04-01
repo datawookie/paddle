@@ -1,5 +1,4 @@
 from .common import *
-from flask_login import login_required
 
 
 @blueprint.route("/crew/<crew_id>", methods=("GET", "POST"))

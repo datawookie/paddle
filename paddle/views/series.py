@@ -1,4 +1,3 @@
-from flask_login import login_required
 from flask_weasyprint import render_pdf
 
 from .common import *

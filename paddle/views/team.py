@@ -1,5 +1,4 @@
 import logging
-from flask_login import login_required
 
 from .common import *
 from .series import series_team

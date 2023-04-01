@@ -4,7 +4,6 @@ import logging
 from dataclasses import dataclass
 import pandas as pd
 import numpy as np
-from flask_login import login_required
 
 from .common import *
 
