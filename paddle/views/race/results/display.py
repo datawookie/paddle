@@ -2,33 +2,7 @@ from ...common import *
 from ...util import argument_boolean
 
 
-@blueprint.route("/race/<race_id>/results", methods=("GET", "POST"))
-def race_results(race_id):
-    if request.method == "POST":
-        # Process category selection from form.
-        category = int(request.form.get("category"))
-        return redirect(
-            url_for("kanoe.race_results", race_id=race_id, category=category)
-        )
-
-    scrolling = argument_boolean(request.args.get("scrolling", 0))
-    # Use ?top=<N> to specify how many results to show per category.
-    top = int(request.args.get("top", 10))
-    try:
-        # ?category -> Show category selector.
-        # ?category=<category_id> -> Show category selector and selected category.
-        #
-        category = request.args["category"]
-        if category == "" or category == "0":
-            category = True
-        else:
-            category = session.get(db.Category, category)
-    except KeyError:
-        category = False
-
-    if category:
-        scrolling = False
-
+def race_results(race_id, category_id=None, scrolling=True, top=None):
     categories = session.query(db.Category).all()
     race = session.get(db.Race, race_id)
     results = (
@@ -41,14 +15,21 @@ def race_results(race_id):
 
     data = db.entries_get_categories(results)
     # Filter selected category.
-    if isinstance(category, db.Category):
-        for key in list(data.keys()):
-            if key != category.label:
-                del data[key]
-            else:
-                data[key] = data[key][:top]
-    elif category:
-        data = {}
+    if category_id is None:
+        category = False
+    else:
+        category = session.get(db.Category, category_id)
+
+        if category:
+            for key in list(data.keys()):
+                if key != category.label:
+                    del data[key]
+                else:
+                    if top:
+                        data[key] = data[key][:top]
+        else:
+            category = True
+            data = {}
 
     # Sort results in each category.
     for results in data.values():
@@ -65,6 +46,25 @@ def race_results(race_id):
         data=data,
         announcements=announcements,
     )
+
+
+@blueprint.route("/race/<race_id>/results/category/", methods=("GET", "POST"))
+def race_results_category(race_id):
+    # Use ?top=<N> to specify how many results to show per category.
+    top = int(request.args.get("top", 10))
+
+    if request.method == "POST":
+        # Process category selection from form.
+        category_id = int(request.form.get("category"))
+    else:
+        category_id = 0
+
+    return race_results(race_id, category_id=category_id, scrolling=False, top=top)
+
+
+@blueprint.route("/race/<race_id>/results/scrolling")
+def race_results_scrolling(race_id, scrolling=True):
+    return race_results(race_id, scrolling=True)
 
 
 @blueprint.route("/race/<race_id>/results/validate")
