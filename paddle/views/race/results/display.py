@@ -12,6 +12,8 @@ def race_results(race_id):
         )
 
     scrolling = argument_boolean(request.args.get("scrolling", 0))
+    # Use ?top=<N> to specify how many results to show per category.
+    top = int(request.args.get("top", 10))
     try:
         # ?category -> Show category selector.
         # ?category=<category_id> -> Show category selector and selected category.
@@ -43,6 +45,8 @@ def race_results(race_id):
         for key in list(data.keys()):
             if key != category.label:
                 del data[key]
+            else:
+                data[key] = data[key][:top]
     elif category:
         data = {}
 
