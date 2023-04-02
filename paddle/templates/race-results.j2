@@ -35,7 +35,7 @@ body {
 {% endblock %}
 
 {% block content %}
-{% if data %}
+{% if data or category %}
 <h1>{{ race.name }} ({{ race.date }})</h1>
 
     {% if category %}
@@ -44,7 +44,7 @@ body {
         <div class="row mb-3 mt-0">
             <label for="inputEmail3" class="col-sm-2 col-form-label">Category</label>
             <div class="col-sm-4 pt-4">
-                <select class="form-select" class="form-control" id="category" name="category_id">
+                <select class="form-select" class="form-control" id="category" name="category">
                     {% for option in categories %}
                     <option value="{{ option.id }}" {% if option.id==category.id %} selected{% endif %}>{{ option
                         }}</option>
