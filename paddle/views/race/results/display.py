@@ -40,7 +40,22 @@ def race_results_category(race_id):
 @blueprint.route("/race/<race_id>/results/scrolling")
 def race_results_scrolling(race_id):
     scrolling = argument_boolean(request.args.get("scrolling", 0))
+    try:
+        # ?category -> Show category selector.
+        # ?category=<category_id> -> Show category selector and selected category.
+        #
+        category = request.args["category"]
+        if category == "":
+            category = True
+        else:
+            category = session.get(db.Category, category)
+    except KeyError:
+        category = False
 
+    if category:
+        scrolling = False
+
+    categories = session.query(db.Category).all()
     race = session.get(db.Race, race_id)
     results = (
         session.query(db.Entry)
@@ -50,10 +65,16 @@ def race_results_scrolling(race_id):
         .all()
     )
 
-    categories = db.entries_get_categories(results)
+    data = db.entries_get_categories(results)
+    #
+    if isinstance(category, db.Category):
+        # Filter selected category.
+        for key in list(data.keys()):
+            if key != category.label:
+                del data[key]
 
     # Sort results in each category.
-    for results in categories.values():
+    for results in data.values():
         results.sort(key=lambda x: x.time, reverse=False)
 
     announcements = session.query(db.Announcement).filter(db.Announcement.enabled).all()
@@ -61,8 +82,10 @@ def race_results_scrolling(race_id):
     return render_template(
         "race-results-scrolling.j2",
         scrolling=scrolling,
-        race=race,
+        category=category,
         categories=categories,
+        race=race,
+        data=data,
         announcements=announcements,
     )
 
