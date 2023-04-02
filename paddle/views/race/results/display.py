@@ -1,4 +1,5 @@
 from ...common import *
+from ...util import argument_boolean
 
 
 @blueprint.route("/race/<race_id>/results/category", methods=("GET", "POST"))
@@ -38,6 +39,8 @@ def race_results_category(race_id):
 
 @blueprint.route("/race/<race_id>/results/scrolling")
 def race_results_scrolling(race_id):
+    scrolling = argument_boolean(request.args.get("scrolling", 0))
+
     race = session.get(db.Race, race_id)
     results = (
         session.query(db.Entry)
@@ -57,6 +60,7 @@ def race_results_scrolling(race_id):
 
     return render_template(
         "race-results-scrolling.j2",
+        scrolling=scrolling,
         race=race,
         categories=categories,
         announcements=announcements,

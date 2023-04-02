@@ -56,3 +56,7 @@ def empty_to_none(text):
         return None
     else:
         return text
+
+
+def argument_boolean(arg):
+    return arg in ["True", "true", "1"]

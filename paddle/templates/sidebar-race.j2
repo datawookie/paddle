@@ -43,7 +43,7 @@
             </button>
             <ul class="dropdown-menu">
                 <li class="nav-item d-grid gap-1"><a
-                        href="{{ url_for('kanoe.race_results_scrolling', race_id=race.id) }}" class="btn btn-primary"
+                        href="{{ url_for('kanoe.race_results_scrolling', race_id=race.id, scrolling=1) }}" class="btn btn-primary"
                         target="_blank">Scrolling <i class="fa-solid fa-recycle"></i></a></li>
                 <li class="nav-item d-grid mb-0"><a href="{{ url_for('kanoe.race_results_category', race_id=race.id) }}"
                         class="btn btn-primary" target="_blank">Category <i class="fa-solid fa-hand-pointer"></i></a>

@@ -4,6 +4,13 @@
 
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="/css/styles-results.css">
+{% if scrolling %}
+<style>
+body {
+    overflow: hidden; /* Hide scrollbar. */
+}
+</style>
+{% endif %}
 {% endblock %}
 
 {% block footer %}
@@ -69,7 +76,7 @@
 {% endblock %}
 
 {% block scripts %}
-{# Only scroll and reload if there are results. Will need to refresh page to get this started. #}
+{# Only scroll and reload if there are results. #}
 {# If no results yet then reload to update announcements. #}
 {% include 'common/jquery-javascript.j2' %}
 <script type="text/javascript" class="init">
@@ -79,7 +86,8 @@
         $('main').css("margin-bottom", footer_height + "px");
     });
 
-    {% if categories %}
+    {% if scrolling %}
+        {% if categories %}
     var scroll = setInterval(
         // Scroll slowly down page.
         function () {
@@ -100,8 +108,9 @@
         // Delay to check for reload.
         5000
     );
-    {% else %}
+        {% else %}
     setTimeout(() => { location.reload(true); }, 15000);
+        {% endif %}
     {% endif %}
 </script>
 {% endblock %}
