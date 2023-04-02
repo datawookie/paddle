@@ -72,14 +72,14 @@ body {
     <thead>
         <tr>
             <th></th>
-            <td>#</td>
+            <th>#</th>
             <th>Crew</th>
             <th style="text-align: center;">Time</th>
         </tr>
     </thead>
     <tbody>
         {% for result in results %}
-        <tr {% if loop.index> 3 %}class="muted"{% else %}class="bolded"{% endif %}>
+        <tr {% if loop.index > 3 %}class="muted"{% else %}class="bolded"{% endif %}>
             <td>{{ loop.index }}</td>
             <td style="text-align: center;">{{ result.race_number }}</td>
             <td>{{ result }}</td>
