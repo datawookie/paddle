@@ -27,6 +27,9 @@
     <li class="nav-item d-grid gap-2">
         <a href="{{ url_for('kanoe.race_entries_export_pdf', race_id=race.id) }}" class="btn btn-primary">Export PDF</a>
     </li>
+    <li class="nav-item d-grid gap-2">
+        <a href="{{ url_for('kanoe.race_entries_display', race_id=race.id) }}" class="btn btn-primary">Display</a>
+    </li>
 </ul>
 
 <h3>Results</h3>
@@ -35,21 +38,6 @@
     <li class="nav-item d-grid gap-2">
         <a href="{{ url_for('kanoe.race_results_capture', race_id=race.id) }}" class="btn btn-primary">Capture
             Results</a>
-    </li>
-    <li class="nav-item gap-2">
-        <div class="btn-group dropend d-grid">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                Display Results
-            </button>
-            <ul class="dropdown-menu">
-                <li class="nav-item d-grid gap-1"><a
-                        href="{{ url_for('kanoe.race_results_scrolling', race_id=race.id) }}" class="btn btn-primary"
-                        target="_blank">Scrolling <i class="fa-solid fa-recycle"></i></a></li>
-                <li class="nav-item d-grid mb-0"><a href="{{ url_for('kanoe.race_results_category', race_id=race.id) }}"
-                        class="btn btn-primary" target="_blank">Category <i class="fa-solid fa-hand-pointer"></i></a>
-                </li>
-            </ul>
-        </div>
     </li>
     <li class="nav-item d-grid gap-2">
         <a href="{{ url_for('kanoe.race_results_validate', race_id=race.id) }}" class="btn btn-primary">Validate
@@ -60,5 +48,20 @@
     </li>
     <li class="nav-item d-grid gap-2">
         <a href="{{ url_for('kanoe.race_results_export_pdf', race_id=race.id) }}" class="btn btn-primary">Export PDF</a>
+    </li>
+    <li class="nav-item gap-2">
+        <div class="btn-group dropend d-grid">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                Display
+            </button>
+            <ul class="dropdown-menu">
+                <li class="nav-item d-grid gap-1"><a
+                        href="{{ url_for('kanoe.race_results_scrolling', race_id=race.id) }}" class="btn btn-primary"
+                        target="_blank">Scrolling <i class="fa-solid fa-recycle"></i></a></li>
+                <li class="nav-item d-grid mb-0"><a href="{{ url_for('kanoe.race_results_category', race_id=race.id) }}"
+                        class="btn btn-primary" target="_blank">Category <i class="fa-solid fa-hand-pointer"></i></a>
+                </li>
+            </ul>
+        </div>
     </li>
 </ul>

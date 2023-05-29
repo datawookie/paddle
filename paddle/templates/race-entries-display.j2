@@ -1,0 +1,74 @@
+{% extends "base-plain.j2" %}
+
+{% block title %}Results: {{ race.name }} ({{ race.date }}){% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/css/styles-results.css">
+{% if scrolling %}
+<style>
+body {
+    overflow: hidden; /* Hide scrollbar. */
+}
+</style>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<h1>{{ race.name }} ({{ race.date }})</h1>
+
+{% for category, entries in categories.items() %}
+<h2>{{ category }}</h2>
+
+<table class="table table-sm result">
+    <colgroup>
+        <col span="1" style="width: 7%;">
+        <col span="1">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Crew</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in entries %}
+        <tr>
+            <td style="text-align: center;">{{ entry.race_number }}</td>
+            <td>{{ entry }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endfor %}
+{% endblock %}
+
+{% block scripts %}
+{# Only scroll and reload if there are entries. #}
+{% include 'common/jquery-javascript.j2' %}
+<script type="text/javascript" class="init">
+    {% if categories %}
+    var scroll = setInterval(
+        // Scroll slowly down page.
+        function () {
+            window.scrollBy(0, 10);
+        },
+        // Scroll rate (larger number -> slower).
+        50
+    );
+    var reload = setInterval(
+        // Hard reload page at bottom.
+        function reloader() {
+            // Round up here because sometimes the page position is fractionally smaller that what's expected.
+            if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.scrollHeight + footer_height) {
+                // Don't reload immediately, otherwise no time to see results at bottom.
+                setInterval(window.location.href = window.location.href, 5000);
+            }
+        },
+        // Delay to check for reload.
+        5000
+    );
+    {% else %}
+    setTimeout(() => { location.reload(true); }, 15000);
+    {% endif %}
+</script>
+{% endblock %}
