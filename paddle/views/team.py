@@ -1,7 +1,10 @@
 import logging
+import operator
+import functools
 
 from .common import *
 from .series import series_team
+from .util import hhmmss
 
 
 @blueprint.route("/teams")
@@ -39,8 +42,13 @@ def team_create():
 def team(team_id):
     team, races = series_team(team_id)
 
+    total = [data["time"] for _, data in races.items()]
+    total = functools.reduce(operator.add, total)
+    total = hhmmss(total)
+
     return render_template(
-        "team.j2",
+        "series-results-team.j2",
         team=team,
         races=races,
+        total=total,
     )

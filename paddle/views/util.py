@@ -46,6 +46,19 @@ def time_between(time, time_min, time_max):
     return (time >= time_min) & (time <= time_max)
 
 
+# Convert timedelta into HHMMSS format. This is important when duration longer than 1 day.
+#
+def hhmmss(delta):
+    ss = delta.total_seconds()
+
+    hh = ss // 3600
+    ss = ss % 3600
+    mm = ss // 60
+    ss = ss % 60
+
+    return "%d:%02d:%02d" % (hh, mm, ss)
+
+
 def allowed_file(filename):
     ALLOWED_EXTENSIONS = {"xlsx"}
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
