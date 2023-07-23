@@ -7,10 +7,24 @@
 
 <h1>Team</h1>
 
-Name: {{ team.name }}<br>
-Type: {{ team.type }}<br>
-Series: {{ team.series }}<br>
-Time: {{ total }}
+<table class="table table-sm table-borderless">
+  <tr>
+    <td>Name:</td><td>{{ team.name }}</td>
+  </tr>
+  <tr>
+    <td>Type:</td><td>{{ team.type }}</td>
+  </tr>
+  <tr>
+    <td>Series:</td><td>{{ team.series }}</td>
+  </tr>
+  {% if total %}
+  <tr>
+    <td>Time:</td><td>{{ total }}</td>
+  </tr>
+  {% endif %}
+</table>
+
+<p>For each race the team time is the sum of the best three times. If there are less that three times per race then the team does not qualify.</p>
 
 {% for race, data in races.items() %}
 <h2 class="mt-4">{{ race }}</h2>
