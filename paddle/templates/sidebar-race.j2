@@ -47,6 +47,9 @@
         <a href="{{ url_for('kanoe.race_results_export_csv', race_id=race.id) }}" class="btn btn-primary">Export CSV</a>
     </li>
     <li class="nav-item d-grid gap-2">
+        <a href="{{ url_for('kanoe.race_results_export_xlsx', race_id=race.id) }}" class="btn btn-primary">Export XLSX</a>
+    </li>
+    <li class="nav-item d-grid gap-2">
         <a href="{{ url_for('kanoe.race_results_export_pdf', race_id=race.id) }}" class="btn btn-primary">Export PDF</a>
     </li>
     <li class="nav-item gap-2">
