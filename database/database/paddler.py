@@ -1,6 +1,9 @@
+# Standard Library
+import enum
 from datetime import date
-from .base import *
+
 from .age_group import AgeGroup
+from .base import *
 
 
 def combine_names(first, middle, last):
@@ -11,12 +14,21 @@ def combine_names(first, middle, last):
     return name
 
 
+class MembershipBody(Base):
+    __tablename__ = "membership_body"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    acronym = Column(String)
+
+
 class Paddler(Base):
     __tablename__ = "paddler"
 
     id = Column(Integer, primary_key=True)
-    bcu = Column(Integer)  # BCU = British Canoe Union
-    bcu_expiry = Column(Date)
+    membership_number = Column(Integer)
+    membership_expiry = Column(Date)
+    membership_body_id = Column(Integer, ForeignKey(MembershipBody.id))
     division = Column(Integer)
     title = Column(String)
     first = Column(String)
@@ -32,6 +44,7 @@ class Paddler(Base):
     age_group_id = Column(Integer, ForeignKey(AgeGroup.id), index=True)
 
     age_group = relationship(AgeGroup, backref="paddlers", lazy="joined")
+    membership_body = relationship(MembershipBody, backref="paddlers", lazy="joined")
 
     # This is the version which is used in Python.
     #
