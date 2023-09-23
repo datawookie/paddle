@@ -61,16 +61,25 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <h3>BCU</h3>
+            <h3>Membership</h3>
             <div class="mb-3">
-                <label for="bcu">BCU Number</label>
-                <input type="text" class="form-control" id="bcu" name="bcu" placeholder="BCU Number"
-                    value="{{ find_value(request.form['bcu'], paddler.bcu) }}">
+                <label for="membership_number">Membership Number</label>
+                <input type="text" class="form-control" id="membership_number" name="membership_number" placeholder="Membership Number"
+                    value="{{ find_value(request.form['membership_number'], paddler.membership_number) }}">
+            </div>
+            <div class="mb-3">
+                <label for="membership_body">Membership Body</label>
+                <select class="form-select" class="form-control" name="membership_body_id">
+                    <option value=""></option>
+                    {% for membership_body in membership_bodies %}
+                    <option {% if paddler.membership_body_id==membership_body.id %}selected {% endif %} value={{ membership_body.id }}>{{ membership_body.acronym }} ({{ membership_body.name }})</option>
+                    {% endfor %}
+                </select>
             </div>
             <div>
-                <label for="bcu_expiry">BCU Expiry</label>
-                <input type="date" class="form-control" id="bcu_expiry" name="bcu_expiry"
-                    value="{{ find_value(request.form['bcu_expiry'], paddler.bcu_expiry) }}">
+                <label for="bcu_expiry">Membership Expiry</label>
+                <input type="date" class="form-control" id="membership_expiry" name="membership_expiry"
+                    value="{{ find_value(request.form['membership_expiry'], paddler.membership_expiry) }}">
             </div>
             <h3 class="mt-2">Emergency Contact</h3>
             <div class="mb-3">

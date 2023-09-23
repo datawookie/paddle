@@ -50,6 +50,8 @@ def paddler(paddler_id):
 
     age_groups = session.query(db.AgeGroup).all()
 
+    membership_bodies = session.query(db.MembershipBody).all()
+
     if request.method == "POST":
         first = request.form["first"]
         middle = request.form["middle"]
@@ -60,25 +62,28 @@ def paddler(paddler_id):
         title = request.form["title"]
         emergency_name = request.form["emergency_name"]
         emergency_phone = request.form["emergency_phone"]
-        bcu = request.form["bcu"]
-        bcu_expiry = request.form["bcu_expiry"]
+        membership_number = request.form["membership_number"]
+        membership_expiry = request.form["membership_expiry"]
+        membership_body_id = request.form["membership_body_id"]
 
         if dob:
             dob = datetime.datetime.strptime(dob, "%Y-%m-%d").date()
         else:
             dob = None
 
-        if bcu_expiry:
-            bcu_expiry = datetime.datetime.strptime(bcu_expiry, "%Y-%m-%d").date()
+        if membership_expiry:
+            membership_expiry = datetime.datetime.strptime(
+                membership_expiry, "%Y-%m-%d"
+            ).date()
         else:
-            bcu_expiry = None
+            membership_expiry = None
 
         age_group_id = empty_to_none(age_group_id)
         first = empty_to_none(first)
         middle = empty_to_none(middle)
         last = empty_to_none(last)
         title = empty_to_none(title)
-        bcu = empty_to_none(bcu)
+        membership_number = empty_to_none(membership_number)
         division = empty_to_none(division)
         emergency_name = empty_to_none(emergency_name)
         emergency_phone = empty_to_none(emergency_phone)
@@ -103,8 +108,9 @@ def paddler(paddler_id):
                 paddler.title = title
                 paddler.emergency_name = emergency_name
                 paddler.emergency_phone = emergency_phone
-                paddler.bcu = bcu
-                paddler.bcu_expiry = bcu_expiry
+                paddler.membership_number = membership_number
+                paddler.membership_expiry = membership_expiry
+                paddler.membership_body_id = membership_body_id
 
                 flash("Updated existing paddler.", "success")
             else:
@@ -119,8 +125,9 @@ def paddler(paddler_id):
                     title=title,
                     emergency_name=emergency_name,
                     emergency_phone=emergency_phone,
-                    bcu=bcu,
-                    bcu_expiry=bcu_expiry,
+                    membership_number=membership_number,
+                    membership_expiry=membership_expiry,
+                    membership_body_id=membership_body_id,
                 )
                 session.add(paddler)
 
@@ -136,4 +143,9 @@ def paddler(paddler_id):
         for crew in paddler.crews:
             logging.debug(f"    - {repr(crew)}")
 
-    return render_template("paddler.j2", paddler=paddler, age_groups=age_groups)
+    return render_template(
+        "paddler.j2",
+        paddler=paddler,
+        age_groups=age_groups,
+        membership_bodies=membership_bodies,
+    )
