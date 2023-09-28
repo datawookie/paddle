@@ -1,8 +1,12 @@
+# Standard Library
+import logging
+
 from ...common import *
 from ...util import argument_boolean
 
 
 def race_results(race_id, category_id=None, scrolling=True, top=None):
+    logging.debug(f"Retrieve results for race ID {race_id} category ID {category_id}.")
     categories = session.query(db.Category).all()
     race = session.get(db.Race, race_id)
     results = (
@@ -14,6 +18,11 @@ def race_results(race_id, category_id=None, scrolling=True, top=None):
     )
 
     data = db.entries_get_categories(results)
+
+    # Sort results in each category. Needs to happen BEFORE we take top N results!
+    for results in data.values():
+        results.sort(key=lambda x: x.time, reverse=False)
+
     # Filter selected category.
     if category_id is None:
         category = False
@@ -30,10 +39,6 @@ def race_results(race_id, category_id=None, scrolling=True, top=None):
         else:
             category = True
             data = {}
-
-    # Sort results in each category.
-    for results in data.values():
-        results.sort(key=lambda x: x.time, reverse=False)
 
     announcements = session.query(db.Announcement).filter(db.Announcement.enabled).all()
 
@@ -58,6 +63,8 @@ def race_results_category(race_id):
         category_id = int(request.form.get("category"))
     else:
         category_id = 0
+
+    logging.debug(f"Display results for category ID {category_id}.")
 
     return race_results(race_id, category_id=category_id, scrolling=False, top=top)
 
