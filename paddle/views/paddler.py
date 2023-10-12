@@ -87,6 +87,7 @@ def paddler(paddler_id):
         division = empty_to_none(division)
         emergency_name = empty_to_none(emergency_name)
         emergency_phone = empty_to_none(emergency_phone)
+        membership_body_id = empty_to_none(membership_body_id)
 
         if not first:
             flash("First name is required!", "danger")
