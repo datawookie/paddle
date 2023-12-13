@@ -1,20 +1,22 @@
 from pathlib import Path
+
 import pytest
+
+import database as db
 
 from . import TestRunner
 from .http_status import *
-import database as db
 
 resources = Path(__file__).parent / "resources"
 
 
 class TestEntry(TestRunner):
     @pytest.mark.ui
-    def test_entries_import_xlsx(self, client):
+    def test_entries_import_xlsx_without_dob(self, client):
         response = client.post(
             f"/race/{self.ID_RACE_QUIDDITCH_WORLD_CUP}/entries/import/xlsx",
             data={
-                "file": (resources / "entries.xlsx").open("rb"),
+                "file": (resources / "entries-without-dob.xlsx").open("rb"),
             },
         )
         assert response.status_code == HTTP_STATUS_FOUND

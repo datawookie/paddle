@@ -64,6 +64,9 @@ def load_xlsx(path):
         }
     )
 
+    if "dob" not in data.columns:
+        data["dob"] = None
+
     return data[
         [
             "number",
