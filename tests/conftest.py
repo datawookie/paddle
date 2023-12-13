@@ -1,7 +1,8 @@
-import os
 import datetime
-import tempfile
 import logging
+import os
+import tempfile
+
 import pytest
 
 logging.basicConfig(
@@ -16,7 +17,7 @@ _, DB_PATH = tempfile.mkstemp(".db")
 os.environ["CONNECTION_STRING"] = f"sqlite:///{DB_PATH}"
 
 import database as db  # noqa: E402
-from kanoe import factory  # noqa: E402
+from paddle import factory  # noqa: E402
 
 
 @pytest.fixture(scope="class")
