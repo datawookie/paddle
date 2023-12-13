@@ -59,6 +59,7 @@ def load_xlsx(path):
             "first_name": "first",
             "bc_number": "membership_number",
             "expiry": "membership_expiry",
+            "date_of_birth": "dob",
             "class": "klass",
         }
     )
@@ -74,6 +75,7 @@ def load_xlsx(path):
             "membership_expiry",
             "club",
             "klass",
+            "dob",
             "due",
             "paid",
         ]
@@ -96,6 +98,7 @@ class Individual:
     last: str
     club: str
     klass: str
+    dob: str
     category: str
     division: int
     paid: float
@@ -167,6 +170,7 @@ def load_entries(race, individuals):
         session.add(entry)
 
         for individual in individuals:
+            logging.debug(f"🟦 {individual.first} {individual.last}")
             paddler = None
 
             # Look for existing paddler.
@@ -219,6 +223,10 @@ def load_entries(race, individuals):
             if individual.membership_expiry:
                 logging.debug("Update membership number expiry.")
                 paddler.membership_expiry = individual.membership_expiry
+
+            if individual.dob:
+                logging.debug("Update date of birth.")
+                paddler.dob = individual.dob.date()
 
             if isinstance(individual.club, float) and np.isnan(individual.club):
                 logging.warning("Club is missing.")
