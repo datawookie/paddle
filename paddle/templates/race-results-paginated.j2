@@ -29,6 +29,16 @@
     <h2>{{ category }}</h2>
 
     <table>
+        <tr class="titles">
+            <th class="position">Pos</th>
+            <th class="paddler">Crew</th>
+            <th class="club">Club</th>
+            <th class="age">Age</th>
+            <th class="time">Start</th>
+            <th class="time">Finish</th>
+            <th class="adjustment">Adj</th>
+            <th class="time">Time</th>
+        </tr>
         {% endif %}
         <tr>
             <td class="position">{{ loop.index }}</td>
@@ -49,6 +59,9 @@
                 {% if not loop.last %} / {% endif %}
                 {% endfor %}
             </td>
+            <td class="time">{{ result.time_start }}</td>
+            <td class="time">{{ result.time_finish }}</td>
+            <td class="adjustment">{% if result.time_adjustment %}{{ result.time_adjustment }}{% endif %}</td>
             <td class="time">{{ result.time }}</td>
         </tr>
         {% if loop.last or ((loop.index + 1) % ROWS_PER_PAGE) == 1 %}

@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Roboto&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
 h1 {
     margin-top: 0;
 }
@@ -11,24 +23,30 @@ table {
     width: 100%;
 }
 
+tr.titles {
+    color: white;
+    background-color: grey;
+}
+
 td {
     font-size: 12px;
 }
 
-td.position {
+td.position, th.position {
     width: 5%;
 }
 
-td.paddler {
+td.paddler, th.paddler {
     width: 40%;
 }
 
-td.club {
-    width: 40%;
+td.club, th.club {
+    width: 30%;
 }
 
-td.age {
+td.age, th.age {
     width: 5%;
+    text-align: center;
 }
 
 td.age .abbreviation {
@@ -37,7 +55,22 @@ td.age .abbreviation {
     text-align: center;
 }
 
+td.time, th.time {
+    width: 5%;
+}
+th.time {
+    text-align: center;
+}
 td.time {
-    width: 10%;
+    text-align: right;
+}
+
+td.adjustment, th.adjustment {
+    width: 3%;
+}
+th.adjustment {
+    text-align: center;
+}
+td.adjustment {
     text-align: right;
 }
