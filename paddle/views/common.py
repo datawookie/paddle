@@ -1,21 +1,13 @@
-import os
-import json
 import datetime
-import re
+import json
 import logging
-from flask import (
-    Blueprint,
-    render_template,
-    request,
-    url_for,
-    flash,
-    redirect,
-    jsonify,
-    abort,
-    send_file,
-)
-from flask_login import login_required, login_user, logout_user, current_user
+import os
+import re
+
+from flask import Blueprint, abort, flash, jsonify, redirect, render_template, request, send_file, url_for
+from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy.sql import func
+from werkzeug.utils import secure_filename
 
 import database as db
 

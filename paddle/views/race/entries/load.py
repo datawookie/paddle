@@ -1,4 +1,5 @@
 from ...common import *
+from ...entry import load_entries, load_xlsx
 
 
 @blueprint.route("/race/<race_id>/entries/import/xlsx", methods=("GET", "POST"))
