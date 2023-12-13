@@ -99,10 +99,11 @@ def race_results_export_xlsx(race_id):
         sheet.column_dimensions["J"].width = 5  # Paid
         sheet.column_dimensions["K"].width = 7  # Start
         sheet.column_dimensions["L"].width = 7  # Finish
-        sheet.column_dimensions["M"].width = 7  # Elapsed
-        sheet.column_dimensions["N"].width = 7  # Position
-        sheet.column_dimensions["O"].width = 5  # Points
-        sheet.column_dimensions["P"].width = 5  # P/D
+        sheet.column_dimensions["M"].width = 4  # Adjustment
+        sheet.column_dimensions["N"].width = 7  # Elapsed
+        sheet.column_dimensions["O"].width = 7  # Position
+        sheet.column_dimensions["P"].width = 5  # Points
+        sheet.column_dimensions["Q"].width = 5  # P/D
 
         # Add header records.
         head = [
@@ -118,6 +119,7 @@ def race_results_export_xlsx(race_id):
             "Paid",
             "Start",
             "Finish",
+            "Adj",
             "Elapsed",
             "Position",
             "Points",
@@ -132,9 +134,9 @@ def race_results_export_xlsx(race_id):
                     int(result.race_number),
                     crew.paddler.last,
                     crew.paddler.first,
-                    crew.paddler.bcu,
-                    crew.paddler.bcu_expiry.strftime("%d/%m/%Y")
-                    if crew.paddler.bcu_expiry
+                    crew.paddler.membership_number,
+                    crew.paddler.membership_expiry.strftime("%d/%m/%Y")
+                    if crew.paddler.membership_expiry
                     else None,
                     crew.club.code if crew.club else None,
                     None,
@@ -143,6 +145,7 @@ def race_results_export_xlsx(race_id):
                     None,
                     result.time_start,
                     result.time_finish,
+                    result.time_adjustment,
                     result.time,
                     position + 1,
                     None,
@@ -162,9 +165,9 @@ def race_results_export_xlsx(race_id):
                 else:
                     cell.font = font_data
                     # Styles for rest of rows.
-                    if cell.column_letter in ("E", "K", "L", "M"):
+                    if cell.column_letter in ("E", "K", "L", "N"):
                         cell.alignment = Alignment(horizontal="right")
-                    if cell.column_letter in ("F", "H", "N"):
+                    if cell.column_letter in ("F", "H", "O"):
                         cell.alignment = Alignment(horizontal="center")
 
     workbook.save(path)
