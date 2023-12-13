@@ -1,9 +1,10 @@
 import datetime
-import string
 import logging
+import string
 from dataclasses import dataclass
-import pandas as pd
+
 import numpy as np
+import pandas as pd
 
 from .common import *
 
@@ -56,8 +57,8 @@ def load_xlsx(path):
             "div": "division",
             "surname": "last",
             "first_name": "first",
-            "bc_number": "bcu",
-            "expiry": "bcu_expiry",
+            "bc_number": "membership_number",
+            "expiry": "membership_expiry",
             "class": "klass",
         }
     )
@@ -69,8 +70,8 @@ def load_xlsx(path):
             "division",
             "last",
             "first",
-            "bcu",
-            "bcu_expiry",
+            "membership_number",
+            "membership_expiry",
             "club",
             "klass",
             "due",
@@ -89,8 +90,8 @@ def category_mapping(category):
 @dataclass
 class Individual:
     number: int
-    bcu: int
-    bcu_expiry: datetime.date
+    membership_number: int
+    membership_expiry: datetime.date
     first: str
     last: str
     club: str
@@ -101,16 +102,16 @@ class Individual:
     due: float
 
     def __post_init__(self):
-        if self.bcu_expiry:
-            if pd.isnull(self.bcu_expiry):
-                self.bcu_expiry = None
+        if self.membership_expiry:
+            if pd.isnull(self.membership_expiry):
+                self.membership_expiry = None
             else:
-                self.bcu_expiry = str(self.bcu_expiry)
-                self.bcu_expiry = datetime.datetime.strptime(
-                    self.bcu_expiry, "%Y-%m-%d %H:%M:%S"
+                self.membership_expiry = str(self.membership_expiry)
+                self.membership_expiry = datetime.datetime.strptime(
+                    self.membership_expiry, "%Y-%m-%d %H:%M:%S"
                 )
-        if pd.isnull(self.bcu):
-            self.bcu = None
+        if pd.isnull(self.membership_number):
+            self.membership_number = None
         if self.division:
             try:
                 self.division = int(self.division)
@@ -172,13 +173,14 @@ def load_entries(race, individuals):
             #
             if not paddler:
                 try:
-                    logging.debug("Matching paddler using name & BCU number.")
+                    logging.debug("Matching paddler using name & membership number.")
                     paddler = (
                         session.query(db.Paddler)
                         .filter(
                             db.Paddler.first == individual.first,
                             db.Paddler.last == individual.last,
-                            db.Paddler.bcu == individual.bcu,
+                            db.Paddler.membership_number
+                            == individual.membership_number,
                         )
                         .one()
                     )
@@ -211,12 +213,12 @@ def load_entries(race, individuals):
                 )
                 session.add(paddler)
 
-            if individual.bcu:
-                logging.debug("Update BCU number.")
-                paddler.bcu = individual.bcu
-            if individual.bcu_expiry:
-                logging.debug("Update BCU number expiry.")
-                paddler.bcu_expiry = individual.bcu_expiry
+            if individual.membership_number:
+                logging.debug("Update membership number.")
+                paddler.membership_number = individual.membership_number
+            if individual.membership_expiry:
+                logging.debug("Update membership number expiry.")
+                paddler.membership_expiry = individual.membership_expiry
 
             if isinstance(individual.club, float) and np.isnan(individual.club):
                 logging.warning("Club is missing.")
