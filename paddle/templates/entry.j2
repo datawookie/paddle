@@ -133,6 +133,12 @@
           {{ entry.time_finish }}
         </div>
         <div class="text-muted">Finish Time</div>
+        {% if entry.time_adjustment is not none %}
+        <div class="time-start-finish mt-1">
+          {{ entry.time_adjustment }}
+        </div>
+        <div class="text-muted">Time Ajustment</div>
+        {% endif %}
         {% endif %}
       </div>
     </div>
