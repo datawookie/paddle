@@ -19,6 +19,8 @@
                         <th class="text-center">Entries</th>
                         <th class="text-center">Numbers</th>
                         <th class="text-center">Excess</th>
+                        <th class="text-center">Min</th>
+                        <th class="text-center">Max</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +34,8 @@
                                 name="category_id_{{ category.id }}">
                         </td>
                         <td class="align-middle text-end excess"></td>
+                        <td class="align-middle text-end">XXX</td>
+                        <td class="align-middle text-end">YYY</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -50,31 +54,37 @@
 {% block scripts %}
 {% include 'common/jquery-javascript.j2' %}
 <script type="text/javascript" class="init">
-    $(document).ready(function () {
-        var set_excess = function () {
-            parent = $(this).parent();
-            // Number of entries for this category.
-            count = parent.prev().text();
-            // Index for this category.
-            index = parent.prev().attr("data-index");
-            // Excess (allocated numbers - required numbers).
-            excess = $(this).val() - count;
-            // Fix for first category (because numbering starts at 1).
+$(document).ready(function () {
+    var calculateValues = function () {
+        let counter = 0;
+
+        $(".number").each(function () {
+            var parent = $(this).parent();
+            var count = parent.prev().text();
+            var index = parent.prev().attr("data-index");
+            var allocated = Number($(this).val());
+            var excess = allocated - count;
             excess -= (index == 1 ? 1 : 0);
-            // Update excess column.
+
+            var min = (counter == 0 ? 1 : counter);
+            var max = counter + allocated - 1;
+
             parent.next().text(excess);
+            parent.next().next().text(min);
+            parent.next().next().next().text(max);
 
-            total = 0;
-            $(".number").each(function () {
-                total += +$(this).val();
-            });
-            $("#total").text(total);
-        };
-        $(".number").change(set_excess);
-
-        $(".number").each(function (index) {
-            set_excess.apply(this);
+            counter = max + 1;
         });
-    });
+
+        var total = 0;
+        $(".number").each(function () {
+            total += +$(this).val();
+        });
+        $("#total").text(total);
+    };
+
+    calculateValues();                          // Initialise.
+    $(".number").change(calculateValues);       // Recalculate on change
+});
 </script>
 {% endblock %}
