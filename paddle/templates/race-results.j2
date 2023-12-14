@@ -102,6 +102,21 @@ body {
 {% include 'common/jquery-javascript.j2' %}
 <script type="text/javascript" class="init">
     var footer_height = $("footer").height() + 50;
+    var isScrolling = true;
+
+    document.addEventListener('keydown', function(event) {
+        if (event.code === 'Space') {
+            event.preventDefault(); // Prevent default action (page down).
+            isScrolling = !isScrolling;
+        }
+
+        if (isScrolling) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    });
+
     $(document).ready(function () {
         // Set margin on body to accommodate the footer.
         $('main').css("margin-bottom", footer_height + "px");
@@ -112,7 +127,9 @@ body {
     var scroll = setInterval(
         // Scroll slowly down page.
         function () {
-            window.scrollBy(0, 10);
+            if (isScrolling) {
+                window.scrollBy(0, 10);
+            }
         },
         // Scroll rate (larger number -> slower).
         50
