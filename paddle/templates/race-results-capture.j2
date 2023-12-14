@@ -146,7 +146,7 @@ You can also press enter in either the start time or finish time field to submit
                 $.ajax({
                     url: "/api/get-entry",
                     type: "post",
-                    data: { race_id: {{ race_id }}, race_number: $(this).val()
+                    data: { race_id: {{ race.id }}, race_number: $(this).val()
         },
             success: function(response) {
                 if (response["scratched"] || response["disqualified"] || response["retired"]) {
@@ -215,6 +215,16 @@ You can also press enter in either the start time or finish time field to submit
         }
     });
 
+    function convertTimeToDate(time) {
+        var parts = time.split(':');
+
+        var hours = parseInt(parts[0], 10);
+        var minutes = parseInt(parts[1], 10);
+        var seconds = parseInt(parts[2], 10);
+
+        return new Date(0, 0, 0, hours, minutes, seconds);
+    }
+
     var update_race_time = function () {
         start = $("#time_start").val().split(":");
         finish = $("#time_finish").val().split(":");
@@ -224,6 +234,23 @@ You can also press enter in either the start time or finish time field to submit
             start = new Date(0, 0, 0, start[0], start[1], start[2]);
             finish = new Date(0, 0, 0, finish[0], finish[1], finish[2]);
             var diff = (finish.getTime() - start.getTime()) / 1000;
+
+            start_min = convertTimeToDate("{{ race.time_min_start }}");
+            start_max = convertTimeToDate("{{ race.time_max_start }}");
+            finish_min = convertTimeToDate("{{ race.time_min_finish }}");
+            finish_max = convertTimeToDate("{{ race.time_max_finish }}");
+
+            if (start < start_min || start > start_max) {
+                $("#time_start").addClass('is-invalid');
+            } else {
+                $("#time_start").removeClass('is-invalid');
+            }
+
+            if (finish < finish_min || finish > finish_max) {
+                $("#time_finish").addClass('is-invalid');
+            } else {
+                $("#time_finish").removeClass('is-invalid');
+            }
 
             // Apply adjustment.
             //
