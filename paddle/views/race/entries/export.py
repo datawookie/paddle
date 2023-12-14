@@ -1,4 +1,6 @@
+import csv
 import tempfile
+
 from flask_weasyprint import render_pdf
 from openpyxl import Workbook
 
@@ -33,6 +35,52 @@ def race_entries_export_pdf(race_id):
         url_for("kanoe.race_entries_paginated", race_id=race_id),
         download_filename=race.slug + "-entries.pdf",
     )
+
+
+@blueprint.route("/race/<race_id>/entries/export/txt")
+@login_required
+def race_entries_export_txt(race_id):
+    race = session.get(db.Race, race_id)
+    path = os.path.join(tempfile.mkdtemp(), race.slug + "-entries.txt")
+
+    entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
+
+    categories = db.entries_get_categories(entries)
+    # Sort by last name of first paddler in crew.
+    for entries in categories.values():
+        entries.sort(key=lambda x: x.crews[0].paddler.last, reverse=False)
+
+    with open(path, "wt") as fid:
+        writer = csv.writer(fid)
+
+        for entries in categories.values():
+            for entry in entries:
+                if entry.race_number:
+                    clubs = [
+                        entry.crews[0].club.code if entry.crews[0].club else None,
+                        entry.crews[1].club.code
+                        if len(entry.crews) == 2 and entry.crews[1].club
+                        else None,
+                    ]
+                    clubs = [club for club in clubs if club]
+                    clubs = "/".join(clubs)
+                    row = [
+                        entry.crews[0].paddler.last,
+                        entry.crews[0].paddler.first,
+                        entry.crews[1].paddler.last if len(entry.crews) == 2 else None,
+                        entry.crews[1].paddler.first if len(entry.crews) == 2 else None,
+                        entry.category.id,
+                        clubs,
+                        int(entry.race_number),
+                        None,
+                        None,
+                        None,
+                        None,
+                        None,
+                    ]
+                    writer.writerow(row)
+
+    return send_file(path, as_attachment=True)
 
 
 @blueprint.route("/race/<race_id>/entries/export/xlsx")
