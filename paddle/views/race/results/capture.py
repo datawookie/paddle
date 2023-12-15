@@ -6,6 +6,8 @@ from ...common import *
 @blueprint.route("/race/<race_id>/results/capture", methods=("GET", "POST"))
 @login_required
 def race_results_capture(race_id):
+    race_number = request.args.get("race_number")
+
     if request.method == "POST":
         entry_id = request.form["entry_id"]
         time_start = request.form.get("time_start")
@@ -80,4 +82,6 @@ def race_results_capture(race_id):
 
     race = session.get(db.Race, race_id)
 
-    return render_template("race-results-capture.j2", race=race)
+    return render_template(
+        "race-results-capture.j2", race=race, race_number=race_number
+    )

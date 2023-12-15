@@ -33,7 +33,7 @@ You can also press enter in either the start time or finish time field to submit
             <div class="row">
                 <label for="title" class="col-sm-4 col-form-label">Race Number</label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" id="race_number" placeholder="Race Number" autofocus>
+                    <input type="number" class="form-control" id="race_number" placeholder="Race Number" value="{{ race_number }}" autofocus>
                 </div>
             </div>
         </div>
@@ -316,6 +316,9 @@ You can also press enter in either the start time or finish time field to submit
             return false; // Stop the event propagation
         }
     });
+
+    // Call the function on page load in case race number specified via parameter.
+    select_race_number.call($("#race_number"));
 });
 </script>
 {% endblock %}
