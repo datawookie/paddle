@@ -4,9 +4,6 @@
         <a href="{{ url_for('kanoe.entry_register', entry_id=entry.id) }}" class="btn btn-success">Register</a>
     </li>
     {% endif %}
-    <li class="nav-item d-grid mb-2">
-        <a href="{{ url_for('kanoe.entry_note_update', entry_id=entry.id) }}" class="btn btn-primary">Update Note</a>
-    </li>
     {% if entry.race %}
     <li class="nav-item d-grid mb-2">
         <a href="{{ url_for('kanoe.race_results_capture', race_id=entry.race.id, race_number=entry.race_number) }}" class="btn btn-primary">Capture
