@@ -117,6 +117,15 @@ You can also press enter in either the start time or finish time field to submit
     </ul>
 </div>
 
+<div class="mt-3 text-muted">
+    <p>🚨 Reasons that times might be invalid:</p>
+    <ul>
+        <li>The hours (0-24), minutes (0-59) or seconds (0-59) might not fall in valid range.</li>
+        <li>The start time might fall outside of the valid start window ({{ race.time_min_start }}-{{ race.time_max_start }}).</li>
+        <li>The finish time might fall outside of the valid finish window ({{ race.time_min_finish }}-{{ race.time_max_finish }}).</li>
+    </ul>
+</div>
+
 {% endblock %}
 
 {% block sidebar %}
@@ -240,16 +249,17 @@ You can also press enter in either the start time or finish time field to submit
             finish_min = convertTimeToDate("{{ race.time_min_finish }}");
             finish_max = convertTimeToDate("{{ race.time_max_finish }}");
 
-            if (start < start_min || start > start_max) {
-                $("#time_start").addClass('is-invalid');
-            } else {
-                $("#time_start").removeClass('is-invalid');
+            // Only check validity window if the time itself is valid.
+            //
+            if (!$("#time_start").hasClass('is-invalid')) {
+                if (start < start_min || start > start_max) {
+                    $("#time_start").addClass('is-invalid');
+                }
             }
-
-            if (finish < finish_min || finish > finish_max) {
-                $("#time_finish").addClass('is-invalid');
-            } else {
-                $("#time_finish").removeClass('is-invalid');
+            if (!$("#time_finish").hasClass('is-invalid')) {
+                if (finish < finish_min || finish > finish_max) {
+                    $("#time_finish").addClass('is-invalid');
+                }
             }
 
             // Apply adjustment.
@@ -280,16 +290,22 @@ You can also press enter in either the start time or finish time field to submit
     });
     $('.time').focusout(function () {
         // Get time and remove colons.
-        var time = $(this).val().replace(/:/g, "");
+        var time = $(this).val();
         if (time != "") {
-            console.log("Parsing time '" + time + "'.");
-            time = time.padEnd(6, '0');
+            if (time.includes(":")) {
+                console.log("Time ('" + time + "')  contains colons.")
+                time = time.split(':').map(
+                    item => (item.length < 2) ? '0' + item : item
+                ).join('');
+            } else {
+                console.log("Time ('" + time + "') doesn't contain colons.")
+                time = time.padEnd(6, '0');
+            }
             // Insert colons.
             time = time.slice(0, 2) + ":" + time.slice(2, 4) + ":" + time.slice(4, 6);
             // Update time field.
             $(this).val(time);
         }
-        // alert("Invalid time. Please enter a time in the format HH:MM:SS.");
 
         // Validate time.
         var regex = /^([0-1]?[0-9]|2[0-3]):([0-5]?[0-9]):([0-5]?[0-9])$/;
