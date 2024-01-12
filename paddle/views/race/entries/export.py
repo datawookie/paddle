@@ -37,6 +37,68 @@ def race_entries_export_pdf(race_id):
     )
 
 
+@blueprint.route("/race/<race_id>/numbers/")
+@login_required
+def race_numbers(race_id):
+    race = session.get(db.Race, race_id)
+
+    # Get entries and link to race numbers.
+    #
+    entries = (
+        session.query(db.Entry.id, db.NumberAllocation.number_id, db.Category.label)
+        .join(db.NumberAllocation, db.Entry.id == db.NumberAllocation.entry_id)
+        .join(db.Category, db.Entry.category_id == db.Category.id)
+        .filter(db.Entry.race_id == race.id)
+        .subquery()
+    )
+
+    # Outer join with race numbers (so that we get all of them!).
+    #
+    entries = (
+        session.query(entries, db.Number)
+        .outerjoin(entries, entries.c.number_id == db.Number.id, full=True)
+        .order_by(db.Number.id)
+        .all()
+    )
+
+    assigned = {}
+    unassigned = []
+    missing = []
+
+    for entry in entries:
+        _, id, category, number = entry
+        if entry[0] is None:
+            if number.lost:
+                missing.append(number.id)
+            else:
+                unassigned.append(number.id)
+        else:
+            try:
+                assigned[category]
+            except KeyError:
+                assigned[category] = []
+
+            assigned[category].append(id)
+
+    return render_template(
+        "race-numbers.j2",
+        race=race,
+        unassigned=unassigned,
+        missing=missing,
+        assigned=assigned,
+    )
+
+
+@blueprint.route("/race/<race_id>/numbers/export/pdf")
+@login_required
+def race_numbers_export_pdf(race_id):
+    race = session.get(db.Race, race_id)
+    return render_pdf(
+        url_for("kanoe.race_numbers", race_id=race_id),
+        download_filename=race.slug + "-numbers.pdf",
+    )
+
+
 @blueprint.route("/race/<race_id>/entries/export/txt")
 @login_required
 def race_entries_export_txt(race_id):

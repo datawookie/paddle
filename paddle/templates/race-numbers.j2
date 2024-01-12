@@ -1,0 +1,33 @@
+{% extends "base-minimal.j2" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="/css/paginated-a4-landscape.css">
+{% include 'common/load-css-font-awesome.j2' %}
+{% endblock %}
+
+{% block footer %}
+<div style="width: 100%;">
+    <div class="title">
+        {{ race.name }} ({{ race.date }})
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+    <h1 style="text-align: center;">{{ race.name }} ({{ race.date }})</h1>
+
+    <table class="border">
+        <tbody>
+    {% for category, numbers in assigned.items() %}
+            <tr>
+                <th>{{ category }}</th>
+                <td>{{ numbers|join(', ') }}</td>
+    {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <strong>Unassigned:</strong> {{ unassigned|join(', ') }}
+    </p>
+{% endblock %}
