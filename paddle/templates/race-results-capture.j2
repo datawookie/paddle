@@ -27,7 +27,6 @@ You can also press enter in either the start time or finish time field to submit
 <h1>Capture Race Results</h1>
 
 <form method="post" id="result-capture-form">
-    <input type="hidden" id="entry_id" name="entry_id">
     <div class="row">
         <div class="col-md-6">
             <div class="row">
@@ -43,6 +42,19 @@ You can also press enter in either the start time or finish time field to submit
                     readonly tabindex="-1">
             </div>
         </div>
+        <div class="col-md-6 mt-1">
+            <div class="row">
+                <label for="title" class="col-sm-4 mt-0 col-form-label">Entry</label>
+                <div class="col-sm-8 mt-0">
+                    <!-- This is displayed. -->
+                    <input type="text" id="entry_id" class="form-control" disabled readonly>
+                    <!-- This is submitted with form. -->
+                    <input type="hidden" id="hidden_entry_id" name="entry_id">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col">
             <div class="row">
                 <label for="start" class="col-sm-4 col-form-label">Start time</label>
@@ -71,7 +83,7 @@ You can also press enter in either the start time or finish time field to submit
                         placeholder="Number of seconds to be added to time.">
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-2">
                 <label for="finish" class="col-sm-4 mt-1 col-form-label">Note</label>
                 <div class="col-sm-8 mt-1">
                     <textarea class="form-control" id="note" name="note" rows="3"></textarea>
@@ -106,7 +118,6 @@ You can also press enter in either the start time or finish time field to submit
         </div>
         <button type="submit" hidden id="submit">Submit</button>
     </div>
-</form>
 
 <div class="mt-5 text-muted">
     <p>This form is designed for rapid entry of results. Using the form:</p>
@@ -125,6 +136,12 @@ You can also press enter in either the start time or finish time field to submit
         <li>The finish time might fall outside of the valid finish window ({{ race.time_min_finish }}-{{ race.time_max_finish }}).</li>
     </ul>
 </div>
+<div class="form-check mt-2 mb-2 text-muted">
+    <input class="form-check-input" type="checkbox" value="1" tabindex="-1" id="override"
+        name="override">
+    <label class="form-check-label" for="override">⚠️ Override (submit despite failing validation checks then check the following box).</label>
+</div>
+</form>
 
 {% endblock %}
 
@@ -324,13 +341,16 @@ You can also press enter in either the start time or finish time field to submit
         update_race_time();
     });
 
-    // Disable form submission if any of the fields are invalid.
+    // - Disable form submission if any of the fields are invalid.
+    // - Force form submission if the Override box is checked.
     $('#result-capture-form').on('submit', function(event) {
-        if ($('.form-control.is-invalid').length > 0) {
+        if ($('.form-control.is-invalid').length > 0 && $('#override').is(':not(:checked)')) {
             event.preventDefault();
             alert('Please correct the errors before submitting.')
             return false; // Stop the event propagation
         }
+        <!-- Copy entry ID across to field which will be submitted with form (not disabled). -->
+        $('#hidden_entry_id').val($('#entry_id').val());
     });
 
     // Call the function on page load in case race number specified via parameter.
