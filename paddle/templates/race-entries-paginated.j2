@@ -38,7 +38,6 @@
             <tr>
                 <td style="width: 15%;">
                     {{ entry.crews[0].paddler.last }}
-                    {% if not entry.crews[0].paddler.registered %}<i class="fas fa-ticket"></i>{% endif %}
                 </td>
                 <td style="width: 13%;">
                     {{ entry.crews[0].paddler.first }}
@@ -46,7 +45,6 @@
                 <td style="width: 15%;">
                     {% if entry.crews[1] %}
                     {{ entry.crews[1].paddler.last }}
-                    {% if not entry.crews[1].paddler.registered %}<i class="fas fa-ticket"></i>{% endif %}
                     {% endif %}
                 </td>
                 <td style="width: 13%;">
