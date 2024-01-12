@@ -27,10 +27,10 @@
             <tr>
                 <th style="text-align: center;" colspan="4">Crew</th>
                 <th style="width: 9%; text-align: center;">Club</th>
-                <th style="text-align: center;" colspan="2">Category</th>
+                <th style="width: 18%; text-align: center;">Team</th>
+                <th style="width: 6%; text-align: center;">Services</th>
                 <th style="width: 4%; text-align: center;">#</th>
                 <th style="width: 3%; text-align: center;"><i class="fas fa-check"></i></th>
-                <th style="text-align: center;">Note</th>
             </tr>
         </thead>
         <tbody>
@@ -53,10 +53,9 @@
                     {% if entry.crews[1] %}{{ entry.crews[1].paddler.first }}{% endif %}
                 </td>
                 <td style="text-align: center;">{{ entry.clubs }}</td>
-                <td style="width: 3%; text-align: center;">{{ entry.category.id }}</td>
-                <td style="width: 13%; text-align: center;">{{ entry.category }}</td>
-                <td style="text-align: center;">{{ entry.race_number }}</td>
-                <td></td>
+                <td>{% if entry.team %}{{ entry.team }}{% endif %}</td>
+                <td style="text-align: center;">{% if entry.services %}<i class="fas fa-check"></i>{% endif %}</td>
+                <td style="text-align: center;">{% if entry.race_number %}{{ entry.race_number }}{% endif %}</td>
                 <td></td>
             </tr>
             {% endfor %}
