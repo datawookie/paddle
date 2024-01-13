@@ -61,48 +61,52 @@
   <div class="col-md-4">
     <h3>Crew</h3>
     {% for crew in entry.crews %}
-    <div class="h-30 p-3 mb-2 bg-light border rounded-3">
-      <div class="row">
-        <div class="col-md-8">
-          <h3><a href="{{ url_for('kanoe.paddler', paddler_id=crew.paddler.id) }}">{{ crew.paddler.name }}</a></h3>
-          <table class="table table-sm table-borderless">
-            <tr>
-              <th>Club</th>
-              <td style="text-align: right;">
-                <a href="{{ url_for('kanoe.club', club_id=crew.club.id) }}">{% if crew.club %}{{ crew.club }}{% endif
-                  %}</a>
-              </td>
-            </tr>
-            <tr>
-              <th>Division</th>
-              <td style="text-align: right;">{{ crew.paddler.division or "" }}</td>
-            </tr>
-            <tr>
-              <th>Team</th>
-              <td style="text-align: right;">
-                <a href="{{ url_for('kanoe.team', team_id=crew.team.id) }}">
-                  {{ crew.team or "" }}
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <th>Services</th>
-              <td style="text-align: right;" class="services">
-                {% if crew.services %}<i class="fas fa-check"></i>{% endif %}
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="col-md-4">
-          <ul class="nav flex-column">
-            <li class="nav-item d-grid mb-2">
-              <a href="{{ url_for('kanoe.crew', crew_id=crew.id) }}" class="btn btn-primary">Edit Crew</a>
-            </li>
-            <li class="nav-item d-grid mb-2">
-              <a href="{{ url_for('kanoe.crew_delete', crew_id=crew.id) }}" class="btn btn-danger">Remove Crew</a>
-            </li>
-          </ul>
-        </div>
+    <div class="crew h-30 p-3 mb-2 bg-light border rounded-3">
+      <div>
+        <h3><a href="{{ url_for('kanoe.paddler', paddler_id=crew.paddler.id) }}">{{ crew.paddler.name }}</a></h3>
+        <table class="table table-sm table-borderless">
+          <tr>
+            <th>Club</th>
+            <td style="text-align: right;">
+              <a href="{{ url_for('kanoe.club', club_id=crew.club.id) }}">{% if crew.club %}{{ crew.club }}{% endif
+                %}</a>
+            </td>
+          </tr>
+          <tr>
+            <th>Division</th>
+            <td style="text-align: right;">{{ crew.paddler.division or "" }}</td>
+          </tr>
+          <tr>
+            <th>Team</th>
+            <td style="text-align: right;">
+              <a href="{{ url_for('kanoe.team', team_id=crew.team.id) }}">
+                {{ crew.team or "" }}
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <th>Services</th>
+            <td style="text-align: right;" class="services">
+              {% if crew.services %}<i class="fas fa-check"></i>{% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th>Membership</th>
+            <td style="text-align: right;" class="{% if crew.paddler.membership_expired %}bg-danger{% endif %}">
+              <span>{{ crew.paddler.membership }}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div>
+        <ul class="nav flex-column">
+          <li class="nav-item d-grid mb-2">
+            <a href="{{ url_for('kanoe.crew', crew_id=crew.id) }}" class="btn btn-primary">Edit Crew</a>
+          </li>
+          <li class="nav-item d-grid mb-2">
+            <a href="{{ url_for('kanoe.crew_delete', crew_id=crew.id) }}" class="btn btn-danger">Remove Crew</a>
+          </li>
+        </ul>
       </div>
     </div>
     {% endfor %}
