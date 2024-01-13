@@ -43,7 +43,7 @@
                 <td style="width: 12%;">
                     {{ entry.crews[0].paddler.first }}
                 </td>
-                <td style="width: 6%;">
+                <td style="width: 6%;" class="{% if entry.crews[0].paddler.membership_expired %}expired{% endif %}">
                     {% if entry.crews[0].paddler.membership %}{{ entry.crews[0].paddler.membership }}{% endif %}
                 </td>
                 <td style="width: 3%;">
@@ -57,7 +57,7 @@
                 <td style="width: 12%;">
                     {% if entry.crews[1] %}{{ entry.crews[1].paddler.first }}{% endif %}
                 </td>
-                <td style="width: 6%;">
+                <td style="width: 6%;" class="{% if entry.crews[1] and entry.crews[1].paddler.membership_expired %}expired{% endif %}">
                     {% if entry.crews[1] and entry.crews[1].paddler.membership %}
                     {{ entry.crews[1].paddler.membership }}
                     {% endif %}

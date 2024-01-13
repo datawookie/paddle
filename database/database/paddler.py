@@ -81,3 +81,10 @@ class Paddler(Base):
         if membership and self.membership_body:
             membership = self.membership_body.acronym + str(membership)
         return membership
+
+    @property
+    def membership_expired(self):
+        if self.membership_expiry:
+            return self.membership_expiry < date.today()
+        else:
+            return True

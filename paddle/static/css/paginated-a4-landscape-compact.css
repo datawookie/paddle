@@ -13,3 +13,7 @@ table.border th {
 td {
     font-size: 12px;
 }
+
+.expired {
+    background-color: lightgray;
+}
