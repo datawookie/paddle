@@ -1,7 +1,7 @@
 <ul class="nav flex-column">
     {% if not entry.registered %}
     <li class="nav-item d-grid mb-2">
-        <a href="{{ url_for('kanoe.entry_register', entry_id=entry.id) }}" class="btn btn-success">Register</a>
+        <a id="register" href="{{ url_for('kanoe.entry_register', entry_id=entry.id) }}" class="btn btn-success">Register</a>
     </li>
     {% endif %}
     {% if entry.race %}

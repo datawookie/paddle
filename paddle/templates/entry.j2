@@ -104,7 +104,7 @@
             <a href="{{ url_for('kanoe.crew', crew_id=crew.id) }}" class="btn btn-primary">Edit Crew</a>
           </li>
           <li class="nav-item d-grid mb-2">
-            <a href="{{ url_for('kanoe.crew_delete', crew_id=crew.id) }}" class="btn btn-danger">Remove Crew</a>
+            <a href="{{ url_for('kanoe.crew_delete', crew_id=crew.id) }}" class="btn btn-warning">Remove Crew</a>
           </li>
         </ul>
       </div>
@@ -149,12 +149,32 @@
     {% if entry.note %}
     <div class="p-3 mt-2 bg-info text-black">
       <i class="fas fa-bell"></i> <strong>Note:</strong> {{ entry.note }}
+      NOTE!!!
     </div>
     {% endif %}
+  </div>
+  <div id="register-disabled" style="display: none;" class="col-md-7 py-2 rounded-3 bg-danger">
+    <i class="fas fa-bell"></i> Problems with this entry that need to be resolved before registration.
   </div>
 </div>
 {% endblock %}
 
 {% block sidebar %}
 {% include 'sidebar-entry.j2' %}
+{% endblock %}
+
+{% block scripts %}
+{% include 'common/jquery-javascript.j2' %}
+<script type="text/javascript" class="init">
+$(document).ready(function() {
+    if ($('td.bg-danger').length) {
+        $('#register').attr('href', 'javascript:void(0)');
+        $('#register').css({
+            'pointer-events': 'none',
+            'opacity': '0.5'
+        });
+        $('#register-disabled').show();
+    }
+});
+</script>
 {% endblock %}
