@@ -74,3 +74,10 @@ class Paddler(Base):
             return False
         else:
             return True
+
+    @property
+    def membership(self):
+        membership = self.membership_number
+        if membership and self.membership_body:
+            membership = self.membership_body.acronym + str(membership)
+        return membership
