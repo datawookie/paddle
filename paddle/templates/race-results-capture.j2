@@ -32,7 +32,7 @@ You can also press enter in either the start time or finish time field to submit
             <div class="row">
                 <label for="title" class="col-sm-4 col-form-label">Race Number</label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" id="race_number" placeholder="Race Number" value="{{ race_number }}" autofocus>
+                    <input type="number" class="form-control" id="race_number" placeholder="Race Number" autofocus>
                 </div>
             </div>
         </div>
@@ -166,6 +166,7 @@ You can also press enter in either the start time or finish time field to submit
 
         // Populate the Paddler(s) field based on chosen race number.
         var select_race_number = function () {
+            console.log("SELECT RACE NUMBER");
             if ($(this).val() === "") {
                 console.log("No race number specified.");
                 $('#paddlers').val("");
@@ -257,9 +258,14 @@ You can also press enter in either the start time or finish time field to submit
     }
 
     var update_race_time = function () {
+    console.log("UPDATE RACE TIME");
         start = $("#time_start").val().split(":");
         finish = $("#time_finish").val().split(":");
         adjustment = $("#time_adjustment").val();
+
+        console.log(start);
+        console.log(finish);
+        console.log(start);
 
         if (start.length == 3 && finish.length == 3) {
             start = new Date(0, 0, 0, start[0], start[1], start[2]);
@@ -360,6 +366,10 @@ You can also press enter in either the start time or finish time field to submit
 
     // Call the function on page load in case race number specified via parameter.
     select_race_number.call($("#race_number"));
+
+    {% if race_number %}
+    $('#race_number').val({{ race_number }});
+    {% endif %}
 });
 </script>
 {% endblock %}
