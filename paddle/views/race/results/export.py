@@ -17,13 +17,7 @@ def race_results_export_csv(race_id):
     race = session.get(db.Race, race_id)
     path = os.path.join(tempfile.mkdtemp(), race.slug + "-results.csv")
 
-    results = (
-        session.query(db.Entry)
-        .filter(db.Entry.race_id == race_id)
-        .filter(db.Entry.time_start.is_not(None))
-        .filter(db.Entry.time_finish.is_not(None))
-        .all()
-    )
+    results = db.filter_race_results(session.query(db.Entry), race_id)
 
     categories = db.entries_get_categories(results)
 
@@ -59,13 +53,7 @@ def race_results_export_xlsx(race_id):
     race = session.get(db.Race, race_id)
     path = os.path.join(tempfile.mkdtemp(), race.slug + "-results.xlsx")
 
-    results = (
-        session.query(db.Entry)
-        .filter(db.Entry.race_id == race_id)
-        .filter(db.Entry.time_start.is_not(None))
-        .filter(db.Entry.time_finish.is_not(None))
-        .all()
-    )
+    results = db.filter_race_results(session.query(db.Entry), race_id)
 
     categories = db.entries_get_categories(results)
 

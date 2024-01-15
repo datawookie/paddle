@@ -92,13 +92,7 @@ def race_results_validate(race_id):
 def race_results_paginated(race_id):
     race = session.get(db.Race, race_id)
 
-    results = (
-        session.query(db.Entry)
-        .filter(db.Entry.race_id == race_id)
-        .filter(db.Entry.time_start.is_not(None))
-        .filter(db.Entry.time_finish.is_not(None))
-        .all()
-    )
+    results = db.filter_race_results(session.query(db.Entry), race_id)
 
     categories = db.entries_get_categories(results)
 

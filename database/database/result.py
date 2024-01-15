@@ -1,4 +1,5 @@
 from .base import *
+from .entry import Entry
 
 # PRIZES:
 #
@@ -17,3 +18,15 @@ from .base import *
 # Crew  presented by Newbury Canoe Club.  SKB – fastest K2 Masters in any class
 # – Presented by J & U Treadgold. We also now have a Series C1 and C2 ladies
 # subcategory with Series trophies !!
+
+
+def filter_race_results(entries, race_id):
+    return (
+        entries.filter(Entry.race_id == race_id)
+        .filter(Entry.time_start.is_not(None))
+        .filter(Entry.time_finish.is_not(None))
+        .filter(~Entry.disqualified)
+        .filter(~Entry.retired)
+        .filter(~Entry.scratched)
+        .all()
+    )
