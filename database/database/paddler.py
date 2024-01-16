@@ -34,6 +34,7 @@ class Paddler(Base):
     first = Column(String)
     middle = Column(String)
     last = Column(String)
+    gender = Column(String(1))
     suffix = Column(String)
     dob = Column(Date)
     address = Column(String)
