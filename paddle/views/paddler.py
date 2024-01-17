@@ -56,6 +56,7 @@ def paddler(paddler_id):
         first = request.form["first"]
         middle = request.form["middle"]
         last = request.form["last"]
+        gender = request.form["gender"]
         division = request.form["division"]
         dob = request.form["dob"]
         age_group_id = request.form["age_group_id"]
@@ -103,6 +104,7 @@ def paddler(paddler_id):
                 paddler.first = first
                 paddler.middle = middle
                 paddler.last = last
+                paddler.gender = gender
                 paddler.division = division
                 paddler.dob = dob
                 paddler.age_group_id = age_group_id

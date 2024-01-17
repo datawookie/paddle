@@ -39,6 +39,14 @@
                     value="{{ find_value(request.form['last'], paddler.last) }}">
             </div>
             <div class="mb-3">
+                <label for="last">Gender</label>
+                <select class="form-select form-select" name="gender">
+                    <option value=""></option>
+                    <option value="M" {% if paddler.gender=="M" %}selected{% endif %}>Male</option>
+                    <option value="F" {% if paddler.gender=="F" %}selected{% endif %}>Female</option>
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="dob">Date of Birth</label>
                 <input id="dob" name="dob" class="form-control" type="date"
                     value="{{ find_value(request.form['dob'], paddler.dob) }}">
