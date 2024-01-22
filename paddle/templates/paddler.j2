@@ -50,10 +50,13 @@
                 <label for="dob">Date of Birth</label>
                 <input id="dob" name="dob" class="form-control" type="date"
                     value="{{ find_value(request.form['dob'], paddler.dob) }}">
+                {% if paddler.dob %}
+                <p class="text-muted">Based on birth date of {{ paddler.dob }}, age is <strong>{{ paddler.age }}</strong> at start of year.</p>
+                {% endif %}
             </div>
             <div class="mb-3">
                 <label>Age Group</label>
-                <select class="form-select form-select" name="age_group_id">
+                <select class="form-select form-select{% if not paddler.age_group or paddler.age_group|string != paddler.age_group_calculated %} is-invalid{% endif %}" name="age_group_id">
                     <option value=""></option>
                     {% for age_group in age_groups %}
                     <option value="{{ age_group.id }}" {% if paddler.age_group_id==age_group.id %}selected{% endif %}>
@@ -61,6 +64,9 @@
                     </option>
                     {% endfor %}
                 </select>
+                {% if paddler.dob %}
+                <p class="text-muted">Based on birth date of {{ paddler.dob }}, age group is <strong>{{ paddler.age_group_calculated }}</strong>.</p>
+                {% endif %}
             </div>
             <div>
                 <label for="division">Division</label>

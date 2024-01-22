@@ -89,3 +89,31 @@ class Paddler(Base):
             return self.membership_expiry < date.today()
         else:
             return True
+
+    @property
+    def age(self):
+        # This is the age at the beginning of the year.
+        newyear = date(date.today().year, 1, 1)
+
+        age = newyear.year - self.dob.year
+
+        # Adjust if birthday has not occurred yet this year.
+        #
+        if (self.dob.month, self.dob.day) > (newyear.month, newyear.day):
+            age -= 1
+
+        return age
+
+    @property
+    def age_group_calculated(self):
+        age = self.age
+        if not age:
+            return None
+        elif age < 19:
+            return "Junior"
+        elif age >= 50:
+            return "Master"
+        elif age >= 35:
+            return "Veteran"
+        else:
+            return "Senior"
