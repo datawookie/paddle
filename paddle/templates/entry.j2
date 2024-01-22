@@ -66,6 +66,16 @@
         <h3><a href="{{ url_for('kanoe.paddler', paddler_id=crew.paddler.id) }}">{{ crew.paddler.name }}</a></h3>
         <table class="table table-sm table-borderless">
           <tr>
+            <th>Age</th>
+            <td style="text-align: right;">{{ crew.paddler.age }}</td>
+          </tr>
+          <tr>
+            <th>Age Group</th>
+            <td style="text-align: right;" class="{% if not crew.paddler.age_group or crew.paddler.age_group|string != crew.paddler.age_group_calculated %}bg-danger{% endif %}">
+            {% if crew.paddler.age_group %}{{ crew.paddler.age_group }}{% endif %}
+            </td>
+          </tr>
+          <tr>
             <th>Club</th>
             <td style="text-align: right;">
               <a href="{{ url_for('kanoe.club', club_id=crew.club.id) }}">{% if crew.club %}{{ crew.club }}{% endif
