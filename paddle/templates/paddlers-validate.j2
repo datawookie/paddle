@@ -12,14 +12,14 @@
 
 <h2>Duplicate Names</h2>
 
-{% for name, paddlers in duplicates.items() %}
-{{ name }}
-<ul>
-  {% for paddler in paddlers %}
-  <li><a href="{{ url_for('kanoe.paddler', paddler_id=paddler.id) }}">{{ paddler }}</a></li>
-  {% endfor %}
-</ul>
+<table class="table table-striped">
+{% for first, second in duplicates %}
+  <tr>
+    <td><a href="{{ url_for('kanoe.paddler', paddler_id=first.id) }}" target="_blank">{{ first }}</a></td>
+    <td><a href="{{ url_for('kanoe.paddler', paddler_id=second.id) }}" target="_blank">{{ second }}</a></td>
+  </tr>
 {% endfor %}
+</table>
 {% endblock %}
 
 {% block sidebar %}

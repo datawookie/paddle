@@ -1,3 +1,6 @@
+import pandas as pd
+import recordlinkage
+
 from .common import *
 from .util import empty_to_none
 
@@ -12,30 +15,37 @@ def paddlers():
 @blueprint.route("/paddlers/validate")
 @login_required
 def paddlers_validate():
-    # Gather counts of paddlers grouped by first and last name.
-    counts = (
-        session.query(
-            func.count(), db.Paddler.first, db.Paddler.middle, db.Paddler.last
-        )
-        .group_by(db.Paddler.first, db.Paddler.middle, db.Paddler.last)
-        .order_by(db.Paddler.last)
-        .all()
+    paddlers = session.query(db.Paddler).all()
+
+    df = pd.DataFrame(
+        [(paddler.first, paddler.middle, paddler.last) for paddler in paddlers],
+        columns=["first", "middle", "last"],
     )
-    # Filter out entries which have a count > 1.
-    counts = [count for count in counts if count[0] > 1]
-    # Retrieve duplicated paddlers.
-    duplicates = {}
-    for count, first, middle, last in counts:
-        name = db.combine_names(first, middle, last)
-        duplicates[name] = (
-            session.query(db.Paddler)
-            .filter(
-                db.Paddler.first == first,
-                db.Paddler.middle == middle,
-                db.Paddler.last == last,
-            )
-            .all()
-        )
+
+    df["first"] = df["first"].str.lower()
+    df["middle"] = df["middle"].str.lower()
+    df["last"] = df["last"].str.lower()
+
+    indexer = recordlinkage.Index()
+    indexer.full()
+    candidate_links = indexer.index(df)
+
+    compare = recordlinkage.Compare()
+
+    compare.exact("last", "last", label="last")
+    compare.string(
+        "first", "first", method="jarowinkler", threshold=0.85, label="first"
+    )
+    compare.string(
+        "middle", "middle", method="jarowinkler", threshold=0.85, label="middle"
+    )
+
+    features = compare.compute(candidate_links, df)
+
+    potential_duplicates = features[features.sum(axis=1) > 1]
+
+    duplicates = [(paddlers[i], paddlers[j]) for i, j in potential_duplicates.index]
+
     return render_template("paddlers-validate.j2", duplicates=duplicates)
 
 
