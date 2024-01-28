@@ -236,28 +236,32 @@ def load_entries(race, individuals):
                 club_id = None
             else:
                 logging.debug(f"Searching for club '{individual.club}'.")
-                club_id = []
-                for regex, id in clubs.items():
-                    if re.match(regex, individual.club):
-                        club_id.append(id)
-                        logging.debug("Matching club found.")
-
-                # There should only be one matched club.
-                #
-                # If there are no matches or multiple matches then roll back all entries.
-                #
-                if len(club_id) == 1:
-                    club_id = club_id[0]
-                    # TODO: This is inefficient. Would be better to load services
-                    #       information into club dictionary above.
-                    club = session.get(db.Club, club_id)
+                if individual.club in ["INT"]:
+                    logging.warning("Club is international.")
+                    club_id = None
                 else:
-                    session.rollback()
+                    club_id = []
+                    for regex, id in clubs.items():
+                        if re.match(regex, individual.club):
+                            club_id.append(id)
+                            logging.debug("Matching club found.")
 
-                    if len(club_id) == 0:
-                        abort(404, f"No matched club ('{individual.club}')!")
+                    # There should only be one matched club.
+                    #
+                    # If there are no matches or multiple matches then roll back all entries.
+                    #
+                    if len(club_id) == 1:
+                        club_id = club_id[0]
+                        # TODO: This is inefficient. Would be better to load services
+                        #       information into club dictionary above.
+                        club = session.get(db.Club, club_id)
                     else:
-                        abort(404, f"Multiple matched clubs ('{individual.club}')!")
+                        session.rollback()
+
+                        if len(club_id) == 0:
+                            abort(404, f"No matched club ('{individual.club}')!")
+                        else:
+                            abort(404, f"Multiple matched clubs ('{individual.club}')!")
 
             paddler.crews.append(
                 db.Crew(
