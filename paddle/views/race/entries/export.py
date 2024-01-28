@@ -1,4 +1,5 @@
 import csv
+import logging
 import tempfile
 
 from flask_weasyprint import render_pdf
@@ -102,10 +103,13 @@ def race_numbers_export_pdf(race_id):
 @blueprint.route("/race/<race_id>/entries/export/txt")
 @login_required
 def race_entries_export_txt(race_id):
+    logging.debug("Exporting entries to TXT.")
     race = session.get(db.Race, race_id)
     path = os.path.join(tempfile.mkdtemp(), race.slug + "-entries.txt")
 
     entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
+
+    logging.debug(f"Found {len(entries)} entries.")
 
     categories = db.entries_get_categories(entries)
     # Sort by last name of first paddler in crew.
@@ -117,30 +121,29 @@ def race_entries_export_txt(race_id):
 
         for entries in categories.values():
             for entry in entries:
-                if entry.race_number:
-                    clubs = [
-                        entry.crews[0].club.code if entry.crews[0].club else None,
-                        entry.crews[1].club.code
-                        if len(entry.crews) == 2 and entry.crews[1].club
-                        else None,
-                    ]
-                    clubs = [club for club in clubs if club]
-                    clubs = "/".join(clubs)
-                    row = [
-                        entry.crews[0].paddler.last,
-                        entry.crews[0].paddler.first,
-                        entry.crews[1].paddler.last if len(entry.crews) == 2 else None,
-                        entry.crews[1].paddler.first if len(entry.crews) == 2 else None,
-                        entry.category.id,
-                        clubs,
-                        int(entry.race_number),
-                        None,
-                        None,
-                        None,
-                        None,
-                        None,
-                    ]
-                    writer.writerow(row)
+                clubs = [
+                    entry.crews[0].club.code if entry.crews[0].club else None,
+                    entry.crews[1].club.code
+                    if len(entry.crews) == 2 and entry.crews[1].club
+                    else None,
+                ]
+                clubs = [club for club in clubs if club]
+                clubs = "/".join(clubs)
+                row = [
+                    entry.crews[0].paddler.last,
+                    entry.crews[0].paddler.first,
+                    entry.crews[1].paddler.last if len(entry.crews) == 2 else None,
+                    entry.crews[1].paddler.first if len(entry.crews) == 2 else None,
+                    entry.category.id,
+                    clubs,
+                    int(entry.race_number) if entry.race_number else None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                ]
+                writer.writerow(row)
 
     return send_file(path, as_attachment=True)
 
