@@ -227,7 +227,7 @@ def load_entries(race, individuals):
                 logging.debug("Update membership number expiry.")
                 paddler.membership_expiry = individual.membership_expiry
 
-            if individual.dob:
+            if individual.dob and not pd.isnull(individual.dob):
                 logging.debug("Update date of birth.")
                 paddler.dob = individual.dob.date()
 
