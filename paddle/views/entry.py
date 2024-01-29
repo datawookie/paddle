@@ -61,6 +61,7 @@ def load_xlsx(path):
             "expiry": "membership_expiry",
             "date_of_birth": "dob",
             "class": "klass",
+            "subclasses": "subklass",
         }
     )
 
@@ -78,6 +79,7 @@ def load_xlsx(path):
             "membership_expiry",
             "club",
             "klass",
+            "subklass",
             "dob",
             "due",
             "paid",
@@ -101,6 +103,7 @@ class Individual:
     last: str
     club: str
     klass: str
+    subklass: str
     dob: str
     category: str
     division: int
@@ -230,6 +233,12 @@ def load_entries(race, individuals):
             if individual.dob and not pd.isnull(individual.dob):
                 logging.debug("Update date of birth.")
                 paddler.dob = individual.dob.date()
+
+            if individual.subklass in ["M", "J"]:
+                paddler.age_group_id = AGE_GROUP_LOOKUP.get(individual.subklass)
+
+            if individual.subklass == "L":
+                paddler.gender = "F"
 
             if isinstance(individual.club, float) and np.isnan(individual.club):
                 logging.warning("Club is missing.")

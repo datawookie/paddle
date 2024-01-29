@@ -16,3 +16,7 @@ from .util import *
 session = db.Session()
 
 blueprint = Blueprint("kanoe", __name__, url_prefix="/")
+
+AGE_GROUP_LOOKUP = {
+    group.label[0]: group.id for group in session.query(db.AgeGroup).all()
+}
