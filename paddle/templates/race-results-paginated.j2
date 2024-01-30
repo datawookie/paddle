@@ -34,6 +34,7 @@
             <th class="paddler">Crew</th>
             <th class="club">Club</th>
             <th class="age">Age</th>
+            <th class="gender">Gender</th>
             <th class="time">Start</th>
             <th class="time">Finish</th>
             <th class="adjustment">Adj</th>
@@ -56,6 +57,12 @@
                 {% for crew in result.crews %}
                 <span class="abbreviation">{% if crew.paddler.age_group %}{{ crew.paddler.age_group.abbreviation }}{%
                     else %}—{% endif %}</span>
+                {% if not loop.last %} / {% endif %}
+                {% endfor %}
+            </td>
+            <td class="gender">
+                {% for gender in result.genders %}
+                {% if gender %}{{ gender }}{% else %}—{% endif %}
                 {% if not loop.last %} / {% endif %}
                 {% endfor %}
             </td>

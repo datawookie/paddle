@@ -49,6 +49,11 @@ td.age, th.age {
     text-align: center;
 }
 
+td.gender, th.gender {
+    width: 5%;
+    text-align: center;
+}
+
 td.age .abbreviation {
     display: inline-block;
     width: 1em;
