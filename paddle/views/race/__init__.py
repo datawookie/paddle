@@ -127,28 +127,38 @@ def race_update(race_id):
 @login_required
 def race_allocate_numbers(race_id):
     if request.method == "POST":
-        chunk = 1
+        chunk = 0
 
         for category_id, allocated in request.form.items():
             category_id = int(category_id.replace("category_id_", ""))
-            print(allocated)
             allocated = int(allocated)
 
-            logging.debug(f"Allocating numbers for category ID = {category_id}.")
+            logging.debug(f"* Allocating numbers for category ID = {category_id}.")
             entries = (
                 session.query(db.Entry)
                 .filter(db.Entry.race_id == race_id)
                 .filter(db.Entry.category_id == category_id)
                 .all()
             )
-            logging.debug(f"Found {len(entries)} entries.")
+            logging.debug(f"- Found {len(entries)} entries.")
 
-            running = chunk
-            print(f"RUNNING: {running}")
+            number = chunk
             #
             for entry in entries:
-                logging.debug(f"Allocate race number {running} to {entry}.")
-                number = session.query(db.Number).filter(db.Number.id == running).one()
+                #
+                # Find next number that is
+                #
+                # - greater than previously allocated number and
+                # - not missing!
+                #
+                (number,) = (
+                    session.query(db.Number.id)
+                    .filter(db.Number.id > number)
+                    .filter(db.or_(~db.Number.lost, db.Number.lost == None))
+                    .order_by(db.Number.id)
+                    .first()
+                )
+                logging.debug(f"Allocate race number {number} to {entry}.")
                 # Check for existing allocation.
                 try:
                     allocation = (
@@ -159,15 +169,15 @@ def race_allocate_numbers(race_id):
                     logging.debug(
                         f"- Entry already has an assigned number: {allocation.number_id}."
                     )
-                    allocation.number_id = number.id
+                    allocation.number_id = number
                 except db.NoResultFound:
                     allocation = db.NumberAllocation(
-                        number_id=number.id, entry_id=entry.id
+                        number_id=number, entry_id=entry.id
                     )
-                    session.add(allocation)
-                running += 1
 
-            chunk += allocated - (1 if chunk == 1 else 0)
+                session.add(allocation)
+
+            chunk += allocated - (1 if chunk == 0 else 0)
 
         session.commit()
 

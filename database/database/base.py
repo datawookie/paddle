@@ -19,6 +19,8 @@ from sqlalchemy import (
     Numeric,
     String,
     Text,
+    not_,
+    or_,
 )
 from sqlalchemy.exc import DataError, IntegrityError, NoResultFound, SQLAlchemyError
 from sqlalchemy.ext.hybrid import hybrid_property
