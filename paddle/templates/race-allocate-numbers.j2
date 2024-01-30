@@ -94,7 +94,7 @@ $(document).ready(function () {
 
             // Highlight categories that don't have enough numbers!
             //
-            if (excess < 5) {
+            if (excess < 5 || excess > 15) {
                 parent.next().next().next().next().addClass("bg-danger");
             } else {
                 parent.next().next().next().next().removeClass("bg-danger");
