@@ -129,9 +129,10 @@ def race_allocate_numbers(race_id):
     if request.method == "POST":
         chunk = 1
 
-        for category_id, numbers in request.form.items():
+        for category_id, allocated in request.form.items():
             category_id = int(category_id.replace("category_id_", ""))
-            numbers = int(numbers)
+            print(allocated)
+            allocated = int(allocated)
 
             logging.debug(f"Allocating numbers for category ID = {category_id}.")
             entries = (
@@ -143,15 +144,30 @@ def race_allocate_numbers(race_id):
             logging.debug(f"Found {len(entries)} entries.")
 
             running = chunk
+            print(f"RUNNING: {running}")
             #
             for entry in entries:
-                logging.debug(f"Allocating race number {running} to {entry}.")
+                logging.debug(f"Allocate race number {running} to {entry}.")
                 number = session.query(db.Number).filter(db.Number.id == running).one()
-                allocation = db.NumberAllocation(number_id=number.id, entry_id=entry.id)
-                session.add(allocation)
+                # Check for existing allocation.
+                try:
+                    allocation = (
+                        session.query(db.NumberAllocation)
+                        .filter(db.NumberAllocation.entry_id == entry.id)
+                        .one()
+                    )
+                    logging.debug(
+                        f"- Entry already has an assigned number: {allocation.number_id}."
+                    )
+                    allocation.number_id = number.id
+                except db.NoResultFound:
+                    allocation = db.NumberAllocation(
+                        number_id=number.id, entry_id=entry.id
+                    )
+                    session.add(allocation)
                 running += 1
 
-            chunk += numbers - (1 if chunk == 1 else 0)
+            chunk += allocated - (1 if chunk == 1 else 0)
 
         session.commit()
 
