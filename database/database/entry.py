@@ -1,15 +1,15 @@
+import datetime
 import enum
 import hashlib
 import logging
+from collections import OrderedDict
 from functools import cached_property
 
-import datetime
-from collections import OrderedDict
 from .base import *
-from .race import Race
-from .team import Team
 from .category import Category
+from .race import Race
 from .series import Series
+from .team import Team
 
 
 class BoatType(enum.Enum):
@@ -140,6 +140,45 @@ class Entry(Base):
         clubs = [crew.club for crew in self.crews]
         clubs = [club.code for club in clubs]
         return "/".join(clubs)
+
+    @property
+    def age_groups(self):
+        return [
+            crew.paddler.age_group.label if crew.paddler.age_group else None
+            for crew in self.crews
+        ]
+
+    @property
+    def genders(self):
+        return [crew.paddler.gender for crew in self.crews]
+
+    @property
+    def is_junior(self):
+        return all(age_group == "Junior" for age_group in self.age_groups)
+
+    @property
+    def is_senior(self):
+        return all(age_group == "Senior" for age_group in self.age_groups)
+
+    @property
+    def is_veteran(self):
+        return all(age_group == "Veteran" for age_group in self.age_groups)
+
+    @property
+    def is_master(self):
+        return all(age_group == "Master" for age_group in self.age_groups)
+
+    @property
+    def is_male(self):
+        return all(gender == "M" for gender in self.genders)
+
+    @property
+    def is_female(self):
+        return all(gender == "F" for gender in self.genders)
+
+    @property
+    def is_mixed(self):
+        return len(self.genders) == 2 and "M" in self.genders and "F" in self.genders
 
 
 class EntrySet:
