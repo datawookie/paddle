@@ -4,7 +4,6 @@ from ...config import __version__
 from ..common import *
 from ..entry import load_entries, load_xlsx
 from ..util import *
-
 from .entries import *
 from .results import *
 
@@ -183,6 +182,12 @@ def race_allocate_numbers(race_id):
     #
     categories = [category for category in categories if category.count > 0]
 
+    missing = session.query(db.Number.id).filter(db.Number.lost).all()
+    missing = [id for (id,) in missing]
+
     return render_template(
-        "race-allocate-numbers.j2", race_id=race_id, categories=categories
+        "race-allocate-numbers.j2",
+        race_id=race_id,
+        categories=categories,
+        missing=missing,
     )

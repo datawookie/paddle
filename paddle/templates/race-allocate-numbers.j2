@@ -18,9 +18,10 @@
                         <th class="text-center">Category</th>
                         <th class="text-center">Entries</th>
                         <th class="text-center">Numbers</th>
-                        <th class="text-center">Excess</th>
                         <th class="text-center">Min</th>
                         <th class="text-center">Max</th>
+                        <th class="text-center">Missing</th>
+                        <th class="text-center">Excess</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,8 +35,9 @@
                                 name="category_id_{{ category.id }}">
                         </td>
                         <td class="align-middle text-end excess"></td>
-                        <td class="align-middle text-end">XXX</td>
-                        <td class="align-middle text-end">YYY</td>
+                        <td class="align-middle text-end"></td>
+                        <td class="align-middle text-end"></td>
+                        <td class="align-middle text-end"></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -56,22 +58,57 @@
 <script type="text/javascript" class="init">
 $(document).ready(function () {
     var calculateValues = function () {
+        const missing = {{ missing }};
+        console.log(missing);
+
         let counter = 0;
+        let lost = 0;
 
         $(".number").each(function () {
-            var parent = $(this).parent();
-            var count = parent.prev().text();
-            var index = parent.prev().attr("data-index");
-            var allocated = Number($(this).val());
+            const parent = $(this).parent();
+            // Index for this category (sequential, starting at 1).
+            const index = parent.prev().attr("data-index");
+            // Number of entries in this category.
+            const count = parent.prev().text();
+            // How many numbers are allocated to this category?
+            const allocated = Number($(this).val());
+
+            console.log(allocated);
+
+            const min = (counter == 0 ? 1 : counter);
+            const max = counter + allocated - 1;
+
+            const gone = missing.filter(number => number <= max).length;
+
+            // How many numbers are left over?
             var excess = allocated - count;
+            // Special handling for first category.
             excess -= (index == 1 ? 1 : 0);
+            // Deduct the missing numbers.
+            excess -= (gone-lost);
 
-            var min = (counter == 0 ? 1 : counter);
-            var max = counter + allocated - 1;
+            parent.next().text(min);
+            parent.next().next().text(max);
+            parent.next().next().next().text(gone - lost);
+            parent.next().next().next().next().text(excess);
 
-            parent.next().text(excess);
-            parent.next().next().text(min);
-            parent.next().next().next().text(max);
+            // Highlight categories that don't have enough numbers!
+            //
+            if (excess < 5) {
+                parent.next().next().next().next().addClass("bg-danger");
+            } else {
+                parent.next().next().next().next().removeClass("bg-danger");
+            }
+
+            // Highlight categories that don't start on a "nice" number!
+            //
+            if (min % 5 !== 0 && min !== 1) {
+                parent.next().addClass("bg-danger");
+            } else {
+                parent.next().removeClass("bg-danger");
+            }
+
+            lost = gone;
 
             counter = max + 1;
         });

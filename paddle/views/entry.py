@@ -358,6 +358,7 @@ def entry(entry_id):
             .subquery()
         )
         # Do LEFT JOIN  between numbers and taken numbers.
+        # 🚨 TODO: Is this actually necessary? Doesn't seem to be doing anything...
         numbers = (
             session.query(db.Number.id)
             .join(taken, db.Number.id == taken.c.number_id, isouter=True)
