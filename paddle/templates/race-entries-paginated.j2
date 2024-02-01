@@ -26,7 +26,7 @@
     <table class="border">
         <thead>
             <tr>
-                <th style="text-align: center;" colspan="8">Crew</th>
+                <th style="text-align: center;" colspan="10">Crew</th>
                 <th style="width: 7%; text-align: center;">Club</th>
                 <th style="width: 16%; text-align: center;">Team</th>
                 <th style="width: 3%; text-align: center;"><i class="fas fa-shield-alt"></i></th>
@@ -37,11 +37,14 @@
         <tbody>
             {% for entry in entries %}
             <tr>
-                <td style="width: 12%;">
+                <td style="width: 10%;">
                     {{ entry.crews[0].paddler.last }}
                 </td>
-                <td style="width: 12%;">
+                <td style="width: 10%;">
                     {{ entry.crews[0].paddler.first }}
+                </td>
+                <td style="width: 2%; text-align: center;">
+                    {% if entry.crews[1] and entry.crews[0].paddler.division %}{{ entry.crews[0].paddler.division }}{% endif %}
                 </td>
                 <td style="width: 6%;" class="{% if entry.crews[0].paddler.membership_expired %}expired{% endif %}">
                     {% if entry.crews[0].paddler.membership %}{{ entry.crews[0].paddler.membership }}{% endif %}
@@ -49,13 +52,16 @@
                 <td style="width: 3%;">
                     {% if entry.crews[0].paid %}£{{ entry.crews[0].paid|int }}{% endif %}
                 </td>
-                <td style="width: 12%;">
+                <td style="width: 10%;">
                     {% if entry.crews[1] %}
                     {{ entry.crews[1].paddler.last }}
                     {% endif %}
                 </td>
-                <td style="width: 12%;">
+                <td style="width: 10%;">
                     {% if entry.crews[1] %}{{ entry.crews[1].paddler.first }}{% endif %}
+                </td>
+                <td style="width: 2%; text-align: center;">
+                    {% if entry.crews[1] and entry.crews[1].paddler.division %}{{ entry.crews[1].paddler.division }}{% endif %}
                 </td>
                 <td style="width: 6%;" class="{% if entry.crews[1] and entry.crews[1].paddler.membership_expired %}expired{% endif %}">
                     {% if entry.crews[1] and entry.crews[1].paddler.membership %}
