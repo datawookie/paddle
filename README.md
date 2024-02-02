@@ -108,3 +108,19 @@ pytest --cov-report html:public --cov
 ```
 
 The report will be written to `public/`.
+
+## Number Ranes
+
+- Category 1: 1 - (K2 senior)
+- Category 2: 45 - (K2 junior)
+- Category 3: 100 - (K2 ladies)
+- Category 4: 135 - (K2 junior ladies)
+- Category 5: 170 - (K2 veteran)
+- Category 6: 230 - (K2 mixed)
+- Category 7: 280 - (K2 junior/veteran)
+- Category 8: 300 - (K1 senior)
+- Category 9: 330 - (K1 junior)
+- Category 10: 350 - (K1 ladies)
+- Category 11: 390 - (K1 veteran)
+- Category 12: 450 - (C2)
+- Category 13: 485 - (C1)
