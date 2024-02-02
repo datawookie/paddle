@@ -1,6 +1,6 @@
+import functools
 import logging
 import operator
-import functools
 
 from .common import *
 from .series import series_team
@@ -10,7 +10,9 @@ from .util import hhmmss
 @blueprint.route("/teams")
 @login_required
 def teams():
-    teams = session.query(db.Team).all()
+    teams = (
+        session.query(db.Team).order_by(db.Team.series_id.desc(), db.Team.name).all()
+    )
     return render_template("teams.j2", teams=teams)
 
 
