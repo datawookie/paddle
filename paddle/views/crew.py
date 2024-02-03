@@ -14,19 +14,22 @@ def crew(crew_id):
         paid = request.form["paid"] or None
 
         if club_id is not None:
-            club_id = int(club_id)
-            club = session.get(db.Club, club_id)
-            if crew.club_id == club_id:
-                logging.info("Not changing club.")
+            if club_id == "":
+                club_id = None
             else:
-                if crew.club_id is None:
-                    logging.info("Setting club.")
+                club_id = int(club_id)
+                club = session.get(db.Club, club_id)
+                if crew.club_id == club_id:
+                    logging.info("Not changing club.")
                 else:
-                    logging.info("Changing club.")
+                    if crew.club_id is None:
+                        logging.info("Setting club.")
+                    else:
+                        logging.info("Changing club.")
 
-                if not crew.services and club.services:
-                    logging.info("Setting services because club is services.")
-                    services = True
+                    if not crew.services and club.services:
+                        logging.info("Setting services because club is services.")
+                        services = True
 
         crew.club_id = club_id
 
