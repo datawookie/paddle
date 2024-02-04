@@ -30,6 +30,8 @@ The app will be available on http://127.0.0.1:5000.
 When running on EC2 use:
 
 ```
+flask --app paddle run --host 0.0.0.0
+# With debug (but this is not a great idea!)
 flask --app paddle --debug run --host 0.0.0.0
 ```
 
