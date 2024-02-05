@@ -33,7 +33,19 @@ td {
 }
 
 td.position, th.position {
-    width: 5%;
+    width: 2%;
+}
+
+td.number, th.number {
+    width: 2%;
+}
+
+th.number {
+    text-align: center;
+}
+
+td.number {
+    text-align: right;
 }
 
 td.paddler, th.paddler {
