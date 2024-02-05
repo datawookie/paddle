@@ -126,11 +126,11 @@ class Entry(Base):
         return len(services) > 0 and all(services)
 
     @property
-    def started(self):
+    def is_started(self):
         return self.time_start is not None
 
     @property
-    def finished(self):
+    def is_finished(self):
         return self.time_start is not None and (
             self.time_finish is not None or self.retired or self.disqualified
         )
