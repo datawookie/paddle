@@ -31,11 +31,11 @@
     <table>
         <tr class="titles">
             <th class="position">Pos</th>
+            <th class="number">#</th>
             <th class="paddler">Crew</th>
             <th class="club">Club</th>
             <th class="age">Age</th>
             <th class="gender">Gender</th>
-            <th class="number">#</th>
             <th class="time">Start</th>
             <th class="time">Finish</th>
             <th class="adjustment">Adj</th>
@@ -44,6 +44,7 @@
         {% endif %}
         <tr>
             <td class="position">{{ loop.index }}</td>
+            <td class="number">{{ result.race_number }}</td>
             <td class="paddler">
                 {% for crew in result.crews %}
                 {{ crew.paddler.name }}{% if not loop.last %} / {% endif %}
@@ -67,7 +68,6 @@
                 {% if not loop.last %} / {% endif %}
                 {% endfor %}
             </td>
-            <td class="number">{{ result.race_number }}</td>
             <td class="time">{{ result.time_start }}</td>
             <td class="time">{{ result.time_finish }}</td>
             <td class="adjustment">{% if result.time_adjustment %}{{ result.time_adjustment }}{% endif %}</td>
