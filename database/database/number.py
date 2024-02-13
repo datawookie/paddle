@@ -1,6 +1,7 @@
 from .base import *
-from .race import Race
+from .category import Category
 from .entry import Entry
+from .race import Race
 
 MAX_NUMBER = 599
 
@@ -21,9 +22,19 @@ class Number(Base):
         return int(self.id)
 
 
-class NumberAllocation(Base):
+class NumberEntry(Base):
     __tablename__ = "number_entry"
 
     id = Column(Integer, primary_key=True)
     number_id = Column(Integer, ForeignKey(Number.id), nullable=False)
     entry_id = Column(Integer, ForeignKey(Entry.id), nullable=True)
+
+
+class NumberRace(Base):
+    __tablename__ = "race_number"
+
+    id = Column(Integer, primary_key=True)
+    race_id = Column(Integer, ForeignKey(Race.id), nullable=True)
+    category_id = Column(Integer, ForeignKey(Category.id), nullable=True)
+    min_number_id = Column(Integer, ForeignKey(Number.id), nullable=False)
+    max_number_id = Column(Integer, ForeignKey(Number.id), nullable=False)
