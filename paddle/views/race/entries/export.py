@@ -16,14 +16,21 @@ def race_entries_paginated(race_id):
     entries = session.query(db.Entry).filter(db.Entry.race_id == race_id).all()
 
     categories = db.entries_get_categories(entries)
+    clubs = db.entries_get_clubs(entries)
+
     # Sort by last name of first paddler in crew.
     for entries in categories.values():
         entries.sort(key=lambda x: x.crews[0].paddler.last, reverse=False)
+    for entries in clubs.values():
+        entries.sort(
+            key=lambda x: str(x.team) + "|" + x.crews[0].paddler.last, reverse=False
+        )
 
     return render_template(
         "race-entries-paginated.j2",
         race=race,
         categories=categories,
+        clubs=clubs,
         timestamp=datetime.datetime.now(),
     )
 

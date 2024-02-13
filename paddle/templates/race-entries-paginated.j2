@@ -1,5 +1,13 @@
 {% extends "base-minimal.j2" %}
 
+{#
+===================================================================================================
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+===================================================================================================
+
+🚨 At present there is duplication between the category and club views. Make it DRY.
+#}
+
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="/css/paginated-a4-landscape.css">
 <link rel="stylesheet" type="text/css" href="/css/paginated-a4-landscape-compact.css">
@@ -38,10 +46,10 @@
         </tr>
         {% endif %}
         <tr>
-            <td style="width: 11%;">
+            <td style="width: 13%;">
                 {{ entry.crews[0].paddler.last }}
             </td>
-            <td style="width: 11%;">
+            <td style="width: 9%;">
                 {{ entry.crews[0].paddler.first }}
             </td>
             <td style="width: 2%; text-align: center;">
@@ -53,12 +61,78 @@
             <td style="width: 3%;">
                 {% if entry.crews[0].paid %}£{{ entry.crews[0].paid|int }}{% endif %}
             </td>
-            <td style="width: 11%;">
+            <td style="width: 13%;">
                 {% if entry.crews[1] %}
                 {{ entry.crews[1].paddler.last }}
                 {% endif %}
             </td>
-            <td style="width: 11%;">
+            <td style="width: 9%;">
+                {% if entry.crews[1] %}{{ entry.crews[1].paddler.first }}{% endif %}
+            </td>
+            <td style="width: 2%; text-align: center;">
+                {% if entry.crews[1] and entry.crews[1].paddler.division %}{{ entry.crews[1].paddler.division }}{% endif %}
+            </td>
+            <td style="width: 6%;" class="{% if entry.crews[1] and entry.crews[1].paddler.membership_expired %}expired{% endif %}">
+                {% if entry.crews[1] and entry.crews[1].paddler.membership %}
+                {{ entry.crews[1].paddler.membership }}
+                {% endif %}
+            </td>
+            <td style="width: 3%;">
+                {% if entry.crews[1] and entry.crews[1].paid %}
+                £{{ entry.crews[0].paid|int }}
+                {% endif %}
+            </td>
+            <td style="text-align: center;">{{ entry.clubs }}</td>
+            <td>{% if entry.team %}{{ entry.team }}{% endif %}</td>
+            <td style="text-align: center;">{% if entry.services %}<i class="fas fa-check"></i>{% endif %}</td>
+            <td style="text-align: center;">{% if entry.race_number %}{{ entry.race_number }}{% endif %}</td>
+            <td></td>
+        </tr>
+        {% if loop.last or ((loop.index + 1) % ROWS_PER_PAGE) == 1 %}
+    </table>
+</div>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
+{% for club, entries in clubs.items() %}
+    {% for entry in entries %}
+        {% if (loop.index % ROWS_PER_PAGE) == 1 %}
+<div class="break">
+    <h1 style="text-align: center;">{{ race.name }} ({{ race.date }}) — {{ club }}</h1>
+
+    <table class="border">
+        <tr>
+            <th style="text-align: center;" colspan="10">Crew</th>
+            <th style="width: 7%; text-align: center;">Club</th>
+            <th style="width: 16%; text-align: center;">Team</th>
+            <th style="width: 3%; text-align: center;"><i class="fas fa-shield-alt"></i></th>
+            <th style="width: 4%; text-align: center;">#</th>
+            <th style="text-align: center;"><i class="fas fa-check"></i></th>
+        </tr>
+        {% endif %}
+        <tr>
+            <td style="width: 13%;">
+                {{ entry.crews[0].paddler.last }}
+            </td>
+            <td style="width: 9%;">
+                {{ entry.crews[0].paddler.first }}
+            </td>
+            <td style="width: 2%; text-align: center;">
+                {% if entry.crews[1] and entry.crews[0].paddler.division %}{{ entry.crews[0].paddler.division }}{% endif %}
+            </td>
+            <td style="width: 6%;" class="{% if entry.crews[0].paddler.membership_expired %}expired{% endif %}">
+                {% if entry.crews[0].paddler.membership %}{{ entry.crews[0].paddler.membership }}{% endif %}
+            </td>
+            <td style="width: 3%;">
+                {% if entry.crews[0].paid %}£{{ entry.crews[0].paid|int }}{% endif %}
+            </td>
+            <td style="width: 13%;">
+                {% if entry.crews[1] %}
+                {{ entry.crews[1].paddler.last }}
+                {% endif %}
+            </td>
+            <td style="width: 9%;">
                 {% if entry.crews[1] %}{{ entry.crews[1].paddler.first }}{% endif %}
             </td>
             <td style="width: 2%; text-align: center;">

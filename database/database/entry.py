@@ -230,3 +230,34 @@ def entries_get_categories(entries):
         categories[entry.category.label].append(entry)
 
     return categories
+
+
+def entries_get_clubs(entries):
+    # Get all categories from entries.
+    #
+    clubs = set()
+    #
+    for entry in entries:
+        for crew in entry.crews:
+            clubs.add((crew.club.id, crew.club.name))
+
+    # Sort clubs by name.
+    #
+    clubs = OrderedDict(sorted(clubs, key=lambda t: t[1]))
+
+    # Use names as keys.
+    #
+    clubs = {name: set() for id, name in clubs.items()}
+
+    # Group results into categories.
+    #
+    for entry in entries:
+        for crew in entry.crews:
+            clubs[crew.club.name].add(entry)
+
+    # Convert from set to list.
+    #
+    for key in clubs:
+        clubs[key] = list(clubs[key])
+
+    return clubs
