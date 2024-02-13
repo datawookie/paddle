@@ -6,4 +6,9 @@
     <include file="changesets/a82fa9a9e38b/setup.sql"/>
     <include file="changesets/c110e697b81a/setup.sql"/>
     <include file="changesets/4f370a25634c/setup.sql"/>
+    <include file="changesets/f58b19f13496/setup.sql"/>
+    <include file="changesets/915a89d96e8b/setup.sql"/>
+    <include file="changesets/e3e94e9034a1/setup.sql"/>
+    <include file="changesets/56711208cd56/setup.sql"/>
+    <include file="changesets/c8cd8ff9c99e/setup.sql"/>
 </databaseChangeLog>
