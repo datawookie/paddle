@@ -10,6 +10,9 @@
     <div class="title">
         {{ race.name }} ({{ race.date }})
     </div>
+    <div class="type">
+        {{ type }} Results
+    </div>
     <div class="timestamp">
         {{ timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
     </div>
@@ -24,7 +27,7 @@
     {% for result in results %}
         {% if (loop.index % ROWS_PER_PAGE) == 1 %}
 <div class="break">
-    <h1 style="text-align: center;">{{ race.name }} ({{ race.date }})</h1>
+    <h1 style="text-align: center;">{{ race.name }}</h1>
 
     <h2>{{ category }}</h2>
 

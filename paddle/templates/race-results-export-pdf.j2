@@ -1,0 +1,30 @@
+{% extends "base-fluid.j2" %}
+
+{% block title %}{{ race.name }} ({{ race.date }}){% endblock %}
+
+{% block content %}
+
+<h1>Print PDF Results</h1>
+
+<div class="row">
+  <div class="col-md-3">
+    <form method="post">
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="type" id="provisional" value="provisional">
+        <label class="form-check-label" for="provisional">
+            Provisional
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="type" id="final" value="final" checked>
+        <label class="form-check-label" for="final">
+            Final
+        </label>
+    </div>
+
+      <button type="submit" class="btn btn-primary my-4">Submit</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

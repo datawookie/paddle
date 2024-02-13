@@ -91,3 +91,12 @@ th.adjustment {
 td.adjustment {
     text-align: right;
 }
+
+footer .type {
+    float: left;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 24em;
+    font-weight: bold;
+}

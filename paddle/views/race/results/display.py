@@ -92,6 +92,8 @@ def race_results_validate(race_id):
 def race_results_paginated(race_id):
     race = session.get(db.Race, race_id)
 
+    type = request.args.get("type")
+
     results = db.filter_race_results(session.query(db.Entry), race_id)
 
     categories = db.entries_get_categories(results)
@@ -105,4 +107,5 @@ def race_results_paginated(race_id):
         race=race,
         categories=categories,
         timestamp=datetime.datetime.now(),
+        type=type,
     )

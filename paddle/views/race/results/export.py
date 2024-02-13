@@ -36,13 +36,22 @@ def race_results_export_csv(race_id):
     return send_file(path, as_attachment=True)
 
 
-@blueprint.route("/race/<race_id>/results/export/pdf")
+@blueprint.route("/race/<race_id>/results/export/pdf", methods=("GET", "POST"))
 @login_required
 def race_results_export_pdf(race_id):
     race = session.get(db.Race, race_id)
-    return render_pdf(
-        url_for("kanoe.race_results_paginated", race_id=race_id),
-        download_filename=race.slug + "-results.pdf",
+
+    if request.method == "POST":
+        type = request.form["type"].capitalize()
+
+        return render_pdf(
+            url_for("kanoe.race_results_paginated", race_id=race.id, type=type),
+            download_filename=race.slug + "-results.pdf",
+        )
+
+    return render_template(
+        "race-results-export-pdf.j2",
+        race=race,
     )
 
 
