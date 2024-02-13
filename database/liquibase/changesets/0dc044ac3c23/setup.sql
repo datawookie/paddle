@@ -10,7 +10,8 @@ CREATE TABLE race_number (
     FOREIGN KEY(category_id) REFERENCES category (id),
     FOREIGN KEY(min_number_id) REFERENCES number (id),
     FOREIGN KEY(max_number_id) REFERENCES number (id),
-    FOREIGN KEY(race_id) REFERENCES race (id)
+    FOREIGN KEY(race_id) REFERENCES race (id),
+    CONSTRAINT uq_race_category UNIQUE (race_id, category_id)
 );
 
 ALTER TABLE paddler ADD COLUMN gender VARCHAR(1);

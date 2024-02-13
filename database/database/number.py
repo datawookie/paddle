@@ -32,6 +32,9 @@ class NumberEntry(Base):
 
 class RaceNumber(Base):
     __tablename__ = "race_number"
+    __table_args__ = (
+        UniqueConstraint("race_id", "category_id", name="uq_race_category"),
+    )
 
     id = Column(Integer, primary_key=True)
     race_id = Column(Integer, ForeignKey(Race.id), nullable=True)

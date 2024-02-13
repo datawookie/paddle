@@ -41,6 +41,7 @@ def upgrade() -> None:
             ["race.id"],
         ),
         sa.PrimaryKeyConstraint("id"),
+        sa.UniqueConstraint("race_id", "category_id", name="uq_race_category"),
     )
     op.add_column("paddler", sa.Column("gender", sa.String(length=1), nullable=True))
     op.create_foreign_key(
