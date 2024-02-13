@@ -55,10 +55,10 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
             <td style="width: 2%; text-align: center;">
                 {% if entry.crews[1] and entry.crews[0].paddler.division %}{{ entry.crews[0].paddler.division }}{% endif %}
             </td>
-            <td style="width: 6%;" class="{% if entry.crews[0].paddler.membership_expired %}expired{% endif %}">
+            <td style="width: 6%;" class="{% if entry.crews[0].paddler.membership_expired %}highlight{% endif %}">
                 {% if entry.crews[0].paddler.membership %}{{ entry.crews[0].paddler.membership }}{% endif %}
             </td>
-            <td style="width: 3%;">
+            <td style="width: 3%;" class="{% if not entry.crews[0].paid %}highlight{% endif %}">
                 {% if entry.crews[0].paid %}£{{ entry.crews[0].paid|int }}{% endif %}
             </td>
             <td style="width: 13%;">
@@ -72,12 +72,12 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
             <td style="width: 2%; text-align: center;">
                 {% if entry.crews[1] and entry.crews[1].paddler.division %}{{ entry.crews[1].paddler.division }}{% endif %}
             </td>
-            <td style="width: 6%;" class="{% if entry.crews[1] and entry.crews[1].paddler.membership_expired %}expired{% endif %}">
+            <td style="width: 6%;" class="{% if entry.crews[1] and entry.crews[1].paddler.membership_expired %}highlight{% endif %}">
                 {% if entry.crews[1] and entry.crews[1].paddler.membership %}
                 {{ entry.crews[1].paddler.membership }}
                 {% endif %}
             </td>
-            <td style="width: 3%;">
+            <td style="width: 3%;" class="{% if entry.crews[1] and not entry.crews[1].paid %}highlight{% endif %}">
                 {% if entry.crews[1] and entry.crews[1].paid %}
                 £{{ entry.crews[0].paid|int }}
                 {% endif %}
@@ -121,10 +121,10 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
             <td style="width: 2%; text-align: center;">
                 {% if entry.crews[1] and entry.crews[0].paddler.division %}{{ entry.crews[0].paddler.division }}{% endif %}
             </td>
-            <td style="width: 6%;" class="{% if entry.crews[0].paddler.membership_expired %}expired{% endif %}">
+            <td style="width: 6%;" class="{% if entry.crews[0].paddler.membership_expired %}highlight{% endif %}">
                 {% if entry.crews[0].paddler.membership %}{{ entry.crews[0].paddler.membership }}{% endif %}
             </td>
-            <td style="width: 3%;">
+            <td style="width: 3%;" class="{% if not entry.crews[0].paid %}highlight{% endif %}">
                 {% if entry.crews[0].paid %}£{{ entry.crews[0].paid|int }}{% endif %}
             </td>
             <td style="width: 13%;">
@@ -138,12 +138,12 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
             <td style="width: 2%; text-align: center;">
                 {% if entry.crews[1] and entry.crews[1].paddler.division %}{{ entry.crews[1].paddler.division }}{% endif %}
             </td>
-            <td style="width: 6%;" class="{% if entry.crews[1] and entry.crews[1].paddler.membership_expired %}expired{% endif %}">
+            <td style="width: 6%;" class="{% if entry.crews[1] and entry.crews[1].paddler.membership_expired %}highlight{% endif %}">
                 {% if entry.crews[1] and entry.crews[1].paddler.membership %}
                 {{ entry.crews[1].paddler.membership }}
                 {% endif %}
             </td>
-            <td style="width: 3%;">
+            <td style="width: 3%;" class="{% if entry.crews[1] and not entry.crews[1].paid %}highlight{% endif %}">
                 {% if entry.crews[1] and entry.crews[1].paid %}
                 £{{ entry.crews[0].paid|int }}
                 {% endif %}
