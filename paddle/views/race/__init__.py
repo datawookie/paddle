@@ -162,8 +162,8 @@ def race_allocate_numbers(race_id):
                 # Check for existing allocation.
                 try:
                     allocation = (
-                        session.query(db.NumberAllocation)
-                        .filter(db.NumberAllocation.entry_id == entry.id)
+                        session.query(db.NumberEntry)
+                        .filter(db.NumberEntry.entry_id == entry.id)
                         .one()
                     )
                     logging.debug(
@@ -171,9 +171,7 @@ def race_allocate_numbers(race_id):
                     )
                     allocation.number_id = number
                 except db.NoResultFound:
-                    allocation = db.NumberAllocation(
-                        number_id=number, entry_id=entry.id
-                    )
+                    allocation = db.NumberEntry(number_id=number, entry_id=entry.id)
 
                 session.add(allocation)
 

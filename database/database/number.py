@@ -30,7 +30,7 @@ class NumberEntry(Base):
     entry_id = Column(Integer, ForeignKey(Entry.id), nullable=True)
 
 
-class NumberRace(Base):
+class RaceNumber(Base):
     __tablename__ = "race_number"
 
     id = Column(Integer, primary_key=True)

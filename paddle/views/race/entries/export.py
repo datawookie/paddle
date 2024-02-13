@@ -53,8 +53,8 @@ def race_numbers(race_id):
     # Get entries and link to race numbers.
     #
     entries = (
-        session.query(db.Entry.id, db.NumberAllocation.number_id, db.Category.label)
-        .join(db.NumberAllocation, db.Entry.id == db.NumberAllocation.entry_id)
+        session.query(db.Entry.id, db.NumberEntry.number_id, db.Category.label)
+        .join(db.NumberEntry, db.Entry.id == db.NumberEntry.entry_id)
         .join(db.Category, db.Entry.category_id == db.Category.id)
         .filter(db.Entry.race_id == race.id)
         .subquery()

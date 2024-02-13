@@ -352,8 +352,8 @@ def entry(entry_id):
     if entry:
         # Find numbers which are already allocated for this race.
         taken = (
-            session.query(db.NumberAllocation.number_id)
-            .join(db.Entry, db.NumberAllocation.entry_id == db.Entry.id)
+            session.query(db.NumberEntry.number_id)
+            .join(db.Entry, db.NumberEntry.entry_id == db.Entry.id)
             .filter(db.Entry.race_id == entry.race_id)
             .subquery()
         )
