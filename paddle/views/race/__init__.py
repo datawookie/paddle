@@ -131,7 +131,30 @@ def race_allocate_numbers(race_id):
 
         for category_id, allocated in request.form.items():
             category_id = int(category_id.replace("category_id_", ""))
-            allocated = int(allocated)
+            allocated = int(allocated) - (1 if chunk == 0 else 0)
+
+            # Check for existing range allocation.
+            try:
+                range = (
+                    session.query(db.RaceNumber)
+                    .filter(
+                        db.RaceNumber.race_id == race_id,
+                        db.RaceNumber.category_id == category_id,
+                    )
+                    .one()
+                )
+                logging.debug("- Range has already been assigned.")
+                range.min_number_id = chunk + 1
+                range.max_number_id = chunk + allocated
+            except db.NoResultFound:
+                range = db.RaceNumber(
+                    race_id=race_id,
+                    category_id=category_id,
+                    min_number_id=chunk + 1,
+                    max_number_id=chunk + allocated,
+                )
+
+            session.add(range)
 
             logging.debug(f"* Allocating numbers for category ID = {category_id}.")
             entries = (
@@ -175,7 +198,7 @@ def race_allocate_numbers(race_id):
 
                 session.add(allocation)
 
-            chunk += allocated - (1 if chunk == 0 else 0)
+            chunk += allocated
 
         session.commit()
 
