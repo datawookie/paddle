@@ -177,6 +177,12 @@
 {% include 'common/jquery-javascript.j2' %}
 <script type="text/javascript" class="init">
 $(document).ready(function() {
+    var categoryRanges = {
+      {% for category in categories %}
+      {{ category.id }}: {min: {{ category.min_number }}, max: {{ category.max_number }}},
+      {% endfor %}
+    };
+
     if ($('td.bg-danger').length) {
         $('#register').css({
             'opacity': '0.5'
@@ -186,22 +192,26 @@ $(document).ready(function() {
 
     function updateRaceNumbers() {
         var categoryId = $('#category_id').val();
-        {% for category in categories %}
-        if (categoryId == {{ category.id }}) {
-          min_number = {{ category.min_number }};
-          max_number = {{ category.max_number }};
+        var min_number, max_number;
+
+        if (categoryRanges.hasOwnProperty(categoryId)) {
+            min_number = categoryRanges[categoryId].min;
+            max_number = categoryRanges[categoryId].max;
+        } else {
+            console.log("Category ID out of range");
         }
-        {% endfor %}
 
-        $('#race_number option').each(function() {
-            var number = parseInt($(this).val(), 10);
+        if (min_number !== undefined && max_number !== undefined) {
+          $('#race_number option').each(function() {
+              var number = parseInt($(this).val(), 10);
 
-            if (number < min_number || number > max_number) {
-                $(this).hide();
-            } else {
-                $(this).show();
-            }
-        });
+              if (number < min_number || number > max_number) {
+                  $(this).hide();
+              } else {
+                  $(this).show();
+              }
+          });
+        }
     }
 
     $('#category_id').change(function() {
