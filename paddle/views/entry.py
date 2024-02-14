@@ -301,7 +301,7 @@ def entry(entry_id):
         if request.form.get("action") == "delete":
             logging.info(f"Delete entry (ID = {entry.id}).")
             for crew in entry.crews:
-                logging.info("Delete crew (ID = {crew.id}).")
+                logging.info(f"Delete crew (ID = {crew.id}).")
                 session.delete(crew)
             session.delete(entry)
 
