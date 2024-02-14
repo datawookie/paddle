@@ -220,7 +220,7 @@ def race_allocate_numbers(race_id):
         .filter(db.RaceNumber.race_id == race_id)
         .subquery()
     )
-    # Merge counts into races.
+    # Merge counts and ranges into races.
     categories = (
         session.query(
             db.Category, entries.c.count, ranges.c.min_number_id, ranges.c.max_number_id

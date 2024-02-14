@@ -183,6 +183,31 @@ $(document).ready(function() {
         });
         $('#register-disabled').show();
     }
+
+    function updateRaceNumbers() {
+        var categoryId = $('#category_id').val();
+        {% for category in categories %}
+        if (categoryId == {{ category.id }}) {
+          min_number = {{ category.min_number }};
+          max_number = {{ category.max_number }};
+        }
+        {% endfor %}
+
+        $('#race_number option').each(function() {
+            var number = parseInt($(this).val(), 10);
+
+            if (number < min_number || number > max_number) {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        });
+    }
+
+    $('#category_id').change(function() {
+        updateRaceNumbers();
+    });
+    updateRaceNumbers();
 });
 </script>
 {% endblock %}

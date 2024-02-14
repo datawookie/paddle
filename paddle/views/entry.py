@@ -346,7 +346,27 @@ def entry(entry_id):
 
             return redirect(url_for("kanoe.entry", entry_id=entry.id))
 
-    categories = session.query(db.Category).all()
+    ranges = (
+        session.query(
+            db.RaceNumber.category_id,
+            db.RaceNumber.min_number_id,
+            db.RaceNumber.max_number_id,
+        )
+        .filter(db.RaceNumber.race_id == entry.race_id)
+        .subquery()
+    )
+    categories = (
+        session.query(db.Category, ranges.c.min_number_id, ranges.c.max_number_id)
+        .outerjoin(ranges, ranges.c.category_id == db.Category.id)
+        .all()
+    )
+
+    # Inject min/max allocated numbers into categories.
+    for category, min_number, max_number in categories:
+        category.min_number = min_number if min_number else None
+        category.max_number = max_number if max_number else None
+
+    categories = [category for category, _, _ in categories]
 
     # Only consider race numbers for existing entry.
     if entry:
