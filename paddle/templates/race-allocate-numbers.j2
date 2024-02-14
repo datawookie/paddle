@@ -31,13 +31,13 @@
                         <td class="align-middle text-end" data-index="{{ loop.index }}">{{ category.count }}</td>
                         <td class="align-middle">
                             <input type="number" class="form-control number"
-                                value="{{ (((category.count/20)|round(0, 'ceil'))*20)|int }}"
+                                value="{% if category.allocated %}{{ category.allocated }}{% else %}{{ (((category.count/20)|round(0, 'ceil'))*20 - (1 if loop.first else 0))|int }}{% endif %}"
                                 name="category_id_{{ category.id }}">
                         </td>
+                        <td class="align-middle text-end"></td>
+                        <td class="align-middle text-end"></td>
+                        <td class="align-middle text-end"></td>
                         <td class="align-middle text-end excess"></td>
-                        <td class="align-middle text-end"></td>
-                        <td class="align-middle text-end"></td>
-                        <td class="align-middle text-end"></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -76,7 +76,7 @@ $(document).ready(function () {
             console.log(allocated);
 
             const min = (counter == 0 ? 1 : counter);
-            const max = counter + allocated - 1;
+            const max = counter + allocated - (min == 1 ? 0 : 1);
 
             const gone = missing.filter(number => number <= max).length;
 

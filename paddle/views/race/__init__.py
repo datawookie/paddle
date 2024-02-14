@@ -131,7 +131,7 @@ def race_allocate_numbers(race_id):
 
         for category_id, allocated in request.form.items():
             category_id = int(category_id.replace("category_id_", ""))
-            allocated = int(allocated) - (1 if chunk == 0 else 0)
+            allocated = int(allocated)
 
             # Check for existing range allocation.
             try:
@@ -211,19 +211,35 @@ def race_allocate_numbers(race_id):
         .group_by(db.Entry.category_id)
         .subquery()
     )
+    ranges = (
+        session.query(
+            db.RaceNumber.category_id,
+            db.RaceNumber.min_number_id,
+            db.RaceNumber.max_number_id,
+        )
+        .filter(db.RaceNumber.race_id == race_id)
+        .subquery()
+    )
     # Merge counts into races.
     categories = (
-        session.query(db.Category, entries.c.count)
+        session.query(
+            db.Category, entries.c.count, ranges.c.min_number_id, ranges.c.max_number_id
+        )
         .outerjoin(entries, entries.c.category_id == db.Category.id)
+        .outerjoin(ranges, ranges.c.category_id == db.Category.id)
         .all()
     )
+
     # Inject counts into Category objects.
-    for category, count in categories:
+    for category, count, min_number, max_number in categories:
         category.count = count if count else 0
+        category.allocated = (
+            (max_number - min_number + 1) if (max_number and min_number) else None
+        )
 
     # Unzip the list, extracting categories and counts separately.
     if categories:
-        categories, _ = zip(*categories)
+        categories, _, _, _ = zip(*categories)
 
     # Drop empty categories.
     #
