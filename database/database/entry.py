@@ -239,7 +239,8 @@ def entries_get_clubs(entries):
     #
     for entry in entries:
         for crew in entry.crews:
-            clubs.add((crew.club.id, crew.club.name))
+            if crew.club:
+                clubs.add((crew.club.id, crew.club.name))
 
     # Sort clubs by name.
     #
@@ -253,7 +254,8 @@ def entries_get_clubs(entries):
     #
     for entry in entries:
         for crew in entry.crews:
-            clubs[crew.club.name].add(entry)
+            if crew.club:
+                clubs[crew.club.name].add(entry)
 
     # Convert from set to list.
     #
