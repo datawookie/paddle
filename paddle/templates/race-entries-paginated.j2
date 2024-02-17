@@ -11,6 +11,7 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="/css/paginated-a4-landscape.css">
 <link rel="stylesheet" type="text/css" href="/css/paginated-a4-landscape-compact.css">
+<link rel="stylesheet" type="text/css" href="/css/paginated-a4-landscape-entries.css">
 {% include 'common/load-css-font-awesome.j2' %}
 {% endblock %}
 
@@ -28,6 +29,11 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 {% block content %}
 
 {% set ROWS_PER_PAGE = 30 -%}
+
+<div class="break">
+<h1 class="banner">Entries by Category</h1>
+<h2 class="banner">{{ race.name }}</h2>
+</div>
 
 {% for category, entries in categories.items() %}
     {% for entry in entries %}
@@ -94,6 +100,11 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
         {% endif %}
     {% endfor %}
 {% endfor %}
+
+<div class="break">
+<h1 class="banner">Entries by Club</h1>
+<h2 class="banner">{{ race.name }}</h2>
+</div>
 
 {% for club, entries in clubs.items() %}
     {% for entry in entries %}

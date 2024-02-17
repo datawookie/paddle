@@ -1,0 +1,11 @@
+h1.banner,
+h2.banner {
+    text-align: center;
+}
+h1.banner {
+    font-size: 3rem;
+    margin-top: 16rem;
+}
+h2.banner {
+    margin-top: -2rem;
+}
