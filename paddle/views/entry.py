@@ -346,13 +346,16 @@ def entry(entry_id):
 
             return redirect(url_for("kanoe.entry", entry_id=entry.id))
 
+    if entry:
+        race_id = entry.race_id
+
     ranges = (
         session.query(
             db.RaceNumber.category_id,
             db.RaceNumber.min_number_id,
             db.RaceNumber.max_number_id,
         )
-        .filter(db.RaceNumber.race_id == entry.race_id)
+        .filter(db.RaceNumber.race_id == race_id)
         .subquery()
     )
     categories = (
