@@ -85,7 +85,7 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
             </td>
             <td style="width: 3%;" class="{% if entry.crews[1] and not entry.crews[1].paid %}highlight{% endif %}">
                 {% if entry.crews[1] and entry.crews[1].paid %}
-                £{{ entry.crews[0].paid|int }}
+                £{{ entry.crews[1].paid|int }}
                 {% endif %}
             </td>
             <td style="text-align: center;">{{ entry.clubs }}</td>
@@ -156,7 +156,7 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
             </td>
             <td style="width: 3%;" class="{% if entry.crews[1] and not entry.crews[1].paid %}highlight{% endif %}">
                 {% if entry.crews[1] and entry.crews[1].paid %}
-                £{{ entry.crews[0].paid|int }}
+                £{{ entry.crews[1].paid|int }}
                 {% endif %}
             </td>
             <td style="text-align: center;">{{ entry.clubs }}</td>
