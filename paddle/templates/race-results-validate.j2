@@ -25,7 +25,7 @@
                 <button type="button" data-bs-toggle="pill" class="nav-link text-start"
                     data-bs-target="#details">Details missing</button>
             </div>
-            <div class="tab-content ms-3">
+            <div class="tab-content ms-3 w-100" >
                 <div role="tabpanel" class="tab-pane fade show active" id="not-started">
                     <table class="table table-striped caption-top">
                         <caption>Boats with neither a start time nor a finish time (excluding scratched entries).</caption>
@@ -50,7 +50,7 @@
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="not-finished">
                     <table class="table table-striped caption-top">
-                        <caption>Boats with a start time but no finish time.</caption>
+                        <caption>Boats with a start time but no finish time (excluding retired entries).</caption>
                         <thead>
                             <tr>
                                 <th scope="col">Race #</th>
@@ -60,7 +60,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for entry in entries|selectattr('time_finish', "none")|rejectattr('time_start', "none")
+                            {% for entry in entries|selectattr('time_finish', "none")|rejectattr('time_start', "none")|selectattr('retired', 'equalto', False)
                             %}
                             <tr>
                                 <td>{{ entry.race_number }}</td>
