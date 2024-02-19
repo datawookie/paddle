@@ -1,16 +1,14 @@
 {% extends "base-plain.j2" %}
 
-{% block title %}Results: {{ race.name }} ({{ race.date }}){% endblock %}
+{% block title %}Entries: {{ race.name }} ({{ race.date }}){% endblock %}
 
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="/css/styles-results.css">
-{% if scrolling %}
 <style>
 body {
     overflow: hidden; /* Hide scrollbar. */
 }
 </style>
-{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -46,6 +44,8 @@ body {
 {# Only scroll and reload if there are entries. #}
 {% include 'common/jquery-javascript.j2' %}
 <script type="text/javascript" class="init">
+    var footer_height = $("footer").height() + 50;
+
     {% if categories %}
     var scroll = setInterval(
         // Scroll slowly down page.
@@ -53,7 +53,7 @@ body {
             window.scrollBy(0, 10);
         },
         // Scroll rate (larger number -> slower).
-        50
+        100
     );
     var reload = setInterval(
         // Hard reload page at bottom.
