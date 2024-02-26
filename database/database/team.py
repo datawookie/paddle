@@ -1,6 +1,7 @@
 import enum
 
 from .base import *
+from .paddler import Paddler
 from .series import Series
 
 # A Junior Team comprises of between 3 and 8 paddlers, with at least 3 boats,
@@ -139,3 +140,14 @@ class Team(Base):
 
     def __str__(self):
         return self.name
+
+
+class TeamPaddler(Base):
+    __tablename__ = "team_paddler"
+
+    id = Column(Integer, primary_key=True)
+    team_id = Column(Integer, ForeignKey(Team.id), index=True, nullable=False)
+    paddler_id = Column(Integer, ForeignKey(Paddler.id), index=True, nullable=False)
+
+    def __repr__(self):
+        return f"TeamPaddler(id={self.id}, team_id={self.team_id}, paddler_id={self.paddler_id})"
