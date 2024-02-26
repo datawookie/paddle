@@ -12,4 +12,6 @@
     <include file="changesets/56711208cd56/setup.sql"/>
     <include file="changesets/c8cd8ff9c99e/setup.sql"/>
     <include file="changesets/0dc044ac3c23/setup.sql"/>
+    <include file="changesets/68cf0f59baf7/setup.sql"/>
+    <include file="changesets/75f5fe4bb22d/setup.sql"/>
 </databaseChangeLog>

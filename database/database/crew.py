@@ -1,7 +1,7 @@
 from .base import *
-from .paddler import *
 from .club import *
 from .entry import *
+from .paddler import *
 
 
 class Crew(Base):
@@ -11,7 +11,6 @@ class Crew(Base):
     paddler_id = Column(Integer, ForeignKey(Paddler.id), index=True)
     club_id = Column(String(3), ForeignKey(Club.id), index=True)
     entry_id = Column(Integer, ForeignKey(Entry.id), index=True)
-    team_id = Column(Integer, ForeignKey(Team.id), index=True)
     services = Column(Boolean, server_default=expression.false())
     due = Column(Numeric)
     paid = Column(Numeric)
