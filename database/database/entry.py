@@ -100,7 +100,15 @@ class Entry(Base):
         # - ["Warriors", "Warriors"]    both paddlers in same taem
         # - ["Warriors", "Chiefs"]      paddlers in different teams
         #
-        teams = [crew.team for crew in self.crews]
+        # * Each paddler may be associated with zero or more teams.
+        # * Iterate over these teams and see if any of them relate to this race.
+        #
+        teams = [
+            team
+            for crew in self.crews
+            for team in crew.paddler.teams
+            if self.race.series_id == team.series_id
+        ]
         teams = list(set(teams))
         if len(teams) == 1:
             return teams[0]
