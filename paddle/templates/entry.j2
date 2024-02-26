@@ -89,9 +89,13 @@
           <tr>
             <th>Team</th>
             <td style="text-align: right;">
+            {% for team in crew.paddler.teams %}
+              {% if entry.race.series_id == team.series_id %}
               <a href="{{ url_for('kanoe.team', team_id=crew.team.id) }}">
                 {{ crew.team or "" }}
               </a>
+              {% endif %}
+            {% endfor %}
             </td>
           </tr>
           <tr>
