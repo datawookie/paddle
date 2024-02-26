@@ -45,10 +45,13 @@ def team(team_id):
     team, races = series_team(team_id)
 
     total = [data["time"] for _, data in races.items()]
-    if len(total) == 4:
-        total = functools.reduce(operator.add, total)
-        total = hhmmss(total)
-    else:
+    try:
+        if len(total) == 4:
+            total = functools.reduce(operator.add, total)
+            total = hhmmss(total)
+        else:
+            total = None
+    except TypeError:
         total = None
 
     return render_template(

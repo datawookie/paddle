@@ -47,6 +47,8 @@ class Paddler(Base):
     age_group = relationship(AgeGroup, backref="paddlers", lazy="joined")
     membership_body = relationship(MembershipBody, backref="paddlers", lazy="joined")
 
+    teams = relationship("Team", secondary="team_paddler")
+
     # This is the version which is used in Python.
     #
     @hybrid_property
