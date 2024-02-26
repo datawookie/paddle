@@ -133,6 +133,8 @@ class Team(Base):
     type = relationship(TeamType, backref="teams")
     series = relationship(Series, backref="teams", lazy="joined")
 
+    paddlers = relationship("Paddler", secondary="team_paddler", back_populates="teams")
+
     def __repr__(self):
         return (
             f"Team(id={self.id}, name='{self.name}', team_type_id={self.team_type_id})"

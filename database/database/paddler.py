@@ -47,7 +47,7 @@ class Paddler(Base):
     age_group = relationship(AgeGroup, backref="paddlers", lazy="joined")
     membership_body = relationship(MembershipBody, backref="paddlers", lazy="joined")
 
-    teams = relationship("Team", secondary="team_paddler")
+    teams = relationship("Team", secondary="team_paddler", back_populates="paddlers")
 
     # This is the version which is used in Python.
     #
