@@ -13,6 +13,9 @@ def crew(crew_id):
         services = request.form.get("services", "0") == "1"
         paid = request.form["paid"] or None
 
+        paddler = session.get(db.Paddler, paddler_id)
+        team = session.get(db.Team, team_id)
+
         if club_id is not None:
             if club_id == "":
                 club_id = None
@@ -37,6 +40,9 @@ def crew(crew_id):
         crew.team_id = team_id if team_id else None
         crew.services = services
         crew.paid = paid
+
+        paddler.teams.append(team)
+
         session.commit()
 
         flash("Updated crew.", "success")
