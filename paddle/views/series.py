@@ -7,10 +7,15 @@ def series_team(team_id):
     team = session.get(db.Team, team_id)
 
     entries = set()
-    #
-    for crew in team.crews:
-        entries.add(crew.entry)
+    # Find all entries for this team.
+    for paddler in team.paddlers:
+        for crew in paddler.crews:
+            entries.add(crew.entry)
 
+    # LOGIC FOR THIS NEEDS TO BE FIXED: SEE DAVIS/SALKIELD IN RACE A&B
+    # LOGIC FOR THIS NEEDS TO BE FIXED: SEE DAVIS/SALKIELD IN RACE A&B
+    # LOGIC FOR THIS NEEDS TO BE FIXED: SEE DAVIS/SALKIELD IN RACE A&B
+    # LOGIC FOR THIS NEEDS TO BE FIXED: SEE DAVIS/SALKIELD IN RACE A&B
     # Keep only team entries.
     #
     # This will eliminate, for example, K2 crews where one of the paddlers is not on
