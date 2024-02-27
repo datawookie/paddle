@@ -90,14 +90,14 @@ class Entry(Base):
         # K1:
         #
         # - [None]                      paddler not in a team
-        # - ["Warriors"]                paddler in a team
+        # - ["Warriors"]                paddler in a team ✅
         #
         # K2:
         #
         # - [None, None]                neither paddler in a team
         # - ["Warriors", None]          paddler in a team + paddler not in a team
         # - [None, "Warriors"]          paddler in a team + paddler not in a team
-        # - ["Warriors", "Warriors"]    both paddlers in same taem
+        # - ["Warriors", "Warriors"]    both paddlers in same team ✅
         # - ["Warriors", "Chiefs"]      paddlers in different teams
         #
         # * Each paddler may be associated with zero or more teams.
@@ -109,8 +109,10 @@ class Entry(Base):
             for team in crew.paddler.teams
             if self.race.series_id == team.series_id
         ]
-        teams = list(set(teams))
-        if len(teams) == 1:
+        #
+        unique = list(set(teams))
+        #
+        if len(unique) == 1 and len(teams) == len(self.crews):
             return teams[0]
         else:
             return None
