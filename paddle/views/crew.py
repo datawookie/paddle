@@ -41,7 +41,8 @@ def crew(crew_id):
         crew.services = services
         crew.paid = paid
 
-        paddler.teams.append(team)
+        if team:
+            paddler.teams.append(team)
 
         session.commit()
 
