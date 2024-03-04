@@ -27,3 +27,11 @@ class Crew(Base):
     def __str__(self):
         club = f" ({self.club.code})" if self.club else ""
         return f"{self.paddler.name}{club}"
+
+    @property
+    def team(self):
+        for team in self.paddler.teams:
+            if self.entry.race.series_id == team.series_id:
+                return team
+        else:
+            return None
