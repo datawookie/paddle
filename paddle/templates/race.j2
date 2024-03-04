@@ -30,7 +30,7 @@
                 <tbody>
                     {% for entry in entries %}
                     <tr{% if entry.scratched or entry.retired %} style="background-color: lightgrey;" {% endif %}>
-                        <td>{{ entry.race_number or "" }}</td>
+                        <td><a href="{{ url_for('kanoe.entry', entry_id=entry.id) }}">{{ entry.race_number or "" }}</a></td>
                         <td><a href="{{ url_for('kanoe.entry', entry_id=entry.id) }}">{{ entry }}</a></td>
                         <td>{{ entry.category }}</td>
                         <td>{{ entry.team or "" }}</td>
