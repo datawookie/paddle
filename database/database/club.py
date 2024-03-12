@@ -21,4 +21,4 @@ class Club(Base):
 
     @property
     def code(self):
-        return self.code_regex.split("|")[0]
+        return self.code_regex.split("|")[0] if self.code_regex else None

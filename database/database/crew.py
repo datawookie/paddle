@@ -25,7 +25,7 @@ class Crew(Base):
         return f"Crew(id={self.id}, name='{self.paddler.name}', club_id={club_id}, entry_id={entry_id})"
 
     def __str__(self):
-        club = f" ({self.club.code})" if self.club else ""
+        club = f" ({self.club.code})" if self.club and self.club.code else ""
         return f"{self.paddler.name}{club}"
 
     @property
