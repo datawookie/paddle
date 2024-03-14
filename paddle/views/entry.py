@@ -251,7 +251,7 @@ def load_entries(race, individuals):
                 else:
                     club_id = []
                     for regex, id in clubs.items():
-                        if re.match(regex, individual.club):
+                        if regex and re.match(regex, individual.club):
                             club_id.append(id)
                             logging.debug("Matching club found.")
 
