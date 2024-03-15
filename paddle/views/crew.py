@@ -43,6 +43,16 @@ def crew(crew_id):
 
         if team:
             paddler.teams.append(team)
+        else:
+            logging.info("Potentially remove team.")
+
+            for team in paddler.teams:
+                # Find team for current series.
+                if team.series == crew.entry.race.series:
+                    logging.info(f"- Team:   {team}.")
+                    logging.info(f"- Series: {team.series}.")
+                    logging.warning("Remove team.")
+                    paddler.teams.remove(team)
 
         session.commit()
 
