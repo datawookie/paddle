@@ -148,7 +148,7 @@ class Entry(Base):
     @property
     def clubs(self):
         clubs = [crew.club for crew in self.crews]
-        clubs = [club.code for club in clubs]
+        clubs = [club.code if club.code else "—" for club in clubs]
         return "/".join(clubs)
 
     @property
