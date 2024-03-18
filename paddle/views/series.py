@@ -191,6 +191,8 @@ def series(series_id):
 @blueprint.route("/series/<series_id>/results/paginated")
 @login_required
 def series_results_paginated(series_id):
+    type = request.args.get("type")
+
     series, categories = series_results_category(series_id)
     _, types = series_results_team(series_id)
     _, services = series_results_services(series_id)
@@ -202,16 +204,26 @@ def series_results_paginated(series_id):
         types=types,
         services=services,
         timestamp=datetime.datetime.now(),
+        type=type,
     )
 
 
-@blueprint.route("/series/<series_id>/results/export/pdf")
+@blueprint.route("/series/<series_id>/results/export/pdf", methods=("GET", "POST"))
 @login_required
 def series_results_export_pdf(series_id):
     series = session.get(db.Series, series_id)
-    return render_pdf(
-        url_for("kanoe.series_results_paginated", series_id=series_id),
-        download_filename=series.slug + "-results.pdf",
+
+    if request.method == "POST":
+        type = request.form["type"].capitalize()
+
+        return render_pdf(
+            url_for("kanoe.series_results_paginated", series_id=series.id, type=type),
+            download_filename=series.slug + "-results.pdf",
+        )
+
+    return render_template(
+        "series-results-export-pdf.j2",
+        series=series,
     )
 
 
