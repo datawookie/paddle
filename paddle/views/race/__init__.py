@@ -30,6 +30,7 @@ def races():
             entries.c.count_paddler,
         )
         .outerjoin(entries, entries.c.race_id == db.Race.id)
+        .order_by(db.Race.date.desc())
         .all()
     )
     # Inject counts into Race objects.
