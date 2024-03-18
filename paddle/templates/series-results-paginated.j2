@@ -24,12 +24,27 @@
     <h2>{{ type }} Teams</h2>
 
     <table>
+        <tr class="titles">
+            <th class="position">Pos</th>
+            <th class="team">Team</th>
+            <th class="paddler">Paddler</th>
+            <th class="time">Time</th>
+        </tr>
         {% for team, time in teams.items() %}
         <tr>
             <td class="position">{{ loop.index }}</td>
             <td class="paddler">{{ team }}</td>
+            <td></td>
             <td class="time">{{ time | timedelta_hours }}</td>
         </tr>
+            {% for paddler in team.paddlers %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td>{{ paddler }}</td>
+            <td></td>
+        </tr>
+            {% endfor %}
         {% endfor %}
     </table>
 </div>
@@ -41,6 +56,11 @@
     <h2>Services</h2>
 
     <table>
+        <tr class="titles">
+            <th class="position">Pos</th>
+            <th class="paddler">Crew</th>
+            <th class="time">Time</th>
+        </tr>
         {% for team in services %}
         <tr>
             <td class="position">{{ loop.index }}</td>
@@ -58,6 +78,12 @@
     <h2>{{ category }}</h2>
 
     <table>
+        <tr class="titles">
+            <th class="position">Pos</th>
+            <th class="paddler">Crew</th>
+            <th class="club">Club</th>
+            <th class="time">Time</th>
+        </tr>
         {% for result in results %}
         <tr>
             <td class="position">{{ loop.index }}</td>
