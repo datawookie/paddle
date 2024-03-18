@@ -1,6 +1,6 @@
+import logging
 import re
 from datetime import datetime
-import logging
 
 from .base import *
 from .series import Series
@@ -43,7 +43,7 @@ class Race(Base):
 
     @property
     def past(self):
-        return datetime.today().date() > self.date
+        return datetime.today().date() >= self.date
 
     @property
     def future(self):

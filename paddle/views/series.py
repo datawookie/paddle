@@ -12,10 +12,6 @@ def series_team(team_id):
         for crew in paddler.crews:
             entries.add(crew.entry)
 
-    # LOGIC FOR THIS NEEDS TO BE FIXED: SEE DAVIS/SALKIELD IN RACE A&B
-    # LOGIC FOR THIS NEEDS TO BE FIXED: SEE DAVIS/SALKIELD IN RACE A&B
-    # LOGIC FOR THIS NEEDS TO BE FIXED: SEE DAVIS/SALKIELD IN RACE A&B
-    # LOGIC FOR THIS NEEDS TO BE FIXED: SEE DAVIS/SALKIELD IN RACE A&B
     # Keep only team entries.
     #
     # This will eliminate, for example, K2 crews where one of the paddlers is not on
@@ -92,18 +88,17 @@ def series_results_team(series_id):
 def series_results_category(series_id):
     series = session.get(db.Series, series_id)
     # Find past races in series.
-    races = session.query(db.Race.id).filter(db.Race.series_id == series_id)
+    races = session.query(db.Race).filter(db.Race.series_id == series_id).all()
     # Find entries for races in series.
-    entries = session.query(db.Entry)
     entries = (
-        entries.filter(db.Entry.race_id.in_(races))
+        session.query(db.Entry)
+        .filter(db.Entry.race_id.in_([race.id for race in races]))
         .filter(db.Entry.time_start.is_not(None))
         .filter(db.Entry.time_finish.is_not(None))
+        .all()
     )
-    entries = entries.all()
 
-    races = session.query(db.Race).filter(db.Race.series_id == series_id).all()
-    races_past = len([race for race in races if race.past])
+    past = len([race for race in races if race.past])
 
     # Break down into categories.
     #
@@ -126,7 +121,7 @@ def series_results_category(series_id):
                 crews[entry.crew_hash] = [entry]
 
         # Keep only crews who have finished all races in series.
-        crews = [entries for entries in crews.values() if len(entries) == races_past]
+        crews = [entries for entries in crews.values() if len(entries) == past]
 
         crews = [db.EntrySet(entries) for entries in crews]
         crews = sorted(crews, key=lambda x: x.time)
@@ -151,7 +146,7 @@ def series_results_services(series_id):
     entries = entries.all()
 
     races = session.query(db.Race).filter(db.Race.series_id == series_id).all()
-    races_past = len([race for race in races if race.past])
+    past = len([race for race in races if race.past])
 
     # Keep only services entries.
     entries = [entry for entry in entries if entry.services]
@@ -164,7 +159,7 @@ def series_results_services(series_id):
             crews[entry.crew_hash] = [entry]
 
     # Keep only crews who have finished all races in series.
-    crews = [entries for entries in crews.values() if len(entries) == races_past]
+    crews = [entries for entries in crews.values() if len(entries) == past]
 
     crews = [db.EntrySet(entries) for entries in crews]
     crews = sorted(crews, key=lambda x: x.time)
