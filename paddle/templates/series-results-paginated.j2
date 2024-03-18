@@ -1,7 +1,7 @@
 {% extends "base-minimal.j2" %}
 
 {% block styles %}
-<link rel="stylesheet" type="text/css" href="/css/paginated-a4-landscape.css">
+<link rel="stylesheet" type="text/css" href="/css/paginated-a4-portrait.css">
 <link rel="stylesheet" type="text/css" href="/css/paginated-results.css">
 {% endblock %}
 
@@ -37,17 +37,11 @@
         <tr>
             <td class="position">{{ loop.index }}</td>
             <td class="paddler">{{ team }}</td>
-            <td></td>
+            <td>
+            {% for paddler in team.paddlers %}{{ paddler }}<br>{% endfor %}
+            </td>
             <td class="time">{{ time | timedelta_hours }}</td>
         </tr>
-            {% for paddler in team.paddlers %}
-        <tr>
-            <td></td>
-            <td></td>
-            <td>{{ paddler }}</td>
-            <td></td>
-        </tr>
-            {% endfor %}
         {% endfor %}
     </table>
 </div>

@@ -42,9 +42,22 @@ div.break {
 
 h1 {
     font-size: 20px;
-
 }
 
 h2 {
     font-size: 16px;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    font-size: 14px;
+    padding: 2px;
+    vertical-align: top;
+}
+
+p {
+    font-size: 14px;
 }

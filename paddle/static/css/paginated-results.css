@@ -100,3 +100,7 @@ footer .type {
     margin-left: 24em;
     font-weight: bold;
 }
+
+.no-wrap {
+    white-space: nowrap;
+}
