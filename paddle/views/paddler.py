@@ -156,6 +156,8 @@ def paddler(paddler_id):
         for crew in paddler.crews:
             logging.debug(f"    - {repr(crew)}")
 
+    paddler.crews = sorted(paddler.crews, key=lambda c: c.entry.race.date, reverse=True)
+
     return render_template(
         "paddler.j2",
         paddler=paddler,
