@@ -115,3 +115,7 @@ a {
     padding-right: 0;
     margin-top: 0;
 }
+
+.exclude {
+    background-color: #aaa;
+}
