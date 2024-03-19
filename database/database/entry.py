@@ -200,16 +200,28 @@ class EntrySet:
                 try:
                     names[crew.paddler.name]
                 except KeyError:
-                    names[crew.paddler.name] = []
+                    names[crew.paddler.name] = {"club": [], "gender": [], "age": []}
 
                 if crew.club:
-                    names[crew.paddler.name].append(crew.club.name)
+                    names[crew.paddler.name]["club"].append(crew.club.name)
+                if crew.paddler.age_group:
+                    names[crew.paddler.name]["age"].append(
+                        crew.paddler.age_group.abbreviation
+                    )
+                if crew.paddler.gender:
+                    names[crew.paddler.name]["gender"].append(crew.paddler.gender)
 
-        # If a paddler is linked to multiple clubs then they are joined with "+".
-        names = {name: "+".join(set(club)) for name, club in names.items()}
+        for _, data in names.items():
+            # If a paddler is linked to multiple clubs then they are joined with "+".
+            data["club"] = "+".join(set(data["club"]))
+            # Need a single value for gender and age. Probably don't need to join()!
+            data["gender"] = "+".join(set(data["gender"]))
+            data["age"] = "+".join(set(data["age"]))
 
         self.name = " / ".join(names.keys())
-        self.club = " / ".join(names.values())
+        self.club = " / ".join([name["club"] for name in names.values()])
+        self.gender = " / ".join([name["gender"] for name in names.values()])
+        self.age = " / ".join([name["age"] for name in names.values()])
 
         # Total time for all entries in set.
         self.time = sum([entry.time for entry in entries], datetime.timedelta())

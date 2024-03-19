@@ -79,6 +79,8 @@
             <th class="position">Pos</th>
             <th class="paddler">Crew</th>
             <th class="club">Club</th>
+            <th class="age">Age</th>
+            <th class="gender">Gender</th>
             <th class="time">Time</th>
         </tr>
         {% for result in results %}
@@ -86,6 +88,8 @@
             <td class="position">{{ loop.index }}</td>
             <td class="paddler">{{ result.name }}</td>
             <td class="club">{{ result.club }}</td>
+            <td class="age">{{ result.age }}</td>
+            <td class="gender">{{ result.gender }}</td>
             <td class="time">{{ result.time }}</td>
         </tr>
         {% endfor %}
