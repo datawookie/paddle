@@ -187,8 +187,8 @@ def load_entries(race, individuals):
                     paddler = (
                         session.query(db.Paddler)
                         .filter(
-                            db.Paddler.first == individual.first,
-                            db.Paddler.last == individual.last,
+                            db.Paddler.first.ilike(individual.first),
+                            db.Paddler.last.ilike(individual.last),
                             db.Paddler.membership_number
                             == individual.membership_number,
                         )
@@ -204,8 +204,8 @@ def load_entries(race, individuals):
                     paddler = (
                         session.query(db.Paddler)
                         .filter(
-                            db.Paddler.first == individual.first,
-                            db.Paddler.last == individual.last,
+                            db.Paddler.first.ilike(individual.first),
+                            db.Paddler.last.ilike(individual.last),
                             db.Paddler.division == individual.division,
                         )
                         .one()
