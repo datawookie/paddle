@@ -1,9 +1,6 @@
 # paddle
 
- Download entries from https://entries.gbcanoemarathon.co.uk/entries.
-
- 1. Login.
- 2. At top/right click on name and then "Newbucy CC Admin".
+A web application developed for the [Newbury Canoe Club](https://www.newburycanoeclub.co.uk/) to manage entries and results for the [Waterside Series](https://www.newburycanoeclub.co.uk/waterside) of kayak races.
 
 ## Setup
 
