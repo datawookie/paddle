@@ -111,7 +111,7 @@ pytest --cov-report html:public --cov
 
 The report will be written to `public/`.
 
-## Number Ranes
+## Number Ranges
 
 - Category 1: 1 - (K2 senior)
 - Category 2: 45 - (K2 junior)
