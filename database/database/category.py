@@ -1,6 +1,6 @@
 import re
-from .base import *
 
+from .base import *
 
 CATEGORY_LIST = [
     "K2 Senior",

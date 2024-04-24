@@ -1,7 +1,6 @@
-import re
 import datetime
 import logging
-
+import re
 
 UPLOAD_FOLDER = "/tmp"
 

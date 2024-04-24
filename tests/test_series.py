@@ -1,6 +1,7 @@
+import database as db
+
 from . import TestRunner
 from .http_status import *
-import database as db
 
 
 class TestSeries(TestRunner):

@@ -1,5 +1,5 @@
-import sys
 import logging
+import sys
 
 # Enable detailed logging of SQL statements.
 #

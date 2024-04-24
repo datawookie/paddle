@@ -1,9 +1,10 @@
+import logging
 import os
+
+from flask import Flask
+from flask_bcrypt import Bcrypt
 from flask_bootstrap import Bootstrap5
 from flask_login import LoginManager
-from flask_bcrypt import Bcrypt
-from flask import Flask
-import logging
 
 from .views import blueprint
 from .views.common import db, session

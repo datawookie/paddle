@@ -6,8 +6,8 @@ Create Date: 2023-02-18 06:15:56.010594
 
 """
 from alembic import op
-import database as db
 
+import database as db
 
 # revision identifiers, used by Alembic.
 revision = "4f370a25634c"

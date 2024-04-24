@@ -1,10 +1,10 @@
 import logging
-from flask_bcrypt import check_password_hash
-
-from .common import *
-from ..forms.login import LoginForm, RegisterForm
 
 from flask import session as flask_session
+from flask_bcrypt import check_password_hash
+
+from ..forms.login import LoginForm, RegisterForm
+from .common import *
 
 
 @blueprint.route("/register", methods=["GET", "POST"])

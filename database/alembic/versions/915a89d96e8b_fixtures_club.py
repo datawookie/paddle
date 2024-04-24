@@ -6,10 +6,11 @@ Create Date: 2023-02-16 05:46:41.233391
 
 """
 import csv
+
 from alembic import op
 from sqlalchemy import text
-import database as db
 
+import database as db
 
 # revision identifiers, used by Alembic.
 revision = "915a89d96e8b"

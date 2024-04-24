@@ -1,5 +1,6 @@
-from .base import *
 from flask_login import UserMixin
+
+from .base import *
 
 
 class User(UserMixin, Base):

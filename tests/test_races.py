@@ -1,10 +1,12 @@
 import datetime
 import logging
+
 import pytest
+
+import database as db
 
 from . import TestRunner
 from .http_status import *
-import database as db
 
 QUODPOT_MASTERS = {
     "name": "Quodpot Masters",

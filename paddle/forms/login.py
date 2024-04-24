@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField
-from wtforms import EmailField
-from wtforms.validators import InputRequired, Email, Length, EqualTo
+from wtforms import EmailField, PasswordField, StringField, SubmitField
+from wtforms.validators import Email, EqualTo, InputRequired, Length
 
 from ..views.common import db, session
 
