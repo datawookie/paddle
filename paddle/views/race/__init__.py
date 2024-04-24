@@ -42,11 +42,20 @@ def races():
     if races:
         races, _, _ = zip(*races)
 
-    serieses = session.query(db.Series).all()
+    serieses = {}
+    #
+    for race in races:
+        try:
+            serieses[race.series]
+        except KeyError:
+            serieses[race.series] = []
 
-    return render_template(
-        "races.j2", races=races, serieses=serieses, version=__version__
-    )
+        serieses[race.series].append(race)
+
+    for key, values in serieses.items():
+        values.sort(key=lambda r: r.date)
+
+    return render_template("races.j2", serieses=serieses, version=__version__)
 
 
 @blueprint.route("/race/<race_id>")
@@ -118,7 +127,7 @@ def race_update(race_id):
 
             session.commit()
 
-            return redirect(url_for("kanoe.races"))
+            return redirect(url_for("paddle.races"))
 
     serieses = session.query(db.Series).order_by(db.Series.name.desc()).all()
     return render_template("race-update.j2", race=race, serieses=serieses)
@@ -203,7 +212,7 @@ def race_allocate_numbers(race_id):
 
         session.commit()
 
-        return redirect(url_for("kanoe.races"))
+        return redirect(url_for("paddle.races"))
 
     # Count number of entries per race.
     entries = (

@@ -212,7 +212,7 @@ def series_results_export_pdf(series_id):
         type = request.form["type"].capitalize()
 
         return render_pdf(
-            url_for("kanoe.series_results_paginated", series_id=series.id, type=type),
+            url_for("paddle.series_results_paginated", series_id=series.id, type=type),
             download_filename=series.slug + "-results.pdf",
         )
 
@@ -232,6 +232,6 @@ def series_create():
         session.add(series)
         session.commit()
 
-        return redirect(url_for("kanoe.races"))
+        return redirect(url_for("paddle.races"))
 
     return render_template("series-create.j2")

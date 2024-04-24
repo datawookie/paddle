@@ -148,7 +148,7 @@ def paddler(paddler_id):
 
             session.commit()
 
-            return redirect(url_for("kanoe.paddlers"))
+            return redirect(url_for("paddle.paddlers"))
 
     if paddler:
         logging.debug(f"* {repr(paddler)}")

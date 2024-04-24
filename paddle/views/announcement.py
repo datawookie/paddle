@@ -22,7 +22,7 @@ def announcement_update(announcement_id):
 
         session.commit()
 
-        return redirect(url_for("kanoe.announcement"))
+        return redirect(url_for("paddle.announcement"))
 
     return render_template("announcement-update.j2", announcement=announcement)
 
@@ -35,5 +35,5 @@ def announcement_create():
     session.commit()
 
     return redirect(
-        url_for("kanoe.announcement_update", announcement_id=announcement.id)
+        url_for("paddle.announcement_update", announcement_id=announcement.id)
     )

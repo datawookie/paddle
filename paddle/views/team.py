@@ -28,7 +28,7 @@ def team_create():
         session.add(team)
         session.commit()
 
-        return redirect(url_for("kanoe.teams"))
+        return redirect(url_for("paddle.teams"))
 
     types = session.query(db.TeamType).all()
     serieses = session.query(db.Series).order_by(db.Series.name.desc()).all()

@@ -5,7 +5,7 @@ endif %}
 
 {% macro race_card(race) -%}
 <div class="h-30 p-3 mb-2 border rounded-3{% if race.past %} bg-dark-subtle{% endif %}">
-    <h3><a href="{{ url_for('kanoe.race', race_id=race.id) }}">{{ race.name }}</a></h3>
+    <h3><a href="{{ url_for('paddle.race', race_id=race.id) }}">{{ race.name }}</a></h3>
 
     <table class="table table-sm table-borderless">
         <tr>
@@ -15,7 +15,7 @@ endif %}
         <tr>
             <th>Series</th>
             <td style="text-align: right;">
-                <a href="{{ url_for('kanoe.series', series_id=race.series.id) }}">{{ race.series }}</a>
+                <a href="{{ url_for('paddle.series', series_id=race.series.id) }}">{{ race.series }}</a>
             </td>
         </tr>
         <tr>

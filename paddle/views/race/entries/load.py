@@ -22,7 +22,7 @@ def race_entry_bulk(race_id):
             logging.debug("Adding entries.")
             load_entries(race, entries)
 
-        return redirect(url_for("kanoe.races"))
+        return redirect(url_for("paddle.races"))
 
     return render_template(
         "race-entries-bulk.j2",

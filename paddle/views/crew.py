@@ -58,7 +58,7 @@ def crew(crew_id):
 
         flash("Updated crew.", "success")
 
-        return redirect(url_for("kanoe.entry", entry_id=crew.entry.id))
+        return redirect(url_for("paddle.entry", entry_id=crew.entry.id))
 
     paddlers = session.query(db.Paddler).order_by(db.Paddler.name).all()
     clubs = session.query(db.Club).order_by(db.Club.name).all()
@@ -87,4 +87,4 @@ def crew_delete(crew_id):
     session.delete(crew)
     session.commit()
 
-    return redirect(url_for("kanoe.entry", entry_id=entry_id))
+    return redirect(url_for("paddle.entry", entry_id=entry_id))

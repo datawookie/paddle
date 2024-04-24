@@ -1,5 +1,5 @@
 build:
-	docker build -t kanoe .
+	docker build -t paddle .
 
 run: build
-	docker run -it --rm --name kanoe  -p 5000:5000 -v ${PWD}:/usr/src/app kanoe
+	docker run -it --rm --name paddle  -p 5000:5000 -v ${PWD}:/usr/src/app paddle

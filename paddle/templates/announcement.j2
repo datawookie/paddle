@@ -8,7 +8,7 @@
 
 <ul>
     {% for announcement in announcements %}
-    <li><a href="{{ url_for('kanoe.announcement_update', announcement_id=announcement.id) }}">{{ announcement }}</a>
+    <li><a href="{{ url_for('paddle.announcement_update', announcement_id=announcement.id) }}">{{ announcement }}</a>
         {% endfor %}
 </ul>
 

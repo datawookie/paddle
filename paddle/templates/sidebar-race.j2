@@ -2,7 +2,7 @@
 
 <ul class="nav flex-column">
     <li class="nav-item d-grid gap-2">
-        <a href="{{ url_for('kanoe.race_update', race_id=race.id) }}" class="btn btn-primary">Update
+        <a href="{{ url_for('paddle.race_update', race_id=race.id) }}" class="btn btn-primary">Update
             Race</a>
     </li>
 </ul>
@@ -11,31 +11,31 @@
 
 <ul class="nav flex-column">
     <li class="nav-item d-grid gap-2">
-        <a href="{{ url_for('kanoe.entry', race_id=race.id) }}" class="btn btn-primary">Add Entry</a>
+        <a href="{{ url_for('paddle.entry', race_id=race.id) }}" class="btn btn-primary">Add Entry</a>
     </li>
     <li class="nav-item d-grid gap-2">
-        <a href="{{ url_for('kanoe.race_entry_bulk', race_id=race.id) }}" class="btn btn-primary">Add Entries</a>
+        <a href="{{ url_for('paddle.race_entry_bulk', race_id=race.id) }}" class="btn btn-primary">Add Entries</a>
     </li>
     <li class="nav-item d-grid gap-2">
-        <a href="{{ url_for('kanoe.race_allocate_numbers', race_id=race.id) }}" class="btn btn-primary">Allocate Race
+        <a href="{{ url_for('paddle.race_allocate_numbers', race_id=race.id) }}" class="btn btn-primary">Allocate Race
             Numbers</a>
     </li>
     <li class="nav-item d-grid gap-2">
-        <a href="{{ url_for('kanoe.race_entries_export_txt', race_id=race.id) }}" class="btn btn-primary">Entries
+        <a href="{{ url_for('paddle.race_entries_export_txt', race_id=race.id) }}" class="btn btn-primary">Entries
             TXT</a>
     </li>
     <li class="nav-item d-grid gap-2">
-        <a href="{{ url_for('kanoe.race_entries_export_xlsx', race_id=race.id) }}" class="btn btn-primary">Entries
+        <a href="{{ url_for('paddle.race_entries_export_xlsx', race_id=race.id) }}" class="btn btn-primary">Entries
             XLSX</a>
     </li>
     <li class="nav-item d-grid gap-2">
-        <a href="{{ url_for('kanoe.race_entries_export_pdf', race_id=race.id) }}" class="btn btn-primary">Entries PDF</a>
+        <a href="{{ url_for('paddle.race_entries_export_pdf', race_id=race.id) }}" class="btn btn-primary">Entries PDF</a>
     </li>
     <li class="nav-item d-grid gap-2">
-        <a href="{{ url_for('kanoe.race_numbers_export_pdf', race_id=race.id) }}" class="btn btn-primary">Numbers PDF</a>
+        <a href="{{ url_for('paddle.race_numbers_export_pdf', race_id=race.id) }}" class="btn btn-primary">Numbers PDF</a>
     </li>
     <li class="nav-item d-grid gap-2">
-        <a href="{{ url_for('kanoe.race_entries_display', race_id=race.id) }}" class="btn btn-primary">Display</a>
+        <a href="{{ url_for('paddle.race_entries_display', race_id=race.id) }}" class="btn btn-primary">Display</a>
     </li>
 </ul>
 
@@ -43,21 +43,21 @@
 
 <ul class="nav flex-column">
     <li class="nav-item d-grid gap-2">
-        <a href="{{ url_for('kanoe.race_results_capture', race_id=race.id) }}" class="btn btn-primary">Capture
+        <a href="{{ url_for('paddle.race_results_capture', race_id=race.id) }}" class="btn btn-primary">Capture
             Results</a>
     </li>
     <li class="nav-item d-grid gap-2">
-        <a href="{{ url_for('kanoe.race_results_validate', race_id=race.id) }}" class="btn btn-primary">Validate
+        <a href="{{ url_for('paddle.race_results_validate', race_id=race.id) }}" class="btn btn-primary">Validate
             Results</a>
     </li>
     <li class="nav-item d-grid gap-2">
-        <a href="{{ url_for('kanoe.race_results_export_csv', race_id=race.id) }}" class="btn btn-primary">Results CSV</a>
+        <a href="{{ url_for('paddle.race_results_export_csv', race_id=race.id) }}" class="btn btn-primary">Results CSV</a>
     </li>
     <li class="nav-item d-grid gap-2">
-        <a href="{{ url_for('kanoe.race_results_export_xlsx', race_id=race.id) }}" class="btn btn-primary">Results XLSX</a>
+        <a href="{{ url_for('paddle.race_results_export_xlsx', race_id=race.id) }}" class="btn btn-primary">Results XLSX</a>
     </li>
     <li class="nav-item d-grid gap-2">
-        <a href="{{ url_for('kanoe.race_results_export_pdf', race_id=race.id) }}" class="btn btn-primary">Results PDF</a>
+        <a href="{{ url_for('paddle.race_results_export_pdf', race_id=race.id) }}" class="btn btn-primary">Results PDF</a>
     </li>
     <li class="nav-item gap-2">
         <div class="btn-group dropend d-grid">
@@ -66,9 +66,9 @@
             </button>
             <ul class="dropdown-menu">
                 <li class="nav-item d-grid gap-1"><a
-                        href="{{ url_for('kanoe.race_results_scrolling', race_id=race.id) }}" class="btn btn-primary"
+                        href="{{ url_for('paddle.race_results_scrolling', race_id=race.id) }}" class="btn btn-primary"
                         target="_blank">Scrolling <i class="fa-solid fa-recycle"></i></a></li>
-                <li class="nav-item d-grid mb-0"><a href="{{ url_for('kanoe.race_results_category', race_id=race.id) }}"
+                <li class="nav-item d-grid mb-0"><a href="{{ url_for('paddle.race_results_category', race_id=race.id) }}"
                         class="btn btn-primary" target="_blank">Category <i class="fa-solid fa-hand-pointer"></i></a>
                 </li>
             </ul>

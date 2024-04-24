@@ -1,9 +1,9 @@
 <ul class="nav flex-column">
     <li class="nav-item d-grid mb-2">
         {% if crew %}
-        <a href="{{ url_for('kanoe.entry', entry_id=crew.entry.id) }}" class="btn btn-secondary">Go to Entry</a>
+        <a href="{{ url_for('paddle.entry', entry_id=crew.entry.id) }}" class="btn btn-secondary">Go to Entry</a>
         {% else %}
-        <a href="{{ url_for('kanoe.entry', entry_id=entry.id) }}" class="btn btn-secondary">Go to Entry</a>
+        <a href="{{ url_for('paddle.entry', entry_id=entry.id) }}" class="btn btn-secondary">Go to Entry</a>
         {% endif %}
     </li>
 </ul>

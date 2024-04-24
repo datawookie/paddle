@@ -1,6 +1,6 @@
 {% extends "base.j2" %}
 
-{% block title %}kanoe{% endblock %}
+{% block title %}paddle{% endblock %}
 
 {% block content %}
 
@@ -44,10 +44,10 @@
             <p>
                 {% if request.path != '/register' %}
                 New here?
-                <a href="{{url_for('kanoe.register')}}">Create an account</a>.
+                <a href="{{url_for('paddle.register')}}">Create an account</a>.
                 {% else %}
                 Already have an account?
-                <a href="{{url_for('kanoe.login')}}">Login</a>.
+                <a href="{{url_for('paddle.login')}}">Login</a>.
                 {% endif %}
             </p>
         </form>

@@ -41,8 +41,8 @@
         </tr>
         {% for entry in data["entries"] %}
         <tr {% if loop.index > 3 %}class="exclude"{% endif %}>
-          <td><a href="{{ url_for('kanoe.entry', entry_id=entry.id) }}">{{ entry }}</a></td>
-          <td><a href="{{ url_for('kanoe.race', race_id=entry.race_id) }}">{{ entry.race.name }}</a></td>
+          <td><a href="{{ url_for('paddle.entry', entry_id=entry.id) }}">{{ entry }}</a></td>
+          <td><a href="{{ url_for('paddle.race', race_id=entry.race_id) }}">{{ entry.race.name }}</a></td>
           <td>{{ entry.category }}</td>
           <td>{{ entry.time }}</td>
         </tr>

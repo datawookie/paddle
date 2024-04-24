@@ -40,7 +40,7 @@ def race_entries_paginated(race_id):
 def race_entries_export_pdf(race_id):
     race = session.get(db.Race, race_id)
     return render_pdf(
-        url_for("kanoe.race_entries_paginated", race_id=race_id),
+        url_for("paddle.race_entries_paginated", race_id=race_id),
         download_filename=race.slug + "-entries.pdf",
     )
 
@@ -102,7 +102,7 @@ def race_numbers(race_id):
 def race_numbers_export_pdf(race_id):
     race = session.get(db.Race, race_id)
     return render_pdf(
-        url_for("kanoe.race_numbers", race_id=race_id),
+        url_for("paddle.race_numbers", race_id=race_id),
         download_filename=race.slug + "-numbers.pdf",
     )
 

@@ -63,7 +63,7 @@
     {% for crew in entry.crews %}
     <div class="crew h-30 p-3 mb-2 bg-light border rounded-3">
       <div>
-        <h3><a href="{{ url_for('kanoe.paddler', paddler_id=crew.paddler.id) }}">{{ crew.paddler.name }}</a></h3>
+        <h3><a href="{{ url_for('paddle.paddler', paddler_id=crew.paddler.id) }}">{{ crew.paddler.name }}</a></h3>
         <table class="table table-sm table-borderless">
           <tr>
             <th>Age</th>
@@ -78,7 +78,7 @@
           <tr>
             <th>Club</th>
             <td style="text-align: right;">
-              <a href="{{ url_for('kanoe.club', club_id=crew.club.id) }}">{% if crew.club %}{{ crew.club }}{% endif
+              <a href="{{ url_for('paddle.club', club_id=crew.club.id) }}">{% if crew.club %}{{ crew.club }}{% endif
                 %}</a>
             </td>
           </tr>
@@ -86,7 +86,7 @@
             <th>Team</th>
             <td style="text-align: right;">
             {% if crew.team %}
-              <a href="{{ url_for('kanoe.team', team_id=crew.team.id) }}">
+              <a href="{{ url_for('paddle.team', team_id=crew.team.id) }}">
                 {{ crew.team }}
               </a>
             {% endif %}
@@ -113,10 +113,10 @@
       <div>
         <ul class="nav flex-column">
           <li class="nav-item d-grid mb-2">
-            <a href="{{ url_for('kanoe.crew', crew_id=crew.id) }}" class="btn btn-primary">Edit Crew</a>
+            <a href="{{ url_for('paddle.crew', crew_id=crew.id) }}" class="btn btn-primary">Edit Crew</a>
           </li>
           <li class="nav-item d-grid mb-2">
-            <a href="{{ url_for('kanoe.crew_delete', crew_id=crew.id) }}" class="btn btn-warning">Remove Crew</a>
+            <a href="{{ url_for('paddle.crew_delete', crew_id=crew.id) }}" class="btn btn-warning">Remove Crew</a>
           </li>
         </ul>
       </div>
@@ -124,7 +124,7 @@
     {% endfor %}
     {% if entry %}
     {% if not entry.crew_complete %}
-    <a href="{{ url_for('kanoe.entry_crew_add', entry_id=entry.id) }}" class="btn btn-primary">Add Crew</a>
+    <a href="{{ url_for('paddle.entry_crew_add', entry_id=entry.id) }}" class="btn btn-primary">Add Crew</a>
     {% endif %}
     {% endif %}
   </div>

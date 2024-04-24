@@ -25,7 +25,7 @@
         {% for paddler in paddlers %}
         <tr>
           <td>
-            <a href="{{ url_for('kanoe.paddler', paddler_id=paddler.id) }}">{{ paddler.name }}</a>
+            <a href="{{ url_for('paddle.paddler', paddler_id=paddler.id) }}">{{ paddler.name }}</a>
           </td>
           <td>{% if paddler.age_group %}{{ paddler.age_group }}{% endif %}</td>
           <td>{{ paddler.crews|length }}</td>

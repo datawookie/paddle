@@ -45,7 +45,7 @@ def race_results_export_pdf(race_id):
         type = request.form["type"].capitalize()
 
         return render_pdf(
-            url_for("kanoe.race_results_paginated", race_id=race.id, type=type),
+            url_for("paddle.race_results_paginated", race_id=race.id, type=type),
             download_filename=race.slug + "-results.pdf",
         )
 

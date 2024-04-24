@@ -128,10 +128,10 @@
     {% for team in paddler.teams %}
         <tr>
             <td>
-                <a href="{{ url_for('kanoe.team', team_id=team.id) }}">{{ team.name }}</a>
+                <a href="{{ url_for('paddle.team', team_id=team.id) }}">{{ team.name }}</a>
             </td>
             <td>
-                <a href="{{ url_for('kanoe.series', series_id=team.series.id) }}">{{ team.series }}</a>
+                <a href="{{ url_for('paddle.series', series_id=team.series.id) }}">{{ team.series }}</a>
             </td>
         </tr>
     {% endfor %}
@@ -155,10 +155,10 @@ No teams.
     {% for crew in paddler.crews %}
         <tr>
             <td>
-                <a href="{{ url_for('kanoe.entry', entry_id=crew.entry.id) }}">{{ crew.entry }}</a>
+                <a href="{{ url_for('paddle.entry', entry_id=crew.entry.id) }}">{{ crew.entry }}</a>
             </td>
             <td>
-                <a href="{{ url_for('kanoe.race', race_id=crew.entry.race.id) }}">{{ crew.entry.race }}</a>
+                <a href="{{ url_for('paddle.race', race_id=crew.entry.race.id) }}">{{ crew.entry.race }}</a>
             </td>
             <td>
                 {{ crew.entry.time }}

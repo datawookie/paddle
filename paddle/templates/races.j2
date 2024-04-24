@@ -22,26 +22,27 @@
 {% endblock %}
 
 {% block content %}
-<h1>Races</h1>
-
-<div class="row">
+{% for series, races in serieses.items() %}
+<div class="row series border rounded-3">
     <div class="col-md-12">
+        <h3>{{ series }}</h3>
         <div class="row">
             <!-- Future races. -->
             {% for race in races if race.future %}
-            <div class="col-md-4">
+            <div class="col-md-3">
                 {{ race_card(race) }}
             </div>
             {% endfor %}
             <!-- Past races. -->
             {% for race in races if race.past %}
-            <div class="col-md-4">
+            <div class="col-md-3">
                 {{ race_card(race) }}
             </div>
             {% endfor %}
         </div>
     </div>
 </div>
+{% endfor %}
 {% endblock %}
 
 {% block sidebar %}

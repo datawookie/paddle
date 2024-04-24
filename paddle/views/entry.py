@@ -307,7 +307,7 @@ def entry(entry_id):
 
             session.commit()
 
-            return redirect(url_for("kanoe.race", race_id=entry.race.id))
+            return redirect(url_for("paddle.race", race_id=entry.race.id))
         else:
             paddler_id = request.form.get("paddler_id")
             race_id = request.form["race_id"]
@@ -344,7 +344,7 @@ def entry(entry_id):
 
             session.commit()
 
-            return redirect(url_for("kanoe.entry", entry_id=entry.id))
+            return redirect(url_for("paddle.entry", entry_id=entry.id))
 
     if entry:
         race_id = entry.race_id
@@ -419,7 +419,7 @@ def entry_register(entry_id):
     entry.registered = True
     session.commit()
 
-    return redirect(url_for("kanoe.entry", entry_id=entry_id))
+    return redirect(url_for("paddle.entry", entry_id=entry_id))
 
 
 @blueprint.route("/entry/<entry_id>/crew/add", methods=(["GET", "POST"]))
@@ -439,7 +439,7 @@ def entry_crew_add(entry_id):
 
         session.commit()
 
-        return redirect(url_for("kanoe.entry", entry_id=entry.id))
+        return redirect(url_for("paddle.entry", entry_id=entry.id))
 
     paddlers = (
         session.query(db.Paddler).order_by(db.Paddler.first, db.Paddler.last).all()

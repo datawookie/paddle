@@ -9,7 +9,7 @@ from .common import *
 
 @blueprint.route("/register", methods=["GET", "POST"])
 def register():
-    from kanoe import bcrypt
+    from paddle import bcrypt
 
     form = RegisterForm()
     if form.validate_on_submit():
@@ -26,7 +26,7 @@ def register():
         session.add(newuser)
         session.commit()
         flash("Account Succesfully created", "success")
-        return redirect(url_for("kanoe.login"))
+        return redirect(url_for("paddle.login"))
 
     return render_template("login.j2", form=form)
 
@@ -40,7 +40,7 @@ def login():
         if check_password_hash(user.pwd, form.pwd.data):
             login_user(user)
             flask_session["user"] = current_user.email
-            return redirect(url_for("kanoe.index"))
+            return redirect(url_for("paddle.index"))
         else:
             flash("Invalid Username or password!", "danger")
 
@@ -52,4 +52,4 @@ def login():
 def logout():
     logout_user()
     flask_session["user"] = None
-    return redirect(url_for("kanoe.index"))
+    return redirect(url_for("paddle.index"))

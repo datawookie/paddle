@@ -78,7 +78,7 @@ def race_results_capture(race_id):
 
         flash(message, "success")
 
-        return redirect(url_for("kanoe.race_results_capture", race_id=race_id))
+        return redirect(url_for("paddle.race_results_capture", race_id=race_id))
 
     race = session.get(db.Race, race_id)
 

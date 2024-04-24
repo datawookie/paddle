@@ -1,16 +1,16 @@
 <ul class="nav flex-column">
     {% if not entry.registered %}
     <li class="nav-item d-grid mb-2">
-        <a id="register" href="{{ url_for('kanoe.entry_register', entry_id=entry.id) }}" class="btn btn-success">Register</a>
+        <a id="register" href="{{ url_for('paddle.entry_register', entry_id=entry.id) }}" class="btn btn-success">Register</a>
     </li>
     {% endif %}
     {% if entry.race %}
     <li class="nav-item d-grid mb-2">
-        <a href="{{ url_for('kanoe.race_results_capture', race_id=entry.race.id, race_number=entry.race_number) }}" class="btn btn-primary">Capture
+        <a href="{{ url_for('paddle.race_results_capture', race_id=entry.race.id, race_number=entry.race_number) }}" class="btn btn-primary">Capture
             Result</a>
     </li>
     <li class="nav-item d-grid mb-2">
-        <a href="{{ url_for('kanoe.race', race_id=entry.race.id) }}" class="btn btn-secondary">Go to Race</a>
+        <a href="{{ url_for('paddle.race', race_id=entry.race.id) }}" class="btn btn-secondary">Go to Race</a>
     </li>
     {% endif %}
 </ul>

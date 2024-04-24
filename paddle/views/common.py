@@ -25,7 +25,7 @@ from .util import *
 
 session = db.Session()
 
-blueprint = Blueprint("kanoe", __name__, url_prefix="/")
+blueprint = Blueprint("paddle", __name__, url_prefix="/")
 
 # Need to check for exception here because this query doesn't currently work with tests.
 #
