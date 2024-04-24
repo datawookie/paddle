@@ -16,6 +16,10 @@ main {
     margin-bottom: 100px
 }
 
+header > nav.fixed-top {
+    padding-left: 1em;
+}
+
 .container {
     width: auto;
     padding: 60px 15px 0;
@@ -118,4 +122,9 @@ a {
 
 .exclude {
     background-color: #aaa;
+}
+
+.series {
+    background-color: #ddd;
+    margin-bottom: 1em;
 }

@@ -2,6 +2,20 @@
 
 A web application developed for the [Newbury Canoe Club](https://www.newburycanoeclub.co.uk/) to manage entries and results for the [Waterside Series](https://www.newburycanoeclub.co.uk/waterside) of kayak races.
 
+<!-- Screenshots created with Chrome at 110% on laptop screen. -->
+
+The loading splash screen.
+
+<img src="screenshot-splash.png">
+
+List of series and races.
+
+<img src="screenshot-series.png">
+
+Entries for a specific race.
+
+<img src="screenshot-race.png">
+
 ## Setup
 
 1. Install SQLite3.
@@ -84,8 +98,6 @@ Each changeset needs to be added to the master XML file `db.changelog-root.xml`.
 Further documentation can be found [here](https://docs.liquibase.com/concepts/basic/sql-format.html).
 
 ## Testing
-
-- https://flask.palletsprojects.com/en/2.2.x/testing/
 
 To run test suite:
 
