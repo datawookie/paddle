@@ -22,7 +22,13 @@ from sqlalchemy import (
     not_,
     or_,
 )
-from sqlalchemy.exc import DataError, IntegrityError, NoResultFound, SQLAlchemyError
+from sqlalchemy.exc import (
+    DataError,
+    IntegrityError,
+    NoResultFound,
+    OperationalError,
+    SQLAlchemyError,
+)
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import (
     backref,

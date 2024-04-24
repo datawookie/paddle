@@ -10,11 +10,11 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)7s] %(message)s",
 )
 
-# # Temporary file for database.
-# #
-# _, DB_PATH = tempfile.mkstemp(".db")
-# #
-# os.environ["CONNECTION_STRING"] = f"sqlite:///{DB_PATH}"
+# Temporary file for database.
+#
+_, DB_PATH = tempfile.mkstemp(".db")
+#
+os.environ["CONNECTION_STRING"] = f"sqlite:///{DB_PATH}"
 
 import database as db  # noqa: E402
 from paddle import factory  # noqa: E402
@@ -22,10 +22,14 @@ from paddle import factory  # noqa: E402
 
 @pytest.fixture(scope="class")
 def database():
+    logging.info("Recreate database from scratch.")
     # Recreate database from scratch.
     db.Base.metadata.drop_all(db.engine)
     db.Base.metadata.create_all(db.engine)
+    logging.info("Done!")
+    logging.info("Create database session.")
     session = db.Session()
+    logging.info("Done.")
 
     yield session
     session.close()
