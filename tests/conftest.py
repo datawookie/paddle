@@ -10,11 +10,11 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)7s] %(message)s",
 )
 
-# Temporary file for database.
-#
-_, DB_PATH = tempfile.mkstemp(".db")
-#
-os.environ["CONNECTION_STRING"] = f"sqlite:///{DB_PATH}"
+# # Temporary file for database.
+# #
+# _, DB_PATH = tempfile.mkstemp(".db")
+# #
+# os.environ["CONNECTION_STRING"] = f"sqlite:///{DB_PATH}"
 
 import database as db  # noqa: E402
 from paddle import factory  # noqa: E402
