@@ -30,7 +30,7 @@ class TestRace(TestRunner):
     def test_race_list(self, client):
         response = client.get("/")
 
-        assert "<h1>Races</h1>" in response.text
+        assert "<h1>Series & Races</h1>" in response.text
 
     @pytest.mark.ui
     def test_race_create(self, client):
