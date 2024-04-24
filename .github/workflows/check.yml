@@ -1,0 +1,50 @@
+name: check
+
+on:
+    workflow_dispatch:
+    push:
+      branches:
+        - master
+      tags:
+        -'*'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      - name: Run tests and generate coverage report
+        run: |
+          pytest --cov-report html:public --cov
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: public
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage-report
+          path: public
+      - name: Deploy coverage report
+        run: |
+          echo "🚀 Deploying coverage report."
+      - name: Upload deployment artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployed-report
+          path: public
