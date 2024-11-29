@@ -16,6 +16,7 @@ CATEGORY_LIST = [
     "K1 Veteran",
     "C2",
     "C1",
+    "SUP",
 ]
 GENDER_LIST = [
     "male",
