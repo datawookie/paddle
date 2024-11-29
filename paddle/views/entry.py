@@ -39,7 +39,7 @@ def load_xlsx(path):
         # Remove any remaining text (but only if there are no numbers!).
         df["bc_number"] = df["bc_number"].str.replace("^[^0-9]+", "", regex=True)
         # Empty string is missing.
-        df["bc_number"] = df["bc_number"].replace("", np.NaN)
+        df["bc_number"] = df["bc_number"].replace("", np.nan)
         df["bc_number"] = df["bc_number"].astype("Int64")
         return df
 
@@ -151,7 +151,7 @@ def load_entries(race, individuals):
     clubs = {club.code_regex: club.id for club in clubs}
 
     for number, individuals in entries.items():
-        logging.info(f"Entry:   {number}.")
+        logging.info(f"Entry: {number}.")
 
         category = [individual.category for individual in individuals]
         # Unique categories.
