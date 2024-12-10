@@ -130,9 +130,11 @@ def race_entries_export_txt(race_id):
             for entry in entries:
                 clubs = [
                     entry.crews[0].club.code if entry.crews[0].club else None,
-                    entry.crews[1].club.code
-                    if len(entry.crews) == 2 and entry.crews[1].club
-                    else None,
+                    (
+                        entry.crews[1].club.code
+                        if len(entry.crews) == 2 and entry.crews[1].club
+                        else None
+                    ),
                 ]
                 clubs = [club for club in clubs if club]
                 clubs = "/".join(clubs)
@@ -195,9 +197,11 @@ def race_entries_export_xlsx(race_id):
                     entry.crews[0].club.code if entry.crews[0].club else None,
                     entry.crews[1].paddler.last if len(entry.crews) == 2 else None,
                     entry.crews[1].paddler.first if len(entry.crews) == 2 else None,
-                    entry.crews[1].club.code
-                    if len(entry.crews) == 2 and entry.crews[1].club
-                    else None,
+                    (
+                        entry.crews[1].club.code
+                        if len(entry.crews) == 2 and entry.crews[1].club
+                        else None
+                    ),
                 ]
                 sheet.append(row)
 
