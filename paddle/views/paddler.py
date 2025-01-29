@@ -1,3 +1,5 @@
+import logging
+
 import pandas as pd
 import recordlinkage
 
@@ -54,8 +56,10 @@ def paddlers_validate():
 @login_required
 def paddler(paddler_id):
     if paddler_id:
+        logging.debug(f"Edit paddler (ID = {paddler_id}).")
         paddler = session.get(db.Paddler, paddler_id)
     else:
+        logging.debug("Add paddler.")
         paddler = None
 
     age_groups = session.query(db.AgeGroup).all()
@@ -154,9 +158,11 @@ def paddler(paddler_id):
         logging.debug(f"* {repr(paddler)}")
         logging.debug("  Crews:")
         for crew in paddler.crews:
-            logging.debug(f"    - {repr(crew)}")
+            logging.debug(f"    - {repr(crew)}")  # noqa E221
 
-    paddler.crews = sorted(paddler.crews, key=lambda c: c.entry.race.date, reverse=True)
+        paddler.crews = sorted(
+            paddler.crews, key=lambda c: c.entry.race.date, reverse=True
+        )
 
     return render_template(
         "paddler.j2",
