@@ -132,9 +132,11 @@ def race_results_export_xlsx(race_id):
                     crew.paddler.last,
                     crew.paddler.first,
                     crew.paddler.membership_number,
-                    crew.paddler.membership_expiry.strftime("%d/%m/%Y")
-                    if crew.paddler.membership_expiry
-                    else None,
+                    (
+                        crew.paddler.membership_expiry.strftime("%d/%m/%Y")
+                        if crew.paddler.membership_expiry
+                        else None
+                    ),
                     crew.club.code if crew.club else None,
                     None,
                     crew.paddler.division,

@@ -5,6 +5,7 @@ Revises: 915a89d96e8b
 Create Date: 2023-02-16 06:04:50.127554
 
 """
+
 from alembic import op
 
 import database as db
